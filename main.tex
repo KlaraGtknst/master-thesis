@@ -1,0 +1,79 @@
+\documentclass[
+    %draft, % Mit % kommentieren, um Bilder sichtbar zu machen und Links zu aktivieren
+    pdftex,
+    a4paper,
+    twoside,
+    parskip=half,
+    numbers=noenddot,
+    listof=totoc,
+    bibliography=totoc,
+    hyperfootnotes=false,
+    english,
+    openright
+]{scrreprt}
+
+\newcommand{\todo}{\textcolor{red}{TODO}}
+\newcommand{\thesistitle}{\todo}
+\newcommand{\thesistype}{M A S T E R \space \space T H E S I S}
+\newcommand{\thesistypedesc}{Department of Electrical Engineering and Computer Science \\
+    University of Kassel}
+\newcommand{\thesisauthorname}{Klara Maximiliane Gutekunst}
+\newcommand{\thesisauthorhomestreet}{\todo}
+\newcommand{\thesisauthorhometown}{34119 Kassel}
+\newcommand{\thesisauthormatrikelnumber}{35677772}
+\newcommand{\thesisauthoremail}{klara.gutekunst@uni-kassel.de}
+\newcommand{\thesisdepartment}{Chair Deep Semantic Learning}
+\newcommand{\thesisfirstreviewer}{Prof.\ Dr.\ Martin Potthast}
+\newcommand{\thesissecondreviewer}{Prof.\ Dr.\ Gerd Stumme}
+\newcommand{\thesissupervisor}{\todo}
+\newcommand{\thesisdate}{\today}
+
+\input{header}
+
+
+\begin{document}
+    \pagenumbering{roman}
+
+    \include{titlepage}
+    \include{abstract}
+    \include{abstract_german}
+
+    \tableofcontents
+
+    \include{acronyms}
+
+    \pagebreak
+    \pagenumbering{arabic}
+
+    % Hier weitere Kapitel einfügen
+    \include{chapter/section-01/01-introduction}
+    \include{chapter/section-02/02-related_work}
+    \include{chapter/section-03/03-methodology}
+    \include{chapter/section-04/04-implementation}
+    \include{chapter/section-05/05-evaluation}
+    \include{chapter/section-06/06-conclusion-outlook}
+
+
+    % Die nächsten zwei Zeilen sind optional, sie sorgen dafür dass alles nach dem Inhalt wieder mit römischen Zahlen nummeriert wird.
+    \pagenumbering{roman}
+    \addtocounter{page}{10} % Dies ist die Anzahl der Seiten vor der Einleitung, muss möglicherweise angepasst werden, wenn das Inhaltsverzeichnis mehrere Seiten umfasst.
+
+    % \bibliography{
+    %     bibliography/information-retrieval,
+    %     bibliography/data-corpus,
+    %     bibliography/embeddings,
+    %     bibliography/database,
+    %     bibliography/slurm,
+    %     bibliography/clustering,
+    %     bibliography/eigenfaces,
+    %     bibliography/user_interface,
+    %     bibliography/similarity,
+    %     bibliography/autoencoder,
+    %     bibliography/topic_modelling,
+    %     bibliography/financial_dataset,
+    %     bibliography/survey,
+    %     bibliography/neural_networks
+    % }
+
+    \include{declaration}
+\end{document}
