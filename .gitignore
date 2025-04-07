@@ -9,6 +9,8 @@
 *.lof
 *.lol
 *.lot
+*.fdb_latexmk
+*.fls
 .DS_Store
 _minted-main/
 Exposé/
