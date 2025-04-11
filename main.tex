@@ -12,7 +12,8 @@
     openright
 ]{scrreprt}
 
-\newcommand{\todo}{\textcolor{red}{TODO}}
+% FIXME: this doesn't work: https://blog.rtwilson.com/how-to-add-simple-new-commands-to-latex-to-help-with-writing-papers/ (11.04.2025)
+\newcommand{\todo}[1] {\textbf{\textcolor{red}{TODO:}} #1}
 \newcommand{\thesistitle}{\todo}
 \newcommand{\thesistype}{M A S T E R \space \space T H E S I S}
 \newcommand{\thesistypedesc}{Department of Electrical Engineering and Computer Science \\
@@ -29,7 +30,6 @@
 \newcommand{\thesisdate}{\today}
 
 % content-specific commands
-\newcommand{\pan}{PAN}
 \newcommand{\tira}{TIRA}
 
 \input{header}
@@ -57,10 +57,11 @@
     % \include{chapter/section-05/05-evaluation}
     % \include{chapter/section-06/06-conclusion-outlook}
 
-    % notes
-    \include{notes/PAN_definition}
-    \include{notes/PAN_authorship_verification}
-    \include{notes/PAN24_evaluation}
+    % notes; using input to avoid pagebreaks
+    \input{notes/PAN_definition}
+    \input{notes/PAN_authorship_verification}
+    \input{notes/PAN_dataset_autorship_verification}
+    \input{notes/PAN24_evaluation}
 
 
     % Die nächsten zwei Zeilen sind optional, sie sorgen dafür dass alles nach dem Inhalt wieder mit römischen Zahlen nummeriert wird.
