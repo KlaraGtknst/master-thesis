@@ -1,0 +1,20 @@
+% acquisition
+\citet{ayele_overview_nodate} collected articles of major 2021 US news from Google News.
+They chose this time period since it predates the release of GPT-3.5.
+As a consequence, they claim that their dataset is most likely human-authored.
+% artificial texts
+Next, they used GPT-4-Turbo to create bullet-point summaries of the articles. 
+Based on these summaries, 15 \acp{llm} generated newspaper articles.
+% split
+The authors split the dataset into training and test set.
+% robustness
+In order to test the submissions' robustness, \citet{ayele_overview_nodate} generated 65 variants of the newspapers in the test split.
+These variants include:
+\begin{enumerate}
+    \item Change English to German texts
+    \item Replace 15\% of the characters
+    \item Shuffling test case pairs to break topic coherence \todo{macht es das nicht leichter?}
+    \item Contrastive decoding instead of top-k/top-p sampling
+    \item Cropping texts to 35 words
+    \item Using the prompt from a previous Kaggle competition on \ac{llm} detection to generate more faithful paraphrases of the original articles
+\end{enumerate}
