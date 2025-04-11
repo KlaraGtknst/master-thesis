@@ -28,6 +28,10 @@
 \newcommand{\thesissupervisor}{\todo}
 \newcommand{\thesisdate}{\today}
 
+% content-specific commands
+\newcommand{\pan}{PAN}
+\newcommand{\tira}{TIRA}
+
 \input{header}
 
 
@@ -38,11 +42,11 @@
     % \include{abstract}
     % \include{abstract_german}
 
-    \tableofcontents
+    % \tableofcontents
 
     \include{acronyms}
 
-    \pagebreak
+    % \pagebreak
     \pagenumbering{arabic}
 
     % % Hier weitere Kapitel einfügen
@@ -54,6 +58,8 @@
     % \include{chapter/section-06/06-conclusion-outlook}
 
     % notes
+    \include{notes/PAN_definition}
+    \include{notes/PAN_authorship_verification}
     \include{notes/PAN24_evaluation}
 
 
