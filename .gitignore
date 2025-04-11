@@ -20,3 +20,6 @@ main.pdf
 svg-inkscape/
 # exclude temp Office files
 ~$*
+
+# among others, custom dictionary for this project
+.vscode/
