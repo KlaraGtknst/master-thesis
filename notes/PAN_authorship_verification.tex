@@ -1,0 +1,23 @@
+\citet{zangerle_overview_nodate} provide \autoref{tab:hierarchy_authorship_verification_problems}, i.e., 
+the decomposition of authorship verification into multiple subtasks. 
+They order the subtasks in terms of their complexity.
+
+\begin{table}[]
+    \centering
+    \caption{Hierarchy of authorship verification problems from easiest (1) to most difficult (7), where A, B corresponds to human-authored text and M denotes \ac{llm}-generated text.}
+    \label{tab:hierarchy_authorship_verification_problems}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{lll}
+        \toprule
+    \rowcolor[HTML]{EFEFEF} 
+    \textbf{Difficulty} & \textbf{Input/ Task} & \textbf{Possible Assignment Patterns} \\  \midrule
+    1 & \{?,?\} & \{A,M\} \\ 
+    2 & \{?,?\} & \{A,M\}, \{A,A\} \\
+    3 & \{?,?\} & \{A,M\}, \{M,M\} \\
+    4 & \{?,?\} & \{A,M\}, \{A,A\}, \{M,M\} \\
+    5 & \{?,?\} & \{A,M\}, \{A,A\}, \{A,B\} \\
+    6 & \{?,?\} & \{A,M\}, \{A,A\}, \{A,B\}, \{M,M\} \\
+    7 & ? & A, M \\ \bottomrule
+    \end{tabular}%
+    }
+    \end{table}
