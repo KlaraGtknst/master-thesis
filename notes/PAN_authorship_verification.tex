@@ -1,10 +1,14 @@
 \citet{zangerle_overview_nodate} provide \autoref{tab:hierarchy_authorship_verification_problems}, i.e., 
 the decomposition of authorship verification into multiple subtasks. 
 They order the subtasks in terms of their complexity.
+The first task on the one hand, is considered the easiest, since we know that out of two text, one is guaranteed to be human-generated while the other one is \ac{llm}-generated.
+The last task on the other hand, is denoted as the most difficult, since we do not know whether the text is human- or \ac{llm}-generated.
 
-\begin{table}[]
+
+\begin{table}[tbp]
     \centering
-    \caption{Hierarchy of authorship verification problems from easiest (1) to most difficult (7), where A, B corresponds to human-authored text and M denotes \ac{llm}-generated text.}
+    \caption{Hierarchy of authorship verification problems from easiest (1) to most difficult (7), 
+    where A, B corresponds to human-authored text and M denotes \ac{llm}-generated text.}
     \label{tab:hierarchy_authorship_verification_problems}
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{lll}
