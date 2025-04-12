@@ -5,7 +5,126 @@
 \end{definition}
 
 \begin{definition}
+    [Stylometry]
+    The construction of models for the quantification of writing style, text complexity, and grading level assessment.
+    Stylometric features include lexical, syntactic and structural features \cite{stein_intrinsic_2011}.
+\end{definition}
+
+\begin{definition}
+    [Lexical features]
+    Lexical features are common features used in stylometry.
+    They are character- (i.e. character (n-gram) frequency, ...) or word-based (i.e. average word/ sentence length, ...) features \cite{stein_intrinsic_2011}. 
+\end{definition}
+
+\begin{definition}
     [Adversarial Stylometry]
     Attack models that automatically sensitive author infer a variety of potentially sensitive author information.
     These attacks are not to be confused with adversarial learning \cite{emmery_adversarial_2021}.
+\end{definition}
+
+\begin{definition}
+    [Closed world]
+    In the realm of plagiarism detection, closed world refers to the assumption that a reference collection $D$ of documents, that are supposed to be compared to the possibly plagiarized text, is given \cite{stein_intrinsic_2011}.
+\end{definition}
+
+\begin{definition}
+    [Plagiarism]
+    In the context of texts, plagiarism is the usage of another author's information, language, or writing without properly acknowledging the original source \cite{stein_intrinsic_2011}.
+\end{definition}
+
+\begin{definition}
+    [Plagiarism detection]
+    The task of identifying plagiarized text \cite{stein_intrinsic_2011}.
+\end{definition}
+
+\begin{definition}
+    [Intrinsic plagiarism detection]
+    This task can be understood as a more general form of authorship verification.
+    By analysing undeclared changes in writing style, potential plagiarism can be detected.
+    Opposed to authorship verification, where the decision is made based on the whole text, intrinsic plagiarism detects plagiarism on a section level \cite{stein_intrinsic_2011}.
+\end{definition}
+
+\begin{definition}
+    [Authorship analysing]
+    This problem devises into two subproblems \cite{stein_intrinsic_2011}:
+    \begin{itemize}
+        \item Authorship attribution
+        \item Authorship verification
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    [Authorship attribution]
+    The task of determining the author of a given text given a set of candidate authors with writing samples \cite{stein_intrinsic_2011}.
+\end{definition}
+
+\begin{definition}
+    [Authorship verification]
+    Given a set of writing samples of author $A$ and a text $t$, the task is to determine whether $t$ was written by $A$ \cite{stein_intrinsic_2011}.
+    Related research areas include:
+    \begin{itemize}
+        \item stylometry
+        \item outlier analysis and meta learning
+        \item symbolic knowledge representation \todo{knowledge representation, deduction, heristic inference}
+    \end{itemize}
+\end{definition}
+
+\begin{table}[]
+    \centering
+    \caption{Building blocks for authorship verification from \cite{stein_intrinsic_2011}.}
+    \label{tab:authorship_verification_blocks}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|lll|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    Pre-analysis & \multicolumn{3}{l|}{\cellcolor[HTML]{EFEFEF}Modeling and classifier methods} & Post-processing \\ \hline
+    \rowcolor[HTML]{EFEFEF} 
+    Impurity assessment & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}Decomposition strategy} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}Style model construction} & Outlier identification & Outlier post-processing \\ \hline
+    Document length analysis & \multicolumn{1}{l|}{Uniform length} & \multicolumn{1}{l|}{Lexical character features} & One-class density estimation & Heuristric voting \\
+    Genre Analysis & \multicolumn{1}{l|}{Structural boundaries} & \multicolumn{1}{l|}{Lexical word features} & One-class boundary estimation & Citation analysis \\
+    Analysis of issuing institution & \multicolumn{1}{l|}{Text element boundaries} & \multicolumn{1}{l|}{Syntactical features} & One-class reconstruction & Human inspection \\
+     & \multicolumn{1}{l|}{Topical boundaries} & \multicolumn{1}{l|}{Structural features} & Two-class discrimination & Unmasking \\
+     & \multicolumn{1}{l|}{Stylistic boundaries} & \multicolumn{1}{l|}{Language modeling} &  & Qsum \\
+     & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  & Batch means
+    \end{tabular}%
+    }
+\end{table}
+Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for approaches.
+
+\begin{definition}
+    [Meta learning]
+    \todo{Based on learning successes and failures, the system learns to learn. }
+    Approaches include:
+    \begin{itemize}
+        \item Unmasking: Measurement of reconstruction errors starting from a good reconstruction and iteratively impairing the reconstruction. % example on page 9 of Benno's paper
+        \item Qsum heuristic: Compares the growth rates of two cumulative sums over a sequence of sentences. The sums are calculated via the deviations from the mean sentence length and the deviations of the function words.
+        \item Batch means: \todo{For a series of values the variance development of the sample mean is measured while the sample size is successively increased.}
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    [Unmasking]
+    The idea of this meta learning approach is that with progressively omitting more and more frequent words, 
+    topic specific words are excluded and thus, leaving only writing style specific words.
+    After several iterations, remaining features which are not powerful enough to discriminate two documents indicate that 
+    these documents originate from the same author \cite{stein_intrinsic_2011}.
+\end{definition}
+
+\begin{definition}
+    [Stop words vs. function words]
+    Most function words are stop words, but not all stop words are function words \cite{stein_intrinsic_2011}.
+\end{definition}
+
+\begin{definition}
+    [One-class classification]
+    A classification problem where the classifier is trained on samples of a single class.
+    If counterexamples, i.e. so-called outliers, are available, they are usually not considered to be representative of \textit{non-target class}.
+    Hence, the classifier has to learn the concept of the target class in the absence of discriminating features.
+    Examples of one-class classification are intrinsic plagiarism analysis and authorship verification.
+    Approaches to one-class classification fall into the following categories \cite{stein_intrinsic_2011}:
+    \begin{itemize}
+        \item One-class density estimation, e.g., Naive Bayes
+        \item One-class boundary estimation
+        \item One-class reconstruction
+    \end{itemize}
 \end{definition}
