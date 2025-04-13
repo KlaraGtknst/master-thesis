@@ -75,6 +75,45 @@ Unfortunately, according to \cite{stamatatos_survey_2009}, the availability of a
 
 
 % character features
+Character feature consider texts a sequence of characters.
+Simple approaches include alphabetic character count, digit character count, uppercase/ lowercase character count, letter frequencies and punctuation marks count.
+\citet{stamatatos_survey_2009} claim these features are available for any natural language and prove useful.
+% n-grams
+They also mention frequencies of $n$-grams on character level.
+This approach is robust to noise, captures lexical and contextual information, grammatical errors, use of punctuation and capitalization.
+It performs better on oriental languages than token-based approaches.
+However, the dimensionality of the problem increases with $n$-grams compared to tokens.
+Moreover, the choice of $n$ is language-dependent since certain natural language (e.g., German) tend to have longer words than others (e.g., English).
+Large $n$ on the one hand, capture lexical and contextual information but may also capture content-specific information and increases the dimensionality of the representation.
+Small $n$ on the other hand, may be able to represent subwords but are less adequate to capture contextual information.
+% compression-based features
+The idea of compression based approaches is to use the compression model acquired from one text to compress another text. 
+If both texts are from the same author, the bit-wise size of the compressed file will be relatively low.
+Since compression models usually describe characteristics of the texts based on the repetition of character sequences, 
+they can be considered as character-based features. \todo{Is this still the case? Paper is from 2009}
+
+
 % syntactic features
+Assuming that author's have a syntactic fingerprint, these approaches are considered more reliable than mere lexical information.
+Unfortunately, syntactic features are language-dependent and require \ac{nlp} tools, for instance, a parser.
+% Parser
+Once the text has been parsed, metrics such as noun phrase counts and verb phrase counts can be computed.
+% POS
+Another approach is to use \ac{pos} tags on word-token or $n$-gram for frequencies.
+% errors
+If spell checkers are available and of sufficient quality, syntactic errors can be used as features.
+% etc.
+
+
 % semantic features
+Since high-level tasks are prone to errors and noise, semantic analysis is not as widely used as syntactic analysis.
+\todo{Is the quality still too bad? Paper is from 2009}
+
+
 % application-specific features
+Based on the applications, structural measures include the use of greetings, farewells, types of signatures, indentation, paragraph length 
+or HTML specific metrics.
+Usually, in the context of stylometry, content specific features are not used.
+If all documents belong to the same thematic area, content-based information may reveal some authorial choices. 
+One can compare content-specific word frequencies, even though it remains unclear how to select such words for a given text domain.
+
