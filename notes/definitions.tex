@@ -1,7 +1,12 @@
+\section{Definitions}
+\label{sec:definitions}
+
+
 \begin{definition}
     [Author profiling]
     Task of inferring an extensive set of (sensitive) personal information.
-    This includes age, gender, education, socio-economic status and mental health issues \cite{emmery_adversarial_2021}.
+    This includes age, gender, education, socio-economic status and mental health issues \cite{emmery_adversarial_2021,stamatatos_survey_2009}.
+    The task is also referred to as author characterization \cite{stamatatos_survey_2009}.
 \end{definition}
 
 \begin{definition}
@@ -11,9 +16,17 @@
 \end{definition}
 
 \begin{definition}
+    [style markers]
+    Taxonomies of features to quantify the writing style \cite{stamatatos_survey_2009}.
+\end{definition}
+
+\begin{definition}
     [Lexical features]
     Lexical features are common features used in stylometry.
-    They are character- (i.e. character (n-gram) frequency, ...) or word-based (i.e. average word/ sentence length, ...) features \cite{stein_intrinsic_2011}. 
+    They are character- (i.e. character (n-gram) frequency, ...) 
+    or word-based (i.e. average word/ sentence length, ...) features \cite{stein_intrinsic_2011}. 
+    These features consider text as a mere sequence of word-tokens or characters, respectively \cite{stamatatos_survey_2009}.
+    Word features are more complex than character features \cite{stamatatos_survey_2009}.
 \end{definition}
 
 \begin{definition}
@@ -34,7 +47,7 @@
 
 \begin{definition}
     [Plagiarism detection]
-    The task of identifying plagiarized text \cite{stein_intrinsic_2011}.
+    The task of identifying plagiarized text \cite{stein_intrinsic_2011}, i.e. finding similarities between two texts \cite{stamatatos_survey_2009}.
 \end{definition}
 
 \begin{definition}
@@ -48,20 +61,27 @@
     [Authorship analysing]
     This problem devises into two subproblems \cite{stein_intrinsic_2011}:
     \begin{itemize}
-        \item Authorship attribution
-        \item Authorship verification
+        \item Authorship attribution \cite{stein_intrinsic_2011}
+        \item Authorship verification \cite{stein_intrinsic_2011,stamatatos_survey_2009}
+        \item Plagiarism detection \cite{stamatatos_survey_2009}
+        \item Author profiling \cite{stamatatos_survey_2009}
+        \item Detection of stylistic inconsistencies (i.e. in collaborative writing) \cite{stamatatos_survey_2009}
     \end{itemize}
 \end{definition}
 
 \begin{definition}
     [Authorship attribution]
-    The task of determining the author of a given text given a set of candidate authors with writing samples \cite{stein_intrinsic_2011}.
+    The task of determining the author of a text based on textual features 
+    given a set of candidate authors with undisputed writing samples \cite{stein_intrinsic_2011,stamatatos_survey_2009}.
+    In terms of machine learning, this is a multiclass, single-label text categorization task \cite{stamatatos_survey_2009}.
+    The task is also referred to as author(ship) identification \cite{stamatatos_survey_2009}.
 \end{definition}
 
 \begin{definition}
     [Authorship verification]
-    Given a set of writing samples of author $A$ and a text $t$, the task is to determine whether $t$ was written by $A$ \cite{stein_intrinsic_2011}.
-    Related research areas include:
+    Given a set of writing samples of author $A$ and a text $t$, 
+    the task is to determine whether $t$ was written by $A$ \cite{stein_intrinsic_2011,stamatatos_survey_2009}.
+    Related research areas include \cite{stein_intrinsic_2011}:
     \begin{itemize}
         \item stylometry
         \item outlier analysis and meta learning
@@ -112,6 +132,7 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 
 \begin{definition}
     [Stop words vs. function words]
+    Function words are the most common words (articles, prepositions, pronouns, etc.) \cite{stamatatos_survey_2009}.
     Most function words are stop words, but not all stop words are function words \cite{stein_intrinsic_2011}.
 \end{definition}
 
@@ -127,4 +148,10 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
         \item One-class boundary estimation
         \item One-class reconstruction
     \end{itemize}
+\end{definition}
+
+
+\begin{definition}
+    [n-gram]
+    $n$ contiguous words also known as word collocations.
 \end{definition}

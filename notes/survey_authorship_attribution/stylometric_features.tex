@@ -1,0 +1,80 @@
+Refer to \autoref{sec:definitions} for the definitions of the terms used in this section.
+
+\begin{table}[]
+    \centering
+    \caption{Types of stylometric features with their computation tools and 
+    resources where brackets indicate optional tools from \cite{stamatatos_survey_2009}.}
+    \label{tabstylometric_features_tools}
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \rowcolor[HTML]{EFEFEF} 
+    \textbf{Category} & \textbf{Features} & \textbf{Required tools and resources} \\ \hline
+    Lexical & Token-based (word/ sentence length, ...) & Tokenizer, (Sentence splitter) \\
+     & Vocabulary richeness & Tokenizer \\
+     & Word frequencies & Tokenizer, (Stemmer, Lemmatizer) \\
+     & Word n-grams & Tokenizer \\
+     & Errors & Tokenizer, Orthographic spell checker \\
+    Character & Character types (letters, digits, ...) & Character dictionary \\
+     & Character n-grams (fixed length) & - \\
+     & Character n-grams (variable length) & Feature selector \\
+     & Compression methods & Text compression tool \\
+    Syntactic & Part-of-Speech (POS) & Tokenizer, Sentence splitter, POS tagger \\
+     & Chunks & Tokenizer, Sentence splitter, (POS tagger), Text chunker \\
+     & Sentence and phrase structure & Tokenizer, Sentence splitter, POS tagger, Text chunker, Partial parser \\
+     & Rewrite rule frequencies & Tokenizer, Sentence splitter, POS tagger, Text chunker, Full parser \\
+     & Errors & Tokenizer, Sentence splitter, Syntactic spell checker \\
+    Semantic & Synonyms & Tokenizer, (POS tagger), Thesaurus \\
+     & Semantic dependencies & Tokenizer, Sentence splitter, POS tagger, Text chunker, Partial parser, Semantic Parser \\
+     & Functional & Tokenizer, Sentence splitter, POS tagger, Specialized dictionaries \\
+    Application-specific & Structural & HTML parser, Specialized parsers \\
+     & Content-specific & Tokenizer, (Stemmer, Lemmatizer), Specialized dictionaries \\
+     & Language-specific & Tokenizer, (Stemmer, Lemmatizer), Specialized dictionaries
+    \end{tabular}%
+    }
+\end{table}
+
+% all information from stamatatos_survey_2009
+% lexical features
+Lexical features consider sentences grouped sequences of tokens, i.e. words, numbers or punctuation marks.
+% length counts
+Simple attempts of author attribution include sentence lengths counts, and word length counts.
+These approaches work straightforward assuming that the tokenizer is able to identify the tokens correctly.
+However, for some language such as Chinese, the tokenization is not trivial.
+% vocabulary richness
+Vocabulary richness functions attempt to quantify the diversity of vocabulary used in a text.
+Approaches include $\frac{\text{size of vocabulary}}{\text{total number of tokens}}$ or the 
+number of hapax legomena (words that occur only once in a text).
+The vocabulary size depends on the text length (quick increase in the beginning, slowly increasing later).
+To mitigate this effect, researchers have proposed methods to introduce stability into these metrics. 
+According to \citet{stamatatos_survey_2009}, these proposed methods are questionable and should not be used alone.
+% BoW
+Texts can also be represented by vectors of word frequencies, i.e. the \ac{bow} model.
+This representation disregards contextual, i.e., word-order, information.
+While topic-based classification usually excludes so-called function words, 
+i.e. most common words, since they do not carry any semantic information and are topic-independent, 
+style-based text classification includes them.
+In particular, function words are considered among the best features to discriminate between authors 
+since they capture pure stylistic choices of authors across different topics.
+Hence, style-based text classification requires much lower dimensionality (i.e., a few hundred words) 
+in comparison to topic-based text classification (i.e., several thousand words).
+Function words can be closed class words, i.e., articles, prepositions etc., 
+or open-class words, i.e., nouns, adjectives, verbs.
+Closed class words are the first dozen frequent words and 
+open class words are predominantly present in the next frequent words.
+% n-grams
+To overcome the lack of contextual information in the \ac{bow} model, 
+n-grams can be used.
+However, the classification accuracy does not always increase with the usage of n-grams instead of individual word features.
+Moreover, the dimensionality of the problem increases, representations become sparse and possibly content-specific information rather than stylistic information is captured.
+% Errors
+Similar to manual human attribution, using error measures can be used to identify the author of a text.
+Spelling (i.e., letter omissions, insertions) and formatting errors (i.e., all caps words) can be used as features 
+to capture the idiosyncrasies of an author's style.
+Unfortunately, according to \cite{stamatatos_survey_2009}, the availability of accurate spell checkers for many natural languages is problematic.
+
+
+% character features
+% syntactic features
+% semantic features
+% application-specific features
