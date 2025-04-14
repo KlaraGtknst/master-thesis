@@ -1,0 +1,17 @@
+\section{\acs{pan} Dataset Multi-author writing style analysis}
+\label{sec:pan_dataset_multi_author_writing_style_analysis}
+
+\citet{zangerle_overview_2024} construct the dataset from user posts on Reddit.
+They select a set of subreddits (i.e., topical sub-threads on Reddit) 
+which they expect to yield longer and more detailed texts by individual users.
+They preprocess the data by remove citations, markdown, emojis, hyperlinks, 
+multiple line breaks and extra whitespaces.
+For each subreddit, the texts are split into paragraphs.
+For each document paragraphs of two to four authors are selected randomly, 
+such that authors are even distributed across the whole dataset.
+Paragraphs within a document are rearranged with respect to their similarity 
+in respect of semantic and stylistic features.
+Hence, easy dataset instances' paragraphs are more dissimilar 
+than hard dataset instances' paragraphs (cf. \autoref{sec:pan_multi_author_writing_style_analysis}).
+Each of the three levels of difficulty contains 6,000 documents 
+split into training, validation and test (held back) set.
