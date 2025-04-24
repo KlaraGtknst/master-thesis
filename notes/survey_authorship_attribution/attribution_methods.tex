@@ -33,6 +33,9 @@ The similarity between to texts is estimated by a distance measure based on rela
 \ac{spi} is a simpler distance measure to mitigate the disadvantages of \ac{cng}.
 It is based on the idea that the more common $n$-grams two texts share, the more similar they are.
 It counts the number of common $n$-grams between the two texts and disregards the rest.
+% most similar in terms of distance
+\cite{koppel_authorship_2011} describe the similarity-based paradigm as a profile-based approach where the unseen text is attributed to the author whose profile is closest in terms of a distance metric.
+As a distance metric, \citet{koppel_authorship_2011} suggest the cosine distance in a vector space defined by the space-free character 4-gram frequencies.
 
 % instance-based
 The family of instance-based methods, on the other hand, require multiple training text samples per author. 
@@ -46,6 +49,7 @@ Each text is represented as a vector in a multivariate space.
 They stress that \acp{svm} are extremely popular in high-dimensional spaces.
 However, they also state that class imbalance is a problem 
 which should be overcome by segmentation, filtering or oversampling.
+\citet{koppel_authorship_2011} denote this approach belonging to the machine learning paradigm.
 % similarity-based measures
 Similarity-based measures are used to measure the distance between the unseen text and all other training texts.
 The most likely author is estimated based on a $k$-nearest-neighbour algorithm.

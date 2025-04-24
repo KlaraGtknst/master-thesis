@@ -1,0 +1,9 @@
+\citet{koppel_authorship_2011} propose an approach for authorship attribution.
+They randomly select a fixed number of features multiple times and collect the top matches of the unseen text and the candidate author profiles.
+The score $\sigma$ of an author $A$ is the proportion of times the unseen text was attributed to $A$.
+If the score $\sigma$ is above a certain threshold, the author is considered to be the true author of the text.
+The author with the highest score $\sigma$ among the candidate authors is selected as the predicted author.
+According to \citet{koppel_authorship_2011}, the method is works reasonably well on large (open and closed) candidate sets.
+
+% shortcomings
+In case of a small open set of candidate authors, the method is may falsely attribute the unseen text to one of the candidate authors.

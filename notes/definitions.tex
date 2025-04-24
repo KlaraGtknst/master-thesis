@@ -82,7 +82,7 @@
 \begin{definition}
     [Authorship verification]
     Given a set of writing samples of author $A$ and a text $t$, 
-    the task is to determine whether $t$ was written by $A$ \cite{stein_intrinsic_2011,stamatatos_survey_2009}.
+    the task is to determine whether $t$ was written by $A$ \cite{stein_intrinsic_2011,stamatatos_survey_2009,koppel_authorship_2011}.
     Related research areas include \cite{stein_intrinsic_2011}:
     \begin{itemize}
         \item stylometry
@@ -130,6 +130,10 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     topic specific words are excluded and thus, leaving only writing style specific words.
     After several iterations, remaining features which are not powerful enough to discriminate two documents indicate that 
     these documents originate from the same author \cite{stein_intrinsic_2011}.
+    In other words: 
+    Two texts are probably written by different authors if the differences between are robust to changes in the underlying feature set used to represent the documents.
+    Differences can be measured using instance-based classification via cross-validation accuracy \cite{koppel_authorship_2011}.
+    Provided that the unseen text is very large, this method can handle small open candidate sets \cite{koppel_authorship_2011}.
 \end{definition}
 
 \begin{definition}
@@ -159,10 +163,20 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 
 \begin{definition}
     [Closed-set classification]
-    The true author should be one of the candidate authors \cite{stamatatos_survey_2009}.
+    The true author should be one of the candidate authors \cite{stamatatos_survey_2009,koppel_authorship_2011}.
 \end{definition}
 
 \begin{definition}
     [n-gram]
     $n$ contiguous words also known as word collocations.
+\end{definition}
+
+\begin{definition}
+    [Space free n-gram]
+    Removing spaces from the $n$-gram reduces the number of $n$-grams.
+    \citet{koppel_authorship_2011} use these definitions:
+    \begin{enumerate}
+        \item a string of $n$ characters that not include spaces
+        \item a string of less than $n$ characters that is surrounded by spaces
+    \end{enumerate}
 \end{definition}
