@@ -52,9 +52,9 @@
 
 \begin{definition}
     [Intrinsic plagiarism detection]
-    This task can be understood as a more general form of authorship verification.
+    This task can be understood as a more general form of \ac{av}.
     By analysing undeclared changes in writing style, potential plagiarism can be detected.
-    Opposed to authorship verification, where the decision is made based on the whole text, 
+    Opposed to \ac{av}, where the decision is made based on the whole text, 
     intrinsic plagiarism detects plagiarism on a section level \cite{stein_intrinsic_2011}.
     Intrinsic analysis does not use any information on authorship from external sources \cite{zangerle_overview_2024}.
 \end{definition}
@@ -63,8 +63,8 @@
     [Authorship analysing]
     This problem devises into two \textcolor{orange}{(i.e. first two acc. to \cite{stein_intrinsic_2011}, all acc. to \cite{stamatatos_survey_2009})} subproblems \cite{stein_intrinsic_2011}:
     \begin{itemize}
-        \item Authorship attribution \cite{stein_intrinsic_2011}
-        \item Authorship verification \cite{stein_intrinsic_2011,stamatatos_survey_2009}
+        \item \ac{aa} \cite{stein_intrinsic_2011}
+        \item \ac{av} \cite{stein_intrinsic_2011,stamatatos_survey_2009}
         \item Plagiarism detection \cite{stamatatos_survey_2009}
         \item Author profiling \cite{stamatatos_survey_2009}
         \item Detection of stylistic inconsistencies (i.e. in collaborative writing) \cite{stamatatos_survey_2009}
@@ -72,7 +72,7 @@
 \end{definition}
 
 \begin{definition}
-    [Authorship attribution]
+    [\ac{aa}]
     The task of determining the author of a text based on textual features 
     given a set of candidate authors with undisputed writing samples \cite{stein_intrinsic_2011,stamatatos_survey_2009}.
     In terms of machine learning, this is a multiclass, single-label text categorization task \cite{stamatatos_survey_2009}.
@@ -80,7 +80,7 @@
 \end{definition}
 
 \begin{definition}
-    [Authorship verification]
+    [\ac{av}]
     Given a set of writing samples of author $A$ and a text $t$, 
     the task is to determine whether $t$ was written by $A$ \cite{stein_intrinsic_2011,stamatatos_survey_2009,koppel_authorship_2011}.
     Related research areas include \cite{stein_intrinsic_2011}:
@@ -93,7 +93,7 @@
 
 \begin{table}[]
     \centering
-    \caption{Building blocks for authorship verification from \cite{stein_intrinsic_2011}.}
+    \caption{Building blocks for \ac{av} from \cite{stein_intrinsic_2011}.}
     \label{tab:authorship_verification_blocks}
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{|l|lll|l|}
@@ -147,7 +147,7 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     A classification problem where the classifier is trained on samples of a single class.
     If counterexamples, i.e. so-called outliers, are available, they are usually not considered to be representative of \textit{non-target class}.
     Hence, the classifier has to learn the concept of the target class in the absence of discriminating features.
-    Examples of one-class classification are intrinsic plagiarism analysis and authorship verification.
+    Examples of one-class classification are intrinsic plagiarism analysis and \ac{av}.
     Approaches to one-class classification fall into the following categories \cite{stein_intrinsic_2011}:
     \begin{itemize}
         \item One-class density estimation, e.g., Naive Bayes
