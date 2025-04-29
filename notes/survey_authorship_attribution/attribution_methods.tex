@@ -5,7 +5,7 @@ For a comparison (pro/contra) of profile-based and instance-based methods, see \
 
 % profile-based
 Methods belonging to the profile-based category concatenate all the available training texts per author in one big file 
-and extract a cumulative representation of that author's style from this concatenated text.
+and extract a cumulative representation of that author's style from this concatenated text. % tyo_state_2022: "representation of all author texts"
 Hence, methods in this category are better if only short texts are available for training.
 The difference of texts written by the same author are disregarded \cite{stamatatos_survey_2009}.
 The unseen text is compared to each author file and the most similar one based on a distance measure is selected as the predicted author:
@@ -34,8 +34,10 @@ The similarity between to texts is estimated by a distance measure based on rela
 It is based on the idea that the more common $n$-grams two texts share, the more similar they are.
 It counts the number of common $n$-grams between the two texts and disregards the rest.
 % most similar in terms of distance
-\cite{koppel_authorship_2011} describe the similarity-based paradigm as a profile-based approach where the unseen text is attributed to the author whose profile is closest in terms of a distance metric.
-As a distance metric, \citet{koppel_authorship_2011} suggest the cosine distance in a vector space defined by the space-free character 4-gram frequencies.
+\cite{koppel_authorship_2011} describe the similarity-based paradigm as a profile-based approach 
+where the unseen text is attributed to the author whose profile is closest in terms of a distance metric.
+As a distance metric, \citet{koppel_authorship_2011} suggest the cosine distance in a vector space 
+defined by the space-free character 4-gram frequencies.
 
 % instance-based
 The family of instance-based methods, on the other hand, require multiple training text samples per author. 
