@@ -1,0 +1,48 @@
+\section{Imposter method}
+\label{sec:imposter_method}
+
+The problem to solve is the \ac{av} problem:
+For two documents $X, Y$ determine if they were written by the same author.
+As displayed in \autoref{fig:problem_reduction}, \citet{koppel_determining_2014} propose reducing the \ac{av} problem to the many-candidates problem.
+
+\begin{figure}[htbp]
+    \centering
+    \includesvg{notes/Koppel_imposter_2014/reduction_closed_set_AV_to_open_set_AA}
+    \caption{Reducing the \ac{av} problem to the many-candidates problem.}
+    \label{fig:problem_reduction}
+\end{figure}
+
+This method produces a set of \textit{imposter} documents.
+Then, \citet{koppel_determining_2014} determine whether $X$ is sufficiently more similar to $Y$ than to the imposter documents.
+There are multiple important settings:
+\begin{itemize}
+    \item Proper methods to select the imposter documents.
+    \item Proper methods to measure the similarity between documents.
+\end{itemize}
+Similar to unmasking, \citet{koppel_determining_2014} repeatedly select random subsets of features that serve as the basis for comparing documents.
+If a documents $Y$ is more similar to document $X$ than any other document for many feature subsets, 
+it is likely that $X$ and $Y$ are by the same author.
+% FIXME: autoref doesn't know lst 
+The algorithmic approach is displayed in \autoref{lst:imposter_algo}.
+\citet{koppel_determining_2014} state that k=100 iterations are sufficient.
+The threshold $\sigma^*$ varies the recall-precision tradeoff.
+\citet{koppel_determining_2014} claim that the imposter method obtains strong results even for documents with no more than 500 words.
+Moreover, they highlight the similarity between the imposter method and an ensemble of classifiers learning different subset of features.
+% TODO: two paragraphs below conflicting? cf. koppel_determining_2014 pg. 181, 182
+Furthermore, the performance of the method improves as the number of candidate author diminishes.
+In an open-set scenario, fewer candidate authors makes the problem more difficult for the imposter method 
+since one author being consistently more similar to the text than the others candidates across multiple feature subsets is less likely in large sets of competing candidate authors.
+Small sets of candidate authors are more likely to generate \acp{fp} 
+while large sets may generate \acp{fn} and thus, creating a tradeoff.
+
+\todo{add algo}
+\begin{algorithm}
+    \caption{Author Identification via Random Feature Subsets}
+    \label{lst:imposter_algo}
+    \begin{algorithmic}[1]
+        \Procedure{GetAuthor}{$X$, $features$, $candidate\_authors$, $k$, $\sigma^*$}
+           TODO
+
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}

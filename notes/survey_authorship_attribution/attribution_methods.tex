@@ -51,7 +51,11 @@ Each text is represented as a vector in a multivariate space.
 They stress that \acp{svm} are extremely popular in high-dimensional spaces.
 However, they also state that class imbalance is a problem 
 which should be overcome by segmentation, filtering or oversampling.
-\citet{koppel_authorship_2011} denote this approach belonging to the machine learning paradigm.
+\citet{koppel_authorship_2011,koppel_determining_2014} denote this approach belonging to the machine learning paradigm.
+\citet{koppel_determining_2014} claim that machine learning methods are not suitable for large number of candidate authors 
+since they are designed for small number of classes. 
+They also state that the introduction of ensembles of multiple binary classifiers is not a solution to this problem 
+due to the ambiguity of multiple positive answers.
 % similarity-based measures
 Similarity-based measures are used to measure the distance between the unseen text and all other training texts.
 The most likely author is estimated based on a $k$-nearest-neighbour algorithm.

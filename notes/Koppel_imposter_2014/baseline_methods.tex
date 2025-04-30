@@ -1,0 +1,34 @@
+\section{Baseline methods}
+\label{sec:imposter_baseline_methods}
+
+\citet{koppel_determining_2014} compare the imposter (cf. \autoref{sec:imposter_method}) method to two baseline methods:
+\begin{itemize}
+    \item similarity detection
+    \item supervised baseline
+\end{itemize}
+
+
+\subsection{Similarity detection}
+\label{sec:imp_similarity_detection}
+
+For similarity detection, $X,Y$ are considered to be authored by the same author if they are sufficiently similar, 
+i.e. their similarity exceeds a threshold.
+They represent a text $X$ as a tf-idf vector $\overrightarrow{X}= (x_1, \cdots , x_n)$ 
+of space-free 4-grams (cf. \autoref{sec:definitions}).
+They select the 100000 most frequent 4-grams from the training set.
+As similarity measures, they compare the cosine similarity and the min-max measure.
+
+$$sim(X,Y)=cosine(\overrightarrow{X},\overrightarrow{Y})=\frac{\overrightarrow{X}*\overrightarrow{Y}}{\left\| \overrightarrow{X} \right\|*\left\| \overrightarrow{Y} \right\|}$$
+$$sim(X,Y)=minmax(\overrightarrow{X},\overrightarrow{Y})=\frac{\sum_{n}^{i=1}min(x_i,y_i))}{\sum_{n}^{i=1}max(x_i,y_i))}$$
+
+The optimal threshold on \citet{koppel_determining_2014} development set depended on the similarity measure.
+
+
+\subsection{Supervised baseline}
+\label{sec:imp_supervised_baseline}
+
+\citet{koppel_determining_2014} use a disjoint labelled training set consisting of 1000 pairs $<X,Y>$.
+They assign labels \textit{same-author} and \textit{different-author} 
+to the difference vectors $diff(X,Y)= (\left| x_1-y_1 \right|, \cdots , \left| x_n-y_n \right|)$ 
+depending on whether $X,Y$ have the same author or not.
+They train a linear \ac{svm} as a classifier on the difference vectors.

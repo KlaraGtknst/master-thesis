@@ -56,9 +56,12 @@
 \usepackage[hyphens]{url}
 \usepackage{hyperref}
 \hypersetup{colorlinks, citecolor=black, linkcolor=black, urlcolor=black}
+\providecommand*{\listingautorefname}{Listing}  % TODO: doesn't solve problem of missing autoref
 
 % Minted
 \usepackage[chapter]{minted}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
 %\usemintedstyle{xcode}
 \setminted{frame=single,tabsize=2,linenos,autogobble}
 

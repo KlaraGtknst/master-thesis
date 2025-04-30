@@ -1,0 +1,75 @@
+\section{Problem hierarchy}
+\label{sec:problem_hierarchy}
+
+% koppel_determining_2014 use "identification" for attribution/ AA
+\todo{change identification to attribution for consistency in terminology}
+
+% AV -> open-set
+\ac{av} is an open-set problem, meaning that the author of an anonymous document 
+may or may be not be part of the set of candidate authors.
+
+% AA -> closed-set
+\ac{aa} is a closed-set problem, meaning that the author of an anonymous document
+is part of the set of candidate authors.
+For each candidate author, writing samples are available.
+The task is to determine the author of the anonymous document from the set of candidate authors.
+
+% reduction: closed-set AA -> open-set AV
+\citet{koppel_determining_2014} state that all closed-set \ac{aa} problems are reducible to the \ac{av} problem.
+The reverse is not true.
+To reduce the \ac{aa} problem to the \ac{av} problem, we solve a \ac{av} problem, i.e. if text was written by a candidate author, 
+for each of the respective candidates.
+Ideally, we receive one positive answer for the correct candidate author and negative answers for all other candidates.
+
+% complexity
+\citet{koppel_determining_2014} explain that the \ac{av} problem is more complex than the \ac{aa} problem.
+They claim that the ability to solve a closed-set \ac{aa} problem does not imply the ability to solve an open-set \ac{av} problem.
+
+% open-set identification/ AA = many candidates problem
+\citet{koppel_determining_2014} define the many-candidates problem, or the so-called open-set identification problem:
+Given a large set of candidate authors, determine which, if any, of them wrote a given anonymous document.
+According to \citet{koppel_determining_2014}, the many-candidates problem can be solved reasonably well: \autoref{lst:many_candidate_algo}.
+
+\begin{algorithm}
+    \caption{Author Identification via Random Feature Subsets}
+    \label{lst:many_candidate_algo}
+    \begin{algorithmic}[1]
+        \Procedure{GetAuthor}{$X$, $features$, $candidate\_authors$, $k$, $\sigma^*$}
+            \State Initialize count vector $M[c] \gets 0$ for all $c \in candidate\_authors$
+
+            \For{$i = 1$ to $k$} \Comment{Number of iterations $k$}
+                \State $F_i \gets \text{RandomSubset}(features)$ \Comment{Set of features $features$}
+                \For{$c \in candidate\_authors$}
+                    \State Compute similarity: $s_c \gets \text{Similarity}(X, Y_c|_{F_i})$ \Comment{Input text $X$}
+                \EndFor
+                \State $c^* \gets \arg\max_{c} (s_c)$
+                \State $M[c^*] \gets M[c^*] + 1$  \Comment{Increment match count for best match}
+            \EndFor
+
+            \For{$c \in candidate\_authors$}
+                \State $\text{Score}(c) \gets \frac{M[c]}{k}$ \Comment{Proportion of times $c$ was top match}
+            \EndFor
+
+            \State $c^{\text{final}} \gets \arg\max_{c} \text{Score}(c)$
+            \If{$\text{Score}(c^{\text{final}}) > \sigma^*$} \Comment{Threshold $\sigma^*$}
+                \State \Return $c^{\text{final}}$
+            \Else
+                \State \Return $\text{Don't know}$
+            \EndIf
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+% AV -> many-candidates problem
+To reduce the \ac{av} problem to the many-candidates problem, we need to generate a large set of imposter candidates.
+% open-set identification/ AA -> open-set AV => equivalence
+\citet{koppel_determining_2014} state that the many-candidates problem is equivalent to the open-set \ac{av} problem.
+% closed-set AA/ identification -> many-candidates problem/ open-set AV/ identification
+The closed-set identification is reducible to the many-candidates problem.
+
+\begin{figure}[htbp]
+    \centering
+    \includesvg{notes/Koppel_imposter_2014/problem_hierarchy_complexity}
+    \caption{Problem hierarchy and complexity.}
+    \label{fig:problem_hierarchy}
+\end{figure}

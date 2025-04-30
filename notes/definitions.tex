@@ -136,8 +136,10 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     Two texts are probably written by different authors if the differences between are robust to changes in the underlying feature set used to represent the documents.
     Differences can be measured using instance-based classification via cross-validation accuracy \cite{koppel_authorship_2011}, 
     creating a performance degradation curve \cite{tyo_state_2022}.
-    An SVM is trained to classify the degradation curve to determine whether two text originated from the same author \cite{tyo_state_2022}.
+    An \ac{svm} is trained to classify the degradation curve to determine whether two text originated from the same author \cite{tyo_state_2022}.
     Provided that the unseen text is very large, this method can handle small open candidate sets \cite{koppel_authorship_2011}.
+    % koppel_determining_2014, pg. 1: based on text chunks
+    \citet{koppel_determining_2014} claim that effective unmasking requires input documents to be large (i.e. > 10000 words).
 \end{definition}
 
 \begin{definition}
@@ -213,7 +215,7 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 
 \begin{definition}
     [Imposter method]
-    This method extends the ngram-unmasking method, i.e. iteratively omitting most influencely features 
+    This method extends the ngram-unmasking method, i.e. iteratively omitting most influencely features (repeated feature subsampling \cite{koppel_determining_2014})
     from a trained classifier and classifying the accuracy drop.
     It takes score of how often an author is predicted after each feature-elimination step.
     The final prediction is made based on this score \cite{tyo_state_2022}.
