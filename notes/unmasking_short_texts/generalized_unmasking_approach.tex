@@ -1,0 +1,41 @@
+\section{Generalized Unmasking Approach}
+\label{sec:generalized_unmasking_approach}
+
+\citet{bevendorff_generalizing_2019} prioritize precision, 
+i.e. high confidence verification of authorship and thus, rejecting low confidence predictions.
+They propose an \todo{open-source, customizable unmasking framework}. % cf. bevendorff_generalizing_2019 for url
+
+\citet{bevendorff_generalizing_2019} propose creating chunks by oversampling words in a bootstrap aggregating manner, 
+Each text is a pool of words, from which words are sampled without replacement.
+The pool is replenished if it is exhausted before the chunk has sufficiently many words.
+Since the random sampling of unmasking features introduces variance, unmasking is performed multiple times and the curves are averaged.
+The algorithm is displayed in \autoref{alg:generalized_unmasking}.
+
+% prediction
+Another linear \ac{svm} classifier is trained on the accuracy curve, its central-difference gradients (first- and second order), and its gradients sorted by magnitude.
+This classifier is used to predict the whether the texts originate from the same author.
+
+\begin{algorithm}
+    \caption{Generalized Unmasking Algorithm}
+    \label{alg:generalized_unmasking}
+    \begin{algorithmic}[1]
+    \Procedure{Unmasking}{$A$, $B$}
+        \Comment{$A$, $B$: input documents}
+    
+        \State $\mathcal{C}_A \gets \text{RandomChunks}(A, 30, 700)$ \Comment{30 chunks, 700 words each}
+        \State $\mathcal{C}_B \gets \text{RandomChunks}(B, 30, 700)$
+        \State $\mathcal{F} \gets \text{TopFreqWords}(A, B, 250)$
+        \State $\mathcal{C} \gets \mathcal{C}_A \cup \mathcal{C}_B$
+
+        
+        \While{$|\mathcal{F}| \geq 0$}
+        \State $a \gets \text{CVAcc}(\mathcal{C}_A, \mathcal{C}_B, \mathcal{F}, linSVM)$ \Comment{Append $10$-fold cross-validation accuracy}
+        \State $\mathcal{F} \gets \mathcal{F} \setminus \mathcal{F}_{\text{top}}^{\pm}$ \Comment{Remove top $5$ most significant positive and negative features}
+    
+        \EndWhile
+    
+        \State \Return List of recorded accuracies $a$
+    \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+    

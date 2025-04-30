@@ -1,0 +1,13 @@
+\section{Generalized Unmasking Metrics}
+\label{sec:generalized_unmasking_metrics}
+
+\citet{bevendorff_generalizing_2019} focus on precision and sacrifice recall.
+Hence, they do not use standard two-class accuracy.
+Opposed to \ac{pan} \citet{bevendorff_generalizing_2019} choose to not use c@1 since it is designed for 
+binary classification with equal weights for both classes.
+They argue that they are primarily interested in the positive class, i.e. the same author.
+Therefore, they choose the $F_0.5u$ measure where non-answers are treated as \acp{fn} as a special case of $F_0.5$:
+$$\frac{(1+0.5^2)n_{tp}}{(1+0.5^2)n_{tp}+0.5^2(n_{fn}+n_{u})+n_{fp}}$$
+$n_{tp}$ denoting the number of true positives, $n_{fp}$ the number of false positives, 
+$n_{fn}$ the number of false negatives, and $n_{u}$ the number of unanswered problems.
+$\beta=0.5$ is used to weight precision higher than recall.

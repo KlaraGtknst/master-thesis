@@ -84,6 +84,7 @@
     [\ac{av}]   % authorship verification
     Given a set of writing samples of author $A$ and a text $t$,    % tyo_state_2022: only one wrinting sample
     the task is to determine whether $t$ was written by $A$ \cite{stein_intrinsic_2011,stamatatos_survey_2009,koppel_authorship_2011,tyo_state_2022}.
+    This task can also be formulated as whether two texts $t_1$ and $t_2$ are written by the same author \cite{bevendorff_generalizing_2019}.
     Related research areas include \cite{stein_intrinsic_2011}:
     \begin{itemize}
         \item stylometry
@@ -128,18 +129,20 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 
 \begin{definition}
     [Unmasking]
-    The idea of this meta learning approach is that with progressively omitting more and more frequent words, 
+    The idea of this meta learning approach is that with progressively omitting more and more frequent words/ most discriminating features, 
     topic specific words are excluded and thus, leaving only writing style specific words \cite{stein_intrinsic_2011}.
     After several iterations, remaining features which are not powerful enough to discriminate two documents indicate that 
     these documents originate from the same author \cite{stein_intrinsic_2011,tyo_state_2022}.
     In other words: 
     Two texts are probably written by different authors if the differences between are robust to changes in the underlying feature set used to represent the documents.
-    Differences can be measured using instance-based classification via cross-validation accuracy \cite{koppel_authorship_2011}, 
+    Differences can be measured using instance-based classification via cross-validation accuracy \cite{koppel_authorship_2011,bevendorff_generalizing_2019}, 
     creating a performance degradation curve \cite{tyo_state_2022}.
-    An \ac{svm} is trained to classify the degradation curve to determine whether two text originated from the same author \cite{tyo_state_2022}.
+    An \ac{svm} is trained to classify the degradation curve to determine whether two text originated from the same author \cite{tyo_state_2022,bevendorff_generalizing_2019}.
     Provided that the unseen text is very large, this method can handle small open candidate sets \cite{koppel_authorship_2011}.
-    % koppel_determining_2014, pg. 1: based on text chunks
-    \citet{koppel_determining_2014} claim that effective unmasking requires input documents to be large (i.e. > 10000 words).
+    % koppel_determining_2014, pg. 1 + bevendorff_generalizing_2019 chap. 3.1 incl. algo: based on text chunks of length >= 500 words each
+    \citet{koppel_determining_2014,bevendorff_generalizing_2019} claim that effective unmasking requires input documents to be large 
+    (i.e. > 10000 words~\cite{koppel_determining_2014}, book-length~\cite{bevendorff_generalizing_2019}).
+    Otherwise the training set becomes too sparse and no descriptive curves can be generated \cite{bevendorff_generalizing_2019}.
 \end{definition}
 
 \begin{definition}
