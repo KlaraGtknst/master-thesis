@@ -12,7 +12,8 @@ Since the random sampling of unmasking features introduces variance, unmasking i
 The algorithm is displayed in \autoref{alg:generalized_unmasking}.
 
 % prediction
-Another linear \ac{svm} classifier is trained on the accuracy curve, its central-difference gradients (first- and second order), and its gradients sorted by magnitude.
+Another linear \ac{svm} classifier is trained on the accuracy curve, its central-difference gradients (first- and second order), 
+and its gradients sorted by magnitude.
 This classifier is used to predict the whether the texts originate from the same author.
 
 \begin{algorithm}
@@ -38,4 +39,15 @@ This classifier is used to predict the whether the texts originate from the same
     \EndProcedure
     \end{algorithmic}
 \end{algorithm}
+
+% hyperparameters
+The most important hyperparameters are the number of chunks, the number of words per chunk, the size of feature vectors, 
+the number of word removals per round, and the number of averaged unmasking runs.
+More chunks result in generally shallower curves while shorter features vectors or more removals produce steep curves.
+Ideally, curves are not too steep and granular enough to allow distinguishing between different same and different author pairs.
+\citet{bevendorff_bias_2019} recommend 25 to 50 chunks, vector sizes of 250 to 400 features, not fewer than 5, yet not more than 20 removals per round, 
+between 500 and 700 words per chunk and about 10 runs to average for a curve.
+They increase the minimal distance between the \ac{svm} hyperplane and the decision boundary, i.e. their confidence parameter $c$, to increase precision.
+In a medium- to high-assurance scenario (where \acp{fp} should be avoided, but are not entirely critical), they recommend $c \geq 0.6$.
+If \acp{fp} should be avoided at all costs, they recommend $c \geq 0.7$.
     
