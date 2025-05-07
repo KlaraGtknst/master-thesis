@@ -3,10 +3,13 @@
 % potential introduction to style chapter
 \citet{bischoff_importance_2020} assume that each author has a unique style, unconsciously encoded in their writing.
 This style depends on the author's personal traits, customs an author adopts due to genre, register, type, and topic.
-These concepts are too vague to be efficiently operationalized.
+These concepts are too vague and ill-separable to be efficiently operationalized.
 The goal is to discover a set of style markers more likely to be determined by the author's personality than by domain customs.
 
 They claim that features frequent function words and word length have a high correlation with topic. \todo{????}
+Hence, traditional author style models are highly susceptible to learning domain-specific features and 
+prone to pick up domain artefacts unless domains are controlled, 
+which imposes severe practical limitations.
 
 % char 3-gram
 \citet{bischoff_importance_2020} analyse the robustness of character trigrams as a feature for \ac{aa}.
@@ -16,7 +19,18 @@ They find that the character trigrams feature set is not robust in a cross-topic
 \citet{bischoff_importance_2020} propose an approach where they train with respect to the author labels, 
 and adversarially train on the texts with respect to their domain labels.
 They claim that this results in discriminative features for the task of \ac{aa} and in 
-indiscriminative for the text domain differences.
+indiscriminative for the text domain differences (i.e. domain-invariant author style features).
+In other words, their goal is to find a writing style encoder $w: \textbf{X} \to \textbf{W}$, 
+where $X$ is the input space of the text and $W$ is the output space of the style representations, 
+such that the author classifier $c_a: \textbf{W} \to Y_a$ is successful and 
+the domain classifier $f_d: \textbf{W} \to \textbf{Y}_d$ is unsuccessful.
+The prediction performance for author labels $Y_a$ is maximized while the 
+prediction performance for domain labels $\textbf{Y}_d$ is minimized.
+Hence, the encoder learns to encode (retain) the author style while ignoring (suppressing) the domain style.
+To achieve this, they reverse (negate) the gradient of the domain classifier $f_d$ during backpropagation 
+which equals the gradient ascent of the original gradient.
+Hence, $w(x)$ is a domain-invariant author style representation of the text $x$. 
+
 
 % Domain swapping
 \citet{bischoff_importance_2020} quantify the influence of domains rather than author style on the performance of models by 
@@ -25,3 +39,13 @@ and the domain-swapped scheme $S_2$ (cf. \autoref{sec:definitions}).
 
 % min len
 \citet{bischoff_importance_2020} claim that the minimum sufficient length to measure author style is 500 words.
+
+% solution for unbalanced data
+Traditional methods to mitigate the influence of unbalanced data are oversampling the underrepresented class, 
+or undersampling the overrepresented class to balance the influence of each class (i.e., in terms of macro accuracy).
+This is not directly applicable to pairs $(y_d, y_a) \in (Y_d, Y_a)$ of labels since tempering with the distribution 
+of one label will inevitably affect the other label.
+\citet{bischoff_importance_2020} propose to use a weighted macro author accuracy to balance the influence of the classes.
+The texts from author $A$ are weighted with $\frac{m}{n_a}$, 
+where $m$ is the number of authors in the dataset and $n_a$ is the number of texts from author $A$.
+Likewise, the domain accuracy and domain loss are calculated.

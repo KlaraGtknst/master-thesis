@@ -215,6 +215,13 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     [text distortion]
     This domain-adversial method substitutes out-of-vocaublary items with asterisks $*$ \cite{tyo_state_2022}.
     Its goal is to reduce domain-specific information \cite{bischoff_importance_2020}.
+    Distortion algorithms include \cite{bischoff_importance_2020}:
+    \begin{itemize}
+        \item Replacing tokens with multiple asterisks
+        \item Replacing tokens with single asterisks
+        \item Retaining only exterior characters of words in a dictionary
+        \item Retaining the last two characters
+    \end{itemize}
 \end{definition}
 
 \begin{definition}
@@ -253,7 +260,6 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     Two major problems include the lack of large-scale parallel training data (i.e., texts written in both styles), 
     and the lack of reliable evaluation metric (i.e. assessment by humans) \cite{bischoff_importance_2020}.
 \end{definition}
-
 
 \begin{definition}
     [Author obfuscation]
@@ -300,6 +306,14 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
         \end{tabular}%
         }
     \end{table}
+    There are two kinds of domain swapping:
+    \begin{itemize}
+        \item \textbf{Zero-knowledge swapping}: Maximizes the potential for confusion during training, 
+        since the models never see an author in writing in the other author's respective fandom.
+        This approach aggravates adversarial training, since it needs domain knowledge to be effective.
+        \item \textbf{High-imbalance swapping}: Imbalance is swapped between the training and test set. 
+        This is an approximation of the zero-knowledge swapping, while still allowing adversarial learning.
+    \end{itemize}
 \end{definition}
 
 \begin{definition}
