@@ -75,7 +75,7 @@
 \begin{definition}
     [\ac{aa}]   % authorship attribution
     The task of determining the author of a text based on textual features 
-    given a (canonical) set of candidate authors with undisputed writing samples \cite{stein_intrinsic_2011,stamatatos_survey_2009,tyo_state_2022}.
+    given a (canonical) set of candidate authors with undisputed writing samples \cite{stein_intrinsic_2011,stamatatos_survey_2009,tyo_state_2022,bischoff_importance_2020}.
     In terms of machine learning, this is a multiclass, single-label text categorization task \cite{stamatatos_survey_2009}.
     The task is also referred to as author(ship) identification \cite{stamatatos_survey_2009}.
 \end{definition}
@@ -214,6 +214,7 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 \begin{definition}
     [text distortion]
     This domain-adversial method substitutes out-of-vocaublary items with asterisks $*$ \cite{tyo_state_2022}.
+    Its goal is to reduce domain-specific information \cite{bischoff_importance_2020}.
 \end{definition}
 
 \begin{definition}
@@ -235,4 +236,77 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     Due to the fact, that the most difficult example is model-dependent, \ac{av} problems can be made harder 
     but they can not exist of exactly the hardest negatives.
 \end{definition}
+
+\begin{definition}
+    [Domain]
+    The domain include topic, genre, register, idiolect, time period etc. \cite{bischoff_importance_2020}.
+\end{definition}
   
+\begin{definition}
+    [Domain variables]
+    These include topic, genre and language \cite{bischoff_importance_2020}.
+\end{definition}
+
+\begin{definition}
+    [Style transfer]
+    Translation or rather paraphrasing a text from a source style to a desired target style.
+    Two major problems include the lack of large-scale parallel training data (i.e., texts written in both styles), 
+    and the lack of reliable evaluation metric (i.e. assessment by humans) \cite{bischoff_importance_2020}.
+\end{definition}
+
+
+\begin{definition}
+    [Author obfuscation]
+    Task of paraphrasing a text to render an author's style imperceptible.
+    Usually, another text from the author is used as a reference for style similarity \cite{bischoff_importance_2020}.
+\end{definition}
+
+\begin{definition}
+    [within-domain]
+    Experiments with P=Q.
+    Hence, it is necessary to ensure all texts are mutually from the same domain \cite{bischoff_importance_2020}.
+    \begin{table}[]
+        \centering
+        \caption{Typical scheme $S_1$ for \ac{aa} problem instances, where A, B, are authors and P, Q domains and 
+        the vertical mapping denotes which author has written in which domain. 
+        For training, texts from A and B take turn; for testing, previously unseen texts from A and B are used \cite{bischoff_importance_2020}.}
+        \label{tab:within_domain_aa}
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|l|ll|ll|}
+        \hline
+        \textbf{Scheme $S_1$} & \multicolumn{2}{l|}{\textbf{training}} & \multicolumn{2}{l|}{\textbf{testing}} \\ \hline
+        \textbf{authors} & \multicolumn{1}{l|}{A} & B & \multicolumn{1}{l|}{A} & B \\ \hline
+        \textbf{domains} & \multicolumn{1}{l|}{P} & Q & \multicolumn{1}{l|}{P} & Q \\ \hline
+        \end{tabular}%
+        }
+    \end{table}
+\end{definition}
+
+\begin{definition}
+    [Domain swapping]
+    Experiments with P$\neq$Q \cite{bischoff_importance_2020}.
+    \begin{table}[]
+        \centering
+        \caption{Domain-swapping scheme $S_2$ for \ac{aa} problem instances, where A, B, are authors and P, Q domains and 
+        the vertical mapping denotes which author has written in which domain. 
+        For training, texts from A and B take turn; for testing, previously unseen texts from A and B are used \cite{bischoff_importance_2020}.}
+        \label{tab:within_domain_aa}
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|l|ll|ll|}
+        \hline
+        \textbf{Scheme $S_2$} & \multicolumn{2}{l|}{\textbf{training}} & \multicolumn{2}{l|}{\textbf{testing}} \\ \hline
+        \textbf{authors} & \multicolumn{1}{l|}{A} & B & \multicolumn{1}{l|}{A} & B \\ \hline
+        \textbf{domains} & \multicolumn{1}{l|}{P} & Q & \multicolumn{1}{l|}{Q} & P \\ \hline
+        \end{tabular}%
+        }
+    \end{table}
+\end{definition}
+
+\begin{definition}
+    [train-test-validation split]
+    \citet{bischoff_importance_2020} train their model on a selection of the dataset (i.e. training set), 
+    optimize the model's hyperparameters on a second disjoint selection of the dataset (i.e. validation set),
+    and evaluate the model on a third disjoint selection of the dataset (i.e. test set).
+    They ensure that there is no data leakage between the training, validation and test sets 
+    (i.e. prevent parts of one fanfiction being in more than one of the data splits).
+\end{definition}

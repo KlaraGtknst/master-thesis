@@ -1,0 +1,27 @@
+\section{Suppressing Domain Style}
+
+% potential introduction to style chapter
+\citet{bischoff_importance_2020} assume that each author has a unique style, unconsciously encoded in their writing.
+This style depends on the author's personal traits, customs an author adopts due to genre, register, type, and topic.
+These concepts are too vague to be efficiently operationalized.
+The goal is to discover a set of style markers more likely to be determined by the author's personality than by domain customs.
+
+They claim that features frequent function words and word length have a high correlation with topic. \todo{????}
+
+% char 3-gram
+\citet{bischoff_importance_2020} analyse the robustness of character trigrams as a feature for \ac{aa}.
+They find that the character trigrams feature set is not robust in a cross-topic setting, but across two genres.
+
+% this approach
+\citet{bischoff_importance_2020} propose an approach where they train with respect to the author labels, 
+and adversarially train on the texts with respect to their domain labels.
+They claim that this results in discriminative features for the task of \ac{aa} and in 
+indiscriminative for the text domain differences.
+
+% Domain swapping
+\citet{bischoff_importance_2020} quantify the influence of domains rather than author style on the performance of models by 
+computing the difference $\Delta(S_1,S_2)$ of the model performances in both the traditional scheme $S_1$ 
+and the domain-swapped scheme $S_2$ (cf. \autoref{sec:definitions}).
+
+% min len
+\citet{bischoff_importance_2020} claim that the minimum sufficient length to measure author style is 500 words.
