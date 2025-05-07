@@ -1,0 +1,82 @@
+\section{Voigt-Kampff}
+\label{sec:voigt_kampff}
+\newcommand{\voigtkampff}{Voigt-Kampff}
+
+% problem definition
+\citet{bevendorff_overview_2024} present results from the \voigtkampff{} challenge at 
+\ac{pan} and \ac{eloquent} at \ac{clef} 2024.
+The task is to determine whether a text was \ac{ai} generated or written by a human.
+The authors want to establish a baseline and thus, choose to formulate the task in its simplest form:
+\begin{quote}
+    \textit{Given two texts, one authored by a human, one by a machine: pick out the human.}
+\end{quote}
+As in its fictional inspiration, 
+\textit{Blade Runner} where an officer uses the \voigtkampff{} machine to test whether a subject is a replicant, 
+the challenge is presented in a builder-breaker format:
+\begin{itemize}
+    \item \textbf{Builder at \ac{pan}}: Participants are asked to build a system that can detect 
+    whether a text was written by a human or an \ac{ai}.
+    \item \textbf{Breaker at \ac{eloquent}}: Participants are asked to build a system that can 
+    generate texts that are indistinguishable from human-written texts.
+\end{itemize}
+Participants' submissions compete in an adversarial setting.
+
+% similarity to Authorship identification
+\citet{bevendorff_overview_2024} note the similarity to \ac{aa} and \ac{av} tasks, 
+where the \ac{ai} is considered an author that exhibits identifiable characteristics.
+They want prior research of authorship tasks in this \ac{ai} detection task to be considered.
+Baselines for the \ac{ai} detection task include two \ac{av} systems, 
+where each text is split in half and comparing them under the assumption that \ac{llm} texts 
+are more self-similar than human texts.
+The baselines are a compression model (\todo{PPMd Compression-based Cosine}) and 
+short-text authorship unmasking.
+\citet{bevendorff_overview_2024} also assume that \ac{llm}-generated texts show 
+weaker coherence and textual entailment between sentences.
+
+% machine/ AI
+In this context, \ac{ai} refers to a language model.
+They recommended using the following prompt to instruct the \ac{llm} to generate a text 
+based on the bulletpoint summary of a news article generated as described in \cite{pan_dataset_authorship_verification}:
+\begin{quote}
+    \textit{Write a text of about 500 words which covers the following items:}
+\end{quote}
+% 9 different language models
+The language models used in the challenge are:
+\begin{itemize}
+    \item \textbf{Poro} is an open-source, freely available multilingual decoder-only model.
+    \item \textbf{Mistral}is an open-source, freely available model and trained for conversational data.
+    \item and more cf. pg.8 \cite{bevendorff_overview_2024}
+\end{itemize}
+\citet{bevendorff_overview_2024} manually reviewed the generated texts and removed obvious artefacts 
+(i.e., typical \ac{llm} chat phrases, excessive bullet lists, etc.).
+They found that \ac{llm} texts failed to incorporate the quotes in the text and count the number of words.
+The majority of open-source models were found to be less prone to these artefacts than closed-source \acp{llm}.
+Finally, \citet{bevendorff_overview_2024} truncated the human texts to the same length as the \ac{llm} texts by 
+fitting a \todo{log-normal distribution} to the \ac{llm} text lengths and drawing from the distribution for each human text.
+The drawn samples were used as starting point and texts were truncated after the nearest paragraph ending in a window of at most 200 characters.
+
+% test case
+\citet{bevendorff_overview_2024} chose to hold back a variant of Gemini Pro model on the training set to test 
+how robust submitted solutions are against the unseen \ac{llm} models.
+
+% model output
+\citet{bevendorff_overview_2024} chose to adapt the \ac{pan} \ac{av} scoring scheme.
+During inference, the models received pairs of human and \ac{llm} texts.
+For each sample, a score $\in [0, 1]$ is assigned to the sample.
+For a score $<0.5$, the model predicts the left text to be human,
+and for a score $>0.5$, the model predicts the right text to be human.
+A score of exactly 0.5 means the model abstains from the sample.
+
+% model metrics
+They defined the effectiveness of the systems, i.e. models, as the arithmetic mean of the metrics defined in \autoref{sec:pan_evaluation}, 
+where each metric is $\in [0, 1]$.
+They correct all metrics by discounting half a standard deviation, estimated on each dataset individually, 
+from the system's scores \todo{with $n-1$ degrees of freedom}.
+This penalizes unstable systems with widely varying scores on the individual dataset variants, 
+and promotes systems more robust to the dataset variants' alterations, including text obfuscation and modification.
+Finally, they computed the \todo{macro-averaged} scores across all datasets since they consider all datasets evenly important 
+(even those with fewer number of examples).
+With regard to the leader board, i.e. ranking of the approaches, they computed a \todo{mean score correlation coefficient (Kendall's $\tau$)}.
+
+% dataset metrics
+They defined the difficulty of the datasets as the inverse mean effectiveness score of the detection systems.

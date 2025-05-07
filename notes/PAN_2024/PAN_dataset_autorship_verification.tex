@@ -2,21 +2,30 @@
 \label{sec:pan_dataset_authorship_verification}
 
 % acquisition
-\citet{ayele_overview_2024} collected articles of major 2021 US news from Google News.
-They chose this time period since it predates the release of GPT-3.5.
+\citet{ayele_overview_2024,bevendorff_overview_2024} collected articles of major 2021 US news from Google News (Pan AI News 2021 \cite{bevendorff_overview_2024}).
+They chose this time period since it predates the release of GPT-3.5 \cite{bevendorff_overview_2024,ayele_overview_2024}.
 As a consequence, they claim that their dataset is most likely human-authored.
 % artificial texts
-Next, they used GPT-4-Turbo to create bullet-point summaries of the articles. 
-Based on these summaries, 15 \acp{llm}-generated newspaper articles.
+Next, they used GPT-4-Turbo to create bullet-point summaries of the articles \cite{bevendorff_overview_2024,ayele_overview_2024}. 
+According to \citet{bevendorff_overview_2024}, the prompt used to generate the summaries in 2021 was:
+\begin{quote}
+    \textit{Summarize the following text in five to six short bullet points and give an overall description
+    of the genre and tone of the text.}
+\end{quote}
+% in JSON format:
+Moreover, they extracted the article's type (nine classes), target audience (three classes), the author's political stance (three classes), the article's dateline, 
+and the names and functions of directly quoted spokespersons, if any \cite{bevendorff_overview_2024}.
+Based on these summaries, 15 \acp{llm}-generated newspaper articles \cite{ayele_overview_2024}.
+They were prompted to assume the role of the journalist describes by the additional information extracted from the original texts \cite{bevendorff_overview_2024}.
 % split
 The authors split the dataset into training and test set.
 % robustness
-In order to test the submissions' robustness, \citet{ayele_overview_2024} generated 65 variants of the newspapers in the test split.
+In order to test the submissions' robustness, \citet{ayele_overview_2024,bevendorff_overview_2024} generated 65 variants of the newspapers in the test split.
 These variants include:
 \begin{enumerate}
     \item Change English to German texts
     \item Replace 15\% of the characters
-    \item Shuffling test case pairs to break topic coherence \todo{macht es das nicht leichter?}
+    \item Cross topic: Shuffling test case pairs to break topic coherence \todo{macht es das nicht leichter?}
     \item Contrastive decoding instead of top-k/top-p sampling
     \item Cropping texts to 35 words
     \item Using the prompt from a previous Kaggle competition on \ac{llm} detection to generate more faithful paraphrases of the original articles
