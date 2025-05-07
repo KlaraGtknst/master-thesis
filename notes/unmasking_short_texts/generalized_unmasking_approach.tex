@@ -3,9 +3,11 @@
 
 \citet{bevendorff_generalizing_2019} prioritize precision, 
 i.e. high confidence verification of authorship and thus, rejecting low confidence predictions.
+As an example use-case where high precision is required, they mention wrong convictions.
 They propose an \todo{open-source, customizable unmasking framework}. % cf. bevendorff_generalizing_2019 for url
+Moreover, they claim good performance on short text which inherently contain high amount of uncertainty since they have low stylistic information content.
 
-\citet{bevendorff_generalizing_2019} propose creating chunks by oversampling words in a bootstrap aggregating manner, 
+\citet{bevendorff_generalizing_2019} propose creating chunks by oversampling words in a bootstrap aggregating manner. 
 Each text is a pool of words, from which words are sampled without replacement.
 The pool is replenished if it is exhausted before the chunk has sufficiently many words.
 Since the random sampling of unmasking features introduces variance, unmasking is performed multiple times and the curves are averaged.
@@ -50,4 +52,9 @@ between 500 and 700 words per chunk and about 10 runs to average for a curve.
 They increase the minimal distance between the \ac{svm} hyperplane and the decision boundary, i.e. their confidence parameter $c$, to increase precision.
 In a medium- to high-assurance scenario (where \acp{fp} should be avoided, but are not entirely critical), they recommend $c \geq 0.6$.
 If \acp{fp} should be avoided at all costs, they recommend $c \geq 0.7$.
+\citet{bevendorff_bias_2019} claim that, for this approach, hyperparameter tuning is simpler than for black box approaches.
+
+% metric results
+\citet{bevendorff_bias_2019} report that the generalized unmasking approach heavily prioritizes precision 
+opposed to compression-based approaches that balance precision and recall.
     
