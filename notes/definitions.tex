@@ -193,7 +193,8 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 
 \begin{definition}
     [n-gram]
-    $n$ contiguous words also known as word collocations.
+    $n$ contiguous words also known as word collocations. \todo{cite, reference?\cite{koppel_authorship_2011}?}
+    n-grams are no stylometric features \cite{altakrori_topic_2021}.
 \end{definition}
 
 \begin{definition}
@@ -226,6 +227,8 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     For example, in the training set, the author $A_1$ writes about topic $T_1$, author $A_2$ writes about topic $T_2$ 
     and in the test set, 
     the author $A_1$ writes about topic $T_2$ while author $A_2$ writes about topic $T_1$ \cite{tyo_state_2022,altakrori_topic_2021}.
+    Intuitive, the more a feature is influenced by the topic of document to identify its author, 
+    the more confusion it will be to the classifier when the topic-author combination is switched, which will lead to performance deterioration \cite{altakrori_topic_2021}.
 \end{definition}
 
 \begin{definition}
@@ -316,14 +319,12 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
         the vertical mapping denotes which author has written in which domain. 
         For training, texts from A and B take turn; for testing, previously unseen texts from A and B are used \cite{bischoff_importance_2020}.}
         \label{tab:within_domain_aa}
-        \resizebox{\textwidth}{!}{%
         \begin{tabular}{|l|ll|ll|}
         \hline
         \textbf{Scheme $S_2$} & \multicolumn{2}{l|}{\textbf{training}} & \multicolumn{2}{l|}{\textbf{testing}} \\ \hline
         \textbf{authors} & \multicolumn{1}{l|}{A} & B & \multicolumn{1}{l|}{A} & B \\ \hline
         \textbf{domains} & \multicolumn{1}{l|}{P} & Q & \multicolumn{1}{l|}{Q} & P \\ \hline
         \end{tabular}%
-        }
     \end{table}
     There are two kinds of domain swapping:
     \begin{itemize}
@@ -337,11 +338,13 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 
 \begin{definition}
     [train-test-validation split]
-    \citet{bischoff_importance_2020} train their model on a selection of the dataset (i.e. training set), 
+    \citet{bischoff_importance_2020,altakrori_topic_2021} train their model on a selection of the dataset (i.e. training set), 
     optimize the model's hyperparameters on a second disjoint selection of the dataset (i.e. validation set),
     and evaluate the model on a third disjoint selection of the dataset (i.e. test set).
-    They ensure that there is no data leakage between the training, validation and test sets 
+    \citet{bischoff_importance_2020} ensure that there is no data leakage between the training, validation and test sets 
     (i.e. prevent parts of one fanfiction being in more than one of the data splits).
+    \citet{altakrori_topic_2021} ensure the classifier to be trained has no access to any information about the setup 
+    (topic confusion: group configuration or topic labels).
 \end{definition}
 
 \begin{definition}
@@ -353,3 +356,45 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     [Cross-topic]
     New, unseen topics are used in the testing phase \cite{altakrori_topic_2021}.
 \end{definition}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[]
+    \centering
+    \caption{\ac{aa} scenarios with author $i$ is shortened with $A_i$ \cite{altakrori_topic_2021}.}
+    \label{tab:aa_same_topic}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{} & \textbf{Train} & \textbf{Test} \\ \hline
+    \textbf{Topic $T_1$} & $A_1, A_2$ & $A_1, A_2$ \\ \hline
+    \textbf{Topic $T_2$} & $A_1, A_2$ & $A_1, A_2$ \\ \hline
+    \end{tabular}%
+\end{table}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[]
+    \centering
+    \caption{\ac{aa} scenarios with author $i$ is shortened with $A_i$ \cite{altakrori_topic_2021}.}
+    \label{tab:aa_cross_topic}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{} & \textbf{Train} & \textbf{Test} \\ \hline
+    \textbf{Topic $T_1$} & $A_1, A_2$ &  \\ \hline
+    \textbf{Topic $T_2$} &  & $A_1, A_2$ \\ \hline
+    \end{tabular}%
+\end{table}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[]
+    \centering
+    \caption{\ac{aa} scenarios with author $i$ is shortened with $A_i$ \cite{altakrori_topic_2021}.}
+    \label{tab:aa_topic_confusion}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{} & \textbf{Train} & \textbf{Test} \\ \hline
+    \textbf{Topic $T_1$} & $A_1$ & $A_2$ \\ \hline
+    \textbf{Topic $T_2$} & $A_2$ & $A_1$ \\ \hline
+    \end{tabular}%
+\end{table}

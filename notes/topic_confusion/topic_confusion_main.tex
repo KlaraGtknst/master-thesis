@@ -1,0 +1,126 @@
+\section{Topic Confusion}
+\label{sec:topic_confusion}
+
+% error
+\citet{altakrori_topic_2021} propose topic confusion.
+It is a task specifically designed to evaluate \ac{aa} models' effectiveness.
+The task splits the error into two parts:
+\begin{itemize}
+    \item \textbf{Models' confusion}: The model is confused about the topic of the text.
+    \item \textbf{Features' inability}: The features are unable to capture the authors' writing style.
+\end{itemize}
+
+% dependency of author and topic
+\citet{altakrori_topic_2021} present an example to explain the dependency of author and topic:
+Consider a topic defined by a unique word distribution.
+An author selects a subset of words from the topic due to the limited length of documents.
+Since the authors choose wordings, i.e. synonyms, the dependency of the topic on the author varies from one author to another.
+Based on this, they model the attribution process as follows:
+
+\begin{equation}
+    \label{eq:topic_confusion_model_world}
+    P(A,T,D) = P(A) P(T \mid A)P(D\mid A,T)
+\end{equation}
+
+\begin{equation}
+    \label{eq:topic_confusion_attribution_process}
+    P(A=a \mid D) \propto \sum_{T}^{t}\left[ P(A=a) P(T=t \mid A = a)P(D\mid T=t,A=a) \right]
+\end{equation}
+
+% topic confusion
+Opposed to traditional cross-topic \ac{aa} tasks, 
+which do not shed any light on whether the error arose from the topic or the features themselves, 
+\citet{altakrori_topic_2021}'s topic confusion task offers insights in the error sources and 
+whether features are indicative of writing style or topic.
+% data constraints
+The task requires writing samples written by $N$ authors on $T$ topics where $N \geq 4$ and $T \geq 3$ and 
+each author has written approximately the same number of samples on each topic.
+% procedure
+First, authors are divided into two groups.
+During training, the model receive only topic $A$ for authors in group one and topic $B$ for authors in group two.
+Topic $A$ and topic $B$ are chosen randomly.
+During testing, the group-topic configuration is flipped.
+Unused writing samples are used for the validation set.
+
+% metrics
+\citet{altakrori_topic_2021} define three metrics:
+\begin{itemize}
+    \item \textbf{Correct (\%)}: Percentage of correctly classified samples.
+    \item \textbf{Same-group error (\%)}: Percentage of samples that were attributed to the wrong author but within the same group 
+    as the correct author.
+    \item \textbf{Cross-group error (\%)}: Percentage of samples that were attributed to the wrong author and to the author group 
+    that does not contain the correct author.
+\end{itemize}
+
+% explanation
+Topic invariant features capture the writing style of the author.
+Hence, the model should perform well on the test set.
+Features that capture topic rather than writing style lead to a model classifying according to topic, 
+resulting in cross-group errors.
+Other error sources result in same-group errors.
+
+\subsection{Common classifiers and features}
+\label{sec:topic_confusion_classifiers}
+% common models
+Common options of classifiers are \acp{svm}, \ac{nb} and decision trees.
+\citet{altakrori_topic_2021} attach their hyperparameter configuration for a \ac{svm} classifier to their paper.
+They also state n-grams are a common approach to represent documents in \ac{aa} tasks.
+Commonly, tokenization for n-grams is done either on the word level or on the character level.
+\citet{altakrori_topic_2021} also include \ac{pos}-level n-grams in their feature set 
+which are considered an essential indication of style.
+If large pre-trained language models are used with the comparably small training datasets, embedding layers are frozen and 
+only the classification layer is trained.
+
+\subsection{Features}
+\label{sec:topic_confusion_features}
+% features
+% stylometric features
+Based on empirical evidence (one paper, one dataset), stylometric features are rather topic-invariant \cite{altakrori_topic_2021}.
+% POS
+According to \citet{altakrori_topic_2021}, \ac{pos} tags capture stylistic variations in language grammar between authors.
+% n-grams
+Character-level n-grams are favourable over word-level n-grams in terms of cross-group error.
+Hence, character-level n-grams are more topic-invariant than word-level n-grams.
+
+\subsection{Masking}
+\label{sec:topic_confusion_masking}
+% masking
+\citet{altakrori_topic_2021} also include a masking technique to replace every character in masked words with (*) and all digits by (\#).
+Low frequency words in the British National Corpus (BNC) are masked.
+After masking, the original document structure is recreated, based on which the n-gram features are extracted.
+
+% Imbalanced dataset
+\subsection{Imbalanced Dataset}
+\label{sec:topic_confusion_imbalanced_dataset}
+\citet{altakrori_topic_2021} state that proper metrics for imbalanced datasets include 
+weighted accuracy, precision, recall and F-Score.
+
+
+\subsection{\ac{ap} model}
+\label{sec:topic_confusion_ap_model}
+\citet{altakrori_topic_2021} train a separate neural language model for each author.
+Each model is called an \ac{ap} model.
+Embedding layers are intialized with pre-trained equivalences.
+
+\subsection{How \ac{ap} model works}
+\label{sec:topic_confusion_ap_model_works}
+For a document of disputed authorship, the average perplexity of all \ac{ap} models is calculated.
+The perplexity scores are normalized using a normalization vector $\begin{pmatrix}
+    n_0
+     \\\vdots 
+     \\n_k
+    
+    \end{pmatrix}$
+where $n_i$ is the average perplexity of author $A_i$ on the normalization corpus.
+\citet{altakrori_topic_2021} propose two normalization corpora:
+\begin{itemize}
+    \item \textbf{Training set}
+    \item \textbf{Testing set without labels} (unrealistic scenario, since often only one document is available during inference)
+\end{itemize}
+The lowest perplexity score is assigned the author of the document.
+
+\subsection{Shortcomings of \acp{lm}}
+\label{sec:topic_confusion_shortcomings_lm}
+\citet{altakrori_topic_2021} suspect that due to the nature of \acp{lm}, where words of similar meaning, i.e. "color" and "colour", 
+are mapped to a similar vector, they do not work well in \ac{aa} tasks.
+In \ac{aa} tasks, language system differences are highly relevant since they reveal the author's identity.  
