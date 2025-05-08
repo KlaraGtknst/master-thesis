@@ -11,9 +11,24 @@
 
 \begin{definition}
     [Stylometry]
+    Analysis of authorial style.
+    Stylometry assumes that style is quantifiably measurable for evaluation of distinctive qualities \cite{neal_surveying_2018}.
     The construction of models for the quantification of writing style, text complexity, and grading level assessment.
     Stylometric features include lexical, syntactic and structural features \cite{stein_intrinsic_2011}.
     In other words, stylometry is the statistical analysis of literary style between one writer or genre and another \cite{tyo_state_2022}.
+    Research includes five subtasks \cite{neal_surveying_2018}:
+    \begin{itemize}
+        \item \ac{aa}
+        \item \ac{av}
+        \item Author profiling
+        \item \todo{stylochronometry}
+        \item adversarial stylometry
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    [Author writing style]
+    Among others, syntactic structure of sentences in a document \cite{jafariakinabad_self_supervised_2022}.
 \end{definition}
 
 \begin{definition}
@@ -62,7 +77,7 @@
 
 \begin{definition}
     [Authorship analysing]
-    This problem devises into two \textcolor{orange}{(i.e. first two acc. to \cite{stein_intrinsic_2011}, all acc. to \cite{stamatatos_survey_2009})} subproblems \cite{stein_intrinsic_2011}:
+    This problem devises into two \textcolor{orange}{(i.e. first two acc. to \cite{stein_intrinsic_2011}, all acc. to \cite{stamatatos_survey_2009})} subtasks \cite{stein_intrinsic_2011}:
     \begin{itemize}
         \item \ac{aa} \cite{stein_intrinsic_2011}
         \item \ac{av} \cite{stein_intrinsic_2011,stamatatos_survey_2009}
@@ -75,7 +90,7 @@
 \begin{definition}
     [\ac{aa}]   % authorship attribution
     The task of determining the author of a text based on textual features 
-    given a (canonical) set of candidate authors with undisputed writing samples \cite{stein_intrinsic_2011,stamatatos_survey_2009,tyo_state_2022,bischoff_importance_2020}.
+    given a (canonical) set of candidate authors with undisputed writing samples \cite{stein_intrinsic_2011,stamatatos_survey_2009,tyo_state_2022,bischoff_importance_2020,barlas_cross_domain_2020,altakrori_topic_2021}.
     In terms of machine learning, this is a multiclass, single-label text categorization task \cite{stamatatos_survey_2009}.
     The task is also referred to as author(ship) identification \cite{stamatatos_survey_2009}.
 \end{definition}
@@ -84,7 +99,8 @@
     [\ac{av}]   % authorship verification
     Given a set of writing samples of author $A$ and a text $t$,    % tyo_state_2022: only one wrinting sample
     the task is to determine whether $t$ was written by $A$ \cite{stein_intrinsic_2011,stamatatos_survey_2009,koppel_authorship_2011,tyo_state_2022}.
-    This task can also be formulated as whether two texts $t_1$ and $t_2$ are written by the same author \cite{bevendorff_generalizing_2019}.
+    This task can also be formulated as whether two texts $t_1$ and $t_2$ are written by the same author 
+    \cite{bevendorff_generalizing_2019,bevendorff_divergence_based_2020,embarcadero_ruiz_graph_based_2022,rivera_soto_learning_2021,ordonez_will_2020,futrzynski_pairwise_2021,weerasinghe_feature_vector_difference_2021}.
     Related research areas include \cite{stein_intrinsic_2011}:
     \begin{itemize}
         \item stylometry
@@ -205,10 +221,11 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 \begin{definition}
     [Topic-confusion]
     In this setting, all topics appear in both training and test set. 
-    However, the topics of the texts for each author changes in the test set.
+    However, the topics of the texts for each author changes in the test set, 
+    i.e. author-topic configuration is switched between training and testing.
     For example, in the training set, the author $A_1$ writes about topic $T_1$, author $A_2$ writes about topic $T_2$ 
     and in the test set, 
-    the author $A_1$ writes about topic $T_2$ while author $A_2$ writes about topic $T_1$ \cite{tyo_state_2022}.
+    the author $A_1$ writes about topic $T_2$ while author $A_2$ writes about topic $T_1$ \cite{tyo_state_2022,altakrori_topic_2021}.
 \end{definition}
 
 \begin{definition}
@@ -265,6 +282,8 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     [Author obfuscation]
     Task of paraphrasing a text to render an author's style imperceptible.
     Usually, another text from the author is used as a reference for style similarity \cite{bischoff_importance_2020}.
+    In other words: It is the adversarial task of preventing successful verification by altering the text's style so that 
+    it no longer resembles the original author's style \cite{bevendorff_divergence_based_2020}.
 \end{definition}
 
 \begin{definition}
@@ -323,4 +342,14 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     and evaluate the model on a third disjoint selection of the dataset (i.e. test set).
     They ensure that there is no data leakage between the training, validation and test sets 
     (i.e. prevent parts of one fanfiction being in more than one of the data splits).
+\end{definition}
+
+\begin{definition}
+    [Cross-domain]
+    Texts of known authorship (training set) differ from texts of disputed authorship (test set) in topic or genre \cite{barlas_cross_domain_2020}.
+\end{definition}
+
+\begin{definition}
+    [Cross-topic]
+    New, unseen topics are used in the testing phase \cite{altakrori_topic_2021}.
 \end{definition}
