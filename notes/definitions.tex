@@ -2,16 +2,32 @@
 \label{sec:definitions}
 
 
+% \begin{definition}
+%     []
+% \end{definition}
+
+\begin{definition}
+    [Text]
+    A sequence of tokens or characters grouped into sentences \cite{elmanarelbouanani_authorship_2014}.
+\end{definition}
+
+\begin{definition}
+    [Token]
+    A token can be a word, a number or a punctuation mark \cite{elmanarelbouanani_authorship_2014}.
+\end{definition}
+
 \begin{definition}
     [Author profiling]
     Task of inferring an extensive set of (sensitive) personal information.
-    This includes age, gender, education, socio-economic status and mental health issues \cite{emmery_adversarial_2021,stamatatos_survey_2009}.
-    The task is also referred to as author characterization \cite{stamatatos_survey_2009}.
+    This includes sociolinguistic attributes like age, gender, occupation, education, socio-economic status, cultural background, 
+    language familiarity and mental health issues 
+    \cite{emmery_adversarial_2021,stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
+    The task is also referred to as author characterization \cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
 \end{definition}
 
 \begin{definition}
     [Stylometry]
-    Analysis of authorial style.
+    Liguistic research area, which refers to the (statistical) analysis of authorial/ literally style \cite{elmanarelbouanani_authorship_2014,neal_surveying_2018}.
     Stylometry assumes that style is quantifiably measurable for evaluation of distinctive qualities \cite{neal_surveying_2018}.
     The construction of models for the quantification of writing style, text complexity, and grading level assessment.
     Stylometric features include lexical, syntactic and structural features \cite{stein_intrinsic_2011}.
@@ -27,9 +43,22 @@
 \end{definition}
 
 \begin{definition}
+    [Stylistics]
+    The study of stylometric features \cite{elmanarelbouanani_authorship_2014}.
+\end{definition}
+
+\begin{definition}
     [Author writing style]
     Among others, syntactic structure of sentences in a document \cite{jafariakinabad_self_supervised_2022}.
 \end{definition}
+
+\citet{elmanarelbouanani_authorship_2014} claim there are four types of writing style features:
+\begin{itemize}
+    \item Lexical features
+    \item Syntactic features
+    \item Structural features
+    \item Content-specific features 
+\end{itemize}
 
 \begin{definition}
     [Style markers]
@@ -58,12 +87,17 @@
 
 \begin{definition}
     [Plagiarism]
-    In the context of texts, plagiarism is the usage of another author's information, language, or writing without properly acknowledging the original source \cite{stein_intrinsic_2011}.
+    In the context of texts, plagiarism is the usage of another author's information, language, 
+    or writing without properly acknowledging the original source \cite{stein_intrinsic_2011}.
+    \citet{elmanarelbouanani_authorship_2014} define plagiarism as the complete or partial replication 
+    of a piece of work with or without permission of the original author.
 \end{definition}
 
 \begin{definition}
     [Plagiarism detection]
     The task of identifying plagiarized text \cite{stein_intrinsic_2011}, i.e. finding similarities between two texts \cite{stamatatos_survey_2009}.
+    Plagiarism detection uses similarity detection, determining whether multiple pieces of work were produced by a single author 
+    without necessarly identifying the author \cite{elmanarelbouanani_authorship_2014}.
 \end{definition}
 
 \begin{definition}
@@ -90,10 +124,21 @@
 \begin{definition}
     [\ac{aa}]   % authorship attribution
     The task of determining the author of a text based on textual features 
-    given a (canonical) set of candidate authors with undisputed writing samples \cite{stein_intrinsic_2011,stamatatos_survey_2009,tyo_state_2022,bischoff_importance_2020,barlas_cross_domain_2020,altakrori_topic_2021,bevendorff_divergence_based_2020}.
-    In terms of machine learning, this is a multiclass, single-label text categorization task \cite{stamatatos_survey_2009}.
-    The task is also referred to as author(ship) identification \cite{stamatatos_survey_2009}.
+    given a (canonical) set of candidate authors with undisputed writing samples 
+    \cite{stein_intrinsic_2011,stamatatos_survey_2009,tyo_state_2022,bischoff_importance_2020,barlas_cross_domain_2020,altakrori_topic_2021,bevendorff_divergence_based_2020,elmanarelbouanani_authorship_2014}.
+    In terms of machine learning, this is a multiclass, single-label text categorization task \cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014} or text classification task \cite{elmanarelbouanani_authorship_2014}.
+    The task is also referred to as author(ship) identification \cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
 \end{definition}
+
+\citet{elmanarelbouanani_authorship_2014} describe the workflow of \ac{aa} as follows:
+\begin{enumerate}
+    \item Data cleaning
+    \item Feature extraction
+    \item Normalization
+    \item Converting each text into a feature vector, where author is the class label
+    \item Split the dataset into training and test set
+\end{enumerate}
+Common classifiers include \ac{svm}, decision trees, and \acp{nn} \cite{elmanarelbouanani_authorship_2014}.
 
 \begin{definition}
     [\ac{av}]   % authorship verification
@@ -108,6 +153,8 @@
         \item symbolic knowledge representation, i.e. \todo{knownledge representation, deduction, heuristic inference}
     \end{itemize}
     \citet{tyo_state_2022} state that \ac{av} is the fundamental problem of \ac{aa}.
+    \citet{elmanarelbouanani_authorship_2014} consider \ac{av} a similarity detection task, 
+    where the goal is to determine whether two texts are produced by the same person without knowing the real author of the document.
 \end{definition}
 
 \begin{table}[]
@@ -164,8 +211,10 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 
 \begin{definition}
     [Stop words vs. function words]
-    Function words are the most common words (articles, prepositions, pronouns, etc.) \cite{stamatatos_survey_2009}.
+    Function words are the most common words (articles, prepositions, pronouns, etc.) 
+    like "while", "upon", "though", "were", "your" \cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
     Most function words are stop words, but not all stop words are function words \cite{stein_intrinsic_2011}.
+    \citet{elmanarelbouanani_authorship_2014} state that researchers use between 150 and 675 function words as features.
 \end{definition}
 
 \begin{definition}
