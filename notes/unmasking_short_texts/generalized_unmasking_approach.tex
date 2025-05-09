@@ -7,7 +7,7 @@ As an example use-case where high precision is required, they mention wrong conv
 They propose an \todo{open-source, customizable unmasking framework}. % cf. bevendorff_generalizing_2019 for url
 Moreover, they claim good performance on short text which inherently contain high amount of uncertainty since they have low stylistic information content.
 
-\citet{bevendorff_generalizing_2019} propose creating chunks by oversampling words in a bootstrap aggregating manner. 
+\citet{bevendorff_generalizing_2019,bevendorff_divergence_based_2020} propose creating chunks by oversampling words in a bootstrap aggregating manner. 
 Each text is a pool of words, from which words are sampled without replacement.
 The pool is replenished if it is exhausted before the chunk has sufficiently many words.
 Since the random sampling of unmasking features introduces variance, unmasking is performed multiple times and the curves are averaged.
@@ -19,7 +19,7 @@ and its gradients sorted by magnitude.
 This classifier is used to predict the whether the texts originate from the same author.
 
 \begin{algorithm}
-    \caption{Generalized Unmasking Algorithm}
+    \caption{Generalized Unmasking Algorithm \cite{bevendorff_generalizing_2019,bevendorff_divergence_based_2020}}
     \label{alg:generalized_unmasking}
     \begin{algorithmic}[1]
     \Procedure{Unmasking}{$A$, $B$}

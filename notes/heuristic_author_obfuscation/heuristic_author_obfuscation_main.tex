@@ -1,0 +1,83 @@
+\section{Heuristic Author Obfuscation}
+\label{sec:heuristic_author_obfuscation}
+
+\citet{bevendorff_divergence_based_2020} cast the task of author obfuscation as a heuristic search problem.
+They look for a cost-minimum sequence of tailored paraphrasing operations for a significant increase in the distance 
+of the paraphrased text to other texts from the author.
+Estimated text quality reduction is used as a cost function.
+
+% trigram
+\subsection{Trigram}
+In the realm of authorship analysis, character 3-grams are considered effective \cite{bevendorff_divergence_based_2020}, 
+even though it is not systematically proven.
+\citet{bevendorff_divergence_based_2020} claim that current (up to 2020) \ac{av} algorithms analyse (implicitly/explicitly) 
+character 3-grams.
+According to \citet{bevendorff_divergence_based_2020}, without loss of generality, since character 3-gram are the lowest-level feature that 
+still captures word boundaries and morphology, % Lehre über Worte
+directly influence higher-level features, such as word n-grams and \ac{pos} features.
+This holds true for most European languages \cite{bevendorff_divergence_based_2020}.
+3-grams encode vocabulary, morphology, and punctuation.
+
+% distance measure
+\subsection{Distance Measure}
+% KL divergence
+The \ac{kld} is a character-based style distance measure.
+It acts as a feature- and task agnostic % skeptisch
+information-theoretic divergence measure.
+Moreover, it can be used as a simple and computationally feasible stopping criterion for an obfuscation process.
+Furthermore, based on \ac{kld}, a normalization criterion for obfuscating texts of different lengths can be derived.
+Finally, \ac{kld}'s derivative can serve as a selection criterion for parts of text that 
+will yield the highest obfuscation gain if changed \cite{bevendorff_divergence_based_2020}.
+This could be used for a greedy algorithm.
+However, \citet{bevendorff_divergence_based_2020} claim greedy strategies can be reverse engineered.
+$$KLD(P\mid \mid Q) = \sum_{i}^{}P[i] log\frac{P[i]}{Q[i]}$$
+where $P,Q$ are the discrete probability distribution corresponding to the relative frequencies of character 3-grams in the 
+to-be-obfuscated text and the known texts respectively.
+For true probability distributions, the \ac{kld} is always non-negative.
+However, the \ac{kld} is not symmetric, i.e. $KLD(P\mid \mid Q) \neq KLD(Q\mid \mid P)$.
+Moreover, it is only defined for distributions $P,Q$ where $Q[i] = 0$ implies $P[i] = 0$ (which yields zero summands).
+% Jensen-Shannon divergence
+To overcome \ac{kld}'s shortcomings, 
+\citet{bevendorff_divergence_based_2020} use the $JS_\Delta$ metric, based on the \ac{jsd}:
+$$JSD(P\mid \mid Q) = \frac{KLD(P\mid \mid M)+KLD(Q\mid \mid M)}{2}$$
+where $M = \frac{P + Q}{2}$ is the average of the two distributions.
+The $JS_\Delta$ metric is defined as:
+$$JS_\Delta(P,Q) = \sqrt{2\cdot JSD(P\mid \mid Q)}$$
+
+% writeprints
+\begin{definition}
+    [Writeprints]
+    \label{def:writeprints}
+    A set of over twenty lexical, syntactic, and structural text feature types \cite{bevendorff_divergence_based_2020}.
+\end{definition}
+
+% task
+\subsection{Task}
+After \ac{pan}'s author obfuscation tasks from 2016 to 2018 received either poor rule-based approaches or such that 
+produced unreadable texts, they chose to refine the task to paraphrase the text.
+
+\begin{definition}
+    [Paraphrase]
+    The meaning should stay the same and the text should be still readable \cite{bevendorff_divergence_based_2020}.
+\end{definition}
+
+% proposed approach
+\subsection{Proposed Approach}
+\citet{bevendorff_divergence_based_2020} propose obfuscation by reduction.
+First, they rank 3-grams based on their influence on $JS_\Delta$ via their partial \ac{kld} derivative.
+They remove one occurrence of the most influential 3-gram from the to-be-obfuscated text via naively omitting it without replacement, 
+targeted paraphrasing (semantically equivalent text passage without the 3-gram).
+The problem is defined as potentially infinite space with possible (text) states, 
+in which each state is reachable from one or multiple nodes in a graph spanned over the entire space by operators.
+Edges are labelled with the cost of the operator.
+The task is to find a minimum-cost path from a starting node to a node that satisfies a pre-determined goal condition 
+(i.e. sufficient obfuscation).
+Applying an operator has highly non-linear effects on the text quality and may restrict the set of applicable operators in the same text.
+They define the informed heuristic search A*.
+
+The verifier most resilient against this specific reductive obfuscation (obfuscating only n-grams that are already rare for maximum effect) 
+was based on an imposter approach on most frequent words.
+
+% dataset
+\subsection{Dataset}
+The dataset used for the task is the Webis \acl{av} corpus 2019.
