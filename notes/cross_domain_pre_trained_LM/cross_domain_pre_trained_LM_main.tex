@@ -1,0 +1,32 @@
+\section{Cross-Domain Pre-Trained Language Models}
+\label{sec:cross_domain_pre_trained_LM}
+
+\subsection{Features}
+% topic invariant features
+\cite{barlas_cross_domain_2020} claim function words or \ac{pos} n-grams are topic invariant features.
+% efficient in AA
+\cite{barlas_cross_domain_2020} state that character n-grams associated with word affixes and punctuation marks 
+are most efficient in cross-topic \ac{aa} tasks.
+% pre-processing
+It is possible to pre-process texts to mask topic-related information while keeping the text structure including 
+function words and punctuation marks.
+
+\subsection{Dataset splits}
+\label{sec:dataset_splits}
+
+\citet{barlas_cross_domain_2020} propose Leave-One-Topic-Out cross-validation splits for cross-topic \ac{aa} tasks:
+All texts on a specific topic (within a certain genre) are included in the test set,
+while the remaining texts (in that genre) are used for training.
+Mean classification accuracy is reported over all topics.
+
+Analogously, \citet{barlas_cross_domain_2020} propose Leave-One-Genre-Out cross-validation splits for cross-genre \ac{aa} tasks:
+All texts of a specific genre (within a certain topic) are included in the test set,
+while the remaining texts (in that topic) are used for training.
+Mean classification accuracy is reported over all genres.
+
+\subsection{Normalization corpus} 
+\label{sec:normalization_corpus}
+
+In \ac{aa} tasks, it is important for the normalization corpus to have 
+exactly the same properties with documents of unknown authorship.
+This is not feasible in practice \cite{barlas_cross_domain_2020}.
