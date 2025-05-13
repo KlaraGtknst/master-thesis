@@ -1,0 +1,55 @@
+\section{Feature Vector Difference}
+\label{sec:feature_vector_difference}
+
+\citet{weerasinghe_feature_vector_difference_2021}'s goal is to create a topic agnostic \ac{av} model that works well on the open-world setting 
+where authors and topics in test set are not in the training set. They propose a new feature vector difference method that is based on the \ac{av} model of \citet{stamatatos_2020} and show that it outperforms the state-of-the-art methods in the open-world setting.
+The input to the model is a feature vector $X$ encoding the two documents $D_i,D_j$ 
+and the target variable $Y$ indicating whether the two documents are written by the same author or not. 
+Hence, they model the problem as a binary classification task.
+
+% nltk library
+\subsection{\ac{nltk} Library usage}
+They use \ac{nltk}'s \texttt{casual\_tokenize} method, which uses their \texttt{TweetTokenizer} to tokenize the documents.
+For \ac{pos} tagging, the use \ac{nltk}'s Perceptron Tagger.
+In order to generate a \todo{partial parse tree} (i.e. \ac{pos} chunks), they train a Maxent (Maximum Entropy) classifier.
+The parse trees are used to extract so-called syntactic dependency-based n-grams of \ac{pos} tags, i.e, stylometric features.
+
+\subsection{Sklearn Library usage}
+They use \ac{sklearn}'s \texttt{TFIDFVectorizer} to create the \ac{tf-idf} vectors for their features (cf. below).
+They set \texttt{min\_df=0.1} to ignore terms that have less than a 10 \% document frequency.
+
+\citet{weerasinghe_feature_vector_difference_2021} used a Stochastic Gradient descent training algorithm with logarithmic loss function, 
+which results in a logistic regression classifier (by sklearn's  \texttt{SGDClassifier}) since the complete feature matrix cannot be stored in-memory.
+
+\subsection{Features}
+\textcolor{brown}{cf. Table 1, \cite{weerasinghe_feature_vector_difference_2021} Chapter 2.3 for urls}
+\citet{weerasinghe_feature_vector_difference_2021} used some features from Writeprints feature set.
+Character n-grams are \ac{tfidf} values for character n-grams of size 1 to 3.
+They claim $n>3$ is not useful for \ac{av} because it is affected by topic similarities.
+\ac{pos}-Tag n-grams are \ac{tfidf} values for \ac{pos}-tag 3-grams.
+Special characters are \ac{tfidf} values for 31 pre-defined special characters.
+Frequency of function words (where \cite{weerasinghe_feature_vector_difference_2021} linked a stop word website!) 
+are frequencies for 851 common English words.
+They also computed the average number of characters per word. %, the average number of words per sentence,
+Moreover, they included the distribution of word-lengths (fraction of tokens of length $l \in [1,10]$).
+They employed Python's \texttt{textComplexity} library to compute a variety of vocabulary richness measures 
+(cf. page 4, \cite{weerasinghe_feature_vector_difference_2021}).
+The \ac{pos}- tags chunks are the \ac{tfidf} values for the second level \ac{pos}-tag chunks (e.g., 'NP', 'VP', 'IN').
+The \ac{pos}-tag construction are \ac{tfidf} values of each noun phrase, verb phrase, and prepositional phrase expansion.
+They also define the stop-word and \ac{pos}-tag hybrid tri-grams to capture the syntactic information about the word order, 
+inspired by text distortion:
+In order to prevent topic related biases, all non-function words are replaced with the \ac{pos}-tag of the word.
+Based on this, \ac{tfidf} values are computed for tri-grams.
+The \ac{pos}-tag ratio calculated the portion of all \ac{pos}-tags in the \todo{Penn Treebank \ac{pos} Tag} collection.
+They also include unique spelling, where the fraction of words present in the document that belong to each of the following dictionaries: 
+Commonly misspelled English words, common typos when communicating online, common errors with determiner, 
+British spelling of English words and popular online abbreviations.
+
+\subsection{Pipeline}
+Feature extractors were fit on training data.
+Data was standarized (i.e., mean=0, std=1).
+An absolute vector difference was computed for each feature vector pair and standarized again.
+This standarized vector difference was used as input to the classifier.
+
+
+

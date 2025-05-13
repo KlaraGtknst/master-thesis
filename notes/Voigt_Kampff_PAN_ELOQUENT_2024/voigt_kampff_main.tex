@@ -74,9 +74,18 @@ They correct all metrics by discounting half a standard deviation, estimated on 
 from the system's scores \todo{with $n-1$ degrees of freedom}.
 This penalizes unstable systems with widely varying scores on the individual dataset variants, 
 and promotes systems more robust to the dataset variants' alterations, including text obfuscation and modification.
-Finally, they computed the \todo{macro-averaged} scores across all datasets since they consider all datasets evenly important 
+Finally, they computed the macro-averaged scores across all datasets since they consider all datasets evenly important 
 (even those with fewer number of examples).
 With regard to the leader board, i.e. ranking of the approaches, they computed a \todo{mean score correlation coefficient (Kendall's $\tau$)}.
 
 % dataset metrics
 They defined the difficulty of the datasets as the inverse mean effectiveness score of the detection systems.
+
+
+% source: Ben
+micro/ macro in the context of multi-class confusion matrix (bc precision/ accuracy/ recall for binary classification)
+micro average score = same as binary, but sums over class indices in both nominator and denominator, e.g.
+$micro\_precision = \frac{\sum_{i=1}^n TP_i}{\sum_{i=1}^n (TP_i + FP_i)}$
+macro average score = average of the class-wise scores, e.g.
+$macro\_precision = \frac{1}{n} \sum_{i=1}^n \frac{TP_i}{TP_i + FP_i}$
+where $n$ is the number of classes.
