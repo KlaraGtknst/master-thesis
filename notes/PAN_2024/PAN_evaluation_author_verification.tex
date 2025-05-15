@@ -4,9 +4,15 @@
 \citet{ayele_overview_2024,bevendorff_overview_2024} evaluate the participants submissions averaging the datasets' evaluation measures.
 \citet{ayele_overview_2024} claim the following measures are established in \ac{av}:
 \begin{itemize}
-    \item \ac{roc-auc} \cite{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021}
+    \item \ac{roc-auc} \cite{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021,kocher_unine_2015}
     \item BRIER: Complement of the Brier score \cite{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021}, in \citet{bevendorff_overview_2024}'s case equivalent to the mean squared loss.
-    \item C@1: Modified version of the accuracy \cite{bevendorff_overview_2024}/ F1-score \cite{weerasinghe_feature_vector_difference_2021} score, where the non-answers (abstained) are assigned the average accuracy of the remaining cases \cite{bevendorff_overview_2024}. It rewards systems that leave difficult problems unanswered \cite{weerasinghe_feature_vector_difference_2021}.
+    \item C@1: Modified version of the accuracy \cite{bevendorff_overview_2024}/ F1-score \cite{weerasinghe_feature_vector_difference_2021} score, 
+    where the non-answers (abstained) are assigned the average accuracy of the remaining cases \cite{bevendorff_overview_2024}. 
+    It rewards systems that leave difficult problems unanswered \cite{weerasinghe_feature_vector_difference_2021}.
     \item $F_1$: Harmonic mean of precision and recall \cite{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021}.
     \item $F_{0.5u}$: Modified version of the $F_{0.5}$ score, where the non-answers are considered \acp{fn} \cite{bevendorff_overview_2024}. A measure that puts more emphasis on deciding same-author cases correctly \cite{weerasinghe_feature_vector_difference_2021}.
 \end{itemize}
+
+The ROC curve is generated according to the percentage of \acp{fp} in the x-axis and the percentage of \acp{tp} in the y-axis.
+The maximum value of 1.0 indicated a perfect performance \cite{kocher_unine_2015}.
+\citet{kocher_unine_2015} claim that both ROC and AUC are difficult to interpret.

@@ -65,7 +65,7 @@ During inference, the models received pairs of human and \ac{llm} texts.
 For each sample, a score $\in [0, 1]$ is assigned to the sample.
 For a score $<0.5$, the model predicts the left text to be human,
 and for a score $>0.5$, the model predicts the right text to be human.
-A score of exactly 0.5 means the model abstains from the sample.
+A score of exactly 0.5 means the model abstains from the sample \cite{bevendorff_overview_2024,kocher_unine_2015}.
 
 % model metrics
 They defined the effectiveness of the systems, i.e. models, as the arithmetic mean of the metrics defined in \autoref{sec:pan_evaluation}, 

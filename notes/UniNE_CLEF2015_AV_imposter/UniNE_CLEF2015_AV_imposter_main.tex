@@ -1,0 +1,34 @@
+\section{UniNE CLEF 2015 \ac{av} Imposter}
+\label{sec:UniNE_CLEF2015_AV_imposter}
+
+The idea of \cite{kocher_unine_2015} is to apply a distance measure to the candidate author and the disputed text and 
+compare the distance to those between the disputed text and a set of imposters.
+Hence, they need a sample text of the candidate author and texts from the imposters.
+
+% features
+\subsection{Features}
+% \label{sec:features}
+
+\citet{kocher_unine_2015} use the $k$ most frequent terms of the disputed texts where isolated words and punctuation symbols are considered terms.
+The state a reasonable range for $k$ is 200 to 300.
+
+
+\subsection{Distance measure}
+
+
+\subsection{Set of Imposters}
+
+\citet{kocher_unine_2015} claim \ac{aa} is not more difficult than \ac{av} 
+due to the fact that in \ac{av} tasks one has to compare the disputed text with a set of all representative imposter texts.
+The authors claim it is difficult to determine whether one has included all imposters, 
+i.e., other writers having a similar style to the candidate author.
+
+\subsection{\tira{}}
+\label{sec:tira}
+
+The evaluation of shared \ac{pan} CLEF tasks is done via the \tira{} platform.
+\tira{} is an automated tool for deployment and evaluation of the software submitted.
+During runs of the submitted software, no data leakage to the participants is possible since \tira{} encapsulates the software.
+\citet{kocher_unine_2015} claim that \tira{} offers a fair evaluation of the tome needed to produce an answer.
+However, system incompatibilities may occur \cite{kocher_unine_2015}.
+
