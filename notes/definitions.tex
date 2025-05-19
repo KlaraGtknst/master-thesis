@@ -92,7 +92,10 @@
 
 \begin{definition}
     [Closed world]
-    In the realm of plagiarism detection, closed world refers to the assumption that a reference collection $D$ of documents, that are supposed to be compared to the possibly plagiarized text, is given \cite{stein_intrinsic_2011}.
+    In the realm of plagiarism detection, closed world refers to the assumption 
+    that a reference collection $D$ of documents, 
+    that are supposed to be compared to the possibly plagiarized text, is given \cite{stein_intrinsic_2011}.
+    In the realm of \ac{av} texts in the test set are assumed to be written by one of the authors in the training set \cite{boenninghoff_o2d2_2021}.
 \end{definition}
 
 \begin{definition}
@@ -256,7 +259,12 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 
 \begin{definition}
     [Closed-set classification]
-    The true author is one necessarily one of the candidate authors \cite{stamatatos_survey_2009,koppel_authorship_2011,barlas_cross_domain_2020}.
+    The true author is one necessarily one of the candidate authors \cite{stamatatos_survey_2009,koppel_authorship_2011,barlas_cross_domain_2020,boenninghoff_o2d2_2021}.
+\end{definition}
+
+\begin{definition}
+    [Covariate shift]
+    The distribution of neural stylometric features changes between training and test set due to, for instance, topic variability \cite{boenninghoff_o2d2_2021}.
 \end{definition}
 
 \begin{definition}
@@ -409,7 +417,7 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 
 \begin{definition}
     [train-test-validation split]
-    \citet{bischoff_importance_2020,altakrori_topic_2021} train their model on a selection of the dataset (i.e. training set), 
+    \citet{bischoff_importance_2020,altakrori_topic_2021,boenninghoff_o2d2_2021} train their model on a selection of the dataset (i.e. training set), 
     optimize the model's hyperparameters on a second disjoint selection of the dataset (i.e. validation set),
     and evaluate the model on a third disjoint selection of the dataset (i.e. test set).
     \citet{bischoff_importance_2020} ensure that there is no data leakage between the training, validation and test sets 

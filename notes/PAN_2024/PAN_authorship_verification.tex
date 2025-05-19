@@ -26,7 +26,25 @@ The last task on the other hand, is denoted as the most difficult, since we do n
     6 & \{?,?\} & \{A,M\}, \{A,A\}, \{A,B\}, \{M,M\} \\
     7 & ? & A, M \\ \bottomrule
     \end{tabular}%
-    }
-    \end{table}
+    }       
+\end{table}
 
-    \citet{boenninghoff_o2d2_2021} state that \ac{pan} moved from a cross-topic closed-set \ac{av} task to cross-topic open-set \ac{av} task over three years.
+\citet{boenninghoff_o2d2_2021} state that \ac{pan} moved from a cross-topic closed-set \ac{av} task 
+to cross-topic open-set \ac{av} task over three years.
+
+\citet{boenninghoff_o2d2_2021} formally define the task:
+For two documents $D_1$ and $D_2$, ground-truth hypothesis $H_a$ for $a \in \{0,1\}$ 
+where $a=1$ means that $D_1$ and $D_2$ are written by the same author and 
+$a=0$ means that they are not written by the same author, find $f: \{D_1, D_2\} \rightarrow p \in [0,1]$.
+The estimated label $\hat{a}$ is then determined by the threshold $\theta$ applied to $p$:
+$$\hat{a}=\left\{ \begin{matrix}
+1\text{ if }p > 0.5 \\
+0\text{ if }p < 0.5 \\
+non-response\text{ if }p\text{ close to }0.5
+\end{matrix}\right\}$$
+These rules lead to three hypotheses:
+\begin{itemize}
+    \item $H_0$: $D_1$ and $D_2$ are written by different authors
+    \item $H_1$: $D_1$ and $D_2$ are written by the same author
+    \item $H_2$: Undecidable, trial does not suffice to establish authorship
+\end{itemize}
