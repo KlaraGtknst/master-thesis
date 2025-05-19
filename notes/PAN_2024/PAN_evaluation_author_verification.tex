@@ -15,6 +15,10 @@
     \item $F_{0.5u}$: Modified version of the $F_{0.5}$ score, where the non-answers are considered \acp{fn} \cite{bevendorff_overview_2024}. A measure that puts more emphasis on deciding same-author cases correctly \cite{weerasinghe_feature_vector_difference_2021}.
 \end{itemize}
 
-The ROC curve is generated according to the percentage of \acp{fp} in the x-axis and the percentage of \acp{tp} in the y-axis.
+The \ac{roc} curve is generated according to the percentage of \acp{fp} in the x-axis and the percentage of \acp{tp} in the y-axis.
 The maximum value of 1.0 indicated a perfect performance \cite{kocher_unine_2015}.
-\citet{kocher_unine_2015} claim that both ROC and AUC are difficult to interpret.
+\citet{kocher_unine_2015} claim that both \ac{roc} and \ac{auc} are difficult to interpret.
+According to \citet{kocher_unine_2015}, usually, the \ac{auc} values should be consistent and comparable with the C@1 values.
+The \ac{auc} of the \ac{roc} is biased since the \ac{roc} gives more emphasis 
+on the first position and therefore increases the total \ac{auc}.
+A misclassification with a lower probability is less penalized with \ac{roc-auc} \cite{kocher_unine_2015}.
