@@ -9,6 +9,8 @@
     \item C@1: Modified version of the accuracy \cite{bevendorff_overview_2024}/ F1-score \cite{weerasinghe_feature_vector_difference_2021} score, 
     where the non-answers (abstained) are assigned the average accuracy of the remaining cases \cite{bevendorff_overview_2024}. 
     It rewards systems that leave difficult problems unanswered \cite{weerasinghe_feature_vector_difference_2021}.
+    $$c@1 = \frac{nc}{np}(1+\frac{nu}{np})$$ where $np$ is the number of problems, $nc$ the number of correct answers, 
+    and $nu$ the number of unanswered problems \cite{kocher_unine_2015}.
     \item $F_1$: Harmonic mean of precision and recall \cite{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021}.
     \item $F_{0.5u}$: Modified version of the $F_{0.5}$ score, where the non-answers are considered \acp{fn} \cite{bevendorff_overview_2024}. A measure that puts more emphasis on deciding same-author cases correctly \cite{weerasinghe_feature_vector_difference_2021}.
 \end{itemize}
