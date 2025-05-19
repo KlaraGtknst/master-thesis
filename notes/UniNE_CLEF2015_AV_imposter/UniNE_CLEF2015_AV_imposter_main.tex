@@ -15,15 +15,19 @@ The distance is then calculated between the candidate author profile and the dis
 where isolated words and punctuation symbols are considered terms.
 Words had to occur at least twice to be considered.
 The state a reasonable range for $k$ is 200 to 300.
+Since the feature set is small and consists of words and punctuation symbols, 
+the user can easily interpret the results \cite{kocher_unine_2015}.
 
 
 \subsection{Distance measure}
+\newcommand{\spldist}{SPATIUM-L1}
 
-\citet{kocher_unine_2015} measure the distance between the candidate author and the disputed text using the PSATIUM-L1 distance:
+\citet{kocher_unine_2015} measure the distance between the candidate author and the disputed text using the \spldist{} distance:
 $$\Delta(Q,A)=\Delta_0=\sum_{i=1}^{k}\left| P_Q\left[ t_i \right] -P_A\left[ t_i \right] \right|$$
 where $P_Q$ and $P_A$ are the estimated occurrence probability of the term $t_i$ in the query text $Q$ and in the author profile $A$, respectively.
 The probabilities are estimated by dividing the term occurrence frequency $tf_i$ by the length of tokens $n$ in the corresponding text and thus, 
 $P\left[ t_i \right]=\frac{tf_i}{n}$.
+The \spldist{} distance returns a numerical value between 0 and 1 that can be used to determine a degree of certainty \cite{kocher_unine_2015}.
 Since the authors do not apply smoothing, they accept a 0.0 probability.
 $k$ represents the number of terms (i.e., words or punctuation symbols).
 In order to contextualize the magnitude of the distance $\Delta_0$, a set of imposter distances is calculated.
@@ -33,7 +37,13 @@ They repeat this stage $r=5$ times resulting in $r$ distance measures $\Delta_{m
 They compute the arithmetic mean $\Delta_m$ of the $r$ distances.
 
 The decision rule is as follows:
-
+$$\left\{ \begin{matrix}
+if \frac{\Delta_0}{\Delta_m} < 0.975 \text{, same author} \\
+if \frac{\Delta_0}{\Delta_m} > 1.025 \text{, different author}\\
+otherwise \text{, don't know}
+\end{matrix}\right\}$$
+If the $\Delta_0$ is similar to $\Delta_m$ in the range of 2.5\%, the system abstains from making a decision.
+If the distance $\Delta_0$ is smaller than $\Delta_m$, the system decides that the candidate author of profile $A$ is the same as the disputed text.
 
 \subsection{Set of Imposters}
 
@@ -56,3 +66,6 @@ During runs of the submitted software, no data leakage to the participants is po
 \citet{kocher_unine_2015} claim that \tira{} offers a fair evaluation of the tome needed to produce an answer.
 However, system incompatibilities may occur \cite{kocher_unine_2015}.
 
+\subsection{Bias, Variance}
+\citet{kocher_unine_2015} claim that even if this system cannot capture all possible stylistic features (bias), 
+changing the available data does bot modify significantly the overall performance (variance).
