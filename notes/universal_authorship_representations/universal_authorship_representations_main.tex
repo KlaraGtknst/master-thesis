@@ -1,0 +1,20 @@
+\section{Universal Authorship Representations using \acp{nn}}
+\label{sec:universal_authorship_representations}
+
+\citet{rivera_soto_learning_2021} present the trade-off of neural methods:
+Neural methods learn relevant features and thus, obviate the need of manual feature design, but 
+at the same time these features are not explicitly identified.
+Hence, the domain influence on the learned features is not clear.
+Moreover, neural methods require large training datasets.
+They found that neural methods are not universal.
+
+% zero-shot transfer
+\subsection{Zero-Shot Transfer}
+\citet{rivera_soto_learning_2021} define zero-shot transfer as training a model on a specific domain and 
+evaluating it on a held-out evaluation set from other domains. % chapter 4.1. defintion ot entirely clear
+
+\subsection{Domain agnostic data augmentation}
+\citet{rivera_soto_learning_2021} propose a simple domain agnostic data augmentation method where 
+random subwords are omitted (i.e., dropout) to mask domain-specific features.
+They found that it is difficult to find a suitable threshold for frequency based dropout and thus, 
+resolved with random dropout.
