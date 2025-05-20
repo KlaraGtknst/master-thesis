@@ -1,0 +1,32 @@
+\section{Hyperpartisan Fake News Styles}
+\label{sec:hyperpartisan_fake_news_styles}
+
+\citet{potthast_stylometric_2018} presented using the unmasking approach, traditionally used for distinguishing author styles, 
+to distinguish between genres (i.e., hyperpartisan and non-hyperpartisan news articles). 
+
+There are different categories of fake news detection mechanisms, such as knownledge-based (by relating to known facts), 
+context-based (by analysing news spread in social media), and style-based (by analysing writing style).
+
+\citet{potthast_stylometric_2018} discard hardly represented features, such as word tokens that occur in less than $2.5 \%$ of the documents, 
+and n-gram features that occur in less than $10 \%$ of the documents.
+Otherwise, the model could overfit and could not generalize well to unseen data.
+
+To avoid biases from datasets, they balance the training set by oversampling.
+
+They use WEKA's random forest implementation.
+Their code is publicly available (cf. \cite{potthast_stylometric_2018}). 
+
+Satire is form of fake news, but its purpose is to entertain.
+
+\subsection{Topic features for satire classification}
+\label{sec:topic_features_for_sarcasm_classification}
+
+\citet{potthast_stylometric_2018} argue that topic features are not appropriate for satire classification, 
+since topics of satire change along the topics of news and thus, a classifier with topic features does not generalize.
+
+\subsection{Generalizing unmasking to genre detection}
+\label{sec:generalizing_unmasking_to_genre_detection}
+
+\citet{potthast_stylometric_2018} omit the first step of the unmasking approach, i.e., chunking texts to create multiple text instances for the curve.
+Instead, texts of possibly different genres but in the same genre are considered as belonging to the same class.
+The documents of two genres are used as input to the classifier.
