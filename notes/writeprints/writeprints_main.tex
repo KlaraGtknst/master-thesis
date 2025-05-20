@@ -1,0 +1,79 @@
+\newcommand{\writeprints}{Writeprints}
+\section{\writeprints{}}
+\label{sec:writeprints}
+
+\citet{abbasi_writeprints_2008} propose the \writeprints{} technique for \ac{aa} and similarity detection.
+\writeprints{} is an unsupervised method. % Karhunen-Loeve is supervised?!
+It is a Karhunen-Loeve transform-based technique that uses a sliding window and 
+pattern disruption algorithm with individual author-level feature sets.
+
+\writeprints{} is constructed for each author using the author's key features, 
+i.e. individual-author-level (cf. \autoref{sec:definitions}) feature sets.
+The algorithm consists of two parts as outlined in \autoref{alg:writeprints}:
+% part 1: creation
+Via applying Karhunen-Loeve transforms with a sliding window, patterns are created.
+These \writeprints{} patterns project usage variance into a lower-dimension space for each author feature.
+Each lower-dimensional point reflects a single window instance.
+% part 2: pattern disruption
+Features an author never uses are treated as pattern disruptors (i.e., red flags), 
+which means that the occurrence of these features in the disputed text decreases the similarity score 
+between the author and the disputed text.
+
+\begin{algorithm}
+\caption{Writeprints Steps}
+\label{alg:writeprints}
+\begin{algorithmic}[1]
+    \Procedure{Writeprints}{$X$, $authors$, $feature\_sets$}
+
+        \State \textbf{Step 1: Creation of \writeprints{} Patterns}
+        \ForAll{individual-level features with occurrence frequency > 0}    \Comment{Individual per author}
+            \State Extract feature vectors for each sliding window instance \Comment{sliding window size $L=1500$ characters (i.e., roughly 250 words) \& jump interval $J=L$ characters (i.e., no overlap)}
+            \State Derive basis matrix (set of eigenvectors) from feature usage covariance matrix using Karhunen-Loeve transforms \Comment{number basis vectors via Kaiser-Guttmann stopping rule}
+            \State Compute \writeprints{} patterns (= Coordinates/ Principal Components for each window instance) by multiplying window feature vectors with basis
+        \EndFor
+       
+
+        \State \textbf{Step 2: Pattern Disruption}  
+        \ForAll{author features with occurrence frequency = 0} \Comment{From set of features of all authors}
+            \State Compute feature disruption value as product of information gain, synonymy usage, and disruption constant $K$
+            \State Append features' disruption values to basis matrix
+            \State Apply disruptor based on pattern orientations
+          
+        \EndFor
+
+        \State Repeat step 1-2 for each identity
+    \EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+
+\subsection{Karhunen-Loeve}
+\label{sec:karhunen-loeve}
+
+Karhunen-Loeve transforms are a supervised form of \ac{pca} that allows for inclusion of class information in the transform process.
+It consists of a dimensionality reduction technique where the transformation is done by deriving the basis matrix (set of eigenvectors) and 
+then projecting the feature usage matrix into a lower-dimension space.
+While \ac{pca} captures the variance across a set of authors (interclass variance) using a single feature set and basis matrix, 
+Karhunen-Loeve can be applied to each author (intraclass variance) by only considering the author's feature set and basis matrix.
+Thus, Karhunen-Loeve can be used as an individual-level (cf. \autoref{sec:definitions}) similarity detection technique 
+(more about that in \cite{abbasi_writeprints_2008} Chap. 2 last paragraph).
+
+
+\subsection{Feature set dimension}
+\label{sec:feature-set-dimension}
+
+\citet{abbasi_writeprints_2008} define feature set breadth as the number of feature categories and 
+the feature set depth as the number of features.
+
+\subsection{Features}
+
+First, the \citet{abbasi_writeprints_2008} filter out all message signatures in order remove obvious identifies.
+Then, they extract two sets of features: Baseline feature set consisting of 327 static author-group-level features and an 
+extended feature set consisting of static and dynamic (author-group-level and individual-identity level) features.
+They provide a table with quantities and description of features both of the baseline and extended feature set.
+\citet{abbasi_writeprints_2008} choose their features using the information gain heuristic $IG$.
+The information gain of a feature $j$ across a set of classes $c$ is derived as $IG(c,j)=H(c)-H(c|j)$, 
+where $H(c)$ is the overall entropy across author classes and $H(c|j)$ is the conditional entropy for feature $j$.
+
+For \ac{pos} tagging, they used the Arizona noun-phrase extractor, which uses the Penn Treebank tag set.

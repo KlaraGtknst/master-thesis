@@ -54,7 +54,7 @@
 
 \begin{definition}
     [Stylistics]
-    The study of stylometric features \cite{elmanarelbouanani_authorship_2014}.
+    The study of stylometric features \cite{elmanarelbouanani_authorship_2014,abbasi_writeprints_2008}.
 \end{definition}
 
 \begin{definition}
@@ -62,13 +62,21 @@
     Among others, syntactic structure of sentences in a document \cite{jafariakinabad_self_supervised_2022}.
 \end{definition}
 
-\citet{elmanarelbouanani_authorship_2014} claim there are four types of writing style features:
+\citet{elmanarelbouanani_authorship_2014} claim there are four (five \cite{abbasi_writeprints_2008}) types of writing style/ stylistic features:
 \begin{itemize}
-    \item Lexical features
-    \item Syntactic features
-    \item Structural features
-    \item Content-specific features 
+    \item Lexical features \citet{elmanarelbouanani_authorship_2014,abbasi_writeprints_2008}
+    \item Syntactic features \citet{elmanarelbouanani_authorship_2014,abbasi_writeprints_2008}
+    \item Structural features \citet{elmanarelbouanani_authorship_2014,abbasi_writeprints_2008}
+    \item Content-specific features \citet{elmanarelbouanani_authorship_2014,abbasi_writeprints_2008}
+    \item Idiosyncratic features \citet{abbasi_writeprints_2008}
 \end{itemize}
+
+\begin{definition}
+    [Online stylometric analysis]
+    The analysis of authors style in online texts \cite{abbasi_writeprints_2008}.
+    \citet{abbasi_writeprints_2008} define online texts as any textual documents that may be found in an online setting, 
+    including computer-mediated communication, non-literary electronic documents (e.g., student essays, mews, articles, etc.), and program code.
+\end{definition}
 
 \begin{definition}
     [Style markers]
@@ -76,12 +84,72 @@
 \end{definition}
 
 \begin{definition}
+    [Stylistic features]
+    Features that are the attributes or writing-style markers that are the most effective discriminators of authorship \cite{abbasi_writeprints_2008}.
+\end{definition}
+
+\begin{definition}
     [Lexical features]
     Lexical features are common features used in stylometry.
     They are character- (i.e. character (n-gram) frequency, ...) 
-    or word-based (i.e. average word/ sentence length, ...) features \cite{stein_intrinsic_2011}. 
+    or word-based (i.e. average word~\cite{stein_intrinsic_2011}, sentence length~\cite{stein_intrinsic_2011,abbasi_writeprints_2008}, 
+    line length~\cite{abbasi_writeprints_2008}, word length distribution~\cite{abbasi_writeprints_2008}, 
+    vocabulary richness~\cite{abbasi_writeprints_2008} ...) features. 
     These features consider text as a mere sequence of word-tokens or characters, respectively \cite{stamatatos_survey_2009}.
     Word features are more complex than character features \cite{stamatatos_survey_2009}.
+\end{definition}
+
+\begin{definition}
+    [Syntactic features]
+    Syntactic features include function words, punctuation, and \ac{pos} tag $n$-grams \cite{abbasi_writeprints_2008}.
+\end{definition}
+
+\begin{definition}
+    [Structural features]
+    Structural features include text organization, layout, file extensions, font, sizes, colours, 
+    use of braces and comments (for analysing computer programs) \cite{abbasi_writeprints_2008}.
+\end{definition}
+
+\begin{definition}
+    [Content-specific features]
+    Content-specific features include important keywords and phrases on certain topics such as word $n$-grams \cite{abbasi_writeprints_2008}.
+\end{definition}
+
+\begin{definition}
+    [Idiosyncratic features]
+    Idiosyncratic features include misspellings, grammatical mistakes, and other usage anomalies.
+    Such features are extracted using spelling and grammar checking tools and dictionaries \cite{abbasi_writeprints_2008}.
+\end{definition}
+
+\begin{definition}
+    [Feature-set type]
+    There are two types of feature sets \cite{abbasi_writeprints_2008}:
+    \begin{itemize}
+        \item Author-group-level where one set of features is applied across all authors.
+        \item Individual-author-level where each author has a unique set of features (e.g., 10 authors = 10 feature sets; 5000 most frequent character $n$-grams per author).
+    \end{itemize}
+    Individual-author-level features are effective for feature categories with potentially large feature spaces, such as $n$-grams or misspellings.
+    However, standard machine learning techniques typically require a fixed feature set for all authors \cite{abbasi_writeprints_2008}.
+    Traditional single-author-group-level feature sets include \acp{svm} and \ac{pca} \cite{abbasi_writeprints_2008}.
+\end{definition}
+
+\begin{definition}
+    [Static features]
+    Static features include context-free categories such as function words, 
+    word-length distributions, vocabulary richness measures, etc. \cite{abbasi_writeprints_2008}.
+\end{definition}
+
+\begin{definition}
+    [Dynamic features]
+    Dynamic features are context-dependent attributes and include $n$-grams and misspelled words \cite{abbasi_writeprints_2008}.
+\end{definition}
+
+\begin{definition}
+    [Stability]
+    Stability refers to how often a feature changes across authors and documents for a constant topic.
+    \citet{abbasi_writeprints_2008} state that nouns are more stable than function words and thus, 
+    function words are better stylistic discriminators than nouns 
+    since using function words involves making choices between sets of synonyms.
 \end{definition}
 
 \begin{definition}
@@ -138,7 +206,7 @@
     [\ac{aa}]   % authorship attribution
     The task of determining the author of a text based on textual features 
     given a (canonical) set of candidate authors with undisputed writing samples 
-    \cite{stein_intrinsic_2011,stamatatos_survey_2009,tyo_state_2022,bischoff_importance_2020,barlas_cross_domain_2020,altakrori_topic_2021,bevendorff_divergence_based_2020,elmanarelbouanani_authorship_2014}.
+    \cite{stein_intrinsic_2011,stamatatos_survey_2009,tyo_state_2022,bischoff_importance_2020,barlas_cross_domain_2020,altakrori_topic_2021,bevendorff_divergence_based_2020,elmanarelbouanani_authorship_2014,abbasi_writeprints_2008}.
     In terms of machine learning, this is a multiclass, single-label text categorization task \cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014} or text classification task \cite{elmanarelbouanani_authorship_2014}.
     The task is also referred to as author(ship) identification \cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
     \citet{barlas_cross_domain_2020} express the \ac{aa} task as a tuple $(A,K,U)$, 
@@ -173,9 +241,30 @@ Common classifiers include \ac{svm}, decision trees, and \acp{nn} \cite{elmanare
     \end{itemize}
     \citet{tyo_state_2022} state that \ac{av} is the fundamental problem of \ac{aa} \cite{tyo_state_2022}, 
     where there is only one candidate author \cite{barlas_cross_domain_2020}.
-    \citet{elmanarelbouanani_authorship_2014} consider \ac{av} a similarity detection task, 
-    where the goal is to determine whether two texts are produced by the same person without knowing the real author of the document.
+    \citet{elmanarelbouanani_authorship_2014} consider \ac{av} a similarity detection task.
     Use cases include plagiarism detection, moderation of user-generated content, historical \ac{aa}, and forensic analysis \cite{rivera_soto_learning_2021}.
+\end{definition}
+
+\begin{definition}
+    [Similarity detection]
+    The task of comparing anonymous texts against other anonymous texts to assess the degree of similarity \cite{abbasi_writeprints_2008}.
+    In the context of \ac{av}, the task is to determine whether two texts are produced by the same person without knowing the real author of the document \cite{elmanarelbouanani_authorship_2014}.
+\end{definition}
+
+\begin{definition}
+    [Message-level analysis]
+    The analysis attempts to categorize individual texts (e.g., whether an email was authored by an email address) \cite{abbasi_writeprints_2008}.
+\end{definition}
+
+\begin{definition}
+    [Identity-level analysis]
+    The analysis attempts to classify individuals belonging to a particular entity 
+    (e.g., whether different email addresses belong to the same entity).
+    Identity-level analysis' categorization is based on all texts written by that identity.
+    Hence, there are larger text samples than for message-level analysis, facilitating the task.
+    If the task is framed as classification/ID identification, the disputed identity is assigned to the identity with the highest similarity among the known identities.
+    If the task is framed as similarity detection task, all identities with a similarity score above a certain threshold are grouped together and 
+    considered to belong to the same entity \cite{abbasi_writeprints_2008}.
 \end{definition}
 
 \begin{table}[]
@@ -236,6 +325,8 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     like "while", "upon", "though", "were", "your" \cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
     Most function words are stop words, but not all stop words are function words \cite{stein_intrinsic_2011}.
     \citet{elmanarelbouanani_authorship_2014} state that researchers use between 150 and 675 function words as features.
+    \citet{abbasi_writeprints_2008} state that function words are highly effective discriminators of authorship, since 
+    the usage variations of such words are strong reflection of stylistic choices.
 \end{definition}
 
 \begin{definition}
@@ -260,6 +351,23 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 \begin{definition}
     [Closed-set classification]
     The true author is one necessarily one of the candidate authors \cite{stamatatos_survey_2009,koppel_authorship_2011,barlas_cross_domain_2020,boenninghoff_o2d2_2021}.
+    In other words: The set of all possible author classes is known a priori.
+    Hence, closed-set problems can use supervised or unsupervised classification techniques \cite{abbasi_writeprints_2008}.
+\end{definition}
+
+\begin{definition}
+    [Supervised techniques]
+    Supervised techniques for stylometric analysis require (author-)class labels for categorization.
+    Examples include \acp{svm}, \acp{nn}, decision trees, and linear discriminant analysis.
+    \acp{svm} are very common in authorship analysis due to their robustness \cite{abbasi_writeprints_2008}.
+\end{definition}
+
+\begin{definition}
+    [Unsupervised techniques]
+    Unsupervised techniques make categorizations with no prior knowledge of author classes.
+    Examples include \ac{pca} and cluster analysis.
+    \ac{pca} has been used in previous authorship studies due to its ability to 
+    capture essential variance across large number of features in a reduced dimensionality \cite{abbasi_writeprints_2008}.
 \end{definition}
 
 \begin{definition}
