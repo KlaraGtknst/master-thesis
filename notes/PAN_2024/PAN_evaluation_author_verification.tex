@@ -7,7 +7,7 @@
     \item \ac{roc-auc} \cite{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021,kocher_unine_2015}
     \item BRIER: Complement of the Brier score \cite{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021}, in \citet{bevendorff_overview_2024}'s case equivalent to the mean squared loss.
     \item C@1: Modified version of the accuracy \cite{bevendorff_overview_2024}/ F1-score \cite{weerasinghe_feature_vector_difference_2021} score, 
-    where the non-answers (abstained) are assigned the average accuracy of the remaining cases \cite{bevendorff_overview_2024}. 
+    where the non-answers (abstained) \cite{llm_detection_av_2025} are assigned the average accuracy of the remaining cases \cite{bevendorff_overview_2024}. 
     It rewards systems that leave difficult problems unanswered \cite{weerasinghe_feature_vector_difference_2021}.
     $$c@1 = \frac{nc}{np}(1+\frac{nu}{np})$$ where $np$ is the number of problems, $nc$ the number of correct answers, 
     and $nu$ the number of unanswered problems \cite{kocher_unine_2015}.

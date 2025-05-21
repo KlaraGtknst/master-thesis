@@ -208,7 +208,7 @@
     [\ac{aa}]   % authorship attribution
     The task of determining the author of a text based on textual features 
     given a (canonical) set of candidate authors with undisputed writing samples 
-    \cite{stein_intrinsic_2011,stamatatos_survey_2009,tyo_state_2022,bischoff_importance_2020,barlas_cross_domain_2020,altakrori_topic_2021,bevendorff_divergence_based_2020,elmanarelbouanani_authorship_2014,abbasi_writeprints_2008}.
+    \cite{stein_intrinsic_2011,stamatatos_survey_2009,tyo_state_2022,bischoff_importance_2020,barlas_cross_domain_2020,altakrori_topic_2021,bevendorff_divergence_based_2020,elmanarelbouanani_authorship_2014,abbasi_writeprints_2008,llm_detection_av_2025}.
     In terms of machine learning, this is a multiclass, single-label text categorization task \cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014} or text classification task \cite{elmanarelbouanani_authorship_2014}.
     The task is also referred to as author(ship) identification \cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
     \citet{barlas_cross_domain_2020} express the \ac{aa} task as a tuple $(A,K,U)$, 
@@ -216,6 +216,9 @@
     If closed-set \ac{aa}: Each text $d \in U$ is attributed to exactly one author $a \in A$.
     If cross-topic(/-genre) \ac{aa}: The topic(/genre) of documents in $d \in U$ is distinct 
     with respect to the topics(/genres) found in $K$ \cite{barlas_cross_domain_2020}. 
+    \citet{llm_detection_av_2025} state that \ac{aa} with few (<20) candidate authors is typically highly effective, even if only short writing samples are available.
+    Many candidate authors impede the \ac{aa} problem.
+    Models that abstain in uncertain many candidates scenarios still achieve good results \cite{llm_detection_av_2025}.
 \end{definition}
 
 \citet{elmanarelbouanani_authorship_2014} describe the workflow of \ac{aa} as follows:
@@ -233,7 +236,7 @@ Common classifiers include \ac{svm}, decision trees, and \acp{nn} \cite{elmanare
     Given a set of writing samples of author $A$ and a text $t$,    % tyo_state_2022: only one wrinting sample
     the task is to determine whether $t$ was written by $A$ \cite{stein_intrinsic_2011,stamatatos_survey_2009,koppel_authorship_2011,tyo_state_2022,kocher_unine_2015}.
     This task can also be formulated as whether two texts $t_1$ and $t_2$ are written by the same author 
-    \cite{bevendorff_generalizing_2019,bevendorff_divergence_based_2020,embarcadero_ruiz_graph_based_2022,rivera_soto_learning_2021,ordonez_will_2020,futrzynski_pairwise_2021,weerasinghe_feature_vector_difference_2021}.
+    \cite{bevendorff_generalizing_2019,bevendorff_divergence_based_2020,embarcadero_ruiz_graph_based_2022,rivera_soto_learning_2021,ordonez_will_2020,futrzynski_pairwise_2021,weerasinghe_feature_vector_difference_2021,llm_detection_av_2025}.
     % Gespräch Martin Potthast 19.05.2025: problem formulation 2 is less common and in the context of very sparse (metadata) information
     Related research areas include \cite{stein_intrinsic_2011}:
     \begin{itemize}
@@ -243,6 +246,9 @@ Common classifiers include \ac{svm}, decision trees, and \acp{nn} \cite{elmanare
     \end{itemize}
     \citet{tyo_state_2022} state that \ac{av} is the fundamental problem of \ac{aa} \cite{tyo_state_2022}, 
     where there is only one candidate author \cite{barlas_cross_domain_2020}.
+    \citet{llm_detection_av_2025} state that \ac{av} is a more general and difficult (than \ac{aa}) one-class classification problem.
+    Hence, the disputed document is compared only to documents from the candidate, 
+    ignoring intermediate negatives (all human texts not written by the known author) \cite{llm_detection_av_2025}.
     \citet{elmanarelbouanani_authorship_2014} consider \ac{av} a similarity detection task.
     Use cases include plagiarism detection, moderation of user-generated content, historical \ac{aa}, and forensic analysis \cite{rivera_soto_learning_2021}.
 \end{definition}

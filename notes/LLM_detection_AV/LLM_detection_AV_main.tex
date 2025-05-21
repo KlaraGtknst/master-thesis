@@ -1,0 +1,80 @@
+\section{\ac{llm} detection as an \ac{av} task}
+\label{sec:llm_detection_av}
+
+\citet{llm_detection_av_2025} claim that opposed to common belief, the task of detecting \ac{llm} generated text is not an \ac{aa} task,
+i.e., a closed-set binary classification where both classes are sufficiently discriminative, 
+but an \ac{av} task, i.e., an open-set one-class classification problem. 
+
+\subsection{\ac{llm} vs human text}
+
+% differences
+\citet{llm_detection_av_2025} claim that it is unclear how exactly \ac{llm} generated text differs from human text.
+Research so far has observed, that \ac{llm} generated text lacks lexical diversity, 
+overuses certain adjectives ("commendable", "innovative", "meticulous", etc.) and produces longer, more complex sentences.
+Moreover, \acp{llm} possess stylistic fingerprints and memorize patterns from the training data.
+% lengths
+While \citet{llm_detection_av_2025} found the average word length of human texts across datasets is 5.1 $\pm$ 0.1 charcters, 
+which matches the excepted value for English, 
+words in \ac{llm} generated text are significantly longer (>5.4 characters).
+Text length is genre-dependent, however, human texts have generally longtailed distributions, 
+while \ac{llm} generated texts have narrow stopping windows. 
+% entropy
+According to \citet{llm_detection_av_2025}, apart from the newest closed-source models, 
+\acp{llm} struggle to produce sufficiently many new words and characters to match the entropy of human text.
+Strategies for higher entropy include:
+\begin{itemize}
+    \item being more human-like
+    \item penalizing repetitive sampling
+    \item writing nonsensical gibberish
+\end{itemize}
+Character n-grams entropy alone is a weak discriminator, 
+but can give an upper bound for minimum non-zero text length requirements for separation (below limit texts are indistinguishable) and 
+establishes a baseline how human text is distributed \cite{llm_detection_av_2025}.
+
+% similarities
+However, due to Nucleus sampling (i.e. top-p sampling: Sampling next token from subset of $p$ most probable tokens) 
+among other advances, generated text adheres better to human text characteristics.
+% artifacts is AE, artefacts is BE
+Newer \acp{llm} are able to produce fewer pathological language artefacts \cite{llm_detection_av_2025}.
+
+\subsection{\ac{llm} detectors}
+
+As \acp{llm} advanced, basic heuristics applied by human detectors no longer suffice.
+However, experienced ChatGPT users can still detect generated text due to their prior experience.
+
+\subsection{Assumptions}
+
+% future of LLMs
+According to \citet{llm_detection_av_2025}, one core assumption as of today is that 
+language distributions of human-authored and machine-generated text are sufficiently distinct due to training data or technology.
+\citet{llm_detection_av_2025} argue that this assumption is not true, since 
+(1) the distance of the distributions depends on the feature space used, which is not specified, and
+(2) human text is assumed to be uniform across all authors.
+Instead, \citet{llm_detection_av_2025} argue that \acp{llm} will become more human-like and thus, 
+\ac{llm} detection will increasingly resemble a human authorship classification task.
+
+% dataset requirements
+Currently, benchmarks should be designed to be diverse and include many (low quality) documents in order to make the benchmark more robust.
+\citet{llm_detection_av_2025} argue that these datasets are not representative given the one-class nature of the problem.
+Consequently, these datasets will not find good detectors and increase the Type-II error rate.
+
+% scores
+\citet{llm_detection_av_2025} argue that maintaining a low \ac{fpr} is more important than high accuracy.
+This idea is core of the \ac{roc} analysis.
+However, low \ac{fpr} and high accuracy are both possible to achieve if non-answers are a valid third option.
+Abstaining from answering can be achieved by using a meta learner that can abstain from answering if the confidence is low, 
+or to use \ac{svm} hyperplane distances to calibrate precision thresholds.
+
+\subsection{Evaluation metrics}
+Metrics also include c@1.
+\citet{llm_detection_av_2025} argue that the reduction from the \ac{fpr}-\ac{tpr} curve of \ac{roc} to a single \ac{roc-auc} number 
+comes with information loss due to the absence of a fixed threshold and trade-off.
+Moreover, \ac{roc}'s \ac{fpr} and \ac{tpr} are independent of class prevalence, which is desirable.
+However, in highly imbalanced class scenarios \ac{roc} can be misleading (overly optimistic or pessimistic).
+
+\subsection{Dataset \& \acp{llm} for \ac{llm} detection} 
+\citet{llm_detection_av_2025} propose to use the \ac{pan}'24, Human Detectors, Ghostbuster, RAID, MAGE, M4 dataset for \ac{llm} detection.
+The datasets are preprocessed by removing extremely short texts, texts with adversarial attacks (i.e. obfuscation), 
+low-quality texts created by older models, prompt artefacts and the peer review genre.
+\acp{llm} used for \ac{llm} detection are \texttt{GPT-3.x}, \texttt{GPT-4}, \texttt{LLaMA2}, \texttt{Mistral}, \texttt{GPT-4o}, 
+\texttt{GPT-4o-mini}, and \texttt{OpenAI o1}.
