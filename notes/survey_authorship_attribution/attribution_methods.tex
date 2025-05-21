@@ -7,28 +7,30 @@ For a comparison (pro/contra) of profile-based and instance-based methods, see \
 Methods belonging to the profile-based category concatenate all the available training texts per author in one big file 
 and extract a cumulative representation of that author's style from this concatenated text. % tyo_state_2022: "representation of all author texts"
 Hence, methods in this category are better if only short texts are available for training.
-The difference of texts written by the same author are disregarded \cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
+The difference of texts written by the same author are disregarded \cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.
 The unseen text is compared to each author file and the most similar one based on a distance measure is selected as the predicted author:
 $$ author(x) = argmin_{a \in A} d(x, x_a) $$
 where $x$ is the text to be classified, $A$ is the set of authors, and $d(x, x_a)$ is a distance measure 
 between the text and the author file $x_a$ \cite{stamatatos_survey_2009}.
 % probabilistic models
 Probabilistic models are a special case of profile-based methods.
-They attempt to maximize the probability $P(x|a)$ of the text $x$ belonging to candidate author $a$.
+They attempt to maximize the probability $P(x|a)$ of the text $x$ belonging to candidate author $a$ \cite{stamatatos_survey_2009,neal_surveying_2018}.
 The attribution model seeks the author that maximizes the similarity metric: 
 $$ author(x) = argmax_{a \in A} \frac{P(x|a)}{P(x|\overline{a})} $$
 where the conditional probabilities are estimated by $x_a$ for author $a$ and the rest of the texts, respectively \cite{stamatatos_survey_2009}.
-Naive Bayes is a variant of this probabilistic  classifier \cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
+Naive Bayes is a variant of this probabilistic  classifier \cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.
 \citet{elmanarelbouanani_authorship_2014} describe a Naive Bayes classifier that takes a feature vector of 365 normalized function word frequencies.
 % compression models, e.g. RAR or GZIP (more info Paper)
 Compression models are based on the idea that the text of one author can be compressed more efficiently than the text of multiple authors.
 The new text is concatenated with the author profile and then compressed.
-The differences between the compressed concatenation with the unseen text and compressed author profiles without the unseen text are computed.
+The differences between the compressed concatenation with the unseen text and compressed author profiles without the unseen text are computed 
+\cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.
 The author profile with the lowest difference is selected as the predicted author \cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
 Tested compression algorithms include RAR, LZW, GZIP, BZIP2 and 7ZIP. 
 RAR is the most accurate one \cite{elmanarelbouanani_authorship_2014}.
 \citet{elmanarelbouanani_authorship_2014} include the Normalized Compressor Distance (NCD) as a distance measure for compression-based methods. % Chap. 4.2
 \citet{stamatatos_survey_2009} claim that probabilistic approaches are faster in comparison to compression models.
+\citet{neal_surveying_2018} state that LZ77 is a lossless data compression algorithm that is used to compress data by detecting duplicates.
 % Common n-grams
 For the \ac{cng} method, the author profile is composed of the $L$ most common $n$-grams of the training texts.
 The similarity between to texts is estimated by a distance measure based on relative frequencies of the $n$-grams.
@@ -42,10 +44,35 @@ It counts the number of common $n$-grams between the two texts and disregards th
 where the unseen text is attributed to the author whose profile is closest in terms of a distance metric.
 As a distance metric, \citet{koppel_authorship_2011} suggest the cosine distance in a vector space 
 defined by the space-free character 4-gram frequencies.
+% similarity of vocabularies
+\citet{neal_surveying_2018} define intertextual distances as measures of the similarity between the vocabularies of two texts.
+Some of the most common measures are the following:
+\begin{itemize}
+    \item Delta measures the difference in $z$-scores, or standard scores, of the relative frequencies of the most frequent words in texts, which he termed \textit{Delta}. 
+    Delta has proven one of the most robust intertextual distance measures by computing 
+    $\frac{1}{n}\sum_{i=1}^{n} \left| z(f_i(D)) - z(f_i(D')) \right|$ between two texts $D$ and $D'$.
+    \item Chi-Square Distance $\chi^2$: $\chi^2=\sum_{k=1}^{n}\frac{(O_k-E_k)^2}{E_k}$ is a non-parametric goodness-of-fit statistical measure for determining
+    if a set of frequencies were drawn from the same population.
+    $O$ is the observed frequency and $E$ is the expected frequency.
+    In intertextual distance, the frequencies of lexical features are used, where the population is a collection of candidate author samples.
+    A lower $\chi^2$ value indicates that a sample was drawn from a particular population.
+    \item Kullback-Leibler Divergence $D_{KL}(P||Q)=\sum_{i}P(i) log \frac{P(i)}{Q(i)}$ 
+    is a measure of how one discrete probability distribution $Q$ diverges from a second expected discrete probability distribution $P$.
+    \item Stamatatos Distance is measure based on character $n$-grams.
+    An author profile $P$ is a pair ($n$-gram, normalized frequency) of the $L$ most frequent $n$-grams in a text sample.
+    The first metric measures the distance between an unknown text profile and candidate author profile: 
+    $d_1(P(x),P(T_a))=\sum_{g \in P(x)} (\frac{2(f_x(g)-f_{T_a}(g))}{f_x(g)+ f_{T_a}(g)})^2$, 
+    where $P(x)$ is the profile of the unknown text, $P(T_a)$ is the profile of the text of the candidate author $a$, 
+    $f_x(g)$ is the frequency of $n$-gram $g$ in $P(x)$, and $f_{T_a}(g)$ is the frequency of $n$-gram $g$ in the candidate author text.
+    The second metric concatenates all training samples as a normalization step:
+    $d_2(P(x),P(T_a),P(N)))=\sum_{g \in P(x)} (\frac{2(f_x(g)-f_{T_a}(g))}{f_x(g)+ f_{T_a}(g)})^2 \cdot (\frac{2(f_x(g)-f_N(g))}{f_x(g)+ f_N(g)})^2$, 
+    where $N$ is the concatenated text.
+
+\end{itemize}
 
 % instance-based
 The family of instance-based methods, on the other hand, require multiple training text samples per author. 
-Each sample is a separate instance of authorial style \cite{stamatatos_survey_2009,altakrori_topic_2021,elmanarelbouanani_authorship_2014}.
+Each sample is a separate instance of authorial style \cite{stamatatos_survey_2009,altakrori_topic_2021,elmanarelbouanani_authorship_2014,neal_surveying_2018}.
 If only one training sample is available, the method segments the sample into multiple parts, probably of equal length.
 \citet{stamatatos_survey_2009} state that samples of variable length should be normalized and 
 shorter samples should be discarded.
@@ -67,7 +94,7 @@ If $k=1$, the approaches are sensitive to noise.
 However, for $k>1$ and majority vote or weighted vote schemes, the methods are more robust.
 % others in Paper
 Compression-based models can also be considered similarity-based measures which are slow 
-since the compression algorithm is called for each training text.
+since the compression algorithm is called for each training text \cite{stamatatos_survey_2009,neal_surveying_2018}.
 % Meta-learning models
 Existing classification algorithms can be used as meta-learning models.
 Unmasking is a meta-learning approach which is based on the idea that

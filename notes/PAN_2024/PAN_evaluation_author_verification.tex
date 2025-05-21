@@ -5,18 +5,27 @@
 \citet{ayele_overview_2024} claim the following measures are established in \ac{av}:
 \begin{itemize}
     \item \ac{roc-auc} \cite{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021,kocher_unine_2015}
+    
     \item BRIER: Complement of the Brier score \cite{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021}, in \citet{bevendorff_overview_2024}'s case equivalent to the mean squared loss.
+    
     \item C@1: Modified version of the accuracy \cite{bevendorff_overview_2024}/ F1-score \cite{weerasinghe_feature_vector_difference_2021} score, 
     where the non-answers (abstained) \cite{llm_detection_av_2025} are assigned the average accuracy of the remaining cases \cite{bevendorff_overview_2024}. 
     It rewards systems that leave difficult problems unanswered \cite{weerasinghe_feature_vector_difference_2021}.
     $$c@1 = \frac{nc}{np}(1+\frac{nu}{np})$$ where $np$ is the number of problems, $nc$ the number of correct answers, 
     and $nu$ the number of unanswered problems \cite{kocher_unine_2015}.
-    \item $F_1$: Harmonic mean of precision and recall \cite{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021}.
+    
+    \item $F_1$: Harmonic mean of precision and recall \cite{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021}:
+    $ F_1 = 2 \cdot \frac{precision \cdot recall}{precision + recall} $ \cite{neal_surveying_2018}.
+    A higher value indicates a better performance \cite{neal_surveying_2018}.
+    
     \item $F_{0.5u}$: Modified version of the $F_{0.5}$ score, where the non-answers are considered \acp{fn} \cite{bevendorff_overview_2024}. A measure that puts more emphasis on deciding same-author cases correctly \cite{weerasinghe_feature_vector_difference_2021}.
 \end{itemize}
 
-The \ac{roc} curve is generated according to the percentage of \acp{fp} in the x-axis and the percentage of \acp{tp} in the y-axis.
+The \ac{roc} curve is generated according to the percentage of \acp{fp}, i.e. \ac{fpr} $= \frac{FP}{FP+TN}$, in the x-axis and 
+the percentage of \acp{tp}, i.e. \ac{tpr} $=\frac{TP}{TP+FN}$, in the y-axis,
+for varying thresholds \cite{kocher_unine_2015,neal_surveying_2018}.
 The maximum value of 1.0 indicated a perfect performance \cite{kocher_unine_2015}.
+The \ac{auc} is the area under the curve, where a greater \ac{auc} indicates a better performance \cite{neal_surveying_2018}.
 \citet{kocher_unine_2015} claim that both \ac{roc} and \ac{auc} are difficult to interpret.
 According to \citet{kocher_unine_2015}, usually, the \ac{auc} values should be consistent and comparable with the C@1 values.
 The \ac{auc} of the \ac{roc} is biased since the \ac{roc} gives more emphasis 

@@ -58,6 +58,15 @@ or the number of hapax dislegomena (words that occur twice in a text) \cite{elma
 The vocabulary size depends on the text length (quick increase in the beginning, slowly increasing later).
 To mitigate this effect, researchers have proposed methods to introduce stability into these metrics \cite{elmanarelbouanani_authorship_2014,bevendorff_overview_2024}. 
 According to \citet{stamatatos_survey_2009}, these proposed methods are questionable and should not be used alone.
+\citet{neal_surveying_2018} list some of the most common vocabulary richness measures:
+\begin{itemize}
+    \item Zipf's law models a linear relationship between the number of vocabulary items appearing $r$ times in a document.
+    \item Yule's K measure assumes that the occurrence of a word is based on chance and can be modelled according to a Poisson distribution.
+    \item Yule's I measure $= \frac{M_1 M_1}{M_1 M_2}$, where $M_1$ is the number of words in a document and $M_2$ is the sum of weighted word forms with a certain frequency. A larger result indicates a richer vocabulary.
+    \item The Burrows method considers large sets of high-frequency function words per 1000 words and then applies \ac{pca}. This method is considered a standard method in authorship attribution.
+    \item Hapax legomena counts the number of words to appear one, while happax dislegomena counts the number of words to appear two times in a document.
+    \item Type/token ratio is the ratio of all tokens (or words) to unique tokens (referred to as types).
+\end{itemize}
 % frequent words
 \citet{elmanarelbouanani_authorship_2014} state that the most frequent words in a text is a lexical feature set.
 % BoW
@@ -101,7 +110,7 @@ Large $n$ on the one hand, capture lexical and contextual information but may al
 Small $n$ on the other hand, may be able to represent subwords but are less adequate to capture contextual information.
 % compression-based features
 The idea of compression based approaches is to use the compression model acquired from one text to compress another text. 
-If both texts are from the same author, the bit-wise size of the compressed file will be relatively low.
+If both texts are from the same author, the bit-wise size of the compressed file will be relatively low \cite{stamatatos_survey_2009,neal_surveying_2018}.
 Since compression models usually describe characteristics of the texts based on the repetition of character sequences, 
 they can be considered as character-based features. \todo{Is this still the case? Paper is from 2009}
 

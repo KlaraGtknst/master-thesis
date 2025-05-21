@@ -38,7 +38,8 @@
 \begin{definition}
     [Stylometry]
     Liguistic research area, which refers to the (statistical) analysis of authorial/ literally style \cite{elmanarelbouanani_authorship_2014,neal_surveying_2018}.
-    Stylometry assumes that style is quantifiably measurable for evaluation of distinctive qualities \cite{neal_surveying_2018}.
+    Stylometry assumes that style is quantifiably measurable for evaluation of distinctive qualities and 
+    that features, such as subconscious syntactic idiosyncrasies are sufficient in defining an author's unique style \cite{neal_surveying_2018}.
     The construction of models for the quantification of writing style, text complexity, and grading level assessment.
     Stylometric features include lexical, syntactic and structural features \cite{stein_intrinsic_2011}.
     In other words, stylometry is the statistical analysis of literary style between one writer or genre and another \cite{tyo_state_2022}.
@@ -47,9 +48,14 @@
         \item \ac{aa}
         \item \ac{av}
         \item Author profiling
-        \item \todo{stylochronometry}
+        \item Stylochronometry
         \item adversarial stylometry
     \end{itemize}
+\end{definition}
+
+\begin{definition}
+    [Stylochronometry]
+    The study and detection of changes in authorial style over time \cite{neal_surveying_2018}.
 \end{definition}
 
 \begin{definition}
@@ -62,13 +68,14 @@
     Among others, syntactic structure of sentences in a document \cite{jafariakinabad_self_supervised_2022}.
 \end{definition}
 
-\citet{elmanarelbouanani_authorship_2014} claim there are four (five \cite{abbasi_writeprints_2008}) types of writing style/ stylistic features:
+\citet{elmanarelbouanani_authorship_2014} claim there are four (five \cite{abbasi_writeprints_2008,neal_surveying_2018}) types of writing style/ stylistic features:
 \begin{itemize}
-    \item Lexical features \citet{elmanarelbouanani_authorship_2014,abbasi_writeprints_2008}
-    \item Syntactic features \citet{elmanarelbouanani_authorship_2014,abbasi_writeprints_2008}
-    \item Structural features \citet{elmanarelbouanani_authorship_2014,abbasi_writeprints_2008}
-    \item Content-specific features \citet{elmanarelbouanani_authorship_2014,abbasi_writeprints_2008}
+    \item Lexical features \citet{elmanarelbouanani_authorship_2014,abbasi_writeprints_2008,neal_surveying_2018}
+    \item Syntactic features \citet{elmanarelbouanani_authorship_2014,abbasi_writeprints_2008,neal_surveying_2018}
+    \item Structural features \citet{elmanarelbouanani_authorship_2014,abbasi_writeprints_2008,neal_surveying_2018}
+    \item Content/Domain-specific features \citet{elmanarelbouanani_authorship_2014,abbasi_writeprints_2008,neal_surveying_2018}
     \item Idiosyncratic features \citet{abbasi_writeprints_2008}
+    \item Semantic features \cite{neal_surveying_2018}
 \end{itemize}
 
 \begin{definition}
@@ -94,20 +101,28 @@
     They are character- (i.e. character (n-gram) frequency, ...) 
     or word-based (i.e. average word~\cite{stein_intrinsic_2011}, sentence length~\cite{stein_intrinsic_2011,abbasi_writeprints_2008}, 
     line length~\cite{abbasi_writeprints_2008}, word length distribution~\cite{abbasi_writeprints_2008}, 
-    vocabulary richness~\cite{abbasi_writeprints_2008} ...) features. 
+    vocabulary richness~\cite{abbasi_writeprints_2008,neal_surveying_2018} ...) features. 
     These features consider text as a mere sequence of word-tokens or characters, respectively \cite{stamatatos_survey_2009}.
     Word features are more complex than character features \cite{stamatatos_survey_2009}.
+    Character features are language-independent, not highly affected by noise (compared to word features), 
+    and do not require natural language processors \cite{neal_surveying_2018}.
 \end{definition}
 
 \begin{definition}
     [Syntactic features]
     Syntactic features include function words, punctuation, and \ac{pos} tag $n$-grams \cite{abbasi_writeprints_2008}.
+    They are language-dependent and require natural language processors \cite{neal_surveying_2018}.
+\end{definition}
+
+\begin{definition}
+    [Semantic features]
+    Semantic features capture meaning behind words, phrases, and sentences, such as through analysis of synonyms and semantic dependencies \cite{neal_surveying_2018}.
 \end{definition}
 
 \begin{definition}
     [Structural features]
     Structural features include text organization, layout, file extensions, font, sizes, colours, 
-    use of braces and comments (for analysing computer programs) \cite{abbasi_writeprints_2008}.
+    use of braces and comments (for analysing computer programs) \cite{abbasi_writeprints_2008,neal_surveying_2018}.
 \end{definition}
 
 \begin{definition}
@@ -119,18 +134,18 @@
 
 \begin{definition}
     [Idiosyncratic features]
-    Idiosyncratic features include misspellings, grammatical mistakes, and other usage anomalies.
+    Idiosyncratic features include misspellings, grammatical mistakes, and other usage anomalies \cite{abbasi_writeprints_2008,neal_surveying_2018}.
     Such features are extracted using spelling and grammar checking tools and dictionaries \cite{abbasi_writeprints_2008}.
 \end{definition}
 
 \begin{definition}
     [Feature-set type]
-    There are two types of feature sets \cite{abbasi_writeprints_2008}:
+    There are two types of feature sets \cite{abbasi_writeprints_2008,neal_surveying_2018}:
     \begin{itemize}
         \item Author-group-level where one set of features is applied across all authors.
         \item Individual-author-level where each author has a unique set of features (e.g., 10 authors = 10 feature sets; 5000 most frequent character $n$-grams per author).
     \end{itemize}
-    Individual-author-level features are effective for feature categories with potentially large feature spaces, such as $n$-grams or misspellings.
+    Individual-author-level features are effective for feature categories with potentially large feature spaces, such as $n$-grams or misspellings \cite{abbasi_writeprints_2008}.
     However, standard machine learning techniques typically require a fixed feature set for all authors \cite{abbasi_writeprints_2008}.
     Traditional single-author-group-level feature sets include \acp{svm} and \ac{pca} \cite{abbasi_writeprints_2008}.
 \end{definition}
@@ -156,8 +171,15 @@
 
 \begin{definition}
     [Adversarial Stylometry]
-    Attack models that automatically infer a variety of potentially sensitive author information.
+    Attack models that automatically infer a variety of potentially sensitive author information \cite{emmery_adversarial_2021} 
+    via alteration of one's style \cite{neal_surveying_2018}.
     These attacks are not to be confused with adversarial learning \cite{emmery_adversarial_2021}.
+    There are three forms of adversarial stylometry \cite{neal_surveying_2018}:
+    \begin{itemize}
+        \item Imitation: Writing to closely match the style of another author.
+        \item Translation: Machine translating the language of a document to another language and back to the original language one or multiple times.
+        \item Obfuscation: Paraphrasing such that the meaning of the text is preserved, but the style is changed.
+    \end{itemize}
 \end{definition}
 
 \begin{definition}
@@ -165,7 +187,7 @@
     In the realm of plagiarism detection, closed world refers to the assumption 
     that a reference collection $D$ of documents, 
     that are supposed to be compared to the possibly plagiarized text, is given \cite{stein_intrinsic_2011}.
-    In the realm of \ac{av} texts in the test set are assumed to be written by one of the authors in the training set \cite{boenninghoff_o2d2_2021}.
+    In the realm of \ac{av} and \ac{aa} texts in the test set are assumed to be written by one of the authors in the training set \cite{boenninghoff_o2d2_2021,neal_surveying_2018}.
 \end{definition}
 
 \begin{definition}
@@ -208,7 +230,8 @@
     [\ac{aa}]   % authorship attribution
     The task of determining the author of a text based on textual features 
     given a (canonical) set of candidate authors with undisputed writing samples 
-    \cite{stein_intrinsic_2011,stamatatos_survey_2009,tyo_state_2022,bischoff_importance_2020,barlas_cross_domain_2020,altakrori_topic_2021,bevendorff_divergence_based_2020,elmanarelbouanani_authorship_2014,abbasi_writeprints_2008,llm_detection_av_2025}.
+    \cite{stein_intrinsic_2011,stamatatos_survey_2009,tyo_state_2022,bischoff_importance_2020,barlas_cross_domain_2020,altakrori_topic_2021,bevendorff_divergence_based_2020,elmanarelbouanani_authorship_2014,abbasi_writeprints_2008,llm_detection_av_2025,neal_surveying_2018}.
+    The decision is made based on stylistic traits rather tahn the content of the document \cite{neal_surveying_2018}.
     In terms of machine learning, this is a multiclass, single-label text categorization task \cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014} or text classification task \cite{elmanarelbouanani_authorship_2014}.
     The task is also referred to as author(ship) identification \cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
     \citet{barlas_cross_domain_2020} express the \ac{aa} task as a tuple $(A,K,U)$, 
@@ -216,9 +239,16 @@
     If closed-set \ac{aa}: Each text $d \in U$ is attributed to exactly one author $a \in A$.
     If cross-topic(/-genre) \ac{aa}: The topic(/genre) of documents in $d \in U$ is distinct 
     with respect to the topics(/genres) found in $K$ \cite{barlas_cross_domain_2020}. 
-    \citet{llm_detection_av_2025} state that \ac{aa} with few (<20) candidate authors is typically highly effective, even if only short writing samples are available.
+    \citet{llm_detection_av_2025,neal_surveying_2018} state that \ac{aa} with few (<20) candidate authors is typically highly effective, 
+    even if only short writing samples are available \cite{llm_detection_av_2025}/ 
+    where each author has training samples of at least 1000 words \cite{neal_surveying_2018}.
     Many candidate authors impede the \ac{aa} problem.
     Models that abstain in uncertain many candidates scenarios still achieve good results \cite{llm_detection_av_2025}.
+    $k$-attribution/ ranking (i.e. relaxed \ac{aa}, where the classifier output the top $k$ authors ranked by their probability of being the author of the text), 
+    cross-domain/ cross-genre \ac{aa} (i.e., identify author $M$ of document written in domain $A$, while only having documents from $m$ in domain $B$ and thus, 
+    features of domain $B$ must be applicable to domain $A$), 
+    and source code \ac{aa} 
+    are forms of \ac{aa} \cite{neal_surveying_2018}.
 \end{definition}
 
 \citet{elmanarelbouanani_authorship_2014} describe the workflow of \ac{aa} as follows:
@@ -248,14 +278,18 @@ Common classifiers include \ac{svm}, decision trees, and \acp{nn} \cite{elmanare
     where there is only one candidate author \cite{barlas_cross_domain_2020}.
     \citet{llm_detection_av_2025} state that \ac{av} is a more general and difficult (than \ac{aa}) one-class classification problem.
     Hence, the disputed document is compared only to documents from the candidate, 
-    ignoring intermediate negatives (all human texts not written by the known author) \cite{llm_detection_av_2025}.
+    ignoring intermediate negatives (all human texts not written by the known author) \cite{llm_detection_av_2025,neal_surveying_2018}.
+    \citet{neal_surveying_2018} consider \ac{av} a binary classification problem (i.e. \textit{same-author} or \textit{different-author}), 
+    where \textit{different-author} renders \ac{av} as an open-set problem.
+    However, \citet{neal_surveying_2018} consider framing \ac{av} as a one-class classification problem as a common approach (cf. \cite{llm_detection_av_2025}).
     \citet{elmanarelbouanani_authorship_2014} consider \ac{av} a similarity detection task.
+    \citet{neal_surveying_2018} also mention the many-candidates method where \ac{av} is framed as \ac{aa} via creating a set of imposters.
     Use cases include plagiarism detection, moderation of user-generated content, historical \ac{aa}, and forensic analysis \cite{rivera_soto_learning_2021}.
 \end{definition}
 
 \begin{definition}
     [Similarity detection]
-    The task of comparing anonymous texts against other anonymous texts to assess the degree of similarity \cite{abbasi_writeprints_2008}.
+    The task of comparing anonymous texts against other anonymous texts to assess the degree of similarity in terms of stylistic characteristics \cite{abbasi_writeprints_2008,neal_surveying_2018}.
     In the context of \ac{av}, the task is to determine whether two texts are produced by the same person without knowing the real author of the document \cite{elmanarelbouanani_authorship_2014}.
 \end{definition}
 
@@ -332,6 +366,8 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     [Stop words vs. function words]
     Function words are the most common words (articles, prepositions, pronouns, etc.) 
     like "while", "upon", "though", "were", "your" \cite{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
+    They are typically regarded as context-free (and therefore less influenced by topic and genre), 
+    while revealing social and personal aspects of our lives \cite{neal_surveying_2018}.
     Most function words are stop words, but not all stop words are function words \cite{stein_intrinsic_2011}.
     \citet{elmanarelbouanani_authorship_2014} state that researchers use between 150 and 675 function words as features.
     \citet{abbasi_writeprints_2008} state that function words are highly effective discriminators of authorship, since 
@@ -354,12 +390,13 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 
 \begin{definition}
     [Open-set classification]
-    The true author is not necessarily included in the set of candidate authors \cite{stamatatos_survey_2009,barlas_cross_domain_2020}.
+    The true author is not necessarily included in the set of candidate authors \cite{stamatatos_survey_2009,barlas_cross_domain_2020,neal_surveying_2018}.
+    It is a generalization of the closed-set classification problem allowing for an unknown author using a threshold for similarity \cite{neal_surveying_2018}.
 \end{definition}
 
 \begin{definition}
     [Closed-set classification]
-    The true author is one necessarily one of the candidate authors \cite{stamatatos_survey_2009,koppel_authorship_2011,barlas_cross_domain_2020,boenninghoff_o2d2_2021}.
+    The true author is one necessarily one of the candidate authors \cite{stamatatos_survey_2009,koppel_authorship_2011,barlas_cross_domain_2020,boenninghoff_o2d2_2021,neal_surveying_2018}.
     In other words: The set of all possible author classes is known a priori.
     Hence, closed-set problems can use supervised or unsupervised classification techniques \cite{abbasi_writeprints_2008}.
 \end{definition}
@@ -392,7 +429,8 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     Tri-grams are commonly used in stylistic analysis, due to their ability to capture inflections, % Flexion/ Beugung in Deutsch
     morphemes, %  smallest meaningful constituents within a linguistic expression and particularly within a word
     and other syntactic structures for Germanic languages.
-
+    Character-level $n$-gram features capture the frequency of $n$ consecutive characters in a text \cite{neal_surveying_2018}.
+    The optimal $n$ is language dependent \cite{neal_surveying_2018}.
 \end{definition}
 
 \begin{definition}
@@ -596,3 +634,42 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     \textbf{Topic $T_2$} & $A_2$ & $A_1$ \\ \hline
     \end{tabular}%
 \end{table}
+
+\begin{definition}
+    [Data preprocessing]
+    Typical stylometry subtask for normalization and noise reduction.
+    Examples include tokenization, stemming, tagging, removing non-alphabetic characters and spaces, and converting uppercase letters to lowercase \cite{neal_surveying_2018}.,
+\end{definition}
+
+\begin{definition}
+    [Tokenization]
+    Splitting a stream of text into words, phrases, etc. \cite{neal_surveying_2018}.
+\end{definition}
+
+\begin{definition}
+    [Stemming]
+    Only retaining the root or base form of a word \cite{neal_surveying_2018}.
+\end{definition}
+
+\begin{definition}
+    [Tagging]
+    Replacing words with their grammatical type \cite{neal_surveying_2018}.
+\end{definition}
+
+\begin{definition}
+    [\ac{bow}]
+    The \ac{bow} approach generally refers to lexical-level features as it represents a document as a bag (or collection) of words, 
+    discarding context, grammar, and word order \cite{neal_surveying_2018}.
+\end{definition}
+
+\begin{definition}
+    [Latent Dirichlet Allocation (LDA)]
+    LDA is a three-level Bayesian technique for modelling a collection over a set of topics.
+    LDA is a probabilistic model where each topic is determined by word distributions \cite{neal_surveying_2018}.
+\end{definition}
+
+\begin{definition}
+    [Clustering]
+    Clustering is an unsupervised machine-learning procedure, where the algorithm derives a natural separation of the feature space 
+    that may or may not correlate with the class labels \cite{neal_surveying_2018}.
+\end{definition}
