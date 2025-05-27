@@ -7,11 +7,14 @@ As an example use-case where high precision is required, they mention wrong conv
 They propose an \todo{open-source, customizable unmasking framework}. % cf. bevendorff_generalizing_2019 for url
 Moreover, they claim good performance on short text which inherently contain high amount of uncertainty since they have low stylistic information content.
 
-\citet{bevendorff_generalizing_2019,bevendorff_divergence_based_2020} propose creating chunks by oversampling words in a bootstrap aggregating manner. 
+\citet{bevendorff_generalizing_2019,bevendorff_divergence_based_2020} propose creating chunks by 
+oversampling words in a bootstrap aggregating manner. 
 Each text is a pool of words, from which words are sampled without replacement.
 The pool is replenished if it is exhausted before the chunk has sufficiently many words.
 Since the random sampling of unmasking features introduces variance, unmasking is performed multiple times and the curves are averaged.
 The algorithm is displayed in \autoref{alg:generalized_unmasking}.
+The content of the while loop is, except the number of removed features (\cite{koppel_authorship_2004}: 6 total), 
+similar to the original unmasking algorithm \cite{koppel_authorship_2004}.
 
 % prediction
 Another linear \ac{svm} classifier is trained on the accuracy curve, its central-difference gradients (first- and second order), 

@@ -1,0 +1,66 @@
+\section{\ac{av} as One-Class categorization}
+\label{sec:av_one_class}
+
+\citet{koppel_authorship_2004} frame \ac{av} as a one-class categorization problem.
+
+They claim research had shown that linear separators work well for text categorization.
+Linear models include Naive Bayes (linear separator for two classes), 
+Winnow and Exponential Gradient and linear \acp{svm} \cite{koppel_authorship_2004}. 
+
+\subsection{\ac{aa} framework}
+\citet{koppel_authorship_2004} state that the following framework solve a number of real world \ac{aa} problems:
+\begin{enumerate}
+    \item Construction of appropriate feature vectors
+    \item Construction of a distinguishing model via a learning algorithm
+    \item Assessment of effectiveness of methods using k-fold cross-validation or bootstrapping
+\end{enumerate}
+
+\subsection{Chunks}
+\citet{koppel_authorship_2004} propose chunking texts such that each chunk is of approximately equal length, 
+and at least 500 words without breaking paragraphs. 
+
+\subsection{Definitions}
+For author $A$ and book $X$, \citet{koppel_authorship_2004} define the following:
+If $A$ is not the author of $X$, $A_X$ is the set of all works by author $A$.
+If $A$ is the author of $X$, $A_X$ is the set of all works by author $A$ except $X$.
+A pair of $A_X$ and $X$ is called \emph{same-author} if X was authored by $A$.
+A pair of $A_X$ and $X$ is called \emph{different-author} if $X$ was not authored by $A$.
+
+\subsection{Initial feature set}
+The initial feature set consists of the 250 words with the highest average (over $X$ and $X_A$) frequency \cite{koppel_authorship_2004}.
+
+\subsection{Features for meta-classifier}
+\citet{koppel_authorship_2004} propose the following features for the meta-classifier 
+(where $i$ is the number of elimination steps):
+\begin{itemize}
+    \item accuracy after $i$ elimination steps
+    \item accuracy difference between round $i$ and round $i+1$
+    \item accuracy difference between round $i$ and round $i+2$
+    \item $i^{th}$ highest accuracy drop in one iteration
+    \item $i^{th}$ highest accuracy drop in two iterations
+\end{itemize}
+
+The vectors are grouped by \emph{same-author} and \emph{different-author} pairs and thus, 
+used to train a meta-learning scheme.
+
+\subsection{Negative examples for Elimination method}
+\citet{koppel_authorship_2004} state that negative examples are neither exhaustive nor representative.
+They propose using words of several authors $A_1, ..., A_n$ roughly filling the same profile as candidate $A$ 
+in terms of geography, chronology, culture and genre.
+$A_1, ..., A_n$ are said to collectively represent class not-$A$.
+
+\subsection{Elimination method}
+
+The elimination method is only used to overrule positive predictions.
+Hence, it can eliminate \acp{fp}.
+One can frame it as a filter which is applied after or before unmasking.
+
+% training
+\citet{koppel_authorship_2004} learn a model for $A$ and against not-$A$, 
+and multiple models for $A_i$ and against not-$A_i$.
+% inference
+Then, $X$ is tested against all of these models.
+$A(X)$ is the percentage of examples of $X$ classed as $A$ rather than not-$A$ 
+(i.e., $A_i(X)$ analogously).
+If $A(X)$ is not larger than all $A_i(X)$, $A$ is not the author of $X$.
+If $A(X)$ is larger than all $A_i(X)$, conclude nothing.
