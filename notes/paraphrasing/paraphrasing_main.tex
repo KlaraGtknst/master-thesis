@@ -1,0 +1,44 @@
+\section{Paraphrasing}
+\label{sec:paraphrasing}
+\newcommand{\bluert}{\href{https://github.com/google-research/bleurt}{BLUERT}}
+
+\citet{fu_learning_2024} propose PEARL, a black-box paraphrasing model to meet \ac{llm} expression style.
+
+\citet{fu_learning_2024} state that paraphrase divergence (cf. \autoref{sec:definitions}) can be explained as language models 
+not only learn knowledge but also expression patterns associated with the knowledge from a corpus during pre-training.
+Ideally, prompt learning should be independent of questions, but in reality, prompts are task- or domain-specific.
+Hence, preferences for a certain format within a particular task or domain learnt during training persist in the model.
+In other words, \acp{llm} may exhibit different preferences for various semantics.
+
+\bluert{} is machine evaluation metric for paraphrase generation.
+\citet{fu_learning_2024} use \bluert{} to filter out incorrect paraphrases (i.e. using a threshold $\theta$).
+
+UPRISE is a universal prompt auto-retrieval method that tunes a lightweight prompt retriever based on contrastive learning \cite{fu_learning_2024}.
+There is also a official recommended template for manual prompt construction \cite{fu_learning_2024}.
+
+Popular paraphrase categories include \cite{fu_learning_2024}:
+\begin{itemize}
+    \item Top-level classification perspective: 
+        \begin{itemize}
+            \item Lexicon-based changes
+            \item Morphology-based changes
+            \item others
+        \end{itemize}
+    \item Second-level classification perspective:
+        \begin{itemize}
+            \item Change of format
+            \item Semantic-based
+            \item Change of order
+        \end{itemize}
+\end{itemize}
+
+\citet{fu_learning_2024} give three prompt tips:
+\begin{enumerate}
+    \item Make question/ prompt as clear as possible even if some restrictive requirements may seem unnecessary.
+    \item Place significant details, including restrictive elements such as time, place, manner, reason, purpose and conditions, at the beginning of the prompt.
+    \item Pay attention to spelling, i.e. proper nouns, title, honorifics, abbreviations, acronyms and observe capitalization.
+\end{enumerate}
+
+
+% metric
+\citet{fu_learning_2024} describe the Gini Coefficient as a measure of inequality in a distribution, ranging from 0 (i.e. even distribution across categories) to 1.
