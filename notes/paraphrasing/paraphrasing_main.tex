@@ -60,6 +60,28 @@ but learns distributions over syntax information by \ac{vae}.
 The latent syntax variable is sampled from the learned distribution and will be fed into the decoder ar each decoding step.
 Implicit method do not require exemplar sentences like exemplar methods.
 
+\citet{master_thesis_paraphrasing_2024} compare open-source \acp{llm} for paraphrasing.
+They also provide descriptions of the models, including their architecture.
+The models include Gemma (which they found to add asterics around the output), LLaMA (diverse version, where LLaMA3 significantly outperformed all other models), 
+Mistral, and Phi3, Solar, and Starling (which they found to produce unclear outputs, due to excessive explanation of the model's actions).
+Their first prompting strategy is \texttt{Paraphrase the following user story and output only paraphrased version:\\
+\{user\_story\}}.
+They tried including the stylometry metric and how they wanted to alter the metric: 
+\texttt{Based on the following instruction: \{option\} \{stylometry\_metric\}.\\
+Paraphrase the following user story and output only paraphrased version:\\
+\{user\_story\}}.
+Options include increase, decrease, or don't change.
+The styloemtric metric is one of 23 options they defined.
+They did not know to what extent the \ac{llm} was familiar with the stylometry metric. 
+Hence, they also tried to include a definition of the metric in the prompt:
+\texttt{\{stylometry metric definition\}\\Based on the following instruction:\\
+\{option\} \{stylometry\_metric\} \\
+Paraphrase the following user story and output only paraphrased version: \{user\_story\}}.
+\citet{master_thesis_paraphrasing_2024} found that \acp{llm} struggle to adhere instructions with regard to specific stylometry metrics, 
+since it generally did not enhance the performance of the models.
+They also finetuned the \acp{llm} via the Unsloth library (pg. 21 \cite{master_thesis_paraphrasing_2024}).
+Their experiments where run on Google Colab (pg. 28).
+
 \subsection{Paraphrase divergence}
 \citet{fu_learning_2024} state that paraphrase divergence (cf. \autoref{sec:definitions}) can be explained as language models 
 not only learn knowledge but also expression patterns associated with the knowledge from a corpus during pre-training.
@@ -120,3 +142,13 @@ Popular paraphrase categories include \cite{fu_learning_2024}:
 
 % metric
 \citet{fu_learning_2024} describe the Gini Coefficient as a measure of inequality in a distribution, ranging from 0 (i.e. even distribution across categories) to 1.
+
+\citet{master_thesis_paraphrasing_2024} include a table (tab. 3.1, pg. 18) with numerous stylometric metric including readbility, vocabulary richness, and word/character counts.
+
+\subsection{\ac{llm} training}
+
+\citet{master_thesis_paraphrasing_2024} describes the training of \acp{llm} as a three-stage development process:
+Starting with pre-training on a vast dataset to acquire comprehensive knowledge of language and the world, 
+followed by supervised finetuning for specific downstream tasks and finally,
+human preference alignment training to mimic human behaviour.
+
