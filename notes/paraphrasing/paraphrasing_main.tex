@@ -86,12 +86,14 @@ since it generally did not enhance the performance of the models.
 They also finetuned the \acp{llm} via the Unsloth library (pg. 21 \cite{master_thesis_paraphrasing_2024}).
 Their experiments where run on Google Colab (pg. 28).
 
+
 \subsection{Paraphrase divergence}
 \citet{fu_learning_2024} state that paraphrase divergence (cf. \autoref{sec:definitions}) can be explained as language models 
 not only learn knowledge but also expression patterns associated with the knowledge from a corpus during pre-training.
 Ideally, prompt learning should be independent of questions, but in reality, prompts are task- or domain-specific.
 Hence, preferences for a certain format within a particular task or domain learnt during training persist in the model.
 In other words, \acp{llm} may exhibit different preferences for various semantics.
+
 
 \subsection{Metrics and Evaluation}
 There is manual (by humans) evaluation and automatic evaluation for paraphrase generation \cite{fu_learning_2024,zhou_paraphrase_2021}.
@@ -104,20 +106,41 @@ In the following, we focus on automatic evaluation.
 
 BLEU (Bilingual Evaluation Understudy \cite{palivela_optimization_2021}) (2002) was developed for machine translation \cite{zhou_paraphrase_2021}.
 According to \citet{zhou_paraphrase_2021}'s survey, BLEU is the most frequently used metric for paraphrase generation.
-BLEU is unable to measure semantic equivalents when applied to low-resource languages.
+BLEU counts the matching n-grams in the generated text to the gold/ reference text.
+Unigrams are token-wise and bi-grams are word-pairs \citet{palivela_optimization_2021}.
+BLEU is unable to measure semantic equivalents when applied to low-resource languages \cite{zhou_paraphrase_2021}.
 Moreover, BLEU fails to capture good paraphrases that are not similar to the reference text.
 \citet{zhou_paraphrase_2021} suggest combining BLEU with human evaluation to overcome its limitations.
-METEOR (2014) aims to address BLEU's shortcomings.
+GLEU (Google-BLEU) is a variant of BLEU that was developed to be closer to human judgement, and to 
+overcome BLEU's drawback of per sentence reward objective \cite{palivela_optimization_2021}.
+GLEU computes n-gram precisions overgold/reference paraphrases and weighs n-grams by their change from the source text \cite{palivela_optimization_2021}.
+
+METEOR (Metric for Evaluation of Translation with Explicit Ordering \cite{palivela_optimization_2021}) (2014) aims to address BLEU's shortcomings.
 It has better correlation with human judgement at the sentence/segment level than BLEU \cite{zhou_paraphrase_2021}.
+It computes a weighted F-score based on unigrams with a penality function whenever an incorrect word is encountered \cite{palivela_optimization_2021}.
+
 ROUGE (Recall-Oriented Understudy for Gisting Evaluation \cite{palivela_optimization_2021}) (2004) 
-is a recall-based metric developed for text summarization \cite{zhou_paraphrase_2021}.
+is a recall-based metric developed for text summarization \cite{zhou_paraphrase_2021,palivela_optimization_2021}.
 ROUGE can focus on the word variations and diversity.
-It has multiple versions, the most popular ones include ROUGE-N (computing the n-gram recall), 
-ROUGE-L (computing the longest common subsequence).
+It has multiple versions, the most popular ones include 
+ROUGE-N (computing the n-gram recall) \cite{zhou_paraphrase_2021,palivela_optimization_2021}, 
+ROUGE-L (computing the longest common subsequence) \cite{zhou_paraphrase_2021,palivela_optimization_2021}, 
+ROUGE-W (Weighted longest common subsequence) \cite{palivela_optimization_2021}, 
+ROUGE-S (skip-bigram co-occurrence statistics) \cite{palivela_optimization_2021}.
+REOUGE-1 computes the recall by analysing the matching unigrams between the generated paraphrase and the reference paraphrase \cite{palivela_optimization_2021}.
+
 TER (2006) was developed for machine translation \cite{zhou_paraphrase_2021}.
 It computes the number of edits required to change the translation until it matches the reference translation.
 It ranges from 0 (i.e. no edits needed) to 1 (i.e. all words need to be changed).
-\citet{palivela_optimization_2021} also include WER (Word Error Rate), and GLEU (Google-BLEU) as metrics.
+
+\citet{fu_learning_2024} describe the Gini Coefficient as a measure of inequality in a distribution, ranging from 0 (i.e. even distribution across categories) to 1.
+
+\citet{master_thesis_paraphrasing_2024} include a table (tab. 3.1, pg. 18) with numerous stylometric metric including readbility, vocabulary richness, and word/character counts.
+
+\citet{palivela_optimization_2021} state that accuracy, precision, recall and F1-score are suitable for \ac{pi}.
+For \ac{pg}, they suggest ROUGE, BLEU, GLEU, WER (Word Error Rate), and METEOR as suitable metrics.
+WER is the number of substitutions (replacements of words), insertions (adding words) and deletions (removing words) 
+divided by the total number of words in the reference text \cite{palivela_optimization_2021}.
 
 
 Popular paraphrase categories include \cite{fu_learning_2024}:
@@ -145,11 +168,6 @@ Popular paraphrase categories include \cite{fu_learning_2024}:
 
 \citet{zhou_paraphrase_2021} claim it is difficult to control the style of generated paraphrases.
 
-
-% metric
-\citet{fu_learning_2024} describe the Gini Coefficient as a measure of inequality in a distribution, ranging from 0 (i.e. even distribution across categories) to 1.
-
-\citet{master_thesis_paraphrasing_2024} include a table (tab. 3.1, pg. 18) with numerous stylometric metric including readbility, vocabulary richness, and word/character counts.
 
 \subsection{\ac{llm} training}
 

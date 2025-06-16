@@ -1,9 +1,10 @@
 \section{Metrics}
 \label{sec:metrics}
 
-\citet{chen_web_2008} use precision, recall and F-measure to describe the performance:
+\citet{chen_web_2008} use precision, recall (also: sensitivity or \acl{tp} rate \cite{palivela_optimization_2021}) 
+and F-measure to describe the performance:
 $$precision = \frac{TP}{TP + FP}$$
 $$recall = \frac{TP}{TP + FN}$$
 $$F-measure = \frac{2 \cdot precision \cdot recall}{precision + recall}$$~\cite{chen_web_2008,abbasi_writeprints_2008}
-where $TP$ is the number of true positives, $FP$ is the number of false positives 
-and $FN$ is the number of false negatives.
+where $TP$ is the number of \aclp{tp}, $FP$ is the number of \aclp{fp} 
+and $FN$ is the number of \aclp{fn}.
