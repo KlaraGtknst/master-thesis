@@ -66,7 +66,8 @@ The latent syntax variable is sampled from the learned distribution and will be 
 Implicit method do not require exemplar sentences like exemplar methods \cite{zhou_paraphrase_2021}.
 \citet{palivela_optimization_2021} second major category of \ac{pg} is using pre-trained language models finetuning \acp{llm}.
 
-\citet{palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024} describe the \ac{t5} model as an algorithm that aims to convert every language problem into a text-to-text format.
+\citet{palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024} describe the 
+\ac{t5} model as an algorithm that aims to convert every language problem into a text-to-text format.
 \ac{t5} was trained on a mix of labeled (Colossal Clean Crawled Corpus) and unlabeled data \cite{palivela_optimization_2021}.
 Its pre-training was done on data-rich tasks before fine-tuning on downstream tasks \cite{kurt_pehlivanoglu_comparative_2024}.
 
@@ -102,6 +103,11 @@ They use more specific prompts, such as:
     \item \texttt{Generate compound-complex sentences}
     \item \texttt{Generate sentences with a complex conditional clause}
 \end{itemize}
+Other models they us include GPT-3 (Api using the Text-Davinci-003 model with temperature$=0.7$ and top\_p$=1$), 
+and a pre-trained \ac{t5}-based model known as 'prithivida/parrot\_paraphraser\_on\_\ac{t5}' on Huggingface (fine-tuned for paraphrasing tasks).
+Since some \ac{t5} paraphrases were the same as the input sentence, they used \textcolor{red}{beam search} technique to rephrase these identical sentences.
+Even though, \ac{t5} was the best in terms of BERTScore, 
+\citet{kurt_pehlivanoglu_comparative_2024} found that it had the lowest fluency (i.e. grammatical scceptability) measured by \ac{t5}-CoLA.
 
 
 \subsection{Paraphrase divergence}
@@ -123,30 +129,42 @@ In the following, we focus on automatic evaluation.
 
 BLEU (Bilingual Evaluation Understudy \cite{palivela_optimization_2021}) (2002) was developed for machine translation \cite{zhou_paraphrase_2021}.
 According to \citet{zhou_paraphrase_2021}'s survey, BLEU is the most frequently used metric for paraphrase generation.
-BLEU counts the matching n-grams in the generated text to the gold/ reference text.
+BLEU counts the matching (precision \cite{kurt_pehlivanoglu_comparative_2024}) n-grams in the generated text to the gold/ reference text \cite{palivela_optimization_2021}.
+If the generated is significantly shorter than the reference text, a brevity penalty is applied.
+A BLEU score approaching 1 signifies limited syntactic diversity (i.e. inadequate paraphrase) \cite{kurt_pehlivanoglu_comparative_2024}.
 Unigrams are token-wise and bi-grams are word-pairs \citet{palivela_optimization_2021}.
 BLEU is unable to measure semantic equivalents \cite{kurt_pehlivanoglu_comparative_2024,zhou_paraphrase_2021} 
 when applied to low-resource languages \cite{zhou_paraphrase_2021}.
 Moreover, BLEU fails to capture good paraphrases that are not similar to the reference text \cite{zhou_paraphrase_2021}.
+\citet{kurt_pehlivanoglu_comparative_2024} found that BLEU tends to overestimate the quality of paraphrases.
 \citet{zhou_paraphrase_2021} suggest combining BLEU with human evaluation to overcome its limitations.
-GLEU (Google-BLEU) is a variant of BLEU that was developed to be closer to human judgement, and to 
+GLEU (Google-BLEU) (ranges from 0 to 1 \cite{kurt_pehlivanoglu_comparative_2024}) is a variant of BLEU that was developed to be closer to human judgement, and to 
 overcome BLEU's drawback of per sentence reward objective \cite{palivela_optimization_2021}.
-GLEU computes n-gram precisions overgold/reference paraphrases and weighs n-grams by their change from the source text \cite{palivela_optimization_2021}.
+GLEU computes n-gram precisions (overlaps \cite{kurt_pehlivanoglu_comparative_2024}) overgold/reference paraphrases 
+and weighs n-grams by their change from the source text \cite{palivela_optimization_2021}.
+GLEU assesses the fluency, order of n-grams, structural and semantic accuracy 
+and penalizes shorter average m-gram lengths in the generated text compared to the reference \cite{kurt_pehlivanoglu_comparative_2024}.
+Lower GLEU scores indicate greater diversity \cite{kurt_pehlivanoglu_comparative_2024}.
 
-METEOR (Metric for Evaluation of Translation with Explicit Ordering \cite{palivela_optimization_2021}) (2014) aims to address BLEU's shortcomings.
-It has better correlation with human judgement at the sentence/segment level than BLEU \cite{zhou_paraphrase_2021}.
-It computes a weighted F-score based on unigrams with a penality function whenever an incorrect word is encountered \cite{palivela_optimization_2021}.
+METEOR (Metric for Evaluation of Translation with Explicit Ordering \cite{palivela_optimization_2021}) 
+(ranges from 0 to 1 \cite{kurt_pehlivanoglu_comparative_2024}) (2014) aims to address BLEU's shortcomings.
+It has better correlation with human judgement at the sentence/segment level than BLEU \cite{zhou_paraphrase_2021}, 
+because it not only consists of simple n-gram matching but also including synonymy and stemming \cite{kurt_pehlivanoglu_comparative_2024}.
+It computes a weighted F-score (precision and recall according to \citet{kurt_pehlivanoglu_comparative_2024}) based on unigrams 
+with a penality function whenever an incorrect word is encountered \cite{palivela_optimization_2021} 
+(fragmentation to assess order and coherence of text according to \cite{kurt_pehlivanoglu_comparative_2024}).
 
-ROUGE (Recall-Oriented Understudy for Gisting Evaluation \cite{palivela_optimization_2021}) (2004) 
-is a recall-based metric developed for text summarization \cite{zhou_paraphrase_2021,palivela_optimization_2021}.
+ROUGE (Recall-Oriented Understudy for Gisting Evaluation \cite{palivela_optimization_2021}) (ranges from 0 to 1 \cite{kurt_pehlivanoglu_comparative_2024}) (2004) 
+is a recall-based metric developed for text summarization \cite{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}.
 ROUGE can focus on the word variations and diversity.
 It has multiple versions, the most popular ones include 
-ROUGE-N (computing the n-gram recall) \cite{zhou_paraphrase_2021,palivela_optimization_2021}, 
-ROUGE-L (computing the longest common subsequence) \cite{zhou_paraphrase_2021,palivela_optimization_2021}, 
+ROUGE-N (computing the n-gram recall) \cite{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}, 
+ROUGE-L (computing the longest common subsequence) \cite{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}, 
 ROUGE-W (Weighted longest common subsequence) \cite{palivela_optimization_2021}, 
 ROUGE-S (skip-bigram co-occurrence statistics) \cite{palivela_optimization_2021}.
-REOUGE-1 computes the recall by analysing the matching unigrams between the generated paraphrase and the reference paraphrase \cite{palivela_optimization_2021}.
-\citet{kurt_pehlivanoglu_comparative_2024} claim that ROUGE may not be adequate to assessnsemantic similarity and fluency.
+REOUGE-1 computes the recall by analysing the matching unigrams between the generated paraphrase and the reference paraphrase \cite{palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}.
+\citet{kurt_pehlivanoglu_comparative_2024} claim that ROUGE may not be adequate to assess semantic similarity and fluency.
+Lower ROUGE scores indicate greater diversity \cite{kurt_pehlivanoglu_comparative_2024}.
 
 TER (2006) was developed for machine translation \cite{zhou_paraphrase_2021}.
 It computes the number of edits required to change the translation until it matches the reference translation.
@@ -162,6 +180,21 @@ WER is the number of substitutions (replacements of words), insertions (adding w
 divided by the total number of words in the reference text \cite{palivela_optimization_2021}.
 
 \citet{kurt_pehlivanoglu_comparative_2024} additionally use T5-STSB.
+The metric is based on \ac{t5} model adapted to the Semantic Textual Similarity Benchmark (STSB).
+It evaluates semantic equivalence by assigning a similarity score from 0 (no similarity) to 5 (complete equivalence) \cite{kurt_pehlivanoglu_comparative_2024}.
+
+BERTScore calculates the cosine similarity between the contextual embeddings of the reference and generated texts. 
+Hence, is assesses semantic equivalence and correlates well with human judgement \cite{kurt_pehlivanoglu_comparative_2024}.
+
+\ac{t5}-CoLA metric (ranges from 0 to 5 \cite{kurt_pehlivanoglu_comparative_2024}) utilizes the Corpus of Linguistic Acceptability (CoLA) to evaluate the grammatical correctness of sentences and thus, 
+contributes linguistic evaluation \cite{kurt_pehlivanoglu_comparative_2024}.
+
+Generally, \citet{kurt_pehlivanoglu_comparative_2024} order the metrics by their contribution area:
+\begin{itemize}
+    \item semantic: BERTScore, STSB, METEOR
+    \item Fluency: CoLA
+    \item Diversity: ROUGE1/2/L, BLEU, GLEU
+\end{itemize}
 
 
 Popular paraphrase categories include \cite{fu_learning_2024}:
