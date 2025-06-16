@@ -696,7 +696,8 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 
 \begin{definition}
     [Paraphrases]
-    Texts that convey identical meanings while using different words or (sentence) structures \cite{fu_learning_2024,zhou_paraphrase_2021,palivela_optimization_2021}.
+    Texts that convey identical meanings while using different words or (sentence) structures 
+    \cite{fu_learning_2024,zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}.
 \end{definition}
 
 \begin{definition}
@@ -744,7 +745,8 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     [Subtasks of Paraphrasing]
     There are two sub-tasks of paraphrasing \cite{palivela_optimization_2021}:
     \begin{itemize}
-        \item \ac{pg}: The task of generating fluent and semantically similar paraphrases for a given sentence. 
+        \item \ac{pg}: The task of generating fluent, well-formed, coherent and semantically similar paraphrases 
+        that exhibit both syntactic and/or lexical diversity from a given sentence \cite{palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}. 
         It can be solved by using simple lexical features and word ordering or restructuring methods or 
         by using templates extracted from WikiAnswers repositories \cite{palivela_optimization_2021}.
         Formally, for a sentence $S_1=\{w_1, \cdot, w_n\}$, generate one or more candidate sentences $S_2=\{w_1, \cdot, w_m\}, \cdot$.
@@ -754,6 +756,22 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
         or a semantic score which can be normalized \cite{palivela_optimization_2021}.
         Formally, for a sentence pair $(S_1, S_2)$, find a target 1 or 0. Sentence lengths may vary. \cite{palivela_optimization_2021}.
     \end{itemize}
+\end{definition}
+
+\begin{definition}
+    [Syntactic diversity]
+    Syntactic diversity refers to the variety of arrangements of words, phrases, and clauses in sentences \cite{kurt_pehlivanoglu_comparative_2024}.
+\end{definition}
+
+\begin{definition}
+    [Syntax]
+    Syntax or syntactic structure is the structural organization of sentences.
+    Grammatical function and meaning of sentence depend on syntax \cite{kurt_pehlivanoglu_comparative_2024}.
+\end{definition}
+
+\begin{definition}
+    [Sentence structures]
+    There are four basic types of sentence structures: Simple, compound, complex and compound-complex \cite{kurt_pehlivanoglu_comparative_2024}.
 \end{definition}
 
 \begin{definition}
@@ -770,4 +788,10 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 \begin{definition}
     [Type II error]
     \ac{fn}, or in other words: The model predicts negative when it is positive in reality \cite{palivela_optimization_2021}.
+\end{definition}
+
+\begin{definition}
+    [ChatGPT]
+    Short for Conditional Generative Pre-Trained Transformer.
+    It is developed by OpenAI, trained on millions of diverse conversations utilizing supervised and reinforcement learning techniques \cite{kurt_pehlivanoglu_comparative_2024}.
 \end{definition}
