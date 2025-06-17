@@ -93,6 +93,9 @@ since it generally did not enhance the performance of the models.
 They also finetuned the \acp{llm} via the Unsloth library (pg. 21 \cite{master_thesis_paraphrasing_2024}).
 Their experiments where run on Google Colab (pg. 28).
 
+\citet{krishna_paraphrasing_2023} built \href{https://huggingface.co/kalpeshk2011/dipper-paraphraser-xxl}{DIPPER} (NeurIPS 2023, not accepted).
+ 
+
 \citet{kurt_pehlivanoglu_comparative_2024} use ChatGPT to generate paraphrases with the prompt:
 \texttt{paraphrase:\{sentence\}}.
 They have a table of existing datasets (tab. 1, pg. 4) with genre specified, including MRPC a news dataset.
@@ -108,6 +111,27 @@ and a pre-trained \ac{t5}-based model known as 'prithivida/parrot\_paraphraser\_
 Since some \ac{t5} paraphrases were the same as the input sentence, they used \textcolor{red}{beam search} technique to rephrase these identical sentences.
 Even though, \ac{t5} was the best in terms of BERTScore, 
 \citet{kurt_pehlivanoglu_comparative_2024} found that it had the lowest fluency (i.e. grammatical scceptability) measured by \ac{t5}-CoLA.
+
+The Parrot Paraphraser is a rule-based \ac{t5}-based paraphrase generation framework whose 
+rules balance adequacy (semantic preservation), fluency (text smoothness), and diversity (lexical/syntactic variation) \cite{zhou_paraphrase_2025}.
+
+\citet{hassanipour_ability_2024} use the following prompts to generate paraphrases:
+\begin{itemize}
+    \item \texttt{Paraphrase the text}
+    \item \texttt{Rephrase the text}
+    \item \texttt{Reduce the plagiarism of the text}
+    \item \texttt{Rephrase it in a way that conveys the same meaning using different words and sentence structure}
+    \item \texttt{Reword this text using different language}
+\end{itemize}
+They found no significant difference between the prompts in terms of flagged plagiarism.
+They propose that the prompts are too brief, too similar to each other, or that ChatGPT understands the intention of the user when reading any of these prompts.
+They found that generated texts based on single paragraph were less prone to be flagged as plagiarized than those based on fragmented text, i.e. multiple paragraphs
+(maybe the context and coherence improves ChatGPT's understanding of the text).
+Multiple iterations if paraphrasing achieved modest improvements in reducing plagiarism, indicating that ChatGPT has the ability to learn.
+
+\citet{zhou_paraphrase_2025} state that prompts should aligned with the \ac{llm} preference (of prompts).
+
+Few-shot prompting for paraphrases is a technique where \acp{llm} are tasked to paraphrase text using a few samples of the desired paraphrase transformation \cite{zhou_paraphrase_2025}.
 
 
 \subsection{Paraphrase divergence}
@@ -127,7 +151,7 @@ In the following, we focus on automatic evaluation.
 \bluert{} is machine evaluation metric for paraphrase generation.
 \citet{fu_learning_2024} use \bluert{} to filter out incorrect paraphrases (i.e. using a threshold $\theta$).
 
-BLEU (Bilingual Evaluation Understudy \cite{palivela_optimization_2021}) (2002) was developed for machine translation \cite{zhou_paraphrase_2021}.
+BLEU (Bilingual Evaluation Understudy \cite{palivela_optimization_2021,zhou_paraphrase_2025}) (2002) was developed for machine translation \cite{zhou_paraphrase_2021}.
 According to \citet{zhou_paraphrase_2021}'s survey, BLEU is the most frequently used metric for paraphrase generation.
 BLEU counts the matching (precision \cite{kurt_pehlivanoglu_comparative_2024}) n-grams in the generated text to the gold/ reference text \cite{palivela_optimization_2021}.
 If the generated is significantly shorter than the reference text, a brevity penalty is applied.
@@ -196,6 +220,8 @@ Generally, \citet{kurt_pehlivanoglu_comparative_2024} order the metrics by their
     \item Diversity: ROUGE1/2/L, BLEU, GLEU
 \end{itemize}
 
+\citet{krishna_paraphrasing_2023} compute the lexical diversity using unigram token overlap and call it F1 score.
+As a semantic similarity score, they use the ACL Antology 2022 published \href{https://aclanthology.org/2022.emnlp-demos.38.pdf}{P-SP}.
 
 Popular paraphrase categories include \cite{fu_learning_2024}:
 \begin{itemize}
@@ -212,6 +238,14 @@ Popular paraphrase categories include \cite{fu_learning_2024}:
             \item Change of order
         \end{itemize}
 \end{itemize}
+\citet{zhou_paraphrase_2025} (pg. 3, tab.1, and examples afterwards) define a topology of paraphrase types:
+\begin{itemize}
+    \item Morphology based: inflection changes (e.g. singular to plural), derivation changes (e.g. adjective to verb), functional word substitution (e.g. this to that).
+    \item Lexicon based: Same polarity substitution (e.g. synonym), opposite polarity substitution (e.g. antonym), converse substitution (e.g. opposite view point), spelling changes, synthetic/ analytic substitution, relational substitution
+    \item Syntax based: Negation switching (i.e. other negation), diathesis alternation (e.g. change position of verb), etc.
+    \item Discourse based: Indirect/direct substitutions, sentence modality changes, punctuation changes, etc.
+    \item Other changes: Change of order, change of format, etc.
+\end{itemize}
 
 \citet{fu_learning_2024} give three prompt tips:
 \begin{enumerate}
@@ -221,6 +255,8 @@ Popular paraphrase categories include \cite{fu_learning_2024}:
 \end{enumerate}
 
 \citet{zhou_paraphrase_2021} claim it is difficult to control the style of generated paraphrases.
+
+Another approach to paraphrasing is back-translation, which may limit diversity \cite{zhou_paraphrase_2025}.
 
 
 \subsection{\ac{llm} training}
@@ -236,8 +272,13 @@ human preference alignment training to mimic human behaviour.
 \begin{enumerate}
     \item Remove sentence pairs having more than 60$\%$ unigram, bigram or trigram overlap 
     (to discourage model from copying input sentence and increases diversity of paraphrases).
-    \item Remove sentence pairs having very little semnatic similarity by using Sentence-BERT 
+    \item Remove sentence pairs having very little semantic similarity by using Sentence-BERT 
     (to force model to generate semantically similar paraphrases).
     \item If dataset contains non-paraphrase sentence pairs, remove them.   
 \end{enumerate}
 
+\subsection{Plagiarism Detection}
+\citet{hassanipour_ability_2024} analyse texts for plagiarism using the \textcolor{orange}{iThenticate} tool.
+It is really \href{https://www.ithenticate.com/pricing}{expensive}.
+Alternatives to detectors of \ac{ai}-generated text include watermarking and statistical outlier detection 
+(\ac{ai}-generated text's artefacts such as irregularities in entropy and perplexity) \cite{krishna_paraphrasing_2023}.
