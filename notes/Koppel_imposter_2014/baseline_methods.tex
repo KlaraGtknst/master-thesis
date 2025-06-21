@@ -19,7 +19,7 @@ They select the 100000 most frequent 4-grams from the training set.
 As similarity measures, they compare the cosine similarity and the min-max measure.
 
 $$sim(X,Y)=cosine(\overrightarrow{X},\overrightarrow{Y})=\frac{\overrightarrow{X}*\overrightarrow{Y}}{\left\| \overrightarrow{X} \right\|*\left\| \overrightarrow{Y} \right\|}$$
-$$sim(X,Y)=minmax(\overrightarrow{X},\overrightarrow{Y})=\frac{\sum_{n}^{i=1}min(x_i,y_i))}{\sum_{n}^{i=1}max(x_i,y_i))}$$
+$$sim(X,Y)=minmax(\overrightarrow{X},\overrightarrow{Y})=\frac{\sum_{i=1}^{n}min(x_i,y_i)}{\sum_{i=1}^{n}max(x_i,y_i)}$$
 
 The optimal threshold on \citet{koppel_determining_2014} development set depended on the similarity measure.
 
