@@ -215,15 +215,42 @@ It computes a weighted F-score (precision and recall according to \citet{kurt_pe
 with a penality function whenever an incorrect word is encountered \cite{palivela_optimization_2021} 
 (fragmentation to assess order and coherence of text according to \cite{kurt_pehlivanoglu_comparative_2024}).
 
-ROUGE (Recall-Oriented Understudy for Gisting Evaluation \cite{palivela_optimization_2021}) (ranges from 0 to 1 \cite{kurt_pehlivanoglu_comparative_2024}) (2004) 
-is a recall-based metric developed for text summarization \cite{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}.
+ROUGE (Recall-Oriented Understudy for Gisting Evaluation \cite{palivela_optimization_2021,lin_rouge_2004}) 
+(ranges from 0 to 1 \cite{kurt_pehlivanoglu_comparative_2024}) (2004) 
+is a recall-based metric developed for text summarization \cite{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024,lin_rouge_2004}.
 ROUGE can focus on the word variations and diversity.
 It has multiple versions, the most popular ones include 
 ROUGE-N (computing the n-gram recall) \cite{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}, 
 ROUGE-L (computing the longest common subsequence) \cite{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}, 
 ROUGE-W (Weighted longest common subsequence) \cite{palivela_optimization_2021}, 
 ROUGE-S (skip-bigram co-occurrence statistics) \cite{palivela_optimization_2021}.
-REOUGE-1 computes the recall by analysing the matching unigrams between the generated paraphrase and the reference paraphrase \cite{palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}.
+ROUGE-1 computes the recall by analysing the matching unigrams between the generated paraphrase and the reference paraphrase \cite{palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}.
+% ROUGE-N
+ROUGE-N is an n-gram recall between the candidate text and the reference texts \cite{lin_rouge_2004} as displayed in \autoref{eq:rouge_n}.
+\begin{equation}
+    ROUGE-N = \frac{\sum_{\mathcal{S} \in \left\{ References \right\}}\sum_{n-gram \in\mathcal{S}}Count_{match}(n-gram)}{\sum_{\mathcal{S'} \in \left\{ References \right\}}\sum_{n-gram' \in\mathcal{S'}}Count(n-gram')}
+\label{eq:rouge_n}
+\end{equation}
+$Count_{match}(n-gram)$ is the maximum number of n-grams co-occuring in the candidate text and the set of reference texts \cite{lin_rouge_2004}.
+The nominator sums over all references and thus, gives more weight to matching n-grams that occur in multiple references (i.e. a consensus between references) \cite{lin_rouge_2004}.
+Refer to \citet{lin_rouge_2004} for more details on the work with multiple references (I do not understand that, because I thought we already use multiple).
+% ROUGE-L
+For ROUGE-L, the intuition is that the longer the longest common subsequence (LCS) between the candidate and reference texts, the more similar they are \cite{lin_rouge_2004}.
+For a candidate $Y$ of length $n$ and a reference $X$ of length $m$, the ROUGE-L score is defined as follows in \autoref{eq:rouge_l}:
+\begin{equation}
+    ROUGE-L = F_{lcs} = \frac{(1 + \beta^2)R_{lcs}P_{lcs}}{R_{lcs} + \beta^2 P_{lcs}}
+\label{eq:rouge_l}
+\end{equation}
+where $R_{lcs} = \frac{LCS(X,Y)}{m}$ and $P_{lcs} = \frac{LCS(X,Y)}{n}$ \cite{lin_rouge_2004}.
+ROUGE-L requires in-sequence macthes that reflect the sentence level word order as n-grams \cite{lin_rouge_2004}.
+Moreover, no predefined $n$ is necessary, because ROUGE-L includes the longest in-sequence common n-grams \cite{lin_rouge_2004}.
+However, ROUGE-L does not include shorter sequences or alternative LCSes in the final score \cite{lin_rouge_2004}.
+% ROUGE-S
+A skip-bigram is any pair of words in their sentence order, allowing for arbitrary gaps \cite{lin_rouge_2004}.
+ROUGE-S measures the overlap of skip-bigrams between the candidate text and the reference texts \cite{lin_rouge_2004}.
+Hence, if the candidate text is the reverse of the reference text, the ROUGE-S score is 0 even though it is not as bad as completely unrelated candidates \cite{lin_rouge_2004}.
+ROUGE-SU extends ROUGE-S with unigrams to solve this issue \cite{lin_rouge_2004}.
+% ROUGE generally
 \citet{kurt_pehlivanoglu_comparative_2024} claim that ROUGE may not be adequate to assess semantic similarity and fluency.
 Lower ROUGE scores indicate greater diversity \cite{kurt_pehlivanoglu_comparative_2024}.
 
