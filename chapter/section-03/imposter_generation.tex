@@ -1,0 +1,31 @@
+\subsection{Imposter Generation}
+\label{subsec:imposter_generation}
+
+% good imposters: hard negatives
+Equivalent to the original imposter approach by \citet{koppel_determining_2014}, ideal imposter texts are hard negatives.
+In other words, texts that are not authored by the candidate author, but are difficult to distinguish from the candidate author's texts.
+Note that the quality of the imposters directly contributes to the performance of the model, 
+since easy imposters lead to \acp{fp} and too difficult ones to \acp{fn}.
+
+% obstacles for imposter generation in the past
+The traditional generation techniques outlined by \citet{koppel_determining_2014} faced difficulties in controlling essential factors such as text topic or genre.
+Since authorial style heavily depends on these factors, traditional imposters can differ a lot from the candidate text.
+% model process of original text generation
+The ideal generation technique would model the process of the original text generation, 
+i.e. among others, the author's task, and references.
+Hence, all external influential factors are specified to match the original conditions.
+Unfortunately, due to the nature of this task 
+(i.e. requirement of \ac{av} is often linked to a lack of information of the author either due to death in the case of literary texts or 
+due to unwillingness of cooperation in case of plagiarism), this information is in most cases not available.
+% heuristics: paraphrase
+With \acp{llm} it is possible attempt to control external factors and 
+as a heuristic to modelling the generation process, paraphrase the original text.
+% lack of definition of paraphrase
+Due to the lack of a universal definition of paraphrases, the following criteria are used to determine the quality of the generated paraphrases:
+% our criteria for good paraphrases
+\begin{itemize}
+    \item The generated text should belong to the same topic, genre and exhibit the same tone as the original text.
+    \item The semantic information may differ (i.e. hallucination is allowed).
+    \item The generated text should be different to the original text in terms of wording and sentence structure (i.e. syntactic similarity). \textcolor{red}{threshold for bad paraphrases?}
+\end{itemize}
+
