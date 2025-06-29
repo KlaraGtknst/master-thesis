@@ -65,8 +65,10 @@
 
 \begin{definition}
     [Author writing style]
+    Characteristics of an author adjusted to a particular time, place and scenario.
+    Includes emotion, humour, politeness, formality and code-switching \cite{gohsen_task_oriented_2024}.
     Among others, syntactic structure of sentences in a document \cite{jafariakinabad_self_supervised_2022}.
-    Opposed to other text categorization tasks, features do not include content \cite{koppel_authorship_2004}.
+    Opposed to other text categorization tasks, features do not include content \cite{koppel_authorship_2004,gohsen_task_oriented_2024}.
 \end{definition}
 
 \citet{elmanarelbouanani_authorship_2014} claim there are four (five \cite{abbasi_writeprints_2008,neal_surveying_2018}) types of writing style/ stylistic features:
@@ -193,8 +195,8 @@
 
 \begin{definition}
     [Plagiarism]
-    In the context of texts, plagiarism is the usage of another author's information, language, 
-    or writing without properly acknowledging the original source \cite{stein_intrinsic_2011}.
+    In the context of texts, plagiarism is the usage of another author's information, language, ideas, results
+    or writing without properly acknowledging the original source \cite{stein_intrinsic_2011,gohsen_task_oriented_2024}.
     \citet{elmanarelbouanani_authorship_2014} define plagiarism as the complete or partial replication 
     of a piece of work with or without permission of the original author.
 \end{definition}
@@ -526,7 +528,7 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 
 \begin{definition}
     [Style transfer]
-    Translation or rather paraphrasing a text from a source style to a desired target style.
+    Translation or rather paraphrasing a text from a source style to a desired target style \cite{bischoff_importance_2020} without altering its semantics \cite{gohsen_task_oriented_2024}.
     Two major problems include the lack of large-scale parallel training data (i.e., texts written in both styles), 
     and the lack of reliable evaluation metric (i.e. assessment by humans) \cite{bischoff_importance_2020}.
 \end{definition}
@@ -536,7 +538,7 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     Task of paraphrasing a text to render an author's style imperceptible.
     Usually, another text from the author is used as a reference for style similarity \cite{bischoff_importance_2020}.
     In other words: It is the adversarial task of preventing successful verification by altering the text's style so that 
-    it no longer resembles the original author's style \cite{bevendorff_divergence_based_2020}.
+    it no longer resembles the original author's style \cite{bevendorff_divergence_based_2020,gohsen_task_oriented_2024}.
 \end{definition}
 
 \begin{definition}
@@ -697,7 +699,10 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 \begin{definition}
     [Paraphrases]
     Texts that convey identical meanings/semantic information while using different words (wording) or (sentence) structures 
-    \cite{fu_learning_2024,zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024,gohsen_captions_2023}.
+    \cite{fu_learning_2024,zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024,gohsen_captions_2023,gohsen_task_oriented_2024}.
+    There is no universal definition of paraphrases, rather two categories of definitions: 
+    Semantically equivalent (i.e. exactly the same meaning) and 
+    semantically similar paraphrases (i.e. not strictly semantically equivalent) \cite{gohsen_task_oriented_2024}.
 \end{definition}
 
 \begin{definition}
@@ -850,4 +855,9 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 \begin{definition}
     [Longest Subsequence (LCS)]
     Given two sequences $X$ and $Y$, the longest common subsequence (LCS) of $X$ and $Y$ is the common subsequence with maximum length \cite{lin_rouge_2004}.
+\end{definition}
+
+\begin{definition}
+    [context]
+    The background, the preceding and following text of a text \cite{gohsen_task_oriented_2024}.
 \end{definition}
