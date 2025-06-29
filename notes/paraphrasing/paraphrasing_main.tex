@@ -286,6 +286,26 @@ It evaluates semantic equivalence by assigning a similarity score from 0 (no sim
 
 BERTScore calculates the cosine similarity between the contextual embeddings of the reference and generated texts. 
 Hence, is assesses semantic equivalence and correlates well with human judgement \cite{kurt_pehlivanoglu_comparative_2024}.
+First, token vector representations are computed for both the reference and generated texts using a pre-trained BERT model \cite{hanna_fine_grained_2021}.
+Let reference $z$ and candidate $\hat{z}$ be the vector representations of the reference and candidate texts, respectively.
+Then, the BERTScore precision, recall and $F_1$ score is computed as follows in \autoref{eq:bert_p}, \autoref{eq:bert_r}, and \autoref{eq:bert_f1}, respectively:
+\begin{equation}
+    P_{BERT} = \frac{1}{|\hat{z}|} \sum_{\hat{z}_j \in \hat{z}} \max_{z_j \in z} z_i\top \hat{z}_j
+\label{eq:bert_p}
+\end{equation}
+\begin{equation}
+    R_{BERT} = \frac{1}{|z|} \sum_{z_j \in z} \max_{\hat{z}_j \in \hat{z}} z_i\top \hat{z}_j
+\label{eq:bert_r}
+\end{equation}
+\begin{equation}
+    F_1 = \frac{2 P_{BERT} R_{BERT}}{P_{BERT} + R_{BERT}} 
+\label{eq:bert_f1}
+\end{equation}
+Since $F_1 \in \left[-1,1\right]$ it can be rescaled to $[0,1]$ by modifying the precision and recall calculation 
+to $\hat{P}_{BERT} = \frac{P_{BERT} - a}{1 - a}$ ($R_{BERT}$ analoguous), where $a$ is the empirical lower bound on the BERTScore \cite{hanna_fine_grained_2021}.
+The BERTScore has difficulties on datasets with lexically similar (i.e. lexical overlap of content words) incorrect candidates 
+opposed to lexically different more correct candidates \cite{hanna_fine_grained_2021}.
+
 
 \ac{t5}-CoLA metric (ranges from 0 to 5 \cite{kurt_pehlivanoglu_comparative_2024}) utilizes the Corpus of Linguistic Acceptability (CoLA) to evaluate the grammatical correctness of sentences and thus, 
 contributes linguistic evaluation \cite{kurt_pehlivanoglu_comparative_2024}.
