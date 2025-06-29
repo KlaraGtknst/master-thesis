@@ -151,17 +151,54 @@ In the following, we focus on automatic evaluation.
 \bluert{} is machine evaluation metric for paraphrase generation.
 \citet{fu_learning_2024} use \bluert{} to filter out incorrect paraphrases (i.e. using a threshold $\theta$).
 
-BLEU (Bilingual Evaluation Understudy \cite{palivela_optimization_2021,zhou_paraphrase_2025}) (2002) was developed for machine translation \cite{zhou_paraphrase_2021}.
-According to \citet{zhou_paraphrase_2021}'s survey, BLEU is the most frequently used metric for paraphrase generation.
-BLEU counts the matching (precision \cite{kurt_pehlivanoglu_comparative_2024}) n-grams in the generated text to the gold/ reference text \cite{palivela_optimization_2021}.
-If the generated is significantly shorter than the reference text, a brevity penalty is applied.
-A BLEU score approaching 1 signifies limited syntactic diversity (i.e. inadequate paraphrase) \cite{kurt_pehlivanoglu_comparative_2024}.
+BLEU (Bilingual Evaluation Understudy \cite{palivela_optimization_2021,zhou_paraphrase_2025,papineni_bleu_2001}) (2002) 
+was developed for machine translation \cite{zhou_paraphrase_2021,papineni_bleu_2001}.
+It can take values from 0 to 1 \cite{papineni_bleu_2001}.
+BLEU is a precision measure \cite{kurt_pehlivanoglu_comparative_2024,papineni_bleu_2001}.
+It counts the matching n-grams (unigrams) in the generated/candidate text that appear in any of the gold/ reference texts \cite{palivela_optimization_2021,papineni_bleu_2001}, 
+and then divides them by the total number of n-grams (unigrams) in the candidate text \cite{papineni_bleu_2001}.
+Since candidates consisting only of high-probability n-grams (e.g. "the") would receive a high score without deserving it, 
+\citet{papineni_bleu_2001} introduced a clipping mechanism to limit the count of n-grams in the candidate text to the maximum count of that n-gram in any of the reference texts.
+The clipped n-grams occurences are added up and divided by the total number of unclipped n-grams in the candidate text \cite{papineni_bleu_2001}.
+\citet{papineni_bleu_2001} state that unigrams are used to test adequacy, while longer n-grams are used to test fluency.
+BLEU's basic unit of evaluation is a sentence. 
+In order to compute the BLEU score from \autoref{eq:bleu} for more than one sentence, one (1) computes the n-grams matches sentence by sentence, 
+then (2) add the clipped n-grams matches across all sentences, 
+and finally (3) divides the total clipped n-grams matches by the total number of unclipped n-grams in all candidate sentences \cite{papineni_bleu_2001}.
+\begin{equation}
+    p_n = \frac{\sum_{\mathcal{C} \in \left\{ Candidates \right\}}\sum_{n-gram \in\mathcal{C}}Count_{clip}(n-gram)}{\sum_{\mathcal{C'} \in \left\{ Candidates \right\}}\sum_{n-gram' \in\mathcal{C'}}Count(n-gram')}
+\label{eq:bleu}
+\end{equation}
+BLEU combines the scores for different n-grams using the average logarithm with uniform weights, which is equivalent to using the geometric mean of the scores \cite{papineni_bleu_2001}.
+BLEU automatically penalizes n-grams appearing in the candidate text but not in the reference text, as well as n-grams appearing more often in the candidate than in the reference text \cite{papineni_bleu_2001}.
+According to \citet{papineni_bleu_2001}, they need to add a brevity penalty to the BLEU score to enforce proper length of the candidate text. 
+For multiple sentences, they (1) add the best match (among the reference texts) length for each candidate sentence, and (2) divide this sum $r$ by the total length of all candidate sentences $c$. 
+Hence, the brevity penalty $BP$ is defined as follows in \autoref{eq:bleu_brevity_penalty}:
+\begin{equation}
+    BP = \begin{cases}
+        1 & \text{if } c > r \\
+        e^{1 - \frac{r}{c}} & \text{if } c \leq r
+    \end{cases}
+\label{eq:bleu_brevity_penalty}
+\end{equation}
+Combining all these, the final BLEU score is computed as follows in \autoref{eq:bleu_final}:
+\begin{equation}
+    \text{BLEU} = BP \cdot \exp\left(\sum_{n=1}^{N} w_n \cdot \log p_n\right)
+\label{eq:bleu_final}
+\end{equation}
+They also claim that they cannot use recall for length-related problems here, because BLEU uses multiple reference texts, which may have different lengths.
+If the generated candidate is significantly shorter than the reference text, the brevity penalty $BP$ is applied.
+A BLEU score approaching 1 signifies the candidate matches one reference almost exactly \cite{papineni_bleu_2001}, 
+and thus, limited syntactic diversity (i.e. inadequate paraphrase) \cite{kurt_pehlivanoglu_comparative_2024}.
+Note that more reference texts lead to higher BLEU scores \cite{papineni_bleu_2001}.
 Unigrams are token-wise and bi-grams are word-pairs \citet{palivela_optimization_2021}.
+According to \citet{zhou_paraphrase_2021}'s survey, BLEU is the most frequently used metric for paraphrase generation.
 BLEU is unable to measure semantic equivalents \cite{kurt_pehlivanoglu_comparative_2024,zhou_paraphrase_2021} 
 when applied to low-resource languages \cite{zhou_paraphrase_2021}.
 Moreover, BLEU fails to capture good paraphrases that are not similar to the reference text \cite{zhou_paraphrase_2021}.
 \citet{kurt_pehlivanoglu_comparative_2024} found that BLEU tends to overestimate the quality of paraphrases.
 \citet{zhou_paraphrase_2021} suggest combining BLEU with human evaluation to overcome its limitations.
+
 GLEU (Google-BLEU) (ranges from 0 to 1 \cite{kurt_pehlivanoglu_comparative_2024}) is a variant of BLEU that was developed to be closer to human judgement, and to 
 overcome BLEU's drawback of per sentence reward objective \cite{palivela_optimization_2021}.
 GLEU computes n-gram precisions (overlaps \cite{kurt_pehlivanoglu_comparative_2024}) overgold/reference paraphrases 
