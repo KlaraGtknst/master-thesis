@@ -169,7 +169,8 @@ and finally (3) divides the total clipped n-grams matches by the total number of
     p_n = \frac{\sum_{\mathcal{C} \in \left\{ Candidates \right\}}\sum_{n-gram \in\mathcal{C}}Count_{clip}(n-gram)}{\sum_{\mathcal{C'} \in \left\{ Candidates \right\}}\sum_{n-gram' \in\mathcal{C'}}Count(n-gram')}
 \label{eq:bleu}
 \end{equation}
-BLEU combines the scores for different n-grams using the average logarithm with uniform weights, which is equivalent to using the geometric mean of the scores \cite{papineni_bleu_2001}.
+BLEU combines the scores for different n-grams (separately computed) using the average logarithm with uniform weights, 
+which is equivalent to using the geometric mean of the scores \cite{papineni_bleu_2001,banerjee_METEOR_2005}.
 BLEU automatically penalizes n-grams appearing in the candidate text but not in the reference text, as well as n-grams appearing more often in the candidate than in the reference text \cite{papineni_bleu_2001}.
 According to \citet{papineni_bleu_2001}, they need to add a brevity penalty to the BLEU score to enforce proper length of the candidate text. 
 For multiple sentences, they (1) add the best match (among the reference texts) length for each candidate sentence, and (2) divide this sum $r$ by the total length of all candidate sentences $c$. 
@@ -186,7 +187,7 @@ Combining all these, the final BLEU score is computed as follows in \autoref{eq:
     \text{BLEU} = BP \cdot \exp\left(\sum_{n=1}^{N} w_n \cdot \log p_n\right)
 \label{eq:bleu_final}
 \end{equation}
-They also claim that they cannot use recall for length-related problems here, because BLEU uses multiple reference texts, which may have different lengths.
+They cannot use recall for length-related problems here, because BLEU uses multiple reference texts, which may have different lengths \cite{papineni_bleu_2001,banerjee_METEOR_2005}.
 If the generated candidate is significantly shorter than the reference text, the brevity penalty $BP$ is applied.
 A BLEU score approaching 1 signifies the candidate matches one reference almost exactly \cite{papineni_bleu_2001}, 
 and thus, limited syntactic diversity (i.e. inadequate paraphrase) \cite{kurt_pehlivanoglu_comparative_2024}.
@@ -207,13 +208,25 @@ GLEU assesses the fluency, order of n-grams, structural and semantic accuracy
 and penalizes shorter average m-gram lengths in the generated text compared to the reference \cite{kurt_pehlivanoglu_comparative_2024}.
 Lower GLEU scores indicate greater diversity \cite{kurt_pehlivanoglu_comparative_2024}.
 
-METEOR (Metric for Evaluation of Translation with Explicit Ordering \cite{palivela_optimization_2021}) 
+METEOR (Metric for Evaluation of Translation with Explicit Ordering \cite{palivela_optimization_2021,banerjee_METEOR_2005}) 
 (ranges from 0 to 1 \cite{kurt_pehlivanoglu_comparative_2024}) (2014) aims to address BLEU's shortcomings.
+First a mapping, so-called aligment, between the unigrams in the candidate text and the reference texts is created \cite{banerjee_METEOR_2005}.
+Each unigram has zero or one match.
+This aligment is created incrementally in repeating two steps:
+(1) List all possible unigram mappings derived from different modules (i.e. exact matches, Porter stemmed matches, synonym matches), 
+and (2) select the largest subset of unigram mappings that constitute a valid alignment (matches obtained from different modules are treated the same).
+(3) Choose the subset with the largest cardinality and if there are multiple, choose the one with the fewest unigram mapping crosses \cite{banerjee_METEOR_2005}.
+METEOR computes a weighted F-score 
+(unigram-precision, unigram-recall \cite{kurt_pehlivanoglu_comparative_2024,banerjee_METEOR_2005} 
+and a measure of fragmentation \cite{banerjee_METEOR_2005,kurt_pehlivanoglu_comparative_2024})
+with a penality function whenever an incorrect word is encountered \cite{palivela_optimization_2021} as displayed in \autoref{eq:meteor}.
+\begin{equation}
+    METEOR = F_{mean} = \frac{10 \cdot P \cdot R}{R + 9P} \cdot (1 - Penalty)
+\label{eq:meteor}
+\end{equation}
+The penality is designed to reduce the $F_{mean}$ score to $50\%$ if there are no bigram or longer matches \cite{banerjee_METEOR_2005}.
 It has better correlation with human judgement at the sentence/segment level than BLEU \cite{zhou_paraphrase_2021}, 
 because it not only consists of simple n-gram matching but also including synonymy and stemming \cite{kurt_pehlivanoglu_comparative_2024}.
-It computes a weighted F-score (precision and recall according to \citet{kurt_pehlivanoglu_comparative_2024}) based on unigrams 
-with a penality function whenever an incorrect word is encountered \cite{palivela_optimization_2021} 
-(fragmentation to assess order and coherence of text according to \cite{kurt_pehlivanoglu_comparative_2024}).
 
 ROUGE (Recall-Oriented Understudy for Gisting Evaluation \cite{palivela_optimization_2021,lin_rouge_2004}) 
 (ranges from 0 to 1 \cite{kurt_pehlivanoglu_comparative_2024}) (2004) 
