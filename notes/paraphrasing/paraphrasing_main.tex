@@ -134,6 +134,8 @@ Multiple iterations if paraphrasing achieved modest improvements in reducing pla
 Few-shot prompting for paraphrases is a technique where \acp{llm} are tasked to paraphrase text using a few samples of the desired paraphrase transformation \cite{zhou_paraphrase_2025}.
 
 
+High-quality paraphrases are texts with high semantic similarity and high lexical and syntactic diversity to the original text \cite{gohsen_captions_2023}.
+
 \subsection{Paraphrase divergence}
 \citet{fu_learning_2024} state that paraphrase divergence (cf. \autoref{sec:definitions}) can be explained as language models 
 not only learn knowledge but also expression patterns associated with the knowledge from a corpus during pre-training.
@@ -147,6 +149,12 @@ There is manual (by humans) evaluation and automatic evaluation for paraphrase g
 According to \citet{zhou_paraphrase_2021}, automatic evaluation metrics mainly focus on the n-gram overlaps instead of meaning, 
 and hence, human evaluation is more accurate and has a higher quality.
 In the following, we focus on automatic evaluation.
+
+There is syntactic and semantic evaluation of paraphrases \cite{gohsen_captions_2023}.
+Metrics for syntactic evaluation include BLEU, ROUGE-1, ROUGE-L, 
+while metrics for semantic similarity include BERTScore, 
+cosine similarity of dense vector representations derived from a BERT-based sentence transformer, 
+and Word Mover Distance \cite{gohsen_captions_2023}.
 
 \bluert{} is machine evaluation metric for paraphrase generation.
 \citet{fu_learning_2024} use \bluert{} to filter out incorrect paraphrases (i.e. using a threshold $\theta$).
@@ -171,6 +179,7 @@ and finally (3) divides the total clipped n-grams matches by the total number of
 \end{equation}
 BLEU combines the scores for different n-grams (separately computed) using the average logarithm with uniform weights, 
 which is equivalent to using the geometric mean of the scores \cite{papineni_bleu_2001,banerjee_METEOR_2005}.
+\citet{gohsen_captions_2023} use up to 4-grams.
 BLEU automatically penalizes n-grams appearing in the candidate text but not in the reference text, as well as n-grams appearing more often in the candidate than in the reference text \cite{papineni_bleu_2001}.
 According to \citet{papineni_bleu_2001}, they need to add a brevity penalty to the BLEU score to enforce proper length of the candidate text. 
 For multiple sentences, they (1) add the best match (among the reference texts) length for each candidate sentence, and (2) divide this sum $r$ by the total length of all candidate sentences $c$. 
@@ -373,6 +382,9 @@ human preference alignment training to mimic human behaviour.
     (to force model to generate semantically similar paraphrases).
     \item If dataset contains non-paraphrase sentence pairs, remove them.   
 \end{enumerate}
+
+\citet{gohsen_captions_2023} remove exact or near-duplicates from their paraphrase dataset.
+Near-duplicates differ only in punctuation, capitalization or whitespaces \cite{gohsen_captions_2023}.
 
 \subsection{Plagiarism Detection}
 \citet{hassanipour_ability_2024} analyse texts for plagiarism using the \textcolor{orange}{iThenticate} tool.
