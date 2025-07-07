@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
+\usepackage{fvextra}
 \usepackage{csquotes}
 \usepackage{xcolor}
 
@@ -9,7 +10,7 @@
 \defaulthyphenchar=127 % Dadurch werden auch Wörter mit Bindestrich getrennt, die schon Bindestriche enthalten.
 
 % geometry
-\usepackage[bindingoffset=1cm, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+% \usepackage[bindingoffset=1cm, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
 
 % Headline
 \usepackage{fancyhdr}
@@ -19,7 +20,7 @@
 \cfoot{}
 \fancypagestyle{plain}{}
 
-\RedeclareSectionCommand[beforeskip=1.5cm,afterskip=1cm]{chapter}
+% \RedeclareSectionCommand[beforeskip=1.5cm,afterskip=1cm]{chapter}
 
 % Colors
 \usepackage{color}
@@ -56,7 +57,7 @@
 \usepackage[hyphens]{url}
 \usepackage{hyperref}
 \hypersetup{colorlinks, citecolor=black, linkcolor=black, urlcolor=black}
-\providecommand*{\listingautorefname}{Listing}  % TODO: doesn't solve problem of missing autoref
+% \providecommand*{\listingautorefname}{Listing}  % TODO: doesn't solve problem of missing autoref
 
 % Minted
 \usepackage[chapter]{minted}
@@ -107,8 +108,10 @@
 \setlist{nolistsep}
 
 % Bibliography
-\usepackage[square,numbers]{natbib}
-\bibliographystyle{plainnat} % or plainnat abbrvnat unsrtnat
+\usepackage[sort&compress]{natbib}
+%   Allows citing in different ways (e.g., only the authors if you use the
+%   citation again within a short time).
+%
 
 % Frequently used column types
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % centering column type with fixed width
@@ -125,14 +128,11 @@
   \renewcommand{\sectionautorefname}{Section}%
   \renewcommand{\subsectionautorefname}{Subsection}%
   \renewcommand{\chapterautorefname}{Chapter}%
+  % \renewcommand{\algorithmautorefname}{Algorithm}%
+  % \renewcommand{\listingautorefname}{Listing}%
 }
 
 % Shortcut for terms
-\newcommand{\databaseName}{Elasticsearch}
-\newcommand{\flask}{Flask}
-\newcommand{\angular}{Angular}
-\newcommand{\infersent}{InferSent}
-\newcommand{\wordcloud}{word cloud}
 \newcommand{\localMaschineStats}{Apple M2 Pro MNW83D/A with 16 \ac{gb} RAM and 12 cores}
 \newcommand{\slurm}{Slurm}
 

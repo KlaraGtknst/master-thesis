@@ -1,23 +1,23 @@
 \documentclass[
     %draft, % Mit % kommentieren, um Bilder sichtbar zu machen und Links zu aktivieren
     english,
-    master
-    pdftex,
-    a4paper,
-    twoside,
-    parskip=half,
-    numbers=noenddot,
-    listof=totoc,
+    master,
+    ks, % Kassel University
+    % pdftex,
+    % a4paper,
+    % twoside,
+    % parskip=half,
+    % numbers=noenddot,
+    % listof=totoc,
     bibliography=totoc,
-    hyperfootnotes=false,
-    english,
-    openright
-]{scrreprt}
+    % hyperfootnotes=false,
+    % english,
+    % openright
+]{webisthesis}
 
 % FIXME: this doesn't work: https://blog.rtwilson.com/how-to-add-simple-new-commands-to-latex-to-help-with-writing-papers/ (11.04.2025)
 \newcommand{\todo}[1] {\textbf{\textcolor{red}{TODO:}} #1}
-\newcommand{\thesistitle}{\todo}
-\newcommand{\thesistype}{M A S T E R \space \space T H E S I S}
+% \newcommand{\thesistype}{M A S T E R \space \space T H E S I S}
 \newcommand{\thesistypedesc}{Department of Electrical Engineering and Computer Science \\
     University of Kassel}
 \newcommand{\thesisauthorname}{Klara Maximiliane Gutekunst}
@@ -31,20 +31,65 @@
 \newcommand{\thesissupervisor}{\todo}
 \newcommand{\thesisdate}{\today}
 
+\ThesisSetTitle{Towards LLM-Resilient Authorship Verification: Revisiting the Impostors Method}
+\ThesisSetKeywords{These, are, my, Keywords} % only for PDF meta attributes
+\ThesisSetLocation{\thesisauthorhometown{}} 
+
+\ThesisSetAuthor{\thesisauthorname{}}
+\ThesisSetStudentNumber{\thesisauthormatrikelnumber{}}
+\ThesisSetDateOfBirth{25}{09}{2001}
+\ThesisSetPlaceOfBirth{Brilon, Germany}
+
+% Supervisors should usually be Professors from the candidate's university. A second supervisor is not always needed. 
+\ThesisSetSupervisors{\thesisfirstreviewer{},\thesissecondreviewer{}}
+
+\ThesisSetSubmissionDate{30}{09}{2025}
+
+
 % content-specific commands
 \newcommand{\tira}{TIRA}
+
+\usepackage{booktabs}
+%    For tables ``looking the right way''.
+% \usepackage{tabularx}
+%    Enables tables with columns that automatically fill the page width.
+%
+% \usepackage[ruled,algochapter]{algorithm2e}
+%    A package for pseudo code algorithms.
+%
+% \usepackage{amsmath}
+%    For tabular-style formatting of mathematical environments.
+%
+
+\usepackage{fontawesome}
+%    For lots of awesome glyphs: https://mirror.physik.tu-berlin.de/pub/CTAN/fonts/fontawesome/doc/fontawesome.pdf
+% \usepackage[printonlyused]{acronym}
 
 \input{header}
 
 
 \begin{document}
-    \pagenumbering{roman}
-
-    % \include{titlepage}
+\begin{frontmatter}
+    % \pagenumbering{roman} not used at webis
+    % \include{titlepage} not used at webis
     % \include{abstract}
-    % \include{abstract_german}
+    % \include{abstract_german} not used at webis
 
-    % \tableofcontents
+    \tableofcontents
+
+    % \chapter*{Acknowledgements} % optional
+    % I thank the authors of the webisthesis template for their excellent work!
+
+    % \listoffigures % optional, usually not needed
+
+    % \listoftables % optional, usually not needed
+
+    % \listofalgorithms % optional, usually not needed
+    %    requires package algorithm2e
+
+    % optional: list of symbols/notation (e.g., using the nomencl package) but usually not needed
+    \end{frontmatter}
+
 
     \include{acronyms}
 
@@ -52,6 +97,7 @@
     \pagenumbering{arabic}
 
     % % Hier weitere Kapitel einfügen
+    This is a test citation \cite{elmanarelbouanani_authorship_2014}.
     \include{chapter/section-01/01-introduction}
     \include{chapter/section-02/02-related_work} % teil: background ML etc.
     \include{chapter/section-03/03-methodology}
@@ -90,9 +136,11 @@
     \pagenumbering{roman}
     \addtocounter{page}{10} % Dies ist die Anzahl der Seiten vor der Einleitung, muss möglicherweise angepasst werden, wenn das Inhaltsverzeichnis mehrere Seiten umfasst.
 
+    \nocite{*}
+    \bibliographystyle{plainnat} % requires package natbib. An alternative is apalike
     \bibliography{
         bibliography/author_identification
     }
 
-    \include{declaration}
+    % \include{declaration}
 \end{document}
