@@ -36,7 +36,8 @@ rather than using the publicly available dataset TuringBench with previously gen
 %% Perturb (Mask), score, compare: DetectGPT
 \citet{mitchell_detectgpt_2023} propose DetectGPT, a method that is threefold:
 (1) They perturb the input text by (1.1) masking out random 2-word spans until 15 \% of the text is masked. 
-Masked spans are replaced (1.2) with words from an off-the-shelf (i.e. not finetuned to target domain) \ac{llm} (e.g. T5-3B).
+Masked spans are replaced (1.2) with words from an off-the-shelf (i.e. not finetuned to target domain) \ac{llm} (e.g. T5-3B). 
+These perturbations are semantically similar rephrasings of the original text.
 (2) They score (in terms of log probability) each perturbed text using a scoring \ac{llm} 
 (ideally their candidate \ac{llm}, but it works also with any \ac{llm}, though scores deteriorate). 
 (3) The difference of the score of the original text and the average score of the perturbed texts is denoted perturbation discrepancy $d$. 
