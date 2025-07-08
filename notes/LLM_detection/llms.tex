@@ -1,0 +1,20 @@
+\subsection{\acp{llm}}
+\label{sec:llms}
+
+There are two types of \acp{llm}:
+\begin{itemize}
+    \item \textbf{Autoregressive/Causal} \acp{llm}
+    \item \textbf{Masked} \acp{llm}
+\end{itemize}
+Autoregressive \acp{llm} predict the next token based on the previous tokens in a sentence. 
+Formally, the model samples a token from the distribution $p(x_i | x_1 ... x_{t-1})$ based on a pre-defined sampling strategy.
+The text is formed one token at the time.
+Possible sampling strategies include greedy sampling, top-k sampling, and nucleus sampling.
+The latter two are most commonly used.
+The GPT family of \acp{llm} are autoregressive \acp{llm}.
+Autoregressive \acp{llm} are good at \ac{nlg} tasks \cite{bhattacharjee_fighting_2024}.
+
+Masked \acp{llm} predict a masked tokens based on the surrounding context.
+$k\%$ of the tokens are masked using special \texttt{[MASK]} tokens.
+They have Bidirectional Attention mechanisms, which makes them better at NLU (Natural Language Understanding) tasks.
+The BERT family of \acp{llm} are masked \acp{llm} \cite{bhattacharjee_fighting_2024}.

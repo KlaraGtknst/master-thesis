@@ -9,7 +9,7 @@ in that it uses \acp{llm} to generate imposter texts.
 % LLM detection using generative models
 %% AA against LLMs
 With the recent advances of \ac{nlg} come new challenges in text authorship.
-The new technologies may be misused for fraudulent activities to scam naive users.
+The new technologies may be misused for fraudulent activities to scam naive or inexperienced users~\cite{uchendu_authorship_2020,bhattacharjee_fighting_2024}.
 \citet{uchendu_authorship_2020} identified three authorship tasks essential for fighting fraudulent activities:
 (1) Given two texts $t_1$ and $t_2$, determine whether they were produced by the same method (i.e. human author or a specific \ac{nlg} method).
 (2) Given a text $t$, determine whether it was human authored or machine generated (Turing Test).
@@ -23,3 +23,12 @@ In the following, we consider (1) \ac{av}, (2) classical \ac{llm} detection, and
 Our approach differs from the work of \citet{uchendu_authorship_2020} in that our candidates (i.e. imposters) do not include a human author (3), 
 but only \acp{llm}.
 Moreover, we use different classifiers originally designed for \ac{av}, rather than \ac{aa}.
+
+%% LLM (gpt-3.5, GPT-4) as detector
+\citet{bhattacharjee_fighting_2024} evaluate using an \ac{llm} as classifier for \ac{llm} detection.
+They use \ac{gpt}-3.5 and \ac{gpt}-4 to classify texts as human or machine generated.
+They find that \ac{gpt}-3.5 performs better when being fed simple instructions, rather than constrained prompts.
+They find that \ac{gpt}-4 predicts almost exclusively \ac{ai} generated texts, while \ac{gpt}-3.5 predictions are more reliable (especially for actually human authored texts).
+Our work differs from theirs in that we use \acp{llm} to generate imposter texts specific to the candidate text, 
+rather than using the publicly available dataset TuringBench with previously generated texts.
+
