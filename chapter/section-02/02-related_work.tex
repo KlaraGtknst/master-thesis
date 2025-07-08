@@ -33,7 +33,7 @@ They find that \ac{gpt}-4 predicts almost exclusively \ac{ai} generated texts, w
 Our work differs from theirs in that we use \acp{llm} to generate imposter texts specific to the candidate text, 
 rather than using the publicly available dataset TuringBench with previously generated texts.
 
-%% Perturb (Mask), score, compare: DetectGPT
+%% DetectGPT: Perturb (Mask), score, compare (unsupervised)
 \citet{mitchell_detectgpt_2023} propose DetectGPT, a method that is threefold:
 (1) They perturb the input text by (1.1) masking out random 2-word spans until 15 \% of the text is masked. 
 Masked spans are replaced (1.2) with words from an off-the-shelf (i.e. not finetuned to target domain) \ac{llm} (e.g. T5-3B). 
@@ -94,3 +94,16 @@ All these approaches compute the similarity of the original text and the generat
 However, we do not use edit distance (i.e. Levenshtein distance) as similarity measure.
 %%%% limitations
 This approach is unable to detect which \ac{llm} generated the text.
+
+%% LLMDet: Proxy to perplexity (problem: requires access to the LLM to build the dictionary)
+Perplexity is a reliable statistical metric for attributing texts to \acp{llm}~\cite{zhang_llmdet_2023}.
+Unfortunately, perplexity requires access to \acp{llm}' parameters (i.e., white-box detection).
+\citet{zhang_llmdet_2023} propose LLMDet, a method that uses a proxy to perplexity, 
+where a dictionary of frequent n-gram (frequent among $n$ randomly prompted generated texts per \ac{llm}) 
+next token probabilities is pre-computed (i.e. requiring access to the \ac{llm}), 
+and is subsequently used during inference to approximate perplexity by replacing $x_{<i}$ in $p(x_i | x_{<i})$ with an n-gram.
+Since the construction of the dictionary requires access to the \ac{llm}, LLMDet requires contribution of the closed-source model owners.
+The disputed text is tokenized and the proxy perplexity is calculated for each model and thus, constructing a proxy perplexity vector.
+This vector is input to a trained classifier.
+%%% compared to our work
+Proxy perplexity could be used as a baseline for our approach, though it requires access to the \ac{llm} and is thus not applicable in our case.
