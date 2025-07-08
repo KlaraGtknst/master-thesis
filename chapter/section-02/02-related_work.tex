@@ -3,3 +3,21 @@
 
 This work is different to the work of \cite{koppel_determining_2014} and \cite{kocher_unine_2015} 
 in that it uses \acp{llm} to generate imposter texts.
+
+% LLM detection using generative models
+%% AA against LLMs
+With the recent advances of \ac{nlg} come new challenges in text authorship.
+The new technologies may be misused for fraudulent activities to scam naive users.
+\citet{uchendu_authorship_2020} identified three authorship tasks essential for fighting fraudulent activities:
+(1) Given two texts $t_1$ and $t_2$, determine whether they were produced by the same method (i.e. human author or a specific \ac{nlg} method).
+(2) Given a text $t$, determine whether it was human authored or machine generated.
+(3) Given a text $t$, find its author among $k+1$ candidates, which consists of one human and $k$ machines.
+They compare classical \ac{ml} models, neural models and state-of-the-art \ac{aa} models as classifiers 
+for these single- (Problem 1 and 2) and multi-class (Problem 3) tasks.
+Their findings include, that as of 2020, most \ac{nlg} methods were distinguishable from human authors, 
+but some \acp{llm} proved difficult to detect.
+%%% compared to our work
+In the following, we consider (1) \ac{av}, (2) classical \ac{llm} detection, and (3) closed-set \ac{aa}.
+Our approach differs from the work of \citet{uchendu_authorship_2020} in that our candidates (i.e. imposters) do not include a human author (3), 
+but only \acp{llm}.
+Moreover, we use different classifiers originally designed for \ac{av}, rather than \ac{aa}.
