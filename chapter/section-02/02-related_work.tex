@@ -107,3 +107,22 @@ The disputed text is tokenized and the proxy perplexity is calculated for each m
 This vector is input to a trained classifier.
 %%% compared to our work
 Proxy perplexity could be used as a baseline for our approach, though it requires access to the \ac{llm} and is thus not applicable in our case.
+
+%% Mirror Minds: extract query, genrate two paraphrases, compare & classify via threshold (very similar to our work)
+\citet{baradia_mirror_2025} propose (1) extracting a query from the disputed text, which captures the essence of the text, 
+(2) generating two paraphrases of the original text using the query as input prompt to two \acp{llm}, 
+and (3) comparing the paraphrases to the original text via the BLEU and the METEOR score.
+Both score capture syntactic similarity, even though \citet{baradia_mirror_2025} argue they also capture semantic similarity.
+They use the maximum across the two models per similarity measure as a final score pair.
+Classification of the resemblance to \ac{ai} generated content requires a threshold.
+%%% compared to our work
+%%%% same approach
+This approach is similar to our approach in that it uses \acp{llm} to generate paraphrases of the original text.
+Morever, it compares the original text to the generated paraphrases as in a \ac{aa} problem.
+%%%% similarity measure
+We do not use BLEU or METEOR as similarity measure, nor do we compare directly on paraphrase-level (i.e. BLEU calculates n-gram overlap) 
+but construct our own frequency based n-gram vectors input vector similarity metrics.
+%%%% they discard information, solve another problem
+However, this approach discards the information which \ac{llm} produced the most similar paraphrase. 
+While our goal is to solve an \ac{aa} problem (i.e. multiclass classification), 
+\citet{baradia_mirror_2025} solve a binary classification problem (i.e. human vs. \ac{ai} generated text).
