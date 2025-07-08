@@ -72,3 +72,19 @@ DetectGPT receives a disputed text and a candidate \ac{llm} as input.
 While we use a similarity measure on traditional n-gram frequency vectors, 
 \citet{mitchell_detectgpt_2023} require a scoring \ac{llm} to compute the perturbation discrepancy $d$.
 Hence, our approach is easier in terms of computational resources and requirements.
+
+%% LLM rewrite LLM texts less than human texts (no AA, but edit distance hypothesis)
+RAIDAR fails to detect \ac{llm} generated texts in out-of-distribution scenarios (i.e. different domains than training), 
+or when \ac{llm} were explicitly instructed to produce text prone to heavy \ac{llm} modification when being asked to rewrite the text \cite{li_learning_2025}.
+Based on RAIDAR (\cite{mao_raidar_2024}), \citet{li_learning_2025} propose fine-tuning an \ac{llm} to rewrite human authored texts more than machine generated text.
+Classification is carried out by comparing the edit distance of the original text and the rewritten text to a threshold.
+\citet{li_learning_2025} admit that their approach is slow in inference time, since a candidate text has to be rewritten multiple times (about 200 different prompts) to obtain a reliable score.
+%%% compared to our work
+%%%% generation of texts during inference
+This work is similar to our work in that it uses \acp{llm} to generate texts during inference.
+We do not fine-tune an \ac{llm} for paraphrasing but use off-the-shelf models.
+%%%% similarity measure
+Both approaches compute the similarity of the original text and the generated text.
+However, we do not use edit distance (i.e. Levenshtein distance) as similarity measure.
+%%%% limitations
+This approach is unable to detect which \ac{llm} generated the text.
