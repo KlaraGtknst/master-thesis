@@ -1,0 +1,26 @@
+\subsection{Perplexity}
+\label{subsec:perplexity}
+
+% Perplexity is measure to assess how surprised a language model is by a text.
+Perplexity $PPL$ can be employed to compute the likelihood of a language model generating a text.
+A low perplexity indicates that the sequence aligns with model's predictions, 
+while a high perplexity indicates that the sequence is unexpected or unlikely according to the model.
+Perplexity is computed as follows:
+\begin{equation}
+    PPL = \exp\left(-\frac{1}{t}\sum_{i=1}^{t}\log P(w_i|w_{<i})\right)
+\end{equation}
+where $t$ is the number of words or tokens in the sequence, 
+$w_i$ is the $i$-th word/ token, and $P(w_i|w_{<i})$ is the probability of the $i$-th word/ token given all previous words/ tokens in the sequence.
+The exponent is the cross-entropy loss between the model's predictions and the actual sequence.
+The cross-entropy can be refactored to the sum of the entropy of the model's predictions and the KL divergence of the prediction and the data.
+While Python libraries such as \texttt{PyTorch} and \texttt{TensorFlow} use the natural logarithm $\log$ for perplexity calculations,
+traditional information theory uses the logarithm to base 2. 
+Note, that different bases differ only by a constant factor.
+For sequences longer than the context window of the model, 
+perplexity is computed on the windows of $n$ tokens, where $n$ is the context window size.
+% strides: not good
+Depending on the tokenizer, perplexity can be computed on the word or sub-word level, 
+where sub-word level perplexity is often smaller due to higher likelihoods of smaller character sequences.
+Since larger vocabulary lead to lower likelihoods per token, perplexity is generally higher for larger vocabularies.
+Hence, perplexity is not directly comparable across different tokenizers or models.
+Moreover, perplexity requires access to the model's probabilities $P(w_i|w_{<i})$, which are often not available.
