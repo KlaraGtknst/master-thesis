@@ -8,6 +8,10 @@ In order to evaluate the quality of the information extracted by the \pextractor
 we decided to compare the genre, century, and the paraphrase-specifc topic to the 
 ground truth available for the \dataBlog{}, \dataGutenberg{} and the \dataCustom{} dataset.
 
+We found that the instructions for the \pextractor{} have to be positioned after the text to be extracted, 
+due to the inability of the \pextractor{} to return the extracted information in the specified JSON format 
+when the prompt was at the beginning of the input for long texts such as those from the \dataGutenberg{} dataset.
+
 \textcolor{red}{TODO: insert table with results}
 
 \section{Paraphrase generation}
