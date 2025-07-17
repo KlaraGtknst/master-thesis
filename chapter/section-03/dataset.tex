@@ -52,7 +52,7 @@ To further control confounders influencing authorial style, we preprocess the da
 (once before creating the arrow dataset file and once before using the detector).
 The requirements for the preprocessing are:
 \begin{itemize}
-    \item The texts are stripped of all format/ layout information to obtain plain text \textcolor{red}{TODO: before saving them as arrow files}.
+    \item The texts are stripped of all format/ layout information to obtain plain text before saving them as arrow files.
     \item The texts should be of similar length (detector crops texts to the length of the shorter text).
 \end{itemize}
 In order to produce a controlled testing environment four our imposter approach, 
@@ -63,7 +63,7 @@ converting utf-8 to ASCII, lowercasing and stripping leading and trailing whites
 \subsubsection{Selection of Text Pairs}
 \label{subsubsec:dataset_text_pair_selection}
 
-We had to select pairs of texts for the \dataBlog{} and the \dataGutenberg{} dataset.
+We had to select pairs of texts for the \dataBlog{}, \dataStudent{} and the \dataGutenberg{} dataset.
 We decided to keep the existing pairs in the \dataPan{} arrow dataset for better comparability.
 All datasets consist of same- and different-author pairs. 
 As mentioned before, we aimed to control confounders when selecting pairs.
@@ -71,6 +71,12 @@ As mentioned before, we aimed to control confounders when selecting pairs.
 For the \dataBlog{} dataset, 
 two texts of a pair are selected such that they share the same topic, year, gender and age, where the last to reference the text's author.
 Test (20\%) and train split (80\%) have different topics.
+
+For the \dataStudent{} dataset,
+tasks are either in the train (70\%) or test (30\%) set.
+The test set is bigger, since an author typically only writes one essay per task and if only one task is selected for the test set we can not create any same author pairs.
+The pairs are selected such that their authors share the same sex, ethnicity, and political orientation.
+Additionally, for different author pairs, the texts are selected such that they share the same task.
 
 For the \dataGutenberg{} dataset,
 we selected pairs of texts that share the same genre and century.
