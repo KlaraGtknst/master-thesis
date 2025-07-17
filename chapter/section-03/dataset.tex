@@ -32,16 +32,17 @@ The statistical properties of the datasets are shown in \autoref{tab:data_stats}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lrrrrrrrrr@{}}   % numbers should be right aligned, text left aligned
 \toprule
-dataset & num\_pairs & num\_authors & num\_same\_pairs & num\_different\_pairs & avg\_text\_len & min\_text\_len & max\_text\_len & std\_text\_len & median\_text\_len \\ 
+dataset & num\_pairs & num\_authors & num\_same\_pairs & num\_different\_pairs & avg\_text\_len & max\_text\_len\_words & std\_text\_len\_words & median\_text\_len\_words \\
 \midrule
-pan20     & 66912 & 52778 & 35620 & 31292 & 21435.53  & 20670 & 296887  & 2685.49   & 21284.00  \\ 
-blog      & 64771 & 18961 & 33639 & 31132 & 1846.20   & 501   & 615409  & 3461.74   & 1244.00   \\ 
-gutenberg & 36    & 4     & 15    & 21    & 293840.11 & 14092 & 1176438 & 339991.16 & 139370.00 \\ 
+pan20           & 66906 & 52773 & 35616 & 31290 & 21418.64 (3914.74)   & 55413  & 512.28   & 3889  \\
+blog            & 20547 & 9300  & 10889 & 9658  & 4603.75 (853.32)     & 70374  & 937.24   & 673   \\
+gutenberg       & 12    & 7     & 6     & 6     & 437870.75 (78698.79) & 297704 & 68329.91 & 60282 \\
+student\_essays & 3952  & 588   & 221   & 3731  & 3404.76 (651.63)     & 1362   & 129.22   & 620  \\
 \bottomrule
 \end{tabular}%
 }
 \end{table}
-\textcolor{red}{above len in characters, but I have also stats for words‚}
+\textcolor{red}{above average length in characters (words)}
 
 
 \subsubsection{Dataset Preprocessing}
