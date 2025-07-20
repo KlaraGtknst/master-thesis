@@ -1,0 +1,11 @@
+% specificity rather than generality
+Due to the diversity of text domains (/topics), we believe that generalized solutions for \ac{llm} detection are not feasible.
+Generalized solutions refer to models that are trained once on a dataset and then used for all texts.
+% bhattacharjee_fighting_2024: ChatGPT not equally good across different LLMs
+% li_learning_2025: Scores drop for Out of Distribution (OOD) texts
+Literature suggests that many models fail to detect all \acp{llm} especially in \ac{ood} scenarios~\cite{bhattacharjee_fighting_2024,li_learning_2025}.
+
+% frame problem
+We focus on single case solutions, i.e. models trained tailored to a specific scenario.
+Formally, single case solutions include creating \ac{id} \ac{llm} detection scenarios, 
+where we can control all variables (train new model for each dataset).
