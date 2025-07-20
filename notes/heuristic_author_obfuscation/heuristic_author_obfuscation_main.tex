@@ -8,14 +8,14 @@ Estimated text quality reduction is used as a cost function.
 
 % trigram
 \subsection{Trigram}
-In the realm of authorship analysis, character 3-grams are considered effective \cite{bevendorff_divergence_based_2020}, 
+In the realm of authorship analysis, character 3-grams are considered effective \citep{bevendorff_divergence_based_2020}, 
 even though it is not systematically proven.
 \citet{bevendorff_divergence_based_2020} claim that current (up to 2020) \ac{av} algorithms analyse (implicitly/explicitly) 
 character 3-grams.
 According to \citet{bevendorff_divergence_based_2020}, without loss of generality, since character 3-gram are the lowest-level feature that 
 still captures word boundaries and morphology, % Lehre über Worte
 directly influence higher-level features, such as word n-grams and \ac{pos} features.
-This holds true for most European languages \cite{bevendorff_divergence_based_2020}.
+This holds true for most European languages \citep{bevendorff_divergence_based_2020}.
 3-grams encode vocabulary, morphology, and punctuation.
 
 % distance measure
@@ -27,7 +27,7 @@ information-theoretic divergence measure.
 Moreover, it can be used as a simple and computationally feasible stopping criterion for an obfuscation process.
 Furthermore, based on \ac{kld}, a normalization criterion for obfuscating texts of different lengths can be derived.
 Finally, \ac{kld}'s derivative can serve as a selection criterion for parts of text that 
-will yield the highest obfuscation gain if changed \cite{bevendorff_divergence_based_2020}.
+will yield the highest obfuscation gain if changed \citep{bevendorff_divergence_based_2020}.
 This could be used for a greedy algorithm.
 However, \citet{bevendorff_divergence_based_2020} claim greedy strategies can be reverse engineered.
 $$KLD(P\mid \mid Q) = \sum_{i}^{}P[i] log\frac{P[i]}{Q[i]}$$
@@ -48,11 +48,11 @@ $$JS_\Delta(P,Q) = \sqrt{2\cdot JSD(P\mid \mid Q)}$$
 \begin{definition}
     [Writeprints]
     \label{def:writeprints}
-    It is a technique for \ac{aa} and similarity detection \cite{elmanarelbouanani_authorship_2014,neal_surveying_2018} 
-    on a set of over twenty lexical, syntactic, and structural text feature types \cite{bevendorff_divergence_based_2020}.
-    It is an individual-author-level feature extraction model \cite{neal_surveying_2018}.
+    It is a technique for \ac{aa} and similarity detection \citep{elmanarelbouanani_authorship_2014,neal_surveying_2018} 
+    on a set of over twenty lexical, syntactic, and structural text feature types \citep{bevendorff_divergence_based_2020}.
+    It is an individual-author-level feature extraction model \citep{neal_surveying_2018}.
     Texts to be attributed are compared with all other entities, a score is calculated and if the score is above a certain threshold, 
-    the text is clustered with the entity \cite{elmanarelbouanani_authorship_2014}.
+    the text is clustered with the entity \citep{elmanarelbouanani_authorship_2014}.
 \end{definition}
 
 % task
@@ -62,7 +62,7 @@ produced unreadable texts, they chose to refine the task to paraphrase the text.
 
 \begin{definition}
     [Paraphrase]
-    The meaning should stay the same and the text should be still readable \cite{bevendorff_divergence_based_2020}.
+    The meaning should stay the same and the text should be still readable \citep{bevendorff_divergence_based_2020}.
 \end{definition}
 
 % proposed approach

@@ -6,7 +6,7 @@ Refer to \autoref{sec:definitions} for the definitions of the terms used in this
 \begin{table}[]
     \centering
     \caption{Types of stylometric features with their computation tools and 
-    resources where brackets indicate optional tools from \cite{stamatatos_survey_2009}.}
+    resources where brackets indicate optional tools from \citep{stamatatos_survey_2009}.}
     \label{tabstylometric_features_tools}
     \resizebox{\textwidth}{!}{%
     \begin{tabular}{|l|l|l|}
@@ -42,21 +42,21 @@ stylometric and linguistic features.
 
 % all information from stamatatos_survey_2009
 % lexical features
-Lexical features consider sentences grouped sequences of tokens, i.e. words, numbers or punctuation marks \cite{bevendorff_overview_2024}.
-They are used to learn about preferred use of characters and words of an author \cite{elmanarelbouanani_authorship_2014}.
+Lexical features consider sentences grouped sequences of tokens, i.e. words, numbers or punctuation marks \citep{bevendorff_overview_2024}.
+They are used to learn about preferred use of characters and words of an author \citep{elmanarelbouanani_authorship_2014}.
 % more lexical feature examples at elmanarelbouanani_authorship_2014 Ch. 3.1
 % length counts
 Simple attempts of author attribution include sentence lengths counts, and word length counts.
-These approaches work straightforward assuming that the tokenizer is able to identify the tokens correctly \cite{bevendorff_overview_2024,elmanarelbouanani_authorship_2014}.
+These approaches work straightforward assuming that the tokenizer is able to identify the tokens correctly \citep{bevendorff_overview_2024,elmanarelbouanani_authorship_2014}.
 However, for some language such as Chinese, the tokenization is not trivial.
 % vocabulary richness
 Vocabulary richness functions attempt to quantify the diversity of vocabulary used in a text.
-Approaches include $\frac{\text{size of vocabulary}}{\text{total number of tokens}}$ \cite{elmanarelbouanani_authorship_2014,bevendorff_overview_2024},
-Yule's K measure \cite{elmanarelbouanani_authorship_2014},
-the number of hapax legomena (words that occur only once in a text) \cite{elmanarelbouanani_authorship_2014,bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021}, 
-or the number of hapax dislegomena (words that occur twice in a text) \cite{elmanarelbouanani_authorship_2014,weerasinghe_feature_vector_difference_2021}.
+Approaches include $\frac{\text{size of vocabulary}}{\text{total number of tokens}}$ \citep{elmanarelbouanani_authorship_2014,bevendorff_overview_2024},
+Yule's K measure \citep{elmanarelbouanani_authorship_2014},
+the number of hapax legomena (words that occur only once in a text) \citep{elmanarelbouanani_authorship_2014,bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021}, 
+or the number of hapax dislegomena (words that occur twice in a text) \citep{elmanarelbouanani_authorship_2014,weerasinghe_feature_vector_difference_2021}.
 The vocabulary size depends on the text length (quick increase in the beginning, slowly increasing later).
-To mitigate this effect, researchers have proposed methods to introduce stability into these metrics \cite{elmanarelbouanani_authorship_2014,bevendorff_overview_2024}. 
+To mitigate this effect, researchers have proposed methods to introduce stability into these metrics \citep{elmanarelbouanani_authorship_2014,bevendorff_overview_2024}. 
 According to \citet{stamatatos_survey_2009}, these proposed methods are questionable and should not be used alone.
 \citet{neal_surveying_2018} list some of the most common vocabulary richness measures:
 \begin{itemize}
@@ -70,7 +70,7 @@ According to \citet{stamatatos_survey_2009}, these proposed methods are question
 % frequent words
 \citet{elmanarelbouanani_authorship_2014} state that the most frequent words in a text is a lexical feature set.
 % BoW
-Texts can also be represented by vectors of word frequencies, i.e. the \ac{bow} model \cite{bevendorff_overview_2024}.
+Texts can also be represented by vectors of word frequencies, i.e. the \ac{bow} model \citep{bevendorff_overview_2024}.
 This representation disregards contextual, i.e., word-order, information.
 While topic-based classification usually excludes so-called function words, 
 i.e. most common words, since they do not carry any semantic information and are topic-independent, 
@@ -91,8 +91,8 @@ Moreover, the dimensionality of the problem increases, representations become sp
 % Errors
 Similar to manual human attribution, using error measures can be used to identify the author of a text.
 Spelling (i.e., letter omissions, insertions) and formatting errors (i.e., all caps words) can be used as features 
-to capture the idiosyncrasies of an author's style \cite{elmanarelbouanani_authorship_2014,bevendorff_overview_2024}.
-Unfortunately, according to \cite{stamatatos_survey_2009}, the availability of accurate spell checkers for many natural languages is problematic.
+to capture the idiosyncrasies of an author's style \citep{elmanarelbouanani_authorship_2014,bevendorff_overview_2024}.
+Unfortunately, according to \citep{stamatatos_survey_2009}, the availability of accurate spell checkers for many natural languages is problematic.
 
 
 % character features
@@ -110,15 +110,15 @@ Large $n$ on the one hand, capture lexical and contextual information but may al
 Small $n$ on the other hand, may be able to represent subwords but are less adequate to capture contextual information.
 % compression-based features
 The idea of compression based approaches is to use the compression model acquired from one text to compress another text. 
-If both texts are from the same author, the bit-wise size of the compressed file will be relatively low \cite{stamatatos_survey_2009,neal_surveying_2018}.
+If both texts are from the same author, the bit-wise size of the compressed file will be relatively low \citep{stamatatos_survey_2009,neal_surveying_2018}.
 Since compression models usually describe characteristics of the texts based on the repetition of character sequences, 
 they can be considered as character-based features. \todo{Is this still the case? Paper is from 2009}
 
 
 % syntactic features
 \citet{elmanarelbouanani_authorship_2014} defines syntactic features as the patterns used to form and structure sentences.
-Examples include punctuation words and function words \cite{elmanarelbouanani_authorship_2014}.
-Assuming that author's have a syntactic fingerprint, these approaches are considered more reliable than mere lexical information \cite{bevendorff_overview_2024}.
+Examples include punctuation words and function words \citep{elmanarelbouanani_authorship_2014}.
+Assuming that author's have a syntactic fingerprint, these approaches are considered more reliable than mere lexical information \citep{bevendorff_overview_2024}.
 Unfortunately, syntactic features are language-dependent and require \ac{nlp} tools, for instance, a parser.
 % Parser
 Once the text has been parsed, metrics such as noun phrase counts and verb phrase counts can be computed.
@@ -130,7 +130,7 @@ If spell checkers are available and of sufficient quality, syntactic errors can 
 
 % structural features
 Structural features are based on the structure of the text, i.e., the way it is organized.
-They include the way sentences are organized within paragraphs, and paragraphs are organized within documents \cite{elmanarelbouanani_authorship_2014}.
+They include the way sentences are organized within paragraphs, and paragraphs are organized within documents \citep{elmanarelbouanani_authorship_2014}.
 
 
 % semantic features

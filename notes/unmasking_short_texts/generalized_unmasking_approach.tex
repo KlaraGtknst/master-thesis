@@ -13,8 +13,8 @@ Each text is a pool of words, from which words are sampled without replacement.
 The pool is replenished if it is exhausted before the chunk has sufficiently many words.
 Since the random sampling of unmasking features introduces variance, unmasking is performed multiple times and the curves are averaged.
 The algorithm is displayed in \autoref{alg:generalized_unmasking}.
-The content of the while loop is, except the number of removed features (\cite{koppel_authorship_2004}: 6 total), 
-similar to the original unmasking algorithm \cite{koppel_authorship_2004}.
+The content of the while loop is, except the number of removed features (\citep{koppel_authorship_2004}: 6 total), 
+similar to the original unmasking algorithm \citep{koppel_authorship_2004}.
 
 % prediction
 Another linear \ac{svm} classifier is trained on the accuracy curve, its central-difference gradients (first- and second order), 
@@ -22,7 +22,7 @@ and its gradients sorted by magnitude.
 This classifier is used to predict the whether the texts originate from the same author.
 
 \begin{algorithm}
-    \caption{Generalized Unmasking Algorithm \cite{bevendorff_generalizing_2019,bevendorff_divergence_based_2020}}
+    \caption{Generalized Unmasking Algorithm \citep{bevendorff_generalizing_2019,bevendorff_divergence_based_2020}}
     \label{alg:generalized_unmasking}
     \begin{algorithmic}[1]
     \Procedure{Unmasking}{$A$, $B$}

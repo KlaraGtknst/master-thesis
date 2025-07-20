@@ -16,7 +16,7 @@ where isolated words and punctuation symbols are considered terms.
 Words had to occur at least twice to be considered.
 The state a reasonable range for $k$ is 200 to 300.
 Since the feature set is small and consists of words and punctuation symbols, 
-the user can easily interpret the results \cite{kocher_unine_2015}.
+the user can easily interpret the results \citep{kocher_unine_2015}.
 
 
 \subsection{Distance measure}
@@ -27,7 +27,7 @@ $$\Delta(Q,A)=\Delta_0=\sum_{i=1}^{k}\left| P_Q\left[ t_i \right] -P_A\left[ t_i
 where $P_Q$ and $P_A$ are the estimated occurrence probability of the term $t_i$ in the query text $Q$ and in the author profile $A$, respectively.
 The probabilities are estimated by dividing the term occurrence frequency $tf_i$ by the length of tokens $n$ in the corresponding text and thus, 
 $P\left[ t_i \right]=\frac{tf_i}{n}$.
-The \spldist{} distance returns a numerical value between 0 and 1 that can be used to determine a degree of certainty \cite{kocher_unine_2015}.
+The \spldist{} distance returns a numerical value between 0 and 1 that can be used to determine a degree of certainty \citep{kocher_unine_2015}.
 Since the authors do not apply smoothing, they accept a 0.0 probability.
 $k$ represents the number of terms (i.e., words or punctuation symbols).
 In order to contextualize the magnitude of the distance $\Delta_0$, a set of imposter distances is calculated.
@@ -64,7 +64,7 @@ The evaluation of shared \ac{pan} CLEF tasks is done via the \tira{} platform.
 \tira{} is an automated tool for deployment and evaluation of the software submitted.
 During runs of the submitted software, no data leakage to the participants is possible since \tira{} encapsulates the software.
 \citet{kocher_unine_2015} claim that \tira{} offers a fair evaluation of the tome needed to produce an answer.
-However, system incompatibilities may occur \cite{kocher_unine_2015}.
+However, system incompatibilities may occur \citep{kocher_unine_2015}.
 
 \subsection{Bias, Variance}
 \citet{kocher_unine_2015} claim that even if this system cannot capture all possible stylistic features (bias), 

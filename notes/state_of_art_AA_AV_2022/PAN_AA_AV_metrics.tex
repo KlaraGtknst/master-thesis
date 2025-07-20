@@ -2,13 +2,13 @@
 \label{sec:pan_aa_av_metrics}
 
 The \todo{F0.5u, C@1, and Brier Score metrics} are used to evaluate the ability of \ac{av} methods 
-to abstain from hard samples \cite{tyo_state_2022}.
+to abstain from hard samples \citep{tyo_state_2022}.
 For each sample, a score $\in [0, 1]$ is assigned to the sample.
-A score of exactly 0.5 means the model abstains from the sample \cite{tyo_state_2022,bevendorff_overview_2024,kocher_unine_2015}.
+A score of exactly 0.5 means the model abstains from the sample \citep{tyo_state_2022,bevendorff_overview_2024,kocher_unine_2015}.
 
 The AUC metric is used to evaluate the ability of methods to rank predictions.
 No threshold is required.
-\ac{pan} ignores any abstained samples when calculating the AUC metric \cite{tyo_state_2022}.
+\ac{pan} ignores any abstained samples when calculating the AUC metric \citep{tyo_state_2022}.
 
 % != PAN
 \citet{tyo_state_2022} chose to adopt the macro-averaged accuracy metric, so-called macro-accuracy, for \ac{aa}, 

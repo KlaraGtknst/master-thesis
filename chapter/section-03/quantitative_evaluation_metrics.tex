@@ -3,31 +3,23 @@
 \subsection{\ac{av} quality measures}
 \label{subsec:av_quality_measures}
 
-% General 
-\citet{chen_web_2008} use precision, recall (also: sensitivity or \acl{tp} rate \cite{palivela_optimization_2021}) 
-and F-measure to describe the performance:
-$$precision = \frac{TP}{TP + FP}$$
-$$recall = \frac{TP}{TP + FN}$$
-$$F-measure = \frac{2 \cdot precision \cdot recall}{precision + recall}$$~\cite{chen_web_2008,abbasi_writeprints_2008}
-where $TP$ is the number of \aclp{tp}, $FP$ is the number of \aclp{fp} 
-and $FN$ is the number of \aclp{fn}.
-
-% Authorship Analysis Survey
-\citet{elmanarelbouanani_authorship_2014} claim that there is no feature set optimized and applicable ti all people and to all domains.
-
-% metrics
-\subsection{Metrics}
-\citet{elmanarelbouanani_authorship_2014} state that the common metrics for evaluating the performance of a particular are:
+Common metrics for evaluating the performance of a particular are~\citep{elmanarelbouanani_authorship_2014}:
 \begin{itemize}
-    \item $Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$ \cite{elmanarelbouanani_authorship_2014,neal_surveying_2018} 
-    measures the percentage of classified correctly over all test cases \cite{neal_surveying_2018}.
+    \item $Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$ \citep{elmanarelbouanani_authorship_2014,neal_surveying_2018} 
+    measures the percentage of classified correctly over all test cases \citep{neal_surveying_2018}.
 
-    \item $Precision = \frac{TP}{TP + FP}$ \cite{elmanarelbouanani_authorship_2014,neal_surveying_2018} 
-    measures how often a system gets positive classification correctly \cite{neal_surveying_2018}.
+    \item $Precision = \frac{TP}{TP + FP}$ \citep{elmanarelbouanani_authorship_2014,neal_surveying_2018,chen_web_2008} 
+    measures how often a system gets positive classification correctly \citep{neal_surveying_2018}.
 
-    \item $Recall = \frac{TP}{TP + FN}$ \cite{elmanarelbouanani_authorship_2014,neal_surveying_2018} 
-    measures how often a system correctly classifies positive samples when it encounters them \cite{neal_surveying_2018}.
+    \item $Recall = \frac{TP}{TP + FN}$ \citep{elmanarelbouanani_authorship_2014,neal_surveying_2018,chen_web_2008} 
+    measures how often a system correctly classifies positive samples when it encounters them \citep{neal_surveying_2018}.
+    Recall is also called sensitivity or \acl{tp} rate \citep{palivela_optimization_2021}
 \end{itemize}
+$TP$ is the number of \aclp{tp}, $FP$ is the number of \aclp{fp} 
+and $FN$ is the number of \aclp{fn}~\citep{chen_web_2008}.
+\citet{chen_web_2008} also use the F-measure to describe the performance:
+$$F-measure = \frac{2 \cdot precision \cdot recall}{precision + recall}$$~\citep{chen_web_2008,abbasi_writeprints_2008}
+
 
 % LLM detection as AV task
 Metrics also include c@1.
@@ -40,43 +32,43 @@ However, in highly imbalanced class scenarios \ac{roc} can be misleading (overly
 \citet{ayele_overview_2024,bevendorff_overview_2024} evaluate the participants submissions averaging the datasets' evaluation measures.
 \citet{ayele_overview_2024} claim the following measures are established in \ac{av}:
 \begin{itemize}
-    \item \ac{roc-auc} \cite{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021,kocher_unine_2015}
+    \item \ac{roc-auc} \citep{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021,kocher_unine_2015}
     
-    \item BRIER: Complement of the Brier score \cite{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021}, in \citet{bevendorff_overview_2024}'s case equivalent to the mean squared loss.
+    \item BRIER: Complement of the Brier score \citep{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021}, in \citet{bevendorff_overview_2024}'s case equivalent to the mean squared loss.
     
-    \item C@1: Modified version of the accuracy \cite{bevendorff_overview_2024}/ F1-score \cite{weerasinghe_feature_vector_difference_2021} score, 
-    where the non-answers (abstained) \cite{llm_detection_av_2025} are assigned the average accuracy of the remaining cases \cite{bevendorff_overview_2024}. 
-    It rewards systems that leave difficult problems unanswered \cite{weerasinghe_feature_vector_difference_2021}.
+    \item C@1: Modified version of the accuracy \citep{bevendorff_overview_2024}/ F1-score \citep{weerasinghe_feature_vector_difference_2021} score, 
+    where the non-answers (abstained) \citep{llm_detection_av_2025} are assigned the average accuracy of the remaining cases \citep{bevendorff_overview_2024}. 
+    It rewards systems that leave difficult problems unanswered \citep{weerasinghe_feature_vector_difference_2021}.
     $$c@1 = \frac{nc}{np}(1+\frac{nu}{np})$$ where $np$ is the number of problems, $nc$ the number of correct answers, 
-    and $nu$ the number of unanswered problems \cite{kocher_unine_2015}.
+    and $nu$ the number of unanswered problems \citep{kocher_unine_2015}.
     
-    \item $F_1$: Harmonic mean of precision and recall \cite{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021}:
-    $ F_1 = 2 \cdot \frac{precision \cdot recall}{precision + recall} $ \cite{neal_surveying_2018}.
-    A higher value indicates a better performance \cite{neal_surveying_2018}.
+    \item $F_1$: Harmonic mean of precision and recall \citep{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021}:
+    $ F_1 = 2 \cdot \frac{precision \cdot recall}{precision + recall} $ \citep{neal_surveying_2018}.
+    A higher value indicates a better performance \citep{neal_surveying_2018}.
     
-    \item $F_{0.5u}$: Modified version of the $F_{0.5}$ score, where the non-answers are considered \acp{fn} \cite{bevendorff_overview_2024}. A measure that puts more emphasis on deciding same-author cases correctly \cite{weerasinghe_feature_vector_difference_2021}.
+    \item $F_{0.5u}$: Modified version of the $F_{0.5}$ score, where the non-answers are considered \acp{fn} \citep{bevendorff_overview_2024}. A measure that puts more emphasis on deciding same-author cases correctly \citep{weerasinghe_feature_vector_difference_2021}.
 \end{itemize}
 
 The \ac{roc} curve is generated according to the percentage of \acp{fp}, i.e. \ac{fpr} $= \frac{FP}{FP+TN}$, in the x-axis and 
 the percentage of \acp{tp}, i.e. \ac{tpr} $=\frac{TP}{TP+FN}$, in the y-axis,
-for varying thresholds \cite{kocher_unine_2015,neal_surveying_2018}.
-The maximum value of 1.0 indicated a perfect performance \cite{kocher_unine_2015}.
-The \ac{auc} is the area under the curve, where a greater \ac{auc} indicates a better performance \cite{neal_surveying_2018}.
+for varying thresholds \citep{kocher_unine_2015,neal_surveying_2018}.
+The maximum value of 1.0 indicated a perfect performance \citep{kocher_unine_2015}.
+The \ac{auc} is the area under the curve, where a greater \ac{auc} indicates a better performance \citep{neal_surveying_2018}.
 \citet{kocher_unine_2015} claim that both \ac{roc} and \ac{auc} are difficult to interpret.
 According to \citet{kocher_unine_2015}, usually, the \ac{auc} values should be consistent and comparable with the C@1 values.
 The \ac{auc} of the \ac{roc} is biased since the \ac{roc} gives more emphasis 
 on the first position and therefore increases the total \ac{auc}.
-A misclassification with a lower probability is less penalized with \ac{roc-auc} \cite{kocher_unine_2015}.
+A misclassification with a lower probability is less penalized with \ac{roc-auc} \citep{kocher_unine_2015}.
 
 % PAN AA & AV metrics
 The \todo{F0.5u, C@1, and Brier Score metrics} are used to evaluate the ability of \ac{av} methods 
-to abstain from hard samples \cite{tyo_state_2022}.
+to abstain from hard samples \citep{tyo_state_2022}.
 For each sample, a score $\in [0, 1]$ is assigned to the sample.
-A score of exactly 0.5 means the model abstains from the sample \cite{tyo_state_2022,bevendorff_overview_2024,kocher_unine_2015}.
+A score of exactly 0.5 means the model abstains from the sample \citep{tyo_state_2022,bevendorff_overview_2024,kocher_unine_2015}.
 
 The AUC metric is used to evaluate the ability of methods to rank predictions.
 No threshold is required.
-\ac{pan} ignores any abstained samples when calculating the AUC metric \cite{tyo_state_2022}.
+\ac{pan} ignores any abstained samples when calculating the AUC metric \citep{tyo_state_2022}.
 
 % != PAN
 \citet{tyo_state_2022} chose to adopt the macro-averaged accuracy metric, so-called macro-accuracy, for \ac{aa}, 
@@ -87,45 +79,45 @@ and AUC \ac{av} tasks.
 
 Syntactic (BLEU, ROUGE-1, ROUGE-L), semantic (BERTScore, cosine similarity of SBERT vectors, WMS), human evaluation (TODO)
 
-There is manual (by humans) evaluation and automatic evaluation for paraphrase generation \cite{fu_learning_2024,zhou_paraphrase_2021}.
+There is manual (by humans) evaluation and automatic evaluation for paraphrase generation \citep{fu_learning_2024,zhou_paraphrase_2021}.
 According to \citet{zhou_paraphrase_2021}, automatic evaluation metrics mainly focus on the n-gram overlaps instead of meaning, 
 and hence, human evaluation is more accurate and has a higher quality.
 In the following, we focus on automatic evaluation.
 
-There is syntactic and semantic evaluation of paraphrases \cite{gohsen_captions_2023}.
+There is syntactic and semantic evaluation of paraphrases \citep{gohsen_captions_2023}.
 Metrics for syntactic evaluation include BLEU, ROUGE-1, ROUGE-L, 
 while metrics for semantic similarity include BERTScore, 
 cosine similarity of dense vector representations derived from a BERT-based sentence transformer, 
-and Word Mover Distance \cite{gohsen_captions_2023}.
+and Word Mover Distance \citep{gohsen_captions_2023}.
 The Word Mover Distance computes the minimum amount of distance that embedded words of a text need to travel 
-to reach the embedded words of another text \cite{gohsen_captions_2023}.
+to reach the embedded words of another text \citep{gohsen_captions_2023}.
 \citet{gohsen_captions_2023} normalized all metrics and averaged the semantic and syntactic scores separately.
 
 \bluert{} is machine evaluation metric for paraphrase generation.
 \citet{fu_learning_2024} use \bluert{} to filter out incorrect paraphrases (i.e. using a threshold $\theta$).
 
-BLEU (Bilingual Evaluation Understudy \cite{palivela_optimization_2021,zhou_paraphrase_2025,papineni_bleu_2001}) (2002) 
-was developed for machine translation \cite{zhou_paraphrase_2021,papineni_bleu_2001}.
-It can take values from 0 to 1 \cite{papineni_bleu_2001}.
-BLEU is a precision measure \cite{kurt_pehlivanoglu_comparative_2024,papineni_bleu_2001}.
-It counts the matching n-grams (unigrams) in the generated/candidate text that appear in any of the gold/ reference texts \cite{palivela_optimization_2021,papineni_bleu_2001}, 
-and then divides them by the total number of n-grams (unigrams) in the candidate text \cite{papineni_bleu_2001}.
+BLEU (Bilingual Evaluation Understudy \citep{palivela_optimization_2021,zhou_paraphrase_2025,papineni_bleu_2001}) (2002) 
+was developed for machine translation \citep{zhou_paraphrase_2021,papineni_bleu_2001}.
+It can take values from 0 to 1 \citep{papineni_bleu_2001}.
+BLEU is a precision measure \citep{kurt_pehlivanoglu_comparative_2024,papineni_bleu_2001}.
+It counts the matching n-grams (unigrams) in the generated/candidate text that appear in any of the gold/ reference texts \citep{palivela_optimization_2021,papineni_bleu_2001}, 
+and then divides them by the total number of n-grams (unigrams) in the candidate text \citep{papineni_bleu_2001}.
 Since candidates consisting only of high-probability n-grams (e.g. "the") would receive a high score without deserving it, 
 \citet{papineni_bleu_2001} introduced a clipping mechanism to limit the count of n-grams in the candidate text to the maximum count of that n-gram in any of the reference texts.
-The clipped n-grams occurences are added up and divided by the total number of unclipped n-grams in the candidate text \cite{papineni_bleu_2001}.
+The clipped n-grams occurences are added up and divided by the total number of unclipped n-grams in the candidate text \citep{papineni_bleu_2001}.
 \citet{papineni_bleu_2001} state that unigrams are used to test adequacy, while longer n-grams are used to test fluency.
 BLEU's basic unit of evaluation is a sentence. 
 In order to compute the BLEU score from \autoref{eq:bleu} for more than one sentence, one (1) computes the n-grams matches sentence by sentence, 
 then (2) add the clipped n-grams matches across all sentences, 
-and finally (3) divides the total clipped n-grams matches by the total number of unclipped n-grams in all candidate sentences \cite{papineni_bleu_2001}.
+and finally (3) divides the total clipped n-grams matches by the total number of unclipped n-grams in all candidate sentences \citep{papineni_bleu_2001}.
 \begin{equation}
     p_n = \frac{\sum_{\mathcal{C} \in \left\{ Candidates \right\}}\sum_{n-gram \in\mathcal{C}}Count_{clip}(n-gram)}{\sum_{\mathcal{C'} \in \left\{ Candidates \right\}}\sum_{n-gram' \in\mathcal{C'}}Count(n-gram')}
 \label{eq:bleu}
 \end{equation}
 BLEU combines the scores for different n-grams (separately computed) using the average logarithm with uniform weights, 
-which is equivalent to using the geometric mean of the scores \cite{papineni_bleu_2001,banerjee_METEOR_2005}.
+which is equivalent to using the geometric mean of the scores \citep{papineni_bleu_2001,banerjee_METEOR_2005}.
 \citet{gohsen_captions_2023} use up to 4-grams.
-BLEU automatically penalizes n-grams appearing in the candidate text but not in the reference text, as well as n-grams appearing more often in the candidate than in the reference text \cite{papineni_bleu_2001}.
+BLEU automatically penalizes n-grams appearing in the candidate text but not in the reference text, as well as n-grams appearing more often in the candidate than in the reference text \citep{papineni_bleu_2001}.
 According to \citet{papineni_bleu_2001}, they need to add a brevity penalty to the BLEU score to enforce proper length of the candidate text. 
 For multiple sentences, they (1) add the best match (among the reference texts) length for each candidate sentence, and (2) divide this sum $r$ by the total length of all candidate sentences $c$. 
 Hence, the brevity penalty $BP$ is defined as follows in \autoref{eq:bleu_brevity_penalty}:
@@ -141,87 +133,87 @@ Combining all these, the final BLEU score is computed as follows in \autoref{eq:
     \text{BLEU} = BP \cdot \exp\left(\sum_{n=1}^{N} w_n \cdot \log p_n\right)
 \label{eq:bleu_final}
 \end{equation}
-They cannot use recall for length-related problems here, because BLEU uses multiple reference texts, which may have different lengths \cite{papineni_bleu_2001,banerjee_METEOR_2005}.
+They cannot use recall for length-related problems here, because BLEU uses multiple reference texts, which may have different lengths \citep{papineni_bleu_2001,banerjee_METEOR_2005}.
 If the generated candidate is significantly shorter than the reference text, the brevity penalty $BP$ is applied.
-A BLEU score approaching 1 signifies the candidate matches one reference almost exactly \cite{papineni_bleu_2001}, 
-and thus, limited syntactic diversity (i.e. inadequate paraphrase) \cite{kurt_pehlivanoglu_comparative_2024}.
-Note that more reference texts lead to higher BLEU scores \cite{papineni_bleu_2001}.
+A BLEU score approaching 1 signifies the candidate matches one reference almost exactly \citep{papineni_bleu_2001}, 
+and thus, limited syntactic diversity (i.e. inadequate paraphrase) \citep{kurt_pehlivanoglu_comparative_2024}.
+Note that more reference texts lead to higher BLEU scores \citep{papineni_bleu_2001}.
 Unigrams are token-wise and bi-grams are word-pairs \citet{palivela_optimization_2021}.
 According to \citet{zhou_paraphrase_2021}'s survey, BLEU is the most frequently used metric for paraphrase generation.
-BLEU is unable to measure semantic equivalents \cite{kurt_pehlivanoglu_comparative_2024,zhou_paraphrase_2021} 
-when applied to low-resource languages \cite{zhou_paraphrase_2021}.
-Moreover, BLEU fails to capture good paraphrases that are not similar to the reference text \cite{zhou_paraphrase_2021}.
+BLEU is unable to measure semantic equivalents \citep{kurt_pehlivanoglu_comparative_2024,zhou_paraphrase_2021} 
+when applied to low-resource languages \citep{zhou_paraphrase_2021}.
+Moreover, BLEU fails to capture good paraphrases that are not similar to the reference text \citep{zhou_paraphrase_2021}.
 \citet{kurt_pehlivanoglu_comparative_2024} found that BLEU tends to overestimate the quality of paraphrases.
 \citet{zhou_paraphrase_2021} suggest combining BLEU with human evaluation to overcome its limitations.
 
-GLEU (Google-BLEU) (ranges from 0 to 1 \cite{kurt_pehlivanoglu_comparative_2024}) is a variant of BLEU that was developed to be closer to human judgement, and to 
-overcome BLEU's drawback of per sentence reward objective \cite{palivela_optimization_2021}.
-GLEU computes n-gram precisions (overlaps \cite{kurt_pehlivanoglu_comparative_2024}) overgold/reference paraphrases 
-and weighs n-grams by their change from the source text \cite{palivela_optimization_2021}.
+GLEU (Google-BLEU) (ranges from 0 to 1 \citep{kurt_pehlivanoglu_comparative_2024}) is a variant of BLEU that was developed to be closer to human judgement, and to 
+overcome BLEU's drawback of per sentence reward objective \citep{palivela_optimization_2021}.
+GLEU computes n-gram precisions (overlaps \citep{kurt_pehlivanoglu_comparative_2024}) overgold/reference paraphrases 
+and weighs n-grams by their change from the source text \citep{palivela_optimization_2021}.
 GLEU assesses the fluency, order of n-grams, structural and semantic accuracy 
-and penalizes shorter average m-gram lengths in the generated text compared to the reference \cite{kurt_pehlivanoglu_comparative_2024}.
-Lower GLEU scores indicate greater diversity \cite{kurt_pehlivanoglu_comparative_2024}.
+and penalizes shorter average m-gram lengths in the generated text compared to the reference \citep{kurt_pehlivanoglu_comparative_2024}.
+Lower GLEU scores indicate greater diversity \citep{kurt_pehlivanoglu_comparative_2024}.
 
-METEOR (Metric for Evaluation of Translation with Explicit Ordering \cite{palivela_optimization_2021,banerjee_METEOR_2005}) 
-(ranges from 0 to 1 \cite{kurt_pehlivanoglu_comparative_2024}) (2014) aims to address BLEU's shortcomings.
-First a mapping, so-called aligment, between the unigrams in the candidate text and the reference texts is created \cite{banerjee_METEOR_2005}.
+METEOR (Metric for Evaluation of Translation with Explicit Ordering \citep{palivela_optimization_2021,banerjee_METEOR_2005}) 
+(ranges from 0 to 1 \citep{kurt_pehlivanoglu_comparative_2024}) (2014) aims to address BLEU's shortcomings.
+First a mapping, so-called aligment, between the unigrams in the candidate text and the reference texts is created \citep{banerjee_METEOR_2005}.
 Each unigram has zero or one match.
 This aligment is created incrementally in repeating two steps:
 (1) List all possible unigram mappings derived from different modules (i.e. exact matches, Porter stemmed matches, synonym matches), 
 and (2) select the largest subset of unigram mappings that constitute a valid alignment (matches obtained from different modules are treated the same).
-(3) Choose the subset with the largest cardinality and if there are multiple, choose the one with the fewest unigram mapping crosses \cite{banerjee_METEOR_2005}.
+(3) Choose the subset with the largest cardinality and if there are multiple, choose the one with the fewest unigram mapping crosses \citep{banerjee_METEOR_2005}.
 METEOR computes a weighted F-score 
-(unigram-precision, unigram-recall \cite{kurt_pehlivanoglu_comparative_2024,banerjee_METEOR_2005} 
-and a measure of fragmentation \cite{banerjee_METEOR_2005,kurt_pehlivanoglu_comparative_2024})
-with a penality function whenever an incorrect word is encountered \cite{palivela_optimization_2021} as displayed in \autoref{eq:meteor}.
+(unigram-precision, unigram-recall \citep{kurt_pehlivanoglu_comparative_2024,banerjee_METEOR_2005} 
+and a measure of fragmentation \citep{banerjee_METEOR_2005,kurt_pehlivanoglu_comparative_2024})
+with a penality function whenever an incorrect word is encountered \citep{palivela_optimization_2021} as displayed in \autoref{eq:meteor}.
 \begin{equation}
     METEOR = F_{mean} = \frac{10 \cdot P \cdot R}{R + 9P} \cdot (1 - Penalty)
 \label{eq:meteor}
 \end{equation}
-The penality is designed to reduce the $F_{mean}$ score to $50\%$ if there are no bigram or longer matches \cite{banerjee_METEOR_2005}.
-It has better correlation with human judgement at the sentence/segment level than BLEU \cite{zhou_paraphrase_2021}, 
-because it not only consists of simple n-gram matching but also including synonymy and stemming \cite{kurt_pehlivanoglu_comparative_2024}.
+The penality is designed to reduce the $F_{mean}$ score to $50\%$ if there are no bigram or longer matches \citep{banerjee_METEOR_2005}.
+It has better correlation with human judgement at the sentence/segment level than BLEU \citep{zhou_paraphrase_2021}, 
+because it not only consists of simple n-gram matching but also including synonymy and stemming \citep{kurt_pehlivanoglu_comparative_2024}.
 
-ROUGE (Recall-Oriented Understudy for Gisting Evaluation \cite{palivela_optimization_2021,lin_rouge_2004}) 
-(ranges from 0 to 1 \cite{kurt_pehlivanoglu_comparative_2024}) (2004) 
-is a recall-based metric developed for text summarization \cite{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024,lin_rouge_2004}.
+ROUGE (Recall-Oriented Understudy for Gisting Evaluation \citep{palivela_optimization_2021,lin_rouge_2004}) 
+(ranges from 0 to 1 \citep{kurt_pehlivanoglu_comparative_2024}) (2004) 
+is a recall-based metric developed for text summarization \citep{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024,lin_rouge_2004}.
 ROUGE can focus on the word variations and diversity.
 It has multiple versions, the most popular ones include 
-ROUGE-N (computing the n-gram recall) \cite{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}, 
-ROUGE-L (computing the longest common subsequence) \cite{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}, 
-ROUGE-W (Weighted longest common subsequence) \cite{palivela_optimization_2021}, 
-ROUGE-S (skip-bigram co-occurrence statistics) \cite{palivela_optimization_2021}.
-ROUGE-1 computes the recall by analysing the matching unigrams between the generated paraphrase and the reference paraphrase \cite{palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}.
+ROUGE-N (computing the n-gram recall) \citep{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}, 
+ROUGE-L (computing the longest common subsequence) \citep{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}, 
+ROUGE-W (Weighted longest common subsequence) \citep{palivela_optimization_2021}, 
+ROUGE-S (skip-bigram co-occurrence statistics) \citep{palivela_optimization_2021}.
+ROUGE-1 computes the recall by analysing the matching unigrams between the generated paraphrase and the reference paraphrase \citep{palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}.
 % ROUGE-N
-ROUGE-N is an n-gram recall between the candidate text and the reference texts \cite{lin_rouge_2004} as displayed in \autoref{eq:rouge_n}.
+ROUGE-N is an n-gram recall between the candidate text and the reference texts \citep{lin_rouge_2004} as displayed in \autoref{eq:rouge_n}.
 \begin{equation}
     ROUGE-N = \frac{\sum_{\mathcal{S} \in \left\{ References \right\}}\sum_{n-gram \in\mathcal{S}}Count_{match}(n-gram)}{\sum_{\mathcal{S'} \in \left\{ References \right\}}\sum_{n-gram' \in\mathcal{S'}}Count(n-gram')}
 \label{eq:rouge_n}
 \end{equation}
-$Count_{match}(n-gram)$ is the maximum number of n-grams co-occuring in the candidate text and the set of reference texts \cite{lin_rouge_2004}.
-The nominator sums over all references and thus, gives more weight to matching n-grams that occur in multiple references (i.e. a consensus between references) \cite{lin_rouge_2004}.
+$Count_{match}(n-gram)$ is the maximum number of n-grams co-occuring in the candidate text and the set of reference texts \citep{lin_rouge_2004}.
+The nominator sums over all references and thus, gives more weight to matching n-grams that occur in multiple references (i.e. a consensus between references) \citep{lin_rouge_2004}.
 Refer to \citet{lin_rouge_2004} for more details on the work with multiple references (I do not understand that, because I thought we already use multiple).
 % ROUGE-L
-For ROUGE-L, the intuition is that the longer the longest common subsequence (LCS) between the candidate and reference texts, the more similar they are \cite{lin_rouge_2004}.
+For ROUGE-L, the intuition is that the longer the longest common subsequence (LCS) between the candidate and reference texts, the more similar they are \citep{lin_rouge_2004}.
 For a candidate $Y$ of length $n$ and a reference $X$ of length $m$, the ROUGE-L score is defined as follows in \autoref{eq:rouge_l}:
 \begin{equation}
     ROUGE-L = F_{lcs} = \frac{(1 + \beta^2)R_{lcs}P_{lcs}}{R_{lcs} + \beta^2 P_{lcs}}
 \label{eq:rouge_l}
 \end{equation}
-where $R_{lcs} = \frac{LCS(X,Y)}{m}$ and $P_{lcs} = \frac{LCS(X,Y)}{n}$ \cite{lin_rouge_2004}.
-ROUGE-L requires in-sequence macthes that reflect the sentence level word order as n-grams \cite{lin_rouge_2004}.
-Moreover, no predefined $n$ is necessary, because ROUGE-L includes the longest in-sequence common n-grams \cite{lin_rouge_2004}.
-However, ROUGE-L does not include shorter sequences or alternative LCSes in the final score \cite{lin_rouge_2004}.
+where $R_{lcs} = \frac{LCS(X,Y)}{m}$ and $P_{lcs} = \frac{LCS(X,Y)}{n}$ \citep{lin_rouge_2004}.
+ROUGE-L requires in-sequence macthes that reflect the sentence level word order as n-grams \citep{lin_rouge_2004}.
+Moreover, no predefined $n$ is necessary, because ROUGE-L includes the longest in-sequence common n-grams \citep{lin_rouge_2004}.
+However, ROUGE-L does not include shorter sequences or alternative LCSes in the final score \citep{lin_rouge_2004}.
 % ROUGE-S
-A skip-bigram is any pair of words in their sentence order, allowing for arbitrary gaps \cite{lin_rouge_2004}.
-ROUGE-S measures the overlap of skip-bigrams between the candidate text and the reference texts \cite{lin_rouge_2004}.
-Hence, if the candidate text is the reverse of the reference text, the ROUGE-S score is 0 even though it is not as bad as completely unrelated candidates \cite{lin_rouge_2004}.
-ROUGE-SU extends ROUGE-S with unigrams to solve this issue \cite{lin_rouge_2004}.
+A skip-bigram is any pair of words in their sentence order, allowing for arbitrary gaps \citep{lin_rouge_2004}.
+ROUGE-S measures the overlap of skip-bigrams between the candidate text and the reference texts \citep{lin_rouge_2004}.
+Hence, if the candidate text is the reverse of the reference text, the ROUGE-S score is 0 even though it is not as bad as completely unrelated candidates \citep{lin_rouge_2004}.
+ROUGE-SU extends ROUGE-S with unigrams to solve this issue \citep{lin_rouge_2004}.
 % ROUGE generally
 \citet{kurt_pehlivanoglu_comparative_2024} claim that ROUGE may not be adequate to assess semantic similarity and fluency.
-Lower ROUGE scores indicate greater diversity \cite{kurt_pehlivanoglu_comparative_2024}.
+Lower ROUGE scores indicate greater diversity \citep{kurt_pehlivanoglu_comparative_2024}.
 
-TER (2006) was developed for machine translation \cite{zhou_paraphrase_2021}.
+TER (2006) was developed for machine translation \citep{zhou_paraphrase_2021}.
 It computes the number of edits required to change the translation until it matches the reference translation.
 It ranges from 0 (i.e. no edits needed) to 1 (i.e. all words need to be changed).
 
@@ -232,15 +224,15 @@ It ranges from 0 (i.e. no edits needed) to 1 (i.e. all words need to be changed)
 \citet{palivela_optimization_2021} state that accuracy, precision, recall and F1-score are suitable for \ac{pi}.
 For \ac{pg}, they suggest ROUGE, BLEU, GLEU, WER (Word Error Rate), and METEOR as suitable metrics.
 WER is the number of substitutions (replacements of words), insertions (adding words) and deletions (removing words) 
-divided by the total number of words in the reference text \cite{palivela_optimization_2021}.
+divided by the total number of words in the reference text \citep{palivela_optimization_2021}.
 
 \citet{kurt_pehlivanoglu_comparative_2024} additionally use T5-STSB.
 The metric is based on \ac{t5} model adapted to the Semantic Textual Similarity Benchmark (STSB).
-It evaluates semantic equivalence by assigning a similarity score from 0 (no similarity) to 5 (complete equivalence) \cite{kurt_pehlivanoglu_comparative_2024}.
+It evaluates semantic equivalence by assigning a similarity score from 0 (no similarity) to 5 (complete equivalence) \citep{kurt_pehlivanoglu_comparative_2024}.
 
 BERTScore calculates the cosine similarity between the contextual embeddings of the reference and generated texts. 
-Hence, is assesses semantic equivalence and correlates well with human judgement \cite{kurt_pehlivanoglu_comparative_2024}.
-First, token vector representations are computed for both the reference and generated texts using a pre-trained BERT model \cite{hanna_fine_grained_2021}.
+Hence, is assesses semantic equivalence and correlates well with human judgement \citep{kurt_pehlivanoglu_comparative_2024}.
+First, token vector representations are computed for both the reference and generated texts using a pre-trained BERT model \citep{hanna_fine_grained_2021}.
 Let reference $z$ and candidate $\hat{z}$ be the vector representations of the reference and candidate texts, respectively.
 Then, the BERTScore precision, recall and $F_1$ score is computed as follows in \autoref{eq:bert_p}, \autoref{eq:bert_r}, and \autoref{eq:bert_f1}, respectively:
 \begin{equation}
@@ -256,13 +248,13 @@ Then, the BERTScore precision, recall and $F_1$ score is computed as follows in 
 \label{eq:bert_f1}
 \end{equation}
 Since $F_1 \in \left[-1,1\right]$ it can be rescaled to $[0,1]$ by modifying the precision and recall calculation 
-to $\hat{P}_{BERT} = \frac{P_{BERT} - a}{1 - a}$ ($R_{BERT}$ analoguous), where $a$ is the empirical lower bound on the BERTScore \cite{hanna_fine_grained_2021}.
+to $\hat{P}_{BERT} = \frac{P_{BERT} - a}{1 - a}$ ($R_{BERT}$ analoguous), where $a$ is the empirical lower bound on the BERTScore \citep{hanna_fine_grained_2021}.
 The BERTScore has difficulties on datasets with lexically similar (i.e. lexical overlap of content words) incorrect candidates 
-opposed to lexically different more correct candidates \cite{hanna_fine_grained_2021}.
+opposed to lexically different more correct candidates \citep{hanna_fine_grained_2021}.
 
 
-\ac{t5}-CoLA metric (ranges from 0 to 5 \cite{kurt_pehlivanoglu_comparative_2024}) utilizes the Corpus of Linguistic Acceptability (CoLA) to evaluate the grammatical correctness of sentences and thus, 
-contributes linguistic evaluation \cite{kurt_pehlivanoglu_comparative_2024}.
+\ac{t5}-CoLA metric (ranges from 0 to 5 \citep{kurt_pehlivanoglu_comparative_2024}) utilizes the Corpus of Linguistic Acceptability (CoLA) to evaluate the grammatical correctness of sentences and thus, 
+contributes linguistic evaluation \citep{kurt_pehlivanoglu_comparative_2024}.
 
 Generally, \citet{kurt_pehlivanoglu_comparative_2024} order the metrics by their contribution area:
 \begin{itemize}
@@ -276,11 +268,11 @@ As a semantic similarity score, they use the ACL Antology 2022 published \href{h
 
 According to \citet{gohsen_task_oriented_2024}, there are two perspectives to paraphrasing: 
 Lexical (i.e. changes at word level) and syntactic (i.e. changes at syntactic level).
-Paraphrase types can be classified into surface and semantic level. Finer levels are outlined in \cite{gohsen_task_oriented_2024}.
+Paraphrase types can be classified into surface and semantic level. Finer levels are outlined in \citep{gohsen_task_oriented_2024}.
 
 \textcolor{red}{Do we want semantically similar paraphrases even though our task is style transfer belonging to semantically equivalent paraphrasing?}
 
-Popular paraphrase categories include \cite{fu_learning_2024}:
+Popular paraphrase categories include \citep{fu_learning_2024}:
 \begin{itemize}
     \item Top-level classification perspective: 
         \begin{itemize}
@@ -313,4 +305,4 @@ Popular paraphrase categories include \cite{fu_learning_2024}:
 
 \citet{zhou_paraphrase_2021} claim it is difficult to control the style of generated paraphrases.
 
-Another approach to paraphrasing is back-translation, which may limit diversity \cite{zhou_paraphrase_2025}.
+Another approach to paraphrasing is back-translation, which may limit diversity \citep{zhou_paraphrase_2025}.

@@ -2,11 +2,11 @@
 \label{sec:pan_dataset_authorship_verification}
 
 % acquisition
-\citet{ayele_overview_2024,bevendorff_overview_2024} collected articles of major 2021 US news from Google News (Pan AI News 2021 \cite{bevendorff_overview_2024}).
-They chose this time period since it predates the release of GPT-3.5 \cite{bevendorff_overview_2024,ayele_overview_2024}.
+\citet{ayele_overview_2024,bevendorff_overview_2024} collected articles of major 2021 US news from Google News (Pan AI News 2021 \citep{bevendorff_overview_2024}).
+They chose this time period since it predates the release of GPT-3.5 \citep{bevendorff_overview_2024,ayele_overview_2024}.
 As a consequence, they claim that their dataset is most likely human-authored.
 % artificial texts
-Next, they used GPT-4-Turbo to create bullet-point summaries of the articles \cite{bevendorff_overview_2024,ayele_overview_2024}. 
+Next, they used GPT-4-Turbo to create bullet-point summaries of the articles \citep{bevendorff_overview_2024,ayele_overview_2024}. 
 According to \citet{bevendorff_overview_2024}, the prompt used to generate the summaries in 2021 was:
 \begin{quote}
     \textit{Summarize the following text in five to six short bullet points and give an overall description
@@ -14,9 +14,9 @@ According to \citet{bevendorff_overview_2024}, the prompt used to generate the s
 \end{quote}
 % in JSON format:
 Moreover, they extracted the article's type (nine classes), target audience (three classes), the author's political stance (three classes), the article's dateline, 
-and the names and functions of directly quoted spokespersons, if any \cite{bevendorff_overview_2024}.
-Based on these summaries, 15 \acp{llm}-generated newspaper articles \cite{ayele_overview_2024}.
-They were prompted to assume the role of the journalist describes by the additional information extracted from the original texts \cite{bevendorff_overview_2024}.
+and the names and functions of directly quoted spokespersons, if any \citep{bevendorff_overview_2024}.
+Based on these summaries, 15 \acp{llm}-generated newspaper articles \citep{ayele_overview_2024}.
+They were prompted to assume the role of the journalist describes by the additional information extracted from the original texts \citep{bevendorff_overview_2024}.
 % split
 The authors split the dataset into training and test set.
 % robustness

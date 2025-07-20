@@ -36,7 +36,7 @@ weaker coherence and textual entailment between sentences.
 % machine/ AI
 In this context, \ac{ai} refers to a language model.
 They recommended using the following prompt to instruct the \ac{llm} to generate a text 
-based on the bulletpoint summary of a news article generated as described in \cite{bevendorff_overview_2024}:
+based on the bulletpoint summary of a news article generated as described in \citep{bevendorff_overview_2024}:
 \begin{quote}
     \textit{Write a text of about 500 words which covers the following items:}
 \end{quote}
@@ -45,7 +45,7 @@ The language models used in the challenge are:
 \begin{itemize}
     \item \textbf{Poro} is an open-source, freely available multilingual decoder-only model.
     \item \textbf{Mistral} is an open-source, freely available model and trained for conversational data.
-    \item and more cf. pg.8 \cite{bevendorff_overview_2024}
+    \item and more cf. pg.8 \citep{bevendorff_overview_2024}
 \end{itemize}
 \citet{bevendorff_overview_2024} manually reviewed the generated texts and removed obvious artefacts 
 (i.e., typical \ac{llm} chat phrases, excessive bullet lists, etc.).
@@ -65,7 +65,7 @@ During inference, the models received pairs of human and \ac{llm} texts.
 For each sample, a score $\in [0, 1]$ is assigned to the sample.
 For a score $<0.5$, the model predicts the left text to be human,
 and for a score $>0.5$, the model predicts the right text to be human.
-A score of exactly 0.5 means the model abstains from the sample \cite{bevendorff_overview_2024,kocher_unine_2015}.
+A score of exactly 0.5 means the model abstains from the sample \citep{bevendorff_overview_2024,kocher_unine_2015}.
 
 % model metrics
 They defined the effectiveness of the systems, i.e. models, as the arithmetic mean of the metrics defined in \autoref{sec:pan_evaluation}, 
