@@ -1,11 +1,30 @@
+\section{Problem}
+\label{sec:problem}
+
+% LLM detection
+\ac{llm} detection denotes the task of determining whether a text was written by a human or an \ac{llm}.
 % specificity rather than generality
 Due to the diversity of text domains (/topics), we believe that generalized solutions for \ac{llm} detection are not feasible.
 Generalized solutions refer to models that are trained once on a dataset and then used for all texts.
 % bhattacharjee_fighting_2024: ChatGPT not equally good across different LLMs
 % li_learning_2025: Scores drop for Out of Distribution (OOD) texts
-Literature suggests that many models fail to detect all \acp{llm} especially in \ac{ood} scenarios~\cite{bhattacharjee_fighting_2024,li_learning_2025}.
+Literature suggests that many models fail to detect all \acp{llm} especially in \ac{ood} scenarios~\citep{bhattacharjee_fighting_2024,li_learning_2025}.
 
 % frame problem
 We focus on single case solutions, i.e. models trained tailored to a specific scenario.
 Formally, single case solutions include creating \ac{id} \ac{llm} detection scenarios, 
 where we can control all variables (train new model for each dataset).
+
+% AV
+\textcolor{gray}{
+This problem can be framed as a \ac{av} task, where given two texts 
+(i.e. the one of unknown authorship and the one written by an \ac{llm} author) 
+the goal is to determine whether they were written by the same author or not.
+% Genre
+It can also be framed as a genre classification task, where the goal is to determine whether a text belongs 
+to the genre human or to the genre \ac{lm} \todo{Martins neues Paper}.
+% One-class classification
+It can be framed as a one-class classification task, where all \ac{lm} authors are considered as one class.
+The goal is to identify \ac{lm} generated texts with high confidence/ \todo{precision?}.
+}
+
