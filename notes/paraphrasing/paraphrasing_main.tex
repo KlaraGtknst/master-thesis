@@ -1,6 +1,6 @@
 \section{Paraphrasing}
 \label{sec:paraphrasing}
-\newcommand{\bluert}{\href{https://github.com/google-research/bleurt}{BLUERT}}
+
 
 \citet{kurt_pehlivanoglu_comparative_2024} intentionally decided to use synthetic data to meet the study's specific goals.
 According to them, synthetic data allows for a controlled and reproducible setup, ensuring all reference sentences are consistently generated.
@@ -173,12 +173,12 @@ Since candidates consisting only of high-probability n-grams (e.g. "the") would 
 The clipped n-grams occurences are added up and divided by the total number of unclipped n-grams in the candidate text \cite{papineni_bleu_2001}.
 \citet{papineni_bleu_2001} state that unigrams are used to test adequacy, while longer n-grams are used to test fluency.
 BLEU's basic unit of evaluation is a sentence. 
-In order to compute the BLEU score from \autoref{eq:bleu} for more than one sentence, one (1) computes the n-grams matches sentence by sentence, 
+In order to compute the BLEU score from \autoref{eq:notes_bleu} for more than one sentence, one (1) computes the n-grams matches sentence by sentence, 
 then (2) add the clipped n-grams matches across all sentences, 
 and finally (3) divides the total clipped n-grams matches by the total number of unclipped n-grams in all candidate sentences \cite{papineni_bleu_2001}.
 \begin{equation}
     p_n = \frac{\sum_{\mathcal{C} \in \left\{ Candidates \right\}}\sum_{n-gram \in\mathcal{C}}Count_{clip}(n-gram)}{\sum_{\mathcal{C'} \in \left\{ Candidates \right\}}\sum_{n-gram' \in\mathcal{C'}}Count(n-gram')}
-\label{eq:bleu}
+\label{eq:notes_bleu}
 \end{equation}
 BLEU combines the scores for different n-grams (separately computed) using the average logarithm with uniform weights, 
 which is equivalent to using the geometric mean of the scores \cite{papineni_bleu_2001,banerjee_METEOR_2005}.
@@ -186,18 +186,18 @@ which is equivalent to using the geometric mean of the scores \cite{papineni_ble
 BLEU automatically penalizes n-grams appearing in the candidate text but not in the reference text, as well as n-grams appearing more often in the candidate than in the reference text \cite{papineni_bleu_2001}.
 According to \citet{papineni_bleu_2001}, they need to add a brevity penalty to the BLEU score to enforce proper length of the candidate text. 
 For multiple sentences, they (1) add the best match (among the reference texts) length for each candidate sentence, and (2) divide this sum $r$ by the total length of all candidate sentences $c$. 
-Hence, the brevity penalty $BP$ is defined as follows in \autoref{eq:bleu_brevity_penalty}:
+Hence, the brevity penalty $BP$ is defined as follows in \autoref{eq:notes_bleu_brevity_penalty}:
 \begin{equation}
     BP = \begin{cases}
         1 & \text{if } c > r \\
         e^{1 - \frac{r}{c}} & \text{if } c \leq r
     \end{cases}
-\label{eq:bleu_brevity_penalty}
+\label{eq:notes_bleu_brevity_penalty}
 \end{equation}
-Combining all these, the final BLEU score is computed as follows in \autoref{eq:bleu_final}:
+Combining all these, the final BLEU score is computed as follows in \autoref{eq:notes_bleu_final}:
 \begin{equation}
     \text{BLEU} = BP \cdot \exp\left(\sum_{n=1}^{N} w_n \cdot \log p_n\right)
-\label{eq:bleu_final}
+\label{eq:notes_bleu_final}
 \end{equation}
 They cannot use recall for length-related problems here, because BLEU uses multiple reference texts, which may have different lengths \cite{papineni_bleu_2001,banerjee_METEOR_2005}.
 If the generated candidate is significantly shorter than the reference text, the brevity penalty $BP$ is applied.
@@ -231,10 +231,10 @@ and (2) select the largest subset of unigram mappings that constitute a valid al
 METEOR computes a weighted F-score 
 (unigram-precision, unigram-recall \cite{kurt_pehlivanoglu_comparative_2024,banerjee_METEOR_2005} 
 and a measure of fragmentation \cite{banerjee_METEOR_2005,kurt_pehlivanoglu_comparative_2024})
-with a penality function whenever an incorrect word is encountered \cite{palivela_optimization_2021} as displayed in \autoref{eq:meteor}.
+with a penality function whenever an incorrect word is encountered \cite{palivela_optimization_2021} as displayed in \autoref{eq:notes_meteor}.
 \begin{equation}
     METEOR = F_{mean} = \frac{10 \cdot P \cdot R}{R + 9P} \cdot (1 - Penalty)
-\label{eq:meteor}
+\label{eq:notes_meteor}
 \end{equation}
 The penality is designed to reduce the $F_{mean}$ score to $50\%$ if there are no bigram or longer matches \cite{banerjee_METEOR_2005}.
 It has better correlation with human judgement at the sentence/segment level than BLEU \cite{zhou_paraphrase_2021}, 
@@ -251,20 +251,20 @@ ROUGE-W (Weighted longest common subsequence) \cite{palivela_optimization_2021},
 ROUGE-S (skip-bigram co-occurrence statistics) \cite{palivela_optimization_2021}.
 ROUGE-1 computes the recall by analysing the matching unigrams between the generated paraphrase and the reference paraphrase \cite{palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}.
 % ROUGE-N
-ROUGE-N is an n-gram recall between the candidate text and the reference texts \cite{lin_rouge_2004} as displayed in \autoref{eq:rouge_n}.
+ROUGE-N is an n-gram recall between the candidate text and the reference texts \cite{lin_rouge_2004} as displayed in \autoref{eq:notes_rouge_n}.
 \begin{equation}
     ROUGE-N = \frac{\sum_{\mathcal{S} \in \left\{ References \right\}}\sum_{n-gram \in\mathcal{S}}Count_{match}(n-gram)}{\sum_{\mathcal{S'} \in \left\{ References \right\}}\sum_{n-gram' \in\mathcal{S'}}Count(n-gram')}
-\label{eq:rouge_n}
+\label{eq:notes_rouge_n}
 \end{equation}
 $Count_{match}(n-gram)$ is the maximum number of n-grams co-occuring in the candidate text and the set of reference texts \cite{lin_rouge_2004}.
 The nominator sums over all references and thus, gives more weight to matching n-grams that occur in multiple references (i.e. a consensus between references) \cite{lin_rouge_2004}.
 Refer to \citet{lin_rouge_2004} for more details on the work with multiple references (I do not understand that, because I thought we already use multiple).
 % ROUGE-L
 For ROUGE-L, the intuition is that the longer the longest common subsequence (LCS) between the candidate and reference texts, the more similar they are \cite{lin_rouge_2004}.
-For a candidate $Y$ of length $n$ and a reference $X$ of length $m$, the ROUGE-L score is defined as follows in \autoref{eq:rouge_l}:
+For a candidate $Y$ of length $n$ and a reference $X$ of length $m$, the ROUGE-L score is defined as follows in \autoref{eq:notes_rouge_l}:
 \begin{equation}
     ROUGE-L = F_{lcs} = \frac{(1 + \beta^2)R_{lcs}P_{lcs}}{R_{lcs} + \beta^2 P_{lcs}}
-\label{eq:rouge_l}
+\label{eq:notes_rouge_l}
 \end{equation}
 where $R_{lcs} = \frac{LCS(X,Y)}{m}$ and $P_{lcs} = \frac{LCS(X,Y)}{n}$ \cite{lin_rouge_2004}.
 ROUGE-L requires in-sequence macthes that reflect the sentence level word order as n-grams \cite{lin_rouge_2004}.
@@ -300,18 +300,18 @@ BERTScore calculates the cosine similarity between the contextual embeddings of 
 Hence, is assesses semantic equivalence and correlates well with human judgement \cite{kurt_pehlivanoglu_comparative_2024}.
 First, token vector representations are computed for both the reference and generated texts using a pre-trained BERT model \cite{hanna_fine_grained_2021}.
 Let reference $z$ and candidate $\hat{z}$ be the vector representations of the reference and candidate texts, respectively.
-Then, the BERTScore precision, recall and $F_1$ score is computed as follows in \autoref{eq:bert_p}, \autoref{eq:bert_r}, and \autoref{eq:bert_f1}, respectively:
+Then, the BERTScore precision, recall and $F_1$ score is computed as follows in \autoref{eq:notes_bert_p}, \autoref{eq:notes_bert_r}, and \autoref{eq:notes_bert_f1}, respectively:
 \begin{equation}
     P_{BERT} = \frac{1}{|\hat{z}|} \sum_{\hat{z}_j \in \hat{z}} \max_{z_j \in z} z_i\top \hat{z}_j
-\label{eq:bert_p}
+\label{eq:notes_bert_p}
 \end{equation}
 \begin{equation}
     R_{BERT} = \frac{1}{|z|} \sum_{z_j \in z} \max_{\hat{z}_j \in \hat{z}} z_i\top \hat{z}_j
-\label{eq:bert_r}
+\label{eq:notes_bert_r}
 \end{equation}
 \begin{equation}
     F_1 = \frac{2 P_{BERT} R_{BERT}}{P_{BERT} + R_{BERT}} 
-\label{eq:bert_f1}
+\label{eq:notes_bert_f1}
 \end{equation}
 Since $F_1 \in \left[-1,1\right]$ it can be rescaled to $[0,1]$ by modifying the precision and recall calculation 
 to $\hat{P}_{BERT} = \frac{P_{BERT} - a}{1 - a}$ ($R_{BERT}$ analoguous), where $a$ is the empirical lower bound on the BERTScore \cite{hanna_fine_grained_2021}.
