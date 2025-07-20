@@ -2,11 +2,20 @@
 \label{subsec:imposter_generation}
 
 % good imposters: hard negatives
-Equivalent to the original imposter approach by \citet{koppel_determining_2014}, ideal imposter texts are hard negatives.
+Equivalent to the original imposter approach by \citet{koppel_determining_2014}, we denote ideal imposter texts as hard negatives.
 In other words, texts that are not authored by the candidate author, but are difficult to distinguish from the candidate author's texts.
 Note that the quality of the imposters directly contributes to the performance of the model, 
 since easy imposters lead to \acp{fp} and too difficult ones to \acp{fn}.
 
+\subsubsection{Traditional Imposter Generation}
+\label{subsubsec:traditional_imposter_generation}
+
+To assess the quality of our Imposter approach implementation, we first reimplement the original imposter approach by \citet{koppel_determining_2014}.
+The parameters are set to the original default values.
+
+
+\subsubsection{Novel Imposter Generation}
+\label{subsubsec:novel_imposter_generation}
 % obstacles for imposter generation in the past
 The traditional generation techniques outlined by \citet{koppel_determining_2014} faced difficulties in controlling essential factors such as text topic or genre.
 Since authorial style heavily depends on these factors, traditional imposters can differ a lot from the candidate text.
@@ -24,8 +33,8 @@ as a heuristic to modelling the generation process, paraphrase the original text
 Due to the lack of a universal definition of paraphrases~\cite{gohsen_task_oriented_2024}, the following criteria are used to determine the quality of the generated paraphrases:
 % our criteria for good paraphrases
 \begin{itemize}
-    \item The generated text should belong to the same topic, genre and exhibit the same tone as the original text.
+    \item The generated text should belong to the same topic, genre and exhibit the same tone (\textcolor{red}{=tone???}) as the original text.
     \item The semantic information may differ (i.e. hallucination is allowed).
-    \item The generated text should be different to the original text in terms of wording and sentence structure (i.e. syntactic similarity). \textcolor{red}{threshold to exclude near-duplicate paraphrases~\cite{gohsen_captions_2023}?}
+    \item The generated text should be different to the original text in terms of style, i.e. wording and sentence structure (i.e. syntactic similarity). \textcolor{red}{threshold to exclude near-duplicate paraphrases~\cite{gohsen_captions_2023}?}
 \end{itemize}
 
