@@ -2,7 +2,7 @@
 \label{subsec:perplexity}
 
 % Perplexity is measure to assess how surprised a language model is by a text.
-Perplexity $PPL$ can be employed to compute the likelihood of a language model generating a text.
+Perplexity $PPL$ can be employed to compute the likelihood of a \ac{lm} generating a text.
 A low perplexity indicates that the sequence aligns with model's predictions, 
 while a high perplexity indicates that the sequence is unexpected or unlikely according to the model.
 Perplexity is computed as follows:
@@ -22,5 +22,7 @@ perplexity is computed on the windows of $n$ tokens, where $n$ is the context wi
 Depending on the tokenizer, perplexity can be computed on the word or sub-word level, 
 where sub-word level perplexity is often smaller due to higher likelihoods of smaller character sequences.
 Since larger vocabulary lead to lower likelihoods per token, perplexity is generally higher for larger vocabularies.
-Hence, perplexity is not directly comparable across different tokenizers or models.
-Moreover, perplexity requires access to the model's probabilities $P(w_i|w_{<i})$, which are often not available.
+% disadvantages
+Due to the lack of comparability across different tokenizers or models and 
+the requirement for access to the model's probabilities $P(w_i|w_{<i})$, which are often not available, 
+we decided to refrain from using perplexity for \ac{llm} detection.
