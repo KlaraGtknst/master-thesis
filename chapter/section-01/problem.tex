@@ -14,6 +14,8 @@ Literature suggests that many models fail to detect all \acp{llm} especially in 
 We focus on single case solutions, i.e. models trained tailored to a specific scenario.
 Formally, single case solutions include creating \ac{id} \ac{llm} detection scenarios, 
 where we can control all variables (train new model for each dataset).
+% What do we want from the solution?
+Further requirements for the solution are high precision, i.e. if the model predicts that a text was written by an \ac{llm}, it should be correct.
 
 % AV
 \textcolor{gray}{
@@ -31,4 +33,3 @@ to the genre human or to the genre \ac{lm} \todo{Martins neues Paper}.
 It can be framed as a one-class classification task, where all \ac{lm} authors are considered as one class.
 The goal is to identify \ac{lm} generated texts with high confidence/ \todo{precision?}.
 }
-
