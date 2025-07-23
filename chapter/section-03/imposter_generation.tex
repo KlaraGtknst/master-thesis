@@ -38,3 +38,37 @@ Due to the lack of a universal definition of paraphrases~\citep{gohsen_task_orie
     \item The generated text should be different to the original text in terms of style, i.e. wording and sentence structure (i.e. syntactic similarity). \textcolor{red}{threshold to exclude near-duplicate paraphrases~\citep{gohsen_captions_2023}?}
 \end{itemize}
 
+
+% Notes
+According to \citet{gohsen_task_oriented_2024}, there are two perspectives to paraphrasing: 
+Lexical (i.e. changes at word level) and syntactic (i.e. changes at syntactic level).
+Paraphrase types can be classified into surface and semantic level. Finer levels are outlined in \citep{gohsen_task_oriented_2024}.
+
+Popular paraphrase categories include \citep{fu_learning_2024}:
+\begin{itemize}
+    \item Top-level classification perspective: 
+        \begin{itemize}
+            \item Lexicon-based changes
+            \item Morphology-based changes
+            \item others
+        \end{itemize}
+    \item Second-level classification perspective:
+        \begin{itemize}
+            \item Change of format
+            \item Semantic-based
+            \item Change of order
+        \end{itemize}
+\end{itemize}
+
+\citet{zhou_paraphrase_2025} (pg. 3, tab.1, and examples afterwards) define a topology of paraphrase types:
+\begin{itemize}
+    \item Morphology based: inflection changes (e.g. singular to plural), derivation changes (e.g. adjective to verb), functional word substitution (e.g. this to that).
+    \item Lexicon based: Same polarity substitution (e.g. synonym), opposite polarity substitution (e.g. antonym), converse substitution (e.g. opposite view point), spelling changes, synthetic/ analytic substitution, relational substitution
+    \item Syntax based: Negation switching (i.e. other negation), diathesis alternation (e.g. change position of verb), etc.
+    \item Discourse based: Indirect/direct substitutions, sentence modality changes, punctuation changes, etc.
+    \item Other changes: Change of order, change of format, etc.
+\end{itemize}
+
+\citet{zhou_paraphrase_2021} claim it is difficult to control the style of generated paraphrases.
+
+Another approach to paraphrasing is back-translation, which may limit diversity \citep{zhou_paraphrase_2025}.
