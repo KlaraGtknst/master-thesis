@@ -270,8 +270,8 @@ Then, the BERTScore precision, recall and $F_1$ score is computed as follows in 
 \end{equation}
 Since $F_1 \in \left[-1,1\right]$ it can be rescaled to $[0,1]$ by modifying the precision and recall calculation 
 to $\hat{P}_{BERT} = \frac{P_{BERT} - a}{1 - a}$ ($R_{BERT}$ analogous), where $a$ is the empirical lower bound on the BERTScore \citep{hanna_fine_grained_2021}.
-The BERTScore has difficulties on datasets with lexically similar (i.e. lexical overlap of content words) incorrect candidates 
-opposed to lexically different more correct candidates \citep{hanna_fine_grained_2021}.
+% The BERTScore has difficulties on datasets with lexically similar (i.e. lexical overlap of content words) incorrect candidates 
+% opposed to lexically different more correct candidates \citep{hanna_fine_grained_2021}.
 
 The \ac{wmd} computes the minimum amount of distance that embedded words of a text need to travel 
 to reach the embedded words of another text \citep{gohsen_captions_2023}.
