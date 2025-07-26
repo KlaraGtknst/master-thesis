@@ -5,6 +5,7 @@
 Due to this approach extending the original imposter approach by \citet{koppel_determining_2014}, 
 we first use original data to establish the feasibility and reproducibility of the original approach. 
 \citet{koppel_determining_2014} used \dataBlog{} and the \dataStudent{} dataset.
+
 % Blog
 The \dataBlog{} dataset~\citep{blog_dataset_2006} is a collection of blog posts from \textit{blogger.com} on or before August 2004.
 Each blog is the work of a single user.
@@ -13,26 +14,56 @@ the corpus contains \num{681288} posts from \num{19320} bloggers with approximat
 Users are binned by age into the following categories: 13-17, 23-27, and 33-47.
 Dataset features include \texttt{id}, \texttt{gender}, \texttt{age}, \texttt{topic}, 
 \texttt{sign} (referring to the author's astrological/zodiac sign), \texttt{date}, and \texttt{text}.
+
 % student essays
 The  \dataStudent{} dataset is not publicly available, due to sensible information about the students.
 J. W. Pennebaker was kind enough to provide us with the original data M. Koppel used in his paper.
-The dataset contains student essays for five assignments from a class in 2006.
+The dataset contains \num{7052} student essays total across five assignments from a class in 2006.
 The assignments include stream of consciousness, talk about your childhood, describe your personality, 
 Thematic Apperception Test, and Give four examples of four different theories.
 For reproducing our work, due to privacy concerns, 
-we refer to J. W. Pennebaker as the data holder  and authority of the \dataStudent{} dataset.
+we refer to J. W. Pennebaker as the data holder and authority of the \dataStudent{} dataset.
 For establishing a baseline for the imposter approach, we use the \dataBlog{} and the \dataStudent{} dataset.
 
 \subsubsection{Additional Data}
-To extend our test scenario for the imposter approach, we opted to find an additional dataset that fulfilled the following criteria:
-\begin{itemize}
-    \item controlled confounders (e.g. genre, topic)
-    \item undisputed authorship 
-    
-\end{itemize}
-
+To extend our test scenario for the imposter approach, we opted to find additional datasets that 
+(1) control confounders (e.g. genre, topic) and (2) provide undisputed authorship.
 We found that both the \dataPan{} and \dataGutenberg{} datasets are suitable candidates.
 The statistical properties of the datasets are shown in \autoref{tab:data_stats}.
+
+% PAN20: Fanfiction
+The \dataPan{} dataset~\citep{bischoff_importance_2020} is a collection of fanfiction texts from the \textit{fanfiction.net} website.
+Texts belong to one fandom (i.e. thematic category), and there are not fanfiction crossovers.
+According to \href{https://pan.webis.de/clef20/pan20-web/author-identification.html}{PAN's official website}, 
+train and test set originate from two different fanfictions and approximate the (long-tail) distribution of the fandoms in the original dataset.
+Dataset features include \texttt{id}, \texttt{fandoms}, and \texttt{pair} containing the text pairs.
+They provide an additional \texttt{jsonl} file containing the ground truth for the pairs, 
+i.e. \texttt{id}, \texttt{same}, and \texttt{authors} features.
+
+% Gutenberg
+The \dataGutenberg{} dataset~\footnote{\href{https://www.gutenberg.org/}{Project Gutenberg} (26.07.2025)} 
+is a selection of literary works from the Project Gutenberg.
+Project Gutenberg is an online library focusing on older works for which U.S. copyright has expired.
+Volunteers have already digitized and proofread more than \num{75000} e-books.
+In this case, we selected 19 works from 7 authors from the 16th and 19th century.
+Genres include drama, fiction and poetry.
+Metadata was manually extracted from the Project Gutenberg website.
+
+
+\subsubsection{Dataset Preprocessing}
+\label{subsubsec:dataset_preprocessing}
+
+To further control confounders influencing authorial style, we preprocess the dataset 
+(once before creating the arrow dataset file and once before using the detector).
+The requirements for the preprocessing are:
+\begin{itemize}
+    \item The texts are stripped of all format/ layout information to obtain plain text before saving them as arrow files.
+    \item The texts should be of similar length (detector crops texts to the length of the shorter text).
+\end{itemize}
+In order to produce a controlled testing environment four our imposter approach, 
+we opted to refine few datasets rather than scaling up to larger datasets.
+Removing layout information includes removing HTML artefacts, play artefacts, newlines, 
+converting utf-8 to ASCII, lowercasing and stripping leading and trailing whitespace.
 
 \begin{table}[h]
 \centering\small
@@ -52,22 +83,6 @@ student\_essays & 3952  & 588   & 221   & 3731  & 3404.76 (651.63)     & 1362   
 }
 \end{table}
 \textcolor{red}{above average length in characters (words)}
-
-
-\subsubsection{Dataset Preprocessing}
-\label{subsubsec:dataset_preprocessing}
-
-To further control confounders influencing authorial style, we preprocess the dataset 
-(once before creating the arrow dataset file and once before using the detector).
-The requirements for the preprocessing are:
-\begin{itemize}
-    \item The texts are stripped of all format/ layout information to obtain plain text before saving them as arrow files.
-    \item The texts should be of similar length (detector crops texts to the length of the shorter text).
-\end{itemize}
-In order to produce a controlled testing environment four our imposter approach, 
-we opted to refine few datasets rather than scaling up to larger datasets.
-Removing layout information includes removing HTML artefacts, play artefacts, newlines, 
-converting utf-8 to ASCII, lowercasing and stripping leading and trailing whitespace.
 
 \subsubsection{Selection of Text Pairs}
 \label{subsubsec:dataset_text_pair_selection}
