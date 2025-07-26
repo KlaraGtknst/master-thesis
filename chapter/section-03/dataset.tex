@@ -16,14 +16,24 @@ Dataset features include \texttt{id}, \texttt{gender}, \texttt{age}, \texttt{top
 \texttt{sign} (referring to the author's astrological/zodiac sign), \texttt{date}, and \texttt{text}.
 
 % student essays
-The  \dataStudent{} dataset is not publicly available, due to sensible information about the students.
-J. W. Pennebaker was kind enough to provide us with the original data M. Koppel used in his paper.
-The dataset contains \num{7052} student essays total across five assignments from a class in 2006.
-The assignments include stream of consciousness, talk about your childhood, describe your personality, 
-Thematic Apperception Test, and Give four examples of four different theories.
-For reproducing our work, due to privacy concerns, 
-we refer to J. W. Pennebaker as the data holder and authority of the \dataStudent{} dataset.
-For establishing a baseline for the imposter approach, we use the \dataBlog{} and the \dataStudent{} dataset.
+The \dataStudent{} dataset is not publicly available due to the presence of sensitive student information. 
+We are grateful to J. W. Pennebaker for providing access to the original data used by M. Koppel in his study. 
+The dataset comprises \num{7052} student essays written across five assignments from a 2006 university class of 950 students~\citep{koppel_determining_2014}.
+
+The assignments include a stream-of-consciousness task, reflections on childhood, a self-assessment of personality, 
+a thematic apperception test, and four examples of four different theories.
+Following \citet{koppel_determining_2014}, we use the first four assignments for our imposter approach. 
+Unlike their work, which truncates essays to the first 500 words, we utilize the full texts.
+
+In line with \citet{koppel_determining_2014}, each disputed-candidate pair in our setup originates from different assignments, 
+regardless of their class label (\texttt{same-author} or \texttt{different-author}).
+It is worth noting that the filenames are inconsistently formatted: 
+Most are named after the author ID, while those from the first assignment follow the pattern \texttt{2006\_authorID}.
+
+Due to privacy considerations, we refer researchers seeking access to the \dataStudent{} dataset to J. W. Pennebaker, 
+who remains the official data holder. 
+For establishing a baseline in our imposter experiments, we use both the \dataBlog{} and \dataStudent{} datasets.
+
 
 \subsubsection{Additional Data}
 To extend our test scenario for the imposter approach, we opted to find additional datasets that 
