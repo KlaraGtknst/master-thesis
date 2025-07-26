@@ -66,9 +66,23 @@ Removing layout information includes removing HTML artefacts, play artefacts, ne
 converting utf-8 to ASCII, and stripping leading and trailing whitespace.
 We opted to forgo lowercasing the texts in order to preserve authorial capitalization.
 
+
+\subsubsection{Selection of Text Pairs}
+\label{subsubsec:dataset_text_pair_selection}
+
+We had to select pairs of texts for the \dataBlog{}, \dataStudent{} and the \dataGutenberg{} dataset.
+Eligible texts have a minimum length of \num{3000} words for all datasets but the \dataStudent{} dataset, 
+where the minimum length requirement is \num{500} words.
+We select a lower limit of \num{500} words for the \dataStudent{} dataset, 
+since the longest essay only contains \num{1136} words.
+We decided to keep the existing pairs in the \dataPan{} arrow dataset for better comparability.
+All datasets consist of same- and different-author pairs. 
+As mentioned before, we aimed to control confounders when selecting pairs.
+Find descriptive statistics for the preprocessed datasets in Table~\ref{tab:data_stats}.
+
 \begin{table}[h]
 \centering\small
-\caption{Statistics of preprocessed datasets \dataPan{}, \dataBlog{} and \dataGutenberg{}.}
+\caption{Statistics of preprocessed datasets \dataPan{}, \dataBlog{}, \dataGutenberg{}, and \dataStudent{}.}
 \label{tab:data_stats}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lrrrrrrrrr@{}}   % numbers should be right aligned, text left aligned
@@ -83,18 +97,7 @@ student\_essays & 3952  & 588   & 221   & 3731  & 3404.76 (651.63)     & 1362   
 \end{tabular}%
 }
 \end{table}
-
-\subsubsection{Selection of Text Pairs}
-\label{subsubsec:dataset_text_pair_selection}
-
-We had to select pairs of texts for the \dataBlog{}, \dataStudent{} and the \dataGutenberg{} dataset.
-Eligible texts have a minimum length of \num{3000} words for all datasets but the \dataStudent{} dataset, 
-where the minimum length requirement is \num{500} words.
-We select a lower limit of \num{500} words for the \dataStudent{} dataset, 
-since the longest essay only contains \num{1136} words.
-We decided to keep the existing pairs in the \dataPan{} arrow dataset for better comparability.
-All datasets consist of same- and different-author pairs. 
-As mentioned before, we aimed to control confounders when selecting pairs.
+\textcolor{red}{Nicht aktuell}
 
 For the \dataBlog{} dataset, 
 two texts of a pair are selected such that they share the same topic, year, gender and age, where the last to reference the text's author.
