@@ -60,10 +60,10 @@ The requirements for the preprocessing are:
     \item The texts are stripped of all format/ layout information to obtain plain text before saving them as arrow files.
     \item The texts should be of similar length (detector crops texts to the length of the shorter text).
 \end{itemize}
-In order to produce a controlled testing environment four our imposter approach, 
-we opted to refine few datasets rather than scaling up to larger datasets.
+In order to produce a controlled testing environment for our imposter approach, 
+we opted to curate small datasets rather than scaling up to larger datasets.
 Removing layout information includes removing HTML artefacts, play artefacts, newlines, 
-converting utf-8 to ASCII, lowercasing and stripping leading and trailing whitespace.
+converting utf-8 to ASCII, and stripping leading and trailing whitespace.
 
 \begin{table}[h]
 \centering\small
@@ -82,19 +82,22 @@ student\_essays & 3952  & 588   & 221   & 3731  & 3404.76 (651.63)     & 1362   
 \end{tabular}%
 }
 \end{table}
-\textcolor{red}{above average length in characters (words)}
 
 \subsubsection{Selection of Text Pairs}
 \label{subsubsec:dataset_text_pair_selection}
 
 We had to select pairs of texts for the \dataBlog{}, \dataStudent{} and the \dataGutenberg{} dataset.
+Eligible texts have a minimum length of \num{3000} words for all datasets but the \dataStudent{} dataset, 
+where the minimum length requirement is \num{500} words.
+We select a lower limit of \num{500} words for the \dataStudent{} dataset, 
+since the longest essay only contains \num{1136} words.
 We decided to keep the existing pairs in the \dataPan{} arrow dataset for better comparability.
 All datasets consist of same- and different-author pairs. 
 As mentioned before, we aimed to control confounders when selecting pairs.
 
 For the \dataBlog{} dataset, 
 two texts of a pair are selected such that they share the same topic, year, gender and age, where the last to reference the text's author.
-Test (20\%) and train split (80\%) have different topics.
+Train (80\%) and test split (20\%) have different topics.
 
 For the \dataStudent{} dataset,
 tasks are either in the train (70\%) or test (30\%) set.
