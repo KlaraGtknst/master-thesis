@@ -5,6 +5,15 @@
 Due to this approach extending the original imposter approach by \citet{koppel_determining_2014}, 
 we first use original data to establish the feasibility and reproducibility of the original approach. 
 \citet{koppel_determining_2014} used \dataBlog{} and the \dataStudent{} dataset.
+% Blog
+The \dataBlog{} dataset~\citep{blog_dataset_2006} is a collection of blog posts from \textit{blogger.com} on or before August 2004.
+Each blog is the work of a single user.
+According to kaggle~\footnote{\href{https://www.kaggle.com/datasets/rtatman/blog-authorship-corpus?resource=download}{Kaggle dataset \texttt{rtatman/blog-authorship-corpus}} (26.07.2025)},
+the corpus contains \num{681288} posts from \num{19320} bloggers with approximately 35 posts and \num{7250} words per person.
+Users are binned by age into the following categories: 13-17, 23-27, and 33-47.
+Dataset features include \texttt{id}, \texttt{gender}, \texttt{age}, \texttt{topic}, 
+\texttt{sign} (referring to the author's astrological/zodiac sign), \texttt{date}, and \texttt{text}.
+% student essays
 The  \dataStudent{} dataset is not publicly available, due to sensible information about the students.
 J. W. Pennebaker was kind enough to provide us with the original data M. Koppel used in his paper.
 The dataset contains student essays for five assignments from a class in 2006.
