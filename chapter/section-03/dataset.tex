@@ -90,6 +90,14 @@ All datasets consist of same- and different-author pairs.
 As mentioned before, we aimed to control confounders when selecting pairs.
 Find descriptive statistics for the preprocessed datasets in Table~\ref{tab:data_stats}.
 
+% minimum length necessesary for AV/ AA
+When selecting the minimum length of texts, we consulted related research in the field of \ac{av} and \ac{aa}.
+\citet{bevendorff_generalizing_2019} use texts chunks of at least 700 words for their unmasking approach, 
+where \citet{koppel_authorship_2004} set the minimum length to 500 words.
+Recent work~\citep{llm_detection_av_2025} identifies a minimum length of \num{2500}-\num{4000} characters 
+sufficient for effective \ac{llm} detection (framed as \ac{av} or \ac{aa}).
+Therefore, they opted for a minimum length of \num{3000} words for their datasets.
+
 \begin{table}[h]
 \centering\small
 \caption{Statistics of preprocessed datasets \dataPan{}, \dataBlog{}, \dataGutenberg{}, and \dataStudent{}.}
