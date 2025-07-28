@@ -81,10 +81,9 @@ We opted to forgo lowercasing the texts in order to preserve authorial capitaliz
 \label{subsubsec:dataset_text_pair_selection}
 
 We had to select pairs of texts for the \dataBlog{}, \dataStudent{} and the \dataGutenberg{} dataset.
-Eligible texts have a minimum length of \num{3000} words for all datasets but the \dataStudent{} dataset, 
-where the minimum length requirement is \num{500} words.
-We select a lower limit of \num{500} words for the \dataStudent{} dataset, 
-since the longest essay only contains \num{1136} words.
+Eligible texts have a minimum length of \num{700} words for all datasets.
+% We select a lower limit of \num{500} words for the \dataStudent{} dataset, 
+% since the longest essay only contains \num{1136} words.
 We decided to keep the existing pairs in the \dataPan{} arrow dataset for better comparability.
 All datasets consist of same- and different-author pairs. 
 As mentioned before, we aimed to control confounders when selecting pairs.
@@ -107,10 +106,10 @@ Therefore, they opted for a minimum length of \num{3000} characters for their da
 \toprule
 dataset & num\_pairs & num\_authors & num\_same\_pairs & num\_different\_pairs & avg\_text\_len & max\_text\_len\_words & std\_text\_len\_words & median\_text\_len\_words \\
 \midrule
-pan20           & 66875 & 52741 & 35608 & 31267 & 21419.02 (2682.24)   & 55413 & 511.90 & 3889 \\
-blog            & 163 & 148  & 107 & 56  & 30006.51 (5381.42)     & 115365 & 6730.96 & 4105 \\
-gutenberg       & 12    & 7     & 6     & 6     & 485286.25 (87339.79) & 297704 & 68368.09 & 76660 \\
-student\_essays & 1284  & 728   & 642   & 642  & 3660.59 (924.36)     & 1699 & 182.98 & 655  \\
+pan20           & 66905 & 52771 & 35616 & 31289 & 21418.76 (3914.76)   & 55413 & 512.19 & 3889 \\
+blog            & 11565 & 5997  & 6204 & 5361  & 6249.94 (1154.25)     & 115365 & 1493.97 & 913 \\
+gutenberg       & 12    & 7     & 6     & 6     & 437870.75 (78698.79) & 297704 & 68329.91 & 60282 \\
+student\_essays & 224  & 222   & 112   & 112  & 4459.32 (865.90)     & 1634 & 157.41 & 815  \\
 \bottomrule
 \end{tabular}%
 }
