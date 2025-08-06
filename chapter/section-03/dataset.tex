@@ -72,10 +72,19 @@ The requirements for the preprocessing are:
 \end{itemize}
 In order to produce a controlled testing environment for our imposter approach, 
 we opted to curate small datasets rather than scaling up to larger datasets.
+We tested the impact of different preprocessing steps on the vocabulary size,
+which is shown in Figure~\ref{fig:preprocesing_impact_vocab_size}.
 Removing layout information includes removing HTML artefacts, play artefacts, newlines, 
 converting utf-8 to ASCII, and stripping leading and trailing whitespace.
-We opted to forgo lowercasing the texts in order to preserve authorial capitalization.
-
+We opted to forgo lowercasing the texts because we found it does not have a significant impact on any of the datasets, 
+and in order to preserve potential deliberate authorial choice regarding capitalization.
+\textcolor{red}{PAN20 missing.}
+\begin{figure}[htbp]
+    \centering
+    \includesvg[width=\textwidth]{images/dataset/impact_preprocessing_steps.svg}
+    \caption{Impact of subsequent application of different preprocessing steps on the vocabulary (consisting of space-free character 4-grams) size.}
+    \label{fig:preprocesing_impact_vocab_size}
+\end{figure}
 
 \subsubsection{Selection of Text Pairs}
 \label{subsubsec:dataset_text_pair_selection}
