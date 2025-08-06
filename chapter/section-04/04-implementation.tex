@@ -1,2 +1,43 @@
 \chapter{Implementation}
 \label{chap:implementation}
+
+\textcolor{red}{Incorrect display + on-the-fly is missing}
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig4/blog/roc_prec_recall_curve_r100_top100000_Same_Author_dif_imp_gen.svg}
+    \caption{\dataBlog{}}
+    \label{fig:blog_same_author}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig4/student_essays/roc_prec_recall_curve_r100_top100000_Same_Author_dif_imp_gen.svg}
+    \caption{\dataStudent{}}
+    \label{fig:student_essays_same_author}
+  \end{subfigure}
+  \caption{Same authors}
+  \label{fig:same_authors}
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig4/blog/roc_prec_recall_curve_r100_top100000_Different_Author_dif_imp_gen.svg}
+    \caption{\dataBlog{}}
+    \label{fig:blog_different_author}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig4/student_essays/roc_prec_recall_curve_r100_top100000_Different_Author_dif_imp_gen.svg}
+    \caption{\dataStudent{}}
+    \label{fig:student_essays_different_author}
+  \end{subfigure}
+  \caption{Different authors}
+  \label{fig:different_authors}
+\end{figure}
+
