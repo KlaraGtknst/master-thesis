@@ -1,11 +1,11 @@
 \section{UniNE CLEF 2015 \ac{av} Imposter}
-\label{sec:UniNE_CLEF2015_AV_imposter}
+\label{sec:UniNE_CLEF2015_AV_impostor}
 
 The idea of \citet{kocher_unine_2015} is to apply a distance measure to the candidate author and the disputed text and 
-compare the distance to those between the disputed text and a set of imposters.
+compare the distance to those between the disputed text and a set of impostors.
 The authors build profiles of candidate authors by concatenating the texts of the candidate author.
 The distance is then calculated between the candidate author profile and the disputed text.
-%Hence, they need a sample text of the candidate author and texts from the imposters.???
+%Hence, they need a sample text of the candidate author and texts from the impostors.???
 
 % features
 \subsection{Features}
@@ -30,9 +30,9 @@ $P\left[ t_i \right]=\frac{tf_i}{n}$.
 The \spldist{} distance returns a numerical value between 0 and 1 that can be used to determine a degree of certainty \citep{kocher_unine_2015}.
 Since the authors do not apply smoothing, they accept a 0.0 probability.
 $k$ represents the number of terms (i.e., words or punctuation symbols).
-In order to contextualize the magnitude of the distance $\Delta_0$, a set of imposter distances is calculated.
-They create $m$ imposter profiles resulting in $m$ distances $\Delta_1, \ldots, \Delta_m$.
-Only the minimum distance among the set of imposter distances is kept.
+In order to contextualize the magnitude of the distance $\Delta_0$, a set of impostor distances is calculated.
+They create $m$ impostor profiles resulting in $m$ distances $\Delta_1, \ldots, \Delta_m$.
+Only the minimum distance among the set of impostor distances is kept.
 They repeat this stage $r=5$ times resulting in $r$ distance measures $\Delta_{m1}, \ldots, \Delta_{mr}$.
 They compute the arithmetic mean $\Delta_m$ of the $r$ distances.
 
@@ -48,13 +48,13 @@ If the distance $\Delta_0$ is smaller than $\Delta_m$, the system decides that t
 \subsection{Set of Imposters}
 
 \citet{kocher_unine_2015} claim \ac{aa} is not more difficult than \ac{av} 
-due to the fact that in \ac{av} tasks one has to compare the disputed text with a set of all representative imposter texts.
-The authors claim it is difficult to determine whether one has included all imposters, 
+due to the fact that in \ac{av} tasks one has to compare the disputed text with a set of all representative impostor texts.
+The authors claim it is difficult to determine whether one has included all impostors, 
 i.e., other writers having a similar style to the candidate author.
 
-They choose $m=3$ random imposters from the test set of the candidate author 
+They choose $m=3$ random impostors from the test set of the candidate author 
 where those with similar number of known documents to the candidate author are favoured.
-Each set of imposter documents is used to create a profile.
+Each set of impostor documents is used to create a profile.
 $m=3$ is chosen arbitrarily.
 
 \subsection{\tira{}}

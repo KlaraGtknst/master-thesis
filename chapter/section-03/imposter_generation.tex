@@ -1,24 +1,24 @@
 \subsection{Imposter Generation}
-\label{subsec:imposter_generation}
+\label{subsec:impostor_generation}
 
-% good imposters: hard negatives
-Equivalent to the original imposter approach by \citet{koppel_determining_2014}, we denote ideal imposter texts as hard negatives.
+% good impostors: hard negatives
+Equivalent to the original impostor approach by \citet{koppel_determining_2014}, we denote ideal impostor texts as hard negatives.
 In other words, texts that are not authored by the candidate author, but are difficult to distinguish from the candidate author's texts.
-Note that the quality of the imposters directly contributes to the performance of the model, 
-since easy imposters lead to \acp{fp} and too difficult ones to \acp{fn}.
+Note that the quality of the impostors directly contributes to the performance of the model, 
+since easy impostors lead to \acp{fp} and too difficult ones to \acp{fn}.
 
 \subsubsection{Traditional Imposter Generation}
-\label{subsubsec:traditional_imposter_generation}
+\label{subsubsec:traditional_impostor_generation}
 
-To assess the quality of our Imposter approach implementation, we first reimplement the original imposter approach by \citet{koppel_determining_2014}.
+To assess the quality of our Imposter approach implementation, we first reimplement the original impostor approach by \citet{koppel_determining_2014}.
 The parameters are set to the original default values.
 
 
 \subsubsection{Novel Imposter Generation}
-\label{subsubsec:novel_imposter_generation}
-% obstacles for imposter generation in the past
+\label{subsubsec:novel_impostor_generation}
+% obstacles for impostor generation in the past
 The traditional generation techniques outlined by \citet{koppel_determining_2014} faced difficulties in controlling essential factors such as text topic or genre.
-Since authorial style heavily depends on these factors, traditional imposters can differ a lot from the candidate text.
+Since authorial style heavily depends on these factors, traditional impostors can differ a lot from the candidate text.
 % model process of original text generation
 The ideal generation technique would model the process of the original text generation, 
 i.e. among others, the author's task, and references.
