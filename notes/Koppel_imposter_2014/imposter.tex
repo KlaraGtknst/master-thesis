@@ -1,4 +1,4 @@
-\section{Imposter method}
+\section{Impostor method}
 \label{sec:impostor_method}
 
 The problem to solve is the \ac{av} problem:
@@ -38,7 +38,7 @@ A greater number of impostors reduces the number of \acp{fp} and \acp{fn}.
 % while large sets may generate \acp{fn} and thus, creating a tradeoff.
 
 \begin{algorithm}
-    \caption{Imposters Method for Author Verification}
+    \caption{Impostors Method for Author Verification}
     \label{alg:impostor_algo}
     \begin{algorithmic}[1]
     \Procedure{IsSameAuthor}{$X$, $Y$, $\sigma^*$}
@@ -49,7 +49,7 @@ A greater number of impostors reduces the number of \acp{fp} and \acp{fn}.
         \ForAll{$d \in \{X, Y\}$}  
             \State $d' \gets \{X, Y\} \setminus \{d\}$ 
             \Comment{Disputed document $d'$}
-            \State $\mathcal{I}_d \gets \text{GenerateImposters}(d)$ 
+            \State $\mathcal{I}_d \gets \text{GenerateImpostors}(d)$ 
             \Comment{$m$ impostor documents for candidate $d$}
     
             \State $scores[d] \gets 0$ 
