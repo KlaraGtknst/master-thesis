@@ -103,7 +103,7 @@ This approach is unable to detect which \ac{llm} generated the text.
 %% LLMDet: Proxy to perplexity (problem: requires access to the LLM to build the dictionary)
 Perplexity is a reliable statistical metric for attributing texts to \acp{llm}~\citep{zhang_llmdet_2023}.
 Unfortunately, perplexity requires access to \acp{llm}' parameters (i.e., white-box detection).
-\citet{zhang_llmdet_2023} propose LLMDet, a method that uses a proxy to perplexity, 
+\citet{wu_llmdet_2023} propose LLMDet, a method that uses a proxy to perplexity, 
 where a dictionary of frequent n-gram (frequent among $n$ randomly prompted generated texts per \ac{llm}) 
 next token probabilities is pre-computed (i.e. requiring access to the \ac{llm}), 
 and is subsequently used during inference to approximate perplexity by replacing $x_{<i}$ in $p(x_i | x_{<i})$ with an n-gram.
