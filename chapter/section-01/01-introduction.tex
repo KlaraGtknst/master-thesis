@@ -57,15 +57,15 @@ To guide this objective, we formulate the following research questions:
 \section{Contributions}
 \label{sec:contributions}
 The main contributions of this thesis are as follows:
-\begin{enumerate}
-    \item A reimplementation of the traditional Impostor method~\citep{koppel_determining_2014} (cf. \autoref{sec:impostor_method_theory}).
-    \item The implementation of an \ac{llm}-based Impostor method (cf. \autoref{chap:llm_impostor_method}). 
-    \item An empirical assessment of the use of \acp{llm} for generating hard negative impostors, examining (a) the influence of syntactic similarity between the reference candidate and the paraphrase, and (b) performance relative to traditional impostor generation techniques proposed by \citet{koppel_determining_2014} (cf. \autoref{chap:experimental_results}/ \ref{enum:rq1})
-    \item A quantitative comparison of paraphrasing approaches employing standard summarization and translation-based techniques (cf. \autoref{chap:experimental_results}/ \ref{enum:rq2})
-    \item A comparative evaluation of the proposed \ac{llm}-based Impostor method against established \ac{av} techniques, namely Unmasking and PPMD (cf. \autoref{chap:experimental_results}/ \ref{enum:rq3})
-    \item A comparative analysis of the effect of chunked paraphrases on detector scores, investigating varying numbers of chunks and their influence on detection performance (see \autoref{chap:experimental_results}).
-    \item The collection and preprocessing original datasets, including a deliberate candidate-pair selection procedure aligned with the methodology of the original study by \citet{koppel_determining_2014}, informed through direct consultation with the original authors (see \autoref{sec:dataset}).
-\end{enumerate}
+\begin{itemize}
+    \item We reimplemented the traditional Impostor method~\citep{koppel_determining_2014} (cf. \autoref{sec:impostor_method_theory}).
+    \item Our work includes developing an implementation of an \ac{llm}-based Impostor method (cf. \autoref{chap:llm_impostor_method}). 
+    \item To evaluate the use of \acp{llm} for generating hard negative impostors, we conducted an empirical assessment focusing on (a) the influence of syntactic similarity between the reference candidate and the paraphrase, and (b) performance relative to traditional impostor generation techniques proposed by \citet{koppel_determining_2014} (cf. \autoref{chap:experimental_results}/ \ref{enum:rq1})
+    \item We compared paraphrasing approaches quantitatively using standard summarization and translation-based techniques (cf. \autoref{chap:experimental_results}/ \ref{enum:rq2})
+    \item The proposed \ac{llm}-based Impostor method was evaluated against established \ac{av} techniques, namely Unmasking and PPMD (cf. \autoref{chap:experimental_results}/ \ref{enum:rq3})
+    \item We analysed how chunked paraphrases affect detector scores by varying the number of chunks and assessing detection performance (cf. \autoref{chap:experimental_results}).
+    \item We collected and preprocessed the original datasets, including a deliberate candidate-pair selection procedure aligned with the methodology of the original study by \citet{koppel_determining_2014}, informed through direct consultation with the original authors (cf. \autoref{sec:dataset}).
+\end{itemize}
 
 
 \section{Thesis Structure}
