@@ -1,94 +1,86 @@
 \section{Dataset}
 \label{sec:dataset}
 
-Due to this approach extending the original \impAppr{} by \citet{koppel_determining_2014}, 
-we first use original data to establish the feasibility and reproducibility of the original approach. 
-\citet{koppel_determining_2014} used \dataBlog{} and the \dataStudent{} dataset.
-\autoref{subsec:original_data} outlines work on the original datasets.
-\autoref{subsec:additional_data} describes supplementary the datasets \dataPan{} and \dataGutenberg{}.
-After general description of the datasets, we present our preprocessing pipeline in \autoref{subsec:dataset_preprocessing}, and conclude with the pair selection process in \autoref{subsec:dataset_text_pair_selection}.
+Since our method extends the original \impAppr{} proposed by \citet{koppel_determining_2014}, we first obtained the datasets used in their study to validate our implementation and reproduce their results. 
+The original experiments were conducted on the \dataBlog{} and \dataStudent{} datasets, which are described in detail in \autoref{subsec:original_data}. 
+In addition to these, we incorporated two supplementary datasets, \dataPan{} and \dataGutenberg{}, presented in \autoref{subsec:additional_data}. 
+Following the general description of all datasets, we outline our preprocessing pipeline in \autoref{subsec:dataset_preprocessing} and conclude with the text-pair selection procedure in \autoref{subsec:dataset_text_pair_selection}.
+
 
 \subsection{Original Data}
 \label{subsec:original_data}
 
 % Blog
-The \dataBlog{} dataset~\citep{blog_dataset_2006} is a collection of blog posts from \textit{blogger.com} on or before August 2004.
-Each blog is the work of a single user.
-According to kaggle~\footnote{\href{https://www.kaggle.com/datasets/rtatman/blog-authorship-corpus?resource=download}{Kaggle dataset \texttt{rtatman/blog-authorship-corpus}} (26.07.2025)},
-the corpus contains \num{681288} posts from \num{19320} bloggers with approximately 35 posts and \num{7250} words per person.
-Users are binned by age into the following categories: 13-17, 23-27, and 33-47.
-Dataset features include \texttt{id}, \texttt{gender}, \texttt{age}, \texttt{topic}, 
+The \dataBlog{} corpus~\citep{blog_dataset_2006} consists of blog posts collected from \textit{blogger.com} on or before August 2004, with each blog authored by a single user.
+According to the Kaggle repository~\footnote{\href{https://www.kaggle.com/datasets/rtatman/blog-authorship-corpus?resource=download}{Kaggle dataset \texttt{rtatman/blog-authorship-corpus}} (26.07.2025)}, the dataset contains \num{681288} posts from \num{19320} bloggers, averaging approximately 35 posts and \num{7250} words per author.
+Users are grouped into three age categories: 13-17, 23-27, and 33-47.
+Each record includes the following metadata: \texttt{id}, \texttt{gender}, \texttt{age}, \texttt{topic}, 
 \texttt{sign} (referring to the author's astrological/zodiac sign), \texttt{date}, and \texttt{text}.
 
 % student essays
 The \dataStudent{} dataset is not publicly available due to the presence of sensitive student information. 
-We are grateful to J. W. Pennebaker for providing access to the original data used by M. Koppel in his study. 
-The dataset comprises \num{7052} student essays written across five assignments from a 2006 university class of 950 students~\citep{koppel_determining_2014}.
+We gratefully acknowledge J. W. Pennebaker for granting access to the original data used by \citet{koppel_determining_2014} in their study. 
+The dataset comprises \num{7052} student essays written for five assignments by a cohort of 950 university students in 2006~\citep{koppel_determining_2014}.
 
-The assignments include a stream-of-consciousness task, reflections on childhood, a self-assessment of personality, 
-a thematic apperception test, and four examples of four different theories.
-Following \citet{koppel_determining_2014}, we use the first four assignments for our \impAppr{}. 
-Unlike their work, which truncates essays to the first 500 words, we utilize the full texts.
+The assignments include (1) a stream-of-consciousness task, (2) a reflections on childhood, (3) a self-assessment of personality, (4) a thematic apperception test, and (5) four examples of four different theories.
+An inconsistency in the file naming convention is notable: 
+Most files are named solely by the author ID, whereas those from the first assignment follow the format \texttt{2006\_authorID}.
+Following \citet{koppel_determining_2014}, our \impAppr{} experiments employ only the first four assignments. 
+Consistent with \citet{koppel_determining_2014}, disputed–candidate pairs in our setup are drawn from different assignments, irrespective of their class label (\texttt{same-author} or \texttt{different-author}).
+In contrast to the original \impAppr{}, which truncated each essay to the first 500 words, we crop texts to the minimum length of the text pair.
 
-In line with \citet{koppel_determining_2014}, each disputed-candidate pair in our setup originates from different assignments, 
-regardless of their class label (\texttt{same-author} or \texttt{different-author}).
-It is worth noting that the filenames are inconsistently formatted: 
-Most are named after the author ID, while those from the first assignment follow the pattern \texttt{2006\_authorID}.
-
-Due to privacy considerations, we refer researchers seeking access to the \dataStudent{} dataset to J. W. Pennebaker, 
-who remains the official data holder. 
+Due to privacy restrictions, researchers seeking access to the \dataStudent{} dataset should contact J. W. Pennebaker, the official data custodian. 
 For establishing a baseline in our \imp{} experiments, we use both the \dataBlog{} and \dataStudent{} datasets.
 
 
 \subsection{Additional Data}
 \label{subsec:additional_data}
-To extend our test scenario for the \impAppr{}, we opted to find additional datasets that 
-(1) control confounders (e.g. genre, topic) and (2) provide undisputed authorship.
-We found that both the \dataPan{} and \dataGutenberg{} datasets are suitable candidates.
-The statistical properties of the datasets are shown in \autoref{tab:data_stats}.
+To broaden the evaluation scope of the \impAppr{}, we incorporated additional datasets selected according to two criteria:
+(1) control over confounding factors such as genre and topic, and 
+(2) verified, undisputed authorship.
+Both the \dataPan{} and \dataGutenberg{} datasets satisfy these conditions.
 
 % PAN20: Fanfiction
-The \dataPan{} dataset~\citep{bischoff_importance_2020} is a collection of fanfiction texts from the \textit{fanfiction.net} website.
-Texts belong to one fandom (i.e. thematic category), and there are not fanfiction crossovers.
-According to \href{https://pan.webis.de/clef20/pan20-web/author-identification.html}{PAN's official website}, 
+The \dataPan{} corpus~\citep{bischoff_importance_2020} comprises fanfiction texts sourced from \textit{fanfiction.net}.
+Each text belongs exclusively to one fandom (i.e. thematic category), with no crossovers between fandoms.
+According to \href{https://pan.webis.de/clef20/pan20-web/author-identification.html}{the official \ac{pan} website}, 
 train and test set originate from two different fanfictions and approximate the (long-tail) distribution of the fandoms in the original dataset.
-Dataset features include \texttt{id}, \texttt{fandoms}, and \texttt{pair} containing the text pairs.
-They provide an additional \texttt{jsonl} file containing the ground truth for the pairs, 
-i.e. \texttt{id}, \texttt{same}, and \texttt{authors} features.
+Dataset features include \texttt{id}, \texttt{fandoms}, and \texttt{pair}, where the latter contains the paired texts.
+An additional \texttt{jsonl} file provides the ground truth for each pair, specifying \texttt{id}, \texttt{same} (authorship label), and \texttt{authors}.
 
 % Gutenberg
-The \dataGutenberg{} dataset~\footnote{\href{https://www.gutenberg.org/}{Project Gutenberg} (26.07.2025)} 
-is a selection of literary works from the Project Gutenberg.
-Project Gutenberg is an online library focusing on older works for which U.S. copyright has expired.
-Volunteers have already digitized and proofread more than \num{75000} e-books.
-In this case, we selected 19 works from 7 authors from the 16th and 19th century.
-Genres include drama, fiction and poetry.
-Metadata was manually extracted from the Project Gutenberg website.
+The \dataGutenberg{} dataset~\footnote{\href{https://www.gutenberg.org/}{Project Gutenberg} (26.07.2025)} contains a curated selection of literary works from Project Gutenberg, a digital library dedicated primarily to older works whose U.S. copyrights have expired.
+As of this writing, the collection contains over \num{75000} digitized and proofread e-books contributed by volunteers.
+For our experiments, we selected 19 works authored by 7 writers from the 16th to 19th centuries, covering genres such as drama, fiction, and poetry.
+Metadata for these works was manually extracted from the Project Gutenberg website and Wikipedia.
 
 
 \subsection{Dataset Preprocessing}
 \label{subsec:dataset_preprocessing}
 
-To further control confounders influencing authorial style, we preprocess the dataset 
-(once before creating the arrow dataset file and once before using the detector).
-The requirements for the preprocessing are:
+To control confounding factors that influence authorial style, we preprocess each dataset twice:
+(1) Prior to generating arrow dataset file and (2) before using the \impAppr{}.
+This two-stage approach addresses both experimental scenarios, where all material is prepared in advance, and inference scenarios in which the \impAppr{} model is applied directly to texts.
+The preprocessing process was designed to meet the following requirements:
 \begin{itemize}
-    \item The texts are stripped of all format/ layout information to obtain plain text before saving them as arrow files.
-    \item The texts should be of similar length (detector crops texts to the length of the shorter text).
+    \item Removal of all formatting and layout information to produce plain text.
+    \item Cropping texts to match the length of the shorter text in each pair.
 \end{itemize}
-In order to produce a controlled testing environment for our \impAppr{}, 
-we opted to curate small datasets rather than scaling up to larger datasets.
-We tested the impact of different preprocessing steps on the vocabulary size,
-which is shown in Figure~\ref{fig:preprocesing_impact_vocab_size}.
-Removing layout information includes removing HTML artefacts, play artefacts, newlines, 
-converting utf-8 to ASCII, and stripping leading and trailing whitespace.
-We opted to forgo lowercasing the texts because we found it does not have a significant impact on any of the datasets, 
-and in order to preserve potential deliberate authorial choice regarding capitalization.
+It is important to note that text-length adjustment is performed exclusively within the \impAppr{} implementation and is not applied to the Arrow dataset itself.
+For a controlled evaluation environment in our \impAppr{}, we opted to work with relatively small, curated datasets rather than scaling to larger collections.  
+The effect of individual preprocessing steps on vocabulary size was analysed, with results presented in \autoref{fig:preprocesing_impact_vocab_size}.
+In line with \citep{koppel_determining_2014}, the vocabulary consists of space-free character 4-grams.
+Removing formatting and layout information includes removing HTML artefacts, play artefacts, newlines, 
+converting UTF-8 to ASCII, and stripping leading and trailing whitespace.
+Since both \dataBlog{} and \dataPan{} originate from the Internet, we applied HTML-specific preprocessing steps, which had minimal impact on their respective vocabularies.
+Upon inspection of the \dataGutenberg{}, we found that certain patterns reappear due to the \textit{play} genre. 
+Notably, since we do not consider actor instructions (e.g., character cues) or structural elements (e.g., chapter headings) as part of authorial style, these patterns were removed using regular expressions.
+We opted to forgo lowercasing the texts, as our preliminary analysis indicated that lowercasing had no meaningful effect on any dataset while potentially discarding deliberate authorial capitalization choices.
 
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/dataset/impact_preprocessing_steps.svg}
-    \caption{Impact of subsequent application of different preprocessing steps on the vocabulary (consisting of space-free character 4-grams) size.}
+    \caption{Effect of preprocessing steps on vocabulary size (space-free character 4-grams).}
     \label{fig:preprocesing_impact_vocab_size}
 \end{figure}
 
@@ -112,7 +104,10 @@ Recent work~\citep{llm_detection_av_2025} identifies a minimum length of \num{25
 sufficient for effective \ac{llm} detection (framed as \ac{av} or \ac{aa}).
 Therefore, they opted for a minimum length of \num{3000} characters for their datasets.
 
-\begin{table}[h]
+Their statistical properties are summarized in \autoref{tab:data_stats}.
+
+% \begin{table}[h]
+\begin{sidewaystable}
 \centering\small
 \caption{Statistics of preprocessed datasets \dataPan{}, \dataBlog{}, \dataGutenberg{}, and \dataStudent{}.}
 \label{tab:data_stats}
@@ -128,7 +123,8 @@ student\_essays & 224  & 222   & 112   & 112  & 4459.32 (865.90)     & 1634 & 15
 \bottomrule
 \end{tabular}%
 }
-\end{table}
+% \end{table}
+\end{sidewaystable}
 
 For the \dataBlog{} dataset, 
 two texts of a pair are selected such that they share the same topic, year, gender and age, where the last to reference the text's author.
