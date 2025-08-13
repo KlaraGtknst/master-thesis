@@ -32,13 +32,13 @@ Moreover, they highlight the similarity between the impostor method and an ensem
 Furthermore, the performance of the method improves as the number of candidate author diminishes.
 In an open-set scenario, fewer candidate authors makes the problem more difficult for the impostor method 
 since one author being consistently more similar to the text than the others candidates across multiple feature subsets is less likely in large sets of competing candidate authors.
-A greater number of impostors reduces the number of \acp{fp} and \acp{fn}.
+A greater number of \imps{} reduces the number of \acp{fp} and \acp{fn}.
 % cf. koppel_determining_2014 pg. 182, but conflicting with above:
 % Small sets of candidate authors are more likely to generate \acp{fp} 
 % while large sets may generate \acp{fn} and thus, creating a tradeoff.
 
 \begin{algorithm}
-    \caption{Impostors Method for Author Verification}
+    \caption{\imps{} Method for Author Verification}
     \label{alg:impostor_algo}
     \begin{algorithmic}[1]
     \Procedure{IsSameAuthor}{$X$, $Y$, $\sigma^*$}
@@ -73,15 +73,15 @@ A greater number of impostors reduces the number of \acp{fp} and \acp{fn}.
     \end{algorithm}
     
 % Tradeoff/ Risks
-If we want to generate impostors for a document $Y$ and compare it to a document $X$, 
-the impostors should be similar (e.g., in terms of genre) to $Y$ rather than $X$.
+If we want to generate \imps{} for a document $Y$ and compare it to a document $X$, 
+the \imps{} should be similar (e.g., in terms of genre) to $Y$ rather than $X$.
 Otherwise, the $Y$ would never be the top match and thus, producing \acp{fn}.
 Unconvincing impostor documents would lead to \acp{fp} due to the lack of similarity between $X$ and the impostor documents making $Y$ consistently the top match.
 
 % Choice of the impostor documents 
 First the $m$ most similar impostor (in terms of min-max similarity) documents are selected.
 Then, $n$ random impostor documents are selected from the $m$ impostor documents.
-\citet{koppel_determining_2014} found that using a selection of $n$ impostors rather than all $m$ impostor documents produces better results.
+\citet{koppel_determining_2014} found that using a selection of $n$ \imps{} rather than all $m$ impostor documents produces better results.
 The approach is insensitive to $m,n$.
 \citet{koppel_determining_2014} propose three options of generating the impostor documents.
 \begin{itemize}
@@ -102,5 +102,5 @@ When using blogs as impostor documents, the impostor documents are selected from
 Hence, the impostor documents are similar to both documents $X,Y$ in terms of assuming $X,Y$ share a genre.
 According to \citet{koppel_determining_2014}, this method produces the best results.
 
-\citet{koppel_determining_2014} claim that similar impostors to the document $Y$ reduce the number of impostor documents needed to achieve a certain level of performance.
+\citet{koppel_determining_2014} claim that similar \imps{} to the document $Y$ reduce the number of impostor documents needed to achieve a certain level of performance.
 They also state that the search engine is used if no information about the input documents is available.

@@ -4,7 +4,7 @@
     - what is it?
     - why not perplexity?
     - av
-    - impostor method
+    - \imp{} method
 
 \section{Traditional \acs{llm} Detection}
 \label{sec:llm_detection}
@@ -31,17 +31,17 @@
     \caption{Unmasking.}
     \label{fig:unmasking}
 \end{figure}
-Our method is an extension of the original impostor approach by \citet{koppel_determining_2014}.
+Our method is an extension of the original \impAppr{} by \citet{koppel_determining_2014}.
 By varying the seed and temperature, we can generate as many texts as we want.
   
-\subsection{Impostor Method}
+\subsection{\imp{} Method}
 \label{sec:impostor_method_theory}
 
-The Impostor approach leverages random projections to lower dimensional spaces (i.e. random set of features set to zero is a projection).
+The \impAppr{} leverages random projections to lower dimensional spaces (i.e. random set of features set to zero is a projection).
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/imposter/imposter.svg}
-    \caption{Impostor.}
+    \caption{\imp{}.}
     \label{fig:impostor}
 \end{figure}
 

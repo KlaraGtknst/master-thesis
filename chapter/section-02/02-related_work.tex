@@ -2,7 +2,7 @@
 \label{chap:related_work}
 
 This work is different to the work of \citet{koppel_determining_2014} and \citet{kocher_unine_2015} 
-in that it uses \acp{llm} to generate impostor texts.
+in that it uses \acp{llm} to generate \imp{} texts.
 
 % AV
 
@@ -20,7 +20,7 @@ Their findings include, that as of 2020, most \ac{nlg} methods were distinguisha
 but some \acp{llm} proved difficult to detect.
 %%% compared to our work
 In the following, we consider (1) \ac{av}, (2) classical \ac{llm} detection, and (3) closed-set \ac{aa}.
-Our approach differs from the work of \citet{uchendu_authorship_2020} in that our candidates (i.e. impostors) do not include a human author (3), 
+Our approach differs from the work of \citet{uchendu_authorship_2020} in that our candidates (i.e. \imps{}) do not include a human author (3), 
 but only \acp{llm}.
 Moreover, we use different classifiers originally designed for \ac{av}, rather than \ac{aa}.
 
@@ -31,7 +31,7 @@ They find that \ac{gpt}-3.5 performs better when being fed simple instructions, 
 They find that \ac{gpt}-4 predicts almost exclusively \ac{ai} generated texts, 
 while \ac{gpt}-3.5 predictions are more reliable (especially for actually human authored texts).
 %%% compared to our work
-Our work differs from theirs in that we use \acp{llm} to generate impostor texts specific to the candidate text, 
+Our work differs from theirs in that we use \acp{llm} to generate \imp{} texts specific to the candidate text, 
 rather than using the publicly available dataset TuringBench with previously generated texts.
 
 %% DetectGPT: Perturb (Mask), score, compare (unsupervised)
@@ -59,15 +59,15 @@ Even though, DetectGPT works best when the source (i.e. generating) \ac{llm} and
 (requires white-box access to the \ac{llm}), 
 it works also with different \acp{llm} as surrogate for the source model when scoring (in a black-box case).
 %%% compared to our work
-We can not supply a white box setting, because we do know the source \ac{llm} that generated the impostor texts.
-%%%% impostors and perturbations
+We can not supply a white box setting, because we do know the source \ac{llm} that generated the \imp{} texts.
+%%%% \imps{} and perturbations
 However, this approach is similar to our approach, because perturbing texts can be seen as a 
-form of impostor generation (especially as we use paraphrases). 
+form of \imp{} generation (especially as we use paraphrases). 
 %%%% sample from the source model
 Both approaches try to sample from the probability distribution of the source model either 
-by using impostors (via prompting an \ac{llm}) or by perturbing the original text (using an \ac{llm}).
+by using \imps{} (via prompting an \ac{llm}) or by perturbing the original text (using an \ac{llm}).
 %%%% input
-While the impostor approach is an \ac{av} task (i.e. input is a disputed and a candidate text), 
+While the \impAppr{} is an \ac{av} task (i.e. input is a disputed and a candidate text), 
 DetectGPT receives a disputed text and a candidate \ac{llm} as input.
 %%%% similarity measure
 While we use a similarity measure on traditional n-gram frequency vectors, 

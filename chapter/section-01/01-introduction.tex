@@ -9,9 +9,9 @@
 \label{sec:research_questions}
 To guide this objective, we formulate the following research questions:
 \begin{questions}
-    \item \textbf{What is the suitability of \acp{llm} for impostor generation?} \label{enum:rq1} \hfill \\
-    Optimal impostors function as hard negatives in \ac{av}.
-    By generating paraphrases with \acp{llm} that control genre, topic, and other contextual factors, similarity measures in the Impostor method primarily emphasize differences in authorial style rather than content.
+    \item \textbf{What is the suitability of \acp{llm} for \imp{} generation?} \label{enum:rq1} \hfill \\
+    Optimal \imps{} function as hard negatives in \ac{av}.
+    By generating paraphrases with \acp{llm} that control genre, topic, and other contextual factors, similarity measures in the \imp{} method primarily emphasize differences in authorial style rather than content.
     However, the threshold of syntactic similarity at which paraphrases are attributed to the candidate author remains unclear, potentially reducing detection accuracy.
     We design an experiment comparing simple one-step and advanced two-step \ac{llm} paraphrasing techniques against traditional baselines using standard classification metrics.
     Additionally, we analyse how syntactic similarity between the candidate reference and \ac{llm}-generated paraphrases affects detection performance.
@@ -21,10 +21,10 @@ To guide this objective, we formulate the following research questions:
     % (b) first extracting specific information from the original text and subsequently generating a paraphrase based on the information.
     % This thesis compares both approaches on \dataStudent{}, \dataBlog{}, \dataGutenberg{} and \dataPan{}.
 
-    \item \textbf{Which metrics are appropriate to evaluate the quality of generated impostors?} \label{enum:rq2} \hfill \\
-    Optimal impostors are generated under the same constraints as the candidate text.
+    \item \textbf{Which metrics are appropriate to evaluate the quality of generated \imps{}?} \label{enum:rq2} \hfill \\
+    Optimal \imps{} are generated under the same constraints as the candidate text.
     We use \ac{llm}-generated paraphrases as a heuristic of the original generation process.
-    Thus, evaluating impostors equates to evaluating paraphrases, a task complicated by the lack of a universal definition of paraphrasing.
+    Thus, evaluating \imps{} equates to evaluating paraphrases, a task complicated by the lack of a universal definition of paraphrasing.
     Previous studies often adapt metrics from related \ac{nlp} tasks such as machine translation and summarization.
     Two primary evaluation dimensions are semantic similarity and syntactic similarity.
     Contrary to initial assumptions, high syntactic similarity is not always desirable, as it may indicate minimal modification of the original text.
@@ -35,8 +35,8 @@ To guide this objective, we formulate the following research questions:
     % \item \textbf{Which features are used for the \ac{av} problem?} \label{enum:rq3} \hfill \\
     % Traditional features include character tri-gram features, while newer research has proposed using \ac{llm} such as BERT.
 
-    \item \textbf{How does the \ac{llm}-based Impostor approach perform compared to established \ac{av} methods?} \label{enum:rq3} \hfill \\
-    We use Unmasking and PPMD as baselines to evaluate our \ac{llm}-based Impostor approach.
+    \item \textbf{How does the \ac{llm}-based \impAppr{} perform compared to established \ac{av} methods?} \label{enum:rq3} \hfill \\
+    We use Unmasking and PPMD as baselines to evaluate our \ac{llm}-based \impAppr{}.
     Although computationally intensive, our method is designed as a solution tailored to specific detection tasks  rather than a general-purpose \ac{llm} detection tool.
     Performance is assessed across three scenarios: (a) human-\ac{llm} input pairs,
     (b) \ac{llm}-\ac{llm} pairs using the same model, and (c) \ac{llm}-\ac{llm} pairs with different models.
@@ -48,7 +48,7 @@ To guide this objective, we formulate the following research questions:
 % \label{sec:idea}
 
 % Given a text of unknown authorship (i.e., human or \ac{llm}), 
-% construct a set of impostor texts using state-of-the-art \acp{llm} based on the original text.
+% construct a set of \imp{} texts using state-of-the-art \acp{llm} based on the original text.
 % Obtain the author by \ac{aa}/ \ac{av} methods, such as unmasking, to \textit{confidently}, i.e. high precision, identify \ac{llm} generated texts
 % (and possibly which \ac{llm}).
 
@@ -58,11 +58,11 @@ To guide this objective, we formulate the following research questions:
 \label{sec:contributions}
 The main contributions of this thesis are as follows:
 \begin{itemize}
-    \item We reimplemented the traditional Impostor method~\citep{koppel_determining_2014} (cf. \autoref{sec:impostor_method_theory}).
-    \item Our work includes developing an implementation of an \ac{llm}-based Impostor method (cf. \autoref{chap:llm_impostor_method}). 
-    \item To evaluate the use of \acp{llm} for generating hard negative impostors, we conducted an empirical assessment focusing on (a) the influence of syntactic similarity between the reference candidate and the paraphrase, and (b) performance relative to traditional impostor generation techniques proposed by \citet{koppel_determining_2014} (cf. \autoref{chap:experimental_results}/ \ref{enum:rq1})
+    \item We reimplemented the traditional \imp{} method~\citep{koppel_determining_2014} (cf. \autoref{sec:impostor_method_theory}).
+    \item Our work includes developing an implementation of an \ac{llm}-based \imp{} method (cf. \autoref{chap:llm_impostor_method}). 
+    \item To evaluate the use of \acp{llm} for generating hard negative \imps{}, we conducted an empirical assessment focusing on (a) the influence of syntactic similarity between the reference candidate and the paraphrase, and (b) performance relative to traditional \imp{} generation techniques proposed by \citet{koppel_determining_2014} (cf. \autoref{chap:experimental_results}/ \ref{enum:rq1})
     \item We compared paraphrasing approaches quantitatively using standard summarization and translation-based techniques (cf. \autoref{chap:experimental_results}/ \ref{enum:rq2})
-    \item The proposed \ac{llm}-based Impostor method was evaluated against established \ac{av} techniques, namely Unmasking and PPMD (cf. \autoref{chap:experimental_results}/ \ref{enum:rq3})
+    \item The proposed \ac{llm}-based \imp{} method was evaluated against established \ac{av} techniques, namely Unmasking and PPMD (cf. \autoref{chap:experimental_results}/ \ref{enum:rq3})
     \item We analysed how chunked paraphrases affect detector scores by varying the number of chunks and assessing detection performance (cf. \autoref{chap:experimental_results}).
     \item We collected and preprocessed the original datasets, including a deliberate candidate-pair selection procedure aligned with the methodology of the original study by \citet{koppel_determining_2014}, informed through direct consultation with the original authors (cf. \autoref{sec:dataset}).
 \end{itemize}

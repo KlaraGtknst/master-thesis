@@ -1,7 +1,7 @@
 \section{Dataset}
 \label{sec:dataset}
 
-Due to this approach extending the original impostor approach by \citet{koppel_determining_2014}, 
+Due to this approach extending the original \impAppr{} by \citet{koppel_determining_2014}, 
 we first use original data to establish the feasibility and reproducibility of the original approach. 
 \citet{koppel_determining_2014} used \dataBlog{} and the \dataStudent{} dataset.
 \autoref{subsec:original_data} outlines work on the original datasets.
@@ -27,7 +27,7 @@ The dataset comprises \num{7052} student essays written across five assignments 
 
 The assignments include a stream-of-consciousness task, reflections on childhood, a self-assessment of personality, 
 a thematic apperception test, and four examples of four different theories.
-Following \citet{koppel_determining_2014}, we use the first four assignments for our impostor approach. 
+Following \citet{koppel_determining_2014}, we use the first four assignments for our \impAppr{}. 
 Unlike their work, which truncates essays to the first 500 words, we utilize the full texts.
 
 In line with \citet{koppel_determining_2014}, each disputed-candidate pair in our setup originates from different assignments, 
@@ -37,12 +37,12 @@ Most are named after the author ID, while those from the first assignment follow
 
 Due to privacy considerations, we refer researchers seeking access to the \dataStudent{} dataset to J. W. Pennebaker, 
 who remains the official data holder. 
-For establishing a baseline in our impostor experiments, we use both the \dataBlog{} and \dataStudent{} datasets.
+For establishing a baseline in our \imp{} experiments, we use both the \dataBlog{} and \dataStudent{} datasets.
 
 
 \subsection{Additional Data}
 \label{subsec:additional_data}
-To extend our test scenario for the impostor approach, we opted to find additional datasets that 
+To extend our test scenario for the \impAppr{}, we opted to find additional datasets that 
 (1) control confounders (e.g. genre, topic) and (2) provide undisputed authorship.
 We found that both the \dataPan{} and \dataGutenberg{} datasets are suitable candidates.
 The statistical properties of the datasets are shown in \autoref{tab:data_stats}.
@@ -76,7 +76,7 @@ The requirements for the preprocessing are:
     \item The texts are stripped of all format/ layout information to obtain plain text before saving them as arrow files.
     \item The texts should be of similar length (detector crops texts to the length of the shorter text).
 \end{itemize}
-In order to produce a controlled testing environment for our impostor approach, 
+In order to produce a controlled testing environment for our \impAppr{}, 
 we opted to curate small datasets rather than scaling up to larger datasets.
 We tested the impact of different preprocessing steps on the vocabulary size,
 which is shown in Figure~\ref{fig:preprocesing_impact_vocab_size}.
