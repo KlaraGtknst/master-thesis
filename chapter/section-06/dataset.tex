@@ -84,27 +84,37 @@ We opted to forgo lowercasing the texts, as our preliminary analysis indicated t
     \label{fig:preprocesing_impact_vocab_size}
 \end{figure}
 
+
 \subsection{Selection of Text Pairs}
 \label{subsec:dataset_text_pair_selection}
 
-We had to select pairs of texts for the \dataBlog{}, \dataStudent{} and the \dataGutenberg{} dataset.
-Eligible texts have a minimum length of \num{700} words for all datasets.
-% We select a lower limit of \num{500} words for the \dataStudent{} dataset, 
-% since the longest essay only contains \num{1136} words.
-We decided to keep the existing pairs in the \dataPan{} arrow dataset for better comparability.
-All datasets consist of same- and different-author pairs. 
-As mentioned before, we aimed to control confounders when selecting pairs.
-Find descriptive statistics for the preprocessed datasets in Table~\ref{tab:data_stats}.
+For the \dataBlog{}, \dataStudent{}, and \dataGutenberg{} datasets, we selected pairs of texts according to specific criteria to control potential confounding factors.
+Only texts with a minimum length of \num{700} words were considered eligible. 
+For the \dataPan{} dataset, we retained the existing pairs in the Arrow dataset to ensure comparability with prior work. 
+All datasets include both same-author and different-author pairs. 
+
+For \dataBlog{}, pairs were constructed so that the two texts share the same topic, year, gender, and age (the latter referencing the author). 
+The training set comprises 80\% of the data and the test set 20\%, with different topics assigned to each split.
+
+For \dataStudent{}, texts were assigned to either the training (70\%) or test (30\%) set. 
+The test set is larger because each author typically contributes only one essay per task and if only a single task were included in the test set, no same-author pairs could be formed. 
+Same-author pairs were selected such that authors share the same sex, ethnicity, and political orientation. 
+As per \citep{koppel_determining_2014}, all text pairs are drawn from the different tasks.
+
+
+For the \dataGutenberg{} dataset, pairs were selected such that texts share the same genre and century. 
+Authors were split into training (80\%) and test (20\%) sets.
+
+Regardless of the selection criteria, the final datasets contain only three columns: \texttt{authors}, \texttt{pair}, and \texttt{same}.
+The \texttt{pair} column contains the texts of the pair as a list of strings,
+the \texttt{authors} column contains the authors of the texts as a list of strings,
+and the \texttt{same} column indicates whether the texts are from the same author (\texttt{True}) or from different authors (\texttt{False}).
+Descriptive statistics for all preprocessed datasets are provided in Table~\ref{tab:data_stats}.
 
 % minimum length necessesary for AV/ AA
-When selecting the minimum length of texts, we consulted related research in the field of \ac{av} and \ac{aa}.
-\citet{bevendorff_generalizing_2019} use texts chunks of at least 700 words for their unmasking approach, 
-where \citet{koppel_authorship_2004} set the minimum length to 500 words.
-Recent work~\citep{llm_detection_av_2025} identifies a minimum length of \num{2500}-\num{4000} characters 
-sufficient for effective \ac{llm} detection (framed as \ac{av} or \ac{aa}).
-Therefore, they opted for a minimum length of \num{3000} characters for their datasets.
-
-Their statistical properties are summarized in \autoref{tab:data_stats}.
+The choice of minimum text length was informed by related research in \ac{av} and \ac{aa}.
+\citet{bevendorff_generalizing_2019}used text chunks of at least 700 words for an unmasking approach, while \citet{koppel_authorship_2004} set the minimum at 500 words.
+Recent work~\citep{llm_detection_av_2025} identifies \num{2500}-\num{4000} characters to be sufficient for effective \ac{llm} detection framed as \ac{av} or \ac{aa}, leading those authors to adopt a \num{3000}-character minimum for their datasets.
 
 % \begin{table}[h]
 \begin{sidewaystable}
@@ -125,22 +135,3 @@ student\_essays & 224  & 222   & 112   & 112  & 4459.32 (865.90)     & 1634 & 15
 }
 % \end{table}
 \end{sidewaystable}
-
-For the \dataBlog{} dataset, 
-two texts of a pair are selected such that they share the same topic, year, gender and age, where the last to reference the text's author.
-Train (80\%) and test split (20\%) have different topics.
-
-For the \dataStudent{} dataset,
-tasks are either in the train (70\%) or test (30\%) set.
-The test set is bigger, since an author typically only writes one essay per task and if only one task is selected for the test set we can not create any same author pairs.
-The pairs are selected such that their authors share the same sex, ethnicity, and political orientation.
-Additionally, for different author pairs, the texts are selected such that they share the same task.
-
-For the \dataGutenberg{} dataset,
-we selected pairs of texts that share the same genre and century.
-Authors can either be in the train (80\%) or test (20\%) set.
-
-Irrespective of the information used to select pairs, the final dataset contains only the columns \texttt{authors}, \texttt{pair}, and \texttt{same}.
-The \texttt{pair} column contains the texts of the pair as a list of strings,
-the \texttt{authors} column contains the authors of the texts as a list of strings,
-and the \texttt{same} column indicates whether the texts are from the same author (\texttt{True}) or from different authors (\texttt{False}).
