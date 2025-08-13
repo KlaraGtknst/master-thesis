@@ -1,0 +1,30 @@
+\subsection{Impact of syntactic similarity on \imp{} Detector scores}
+\label{sec:syn_sim_impact_}
+
+We conducted this experiment on both the \dataBlog{} and \dataStudent{} datasets, selecting 15 samples each from the training and test splits. 
+The detector was configured according to Table~\ref{tab:imp_syn_sim_config}.
+
+\begin{table}[h]
+\centering\small
+\caption{Configurations for detector.}
+\label{tab:imp_syn_sim_config}
+\begin{tabular}{@{}rlrrl@{}}   % numbers should be right aligned, text left aligned
+\toprule
+\# impostors & impostor generation & rounds & top\_n & upsample \\
+\midrule
+50 & fixed & 100 & \num{100000} & False \\
+\bottomrule
+\end{tabular}%
+\end{table}
+
+The detector was trained on the training set, and the optimal decision threshold was determined using Youden’s J statistic. 
+Predictions on the test set were obtained by thresholding the detector’s scores with this value.
+
+Syntactic similarity on the test set was then computed. 
+Following \citet{gohsen_captions_2023}, we define syntactic similarity as the mean of the  \ac{bleu}, ROUGE-1, and ROUGE-L scores. 
+For each pair in the test set, we calculated:
+(1) the syntactic similarity between the two texts in the pair, and (2) the average syntactic similarity between the candidate reference text and its paraphrases.
+
+We further grouped samples based on (1), (2), and the difference (2)–(1). 
+For each group, we computed accuracy, precision, recall, and F1 score of the detector’s predictions. 
+The average values for each metric and bin are presented in a bar chart.
