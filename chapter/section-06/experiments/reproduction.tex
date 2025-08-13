@@ -1,0 +1,24 @@
+\subsection{Reproducing \citet{koppel_determining_2014}'s Experiments}
+
+To assess the validity of our extension to the traditional \impAppr{}, we first verified the correctness of our implementation of the original \impAppr{}. 
+For this purpose, we designed two experiments.
+
+The first experiment evaluates the effect of varying the number of \imps{} while keeping the \imp{} generation method fixed. 
+Due to its baseline character, we decided to use the \texttt{fixed} \imp{} generation method.
+Precision and recall were used as the primary evaluation metrics. 
+To visualize performance, we constructed precision-recall curves across different thresholds for the final prediction of the \impAppr{}.
+
+For both the \dataBlog{} and \dataStudent{} datasets, we selected 15 pairs from the training and test sets. 
+A detector instance was trained on each training set, and the optimal decision threshold was determined using Youden's J statistic. 
+This threshold was then applied to the 15 test set pairs to generate final predictions, which were summarized in a confusion matrix.
+
+We also considered using thresholds that maximized alternative metrics, such as the F1 score, but rejected this approach because it produced imbalanced detector classifications. 
+For comparison, reference precision-recall points reported by \citet{koppel_determining_2014} were included in our visualization. 
+Based on their description, we deduced that their reported scores were obtained using the \dataBlog{} dataset.
+
+The second experiment evaluates different \imp{} generation methods while keeping the number of \imps{} fixed. 
+Following \citet{koppel_determining_2014}, we compared the \texttt{fixed} and \texttt{on-the-fly} \imp{} generation methods with their baseline approaches. 
+We reimplemented three baselines: the unsupervised min-max similarity method, the unsupervised cosine similarity method, and the supervised linear \ac{svm} method.
+
+As in the first experiment, precision and recall were used as the primary evaluation metrics. 
+Consistent with \citet{koppel_determining_2014}, we calculated precision and recall with respect to both classes, alternately treating each as the reference class.
