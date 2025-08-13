@@ -1,10 +1,15 @@
 \section{Dataset}
 \label{sec:dataset}
 
-\subsubsection{Original Data}
 Due to this approach extending the original impostor approach by \citet{koppel_determining_2014}, 
 we first use original data to establish the feasibility and reproducibility of the original approach. 
 \citet{koppel_determining_2014} used \dataBlog{} and the \dataStudent{} dataset.
+\autoref{subsec:original_data} outlines work on the original datasets.
+\autoref{subsec:additional_data} describes supplementary the datasets \dataPan{} and \dataGutenberg{}.
+After general description of the datasets, we present our preprocessing pipeline in \autoref{subsec:dataset_preprocessing}, and conclude with the pair selection process in \autoref{subsec:dataset_text_pair_selection}.
+
+\subsection{Original Data}
+\label{subsec:original_data}
 
 % Blog
 The \dataBlog{} dataset~\citep{blog_dataset_2006} is a collection of blog posts from \textit{blogger.com} on or before August 2004.
@@ -35,7 +40,8 @@ who remains the official data holder.
 For establishing a baseline in our impostor experiments, we use both the \dataBlog{} and \dataStudent{} datasets.
 
 
-\subsubsection{Additional Data}
+\subsection{Additional Data}
+\label{subsec:additional_data}
 To extend our test scenario for the impostor approach, we opted to find additional datasets that 
 (1) control confounders (e.g. genre, topic) and (2) provide undisputed authorship.
 We found that both the \dataPan{} and \dataGutenberg{} datasets are suitable candidates.
@@ -60,8 +66,8 @@ Genres include drama, fiction and poetry.
 Metadata was manually extracted from the Project Gutenberg website.
 
 
-\subsubsection{Dataset Preprocessing}
-\label{subsubsec:dataset_preprocessing}
+\subsection{Dataset Preprocessing}
+\label{subsec:dataset_preprocessing}
 
 To further control confounders influencing authorial style, we preprocess the dataset 
 (once before creating the arrow dataset file and once before using the detector).
@@ -86,8 +92,8 @@ and in order to preserve potential deliberate authorial choice regarding capital
     \label{fig:preprocesing_impact_vocab_size}
 \end{figure}
 
-\subsubsection{Selection of Text Pairs}
-\label{subsubsec:dataset_text_pair_selection}
+\subsection{Selection of Text Pairs}
+\label{subsec:dataset_text_pair_selection}
 
 We had to select pairs of texts for the \dataBlog{}, \dataStudent{} and the \dataGutenberg{} dataset.
 Eligible texts have a minimum length of \num{700} words for all datasets.
