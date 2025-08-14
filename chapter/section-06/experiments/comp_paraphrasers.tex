@@ -6,7 +6,18 @@ We hence designed two experiments.
 The first experiment computes state-of-the-art paraphrasing measures for all paraphrasers on different datasets.
 The second experiments aims to evaluate the ability of the extractor of the two-step paraphrasers to extract metadata from the reference input.
 
-For the second experiment, we select five samples with at least 500 (700) words from the \dataBlog{} and the \dataStudent{} datasets.
+For the first experiment we select one text from the \dataBlog{}, the \dataGutenberg{} and the \dataStudent{} datasets.
+For the \dataGutenberg{} dataset, we load additional metadata.
+This metadata is used as ground truth data for the generator instead of the metadata obtained from the extractor.
+We configure test configurations containing different temperatures for two-step paraphrasers, and different prompts for one-step paraphrasers.
+We obtain one paraphrase per configuration and compute state-of-the-art paraphrasing measures.
+These measures include BERTScore Precision, BERTScore Recall, BERTScore F1, SBERT \ac{wms}, SBERT cosine similarity, ROUGE1, ROUGE2, ROUGEL, ROUGELsum, BLEU, and METEOR.
+Based on these we also compute syntactic and semantic similarity, as well as Gohsen Delta~\citep{gohsen_captions_2023}.
+We save the extremest (min, max) paraphrases per metric.
+Based on these scores, we visualize syntactic-semantic scatters, score distributions, and radar plots per paraphraser and per prompt. 
+
+
+For the second experiment, we select five samples with at least 700 words from the \dataBlog{} TODO \dataGutenberg{} and the \dataStudent{} datasets. \textcolor{red}{TODO}
 We then extract the genre, the century, and the topic of the input text.
 Extracted and ground truth values are lowercased and stripped from leading and trailing whitespaces. 
 We use \texttt{difflib}'s \texttt{SequenceMatcher} without a \textit{junk} function, because the input to the \texttt{SequenceMatcher} is generally too short to lose any additional characters.
@@ -14,6 +25,7 @@ The threshold for considering to items' \texttt{SequenceMatcher} ratio similar i
 For the genre extraction, we split the extractors' result by comma and returned whether any of the elements of this list had a higher similarity ratio to the ground truth genre than the threshold.
 For century match, we processed the result of the extractor by mapping \textit{present}, \textit{current}, and \textit{now} to 21, then extracting digits and omitting the last two digits from any numbers with at least three digits and finally adding one if the original digit was not divisible by 100.
 \textcolor{red}{TODO: examples}
+While the \dataBlog{} already provides metadata in its csv dataset, we had to construct the \dataStudent{} from the existing information about and in the dataset, whereas the \dataGutenberg{} metadata was completely manually curated.
 Any ground truth century values was processed the same way with additionally selecting only the year from dates.
 We then obtained \texttt{difflib}'s \texttt{SequenceMatcher} thresholded simialrity score for the string version of the extracted and the ground truth century.
 Since the ground truth topic usually consists of multiple topics separated by comma, we split them into a list.
