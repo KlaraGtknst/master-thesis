@@ -1,0 +1,13 @@
+\subsection{Paraphrasing Chunks}
+\label{subsec:paraphrasing_chunks}
+
+We wanted to evaluate whether chunk-to-chunk paraphrases exhibit better control than text-to-text paraphrases, since chunks are shorter than text and contain fewer topic changes in theory.
+We use five texts from the \dataBlog{}, \dataGutenberg{}, and the \dataStudent{} dataset.
+There are two steps to this experiment: (1) generating chunks and their respective paraphrases, (2) 
+
+When chunking texts, we preserved sentences via using \texttt{nltk}'s \texttt{sent\_tokenize}.
+We grouped sentences in order and such that each chunk roughly contains the same number of words.
+We tested the detector performance for 1 to 5 chunks per text across all \imp{} generation models, on two prompts for one-tep paraphrasers and on two temperatures for two-step paraphrasers.
+Each paraphraser returns one paraphrase per configuration.
+
+For each configuration, we compute BERTScore Precision, BERTScore Recall, BERTScore F1, SBERT \ac{wms}, SBERT cosine similarity, ROUGE1, ROUGE2, ROUGEL, ROUGELsum, BLEU, and METEOR.
