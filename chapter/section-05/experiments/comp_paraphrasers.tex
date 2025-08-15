@@ -17,19 +17,17 @@ We save the extremest (min, max) paraphrases per metric.
 Based on these scores, we visualize syntactic-semantic scatters, score distributions, and radar plots per paraphraser and per prompt. 
 
 
-For the second experiment, we select five samples with at least 700 words from the \dataBlog{} TODO \dataGutenberg{} and the \dataStudent{} datasets. \textcolor{red}{TODO}
+For the second experiment, we select five samples with at least 700 words from the \dataBlog{}, \dataGutenberg{} and the \dataStudent{} datasets. 
 We then extract the genre, the century, and the topic of the input text.
 Extracted and ground truth values are lowercased and stripped from leading and trailing whitespaces. 
-We use \texttt{difflib}'s \texttt{SequenceMatcher} without a \textit{junk} function, because the input to the \texttt{SequenceMatcher} is generally too short to lose any additional characters.
-The threshold for considering to items' \texttt{SequenceMatcher} ratio similar is 0.65.
-For the genre extraction, we split the extractors' result by comma and returned whether any of the elements of this list had a higher similarity ratio to the ground truth genre than the threshold.
+For genre and topic, we compute the cosine similarity on SBERT embedding.
+For the genre extraction, we split the extractors' result by comma and use the maximum similarity.
+Since the ground truth topic usually consists of multiple topics separated by comma, we split them into a list and use the maximum similarity.
 For century match, we processed the result of the extractor by mapping \textit{present}, \textit{current}, and \textit{now} to 21, then extracting digits and omitting the last two digits from any numbers with at least three digits and finally adding one if the original digit was not divisible by 100.
+We then use the ground truth as a baseline $b$ for extracted century $a$ and compute $\frac{b}{a}$.
 \textcolor{red}{TODO: examples}
 While the \dataBlog{} already provides metadata in its csv dataset, we had to construct the \dataStudent{} from the existing information about and in the dataset, whereas the \dataGutenberg{} metadata was completely manually curated.
 Any ground truth century values was processed the same way with additionally selecting only the year from dates.
-We then obtained \texttt{difflib}'s \texttt{SequenceMatcher} thresholded simialrity score for the string version of the extracted and the ground truth century.
-Since the ground truth topic usually consists of multiple topics separated by comma, we split them into a list.
-We use the maximum non-thresholded \texttt{difflib}'s \texttt{SequenceMatcher} for the extracted topic and any of the ground truth's subtopics as the final similarity value.
 Moreover, we obtain the relative length difference of the paraphrase and original text for every selected sample. 
 Technically speaking, this metric not only includes the extractor part of the two-step paraphraser but also the generator part.
 This results in an evaluation of the paraphrasing (extractors) in terms of genre, time, topic and length similarity.
