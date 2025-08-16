@@ -1,16 +1,19 @@
 \section{\ac{av} as One-Class categorization}
 \label{sec:av_one_class}
 
-
-
-
-
 \citet{koppel_authorship_2004} frame \ac{av} as a one-class categorization problem.
 
 They claim research had shown that linear separators work well for text categorization.
 Linear models include Naive Bayes (linear separator for two classes), 
 Winnow and Exponential Gradient and linear \acp{svm} \citep{koppel_authorship_2004}. 
 
+\subsection{\ac{aa} framework}
+\citet{koppel_authorship_2004} state that the following framework solve a number of real world \ac{aa} problems:
+\begin{enumerate}
+    \item Construction of appropriate feature vectors
+    \item Construction of a distinguishing model via a learning algorithm
+    \item Assessment of effectiveness of methods using k-fold cross-validation or bootstrapping
+\end{enumerate}
 
 \subsection{Chunks}
 \citet{koppel_authorship_2004} propose chunking texts such that each chunk is of approximately equal length, 

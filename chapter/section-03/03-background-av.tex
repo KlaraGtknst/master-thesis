@@ -1,22 +1,36 @@
-\chapter{Background on Authorship Identification}
+\chapter{Background on \ai{}}
 \label{chap:authorship_identification}
-   AI
-    - Woher kommt es?
-        - initial statistische analyse
-        - Dylo hypethese???
-        - stylometry
-        - Use case 1/ original use case: Literatur Forschung
-        - Use case 2: Digital text forensics
-    - AA
-    - AV als Kernproblem von allem
-        - Fokus hier, und LLM detection istr ein Plus, eher im Anhang
-    - technischer Hintergrund: open/ closed set, one-class classification
-    - state of the art models
-    - \imp{} method
+%    AI
+%     - Woher kommt es?
+%         - initial statistische analyse
+%         - Dylo hypethese???
+%         - stylometry
+%         - Use case 1/ original use case: Literatur Forschung
+%         - Use case 2: Digital text forensics
+%     - AA
+%     - AV als Kernproblem von allem
+%         - Fokus hier, und LLM detection istr ein Plus, eher im Anhang
+%     - technischer Hintergrund: open/ closed set, one-class classification
+%     - state of the art models
+%     - \imp{} method
 
-This section gives background on ...
+This section offers background information on \ai{}.
+Starting exploring with the origin of \ai{} in \ac{aa} of historical texts, we outline the initial statistical approaches and touch upon stylometry.
+Next, we highlight why \ai{} is still relevant today, and break down some essential tasks of \ai{}.
+We proceed with the technical background and \ac{sota} approaches.
+We conclude with an outlook on the impact of \acp{llm} on \ai{}.
 
 \textcolor{red}{TODO}
+
+\input{chapter/section-03/origin.tex}
+\input{chapter/section-03/first_appr.tex}
+\input{chapter/section-03/stylometry.tex}
+\input{chapter/section-03/digital_forensics.tex}
+\input{chapter/section-03/tasks.tex}
+\input{chapter/section-03/technical_background.tex}
+\input{chapter/section-03/sota_appr.tex}
+\input{chapter/section-03/llm.tex}
+
 
 
 
@@ -25,32 +39,7 @@ This section gives background on ...
 
 \section{\acl{av}}
 
-\subsection{Compression-based???}
-\textcolor{red}{TODO}
+\input{chapter/section-03/one-class.tex}
 
-
-\subsection{Unmasking Method}
-\textcolor{red}{TODO}
-
-
-\begin{figure}[htbp]
-    \centering
-    \includesvg[width=\textwidth]{images/unmasking/unmasking.svg}
-    \caption{Unmasking.}
-    \label{fig:unmasking}
-\end{figure}
-Our method is an extension of the original \impAppr{} by \citet{koppel_determining_2014}.
-By varying the seed and temperature, we can generate as many texts as we want.
-  
-\subsection{\imp{} Method}
-\label{sec:impostor_method_theory}
-
-The \impAppr{} leverages random projections to lower dimensional spaces (i.e. random set of features set to zero is a projection).
-\begin{figure}[htbp]
-    \centering
-    \includesvg[width=\textwidth]{images/imposter/imposter.svg}
-    \caption{\imp{}.}
-    \label{fig:impostor}
-\end{figure}
 
 
