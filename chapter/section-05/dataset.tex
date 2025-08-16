@@ -102,6 +102,50 @@ Same-author pairs were selected such that authors share the same sex, ethnicity,
 As per \citep{koppel_determining_2014}, all text pairs are drawn from the different tasks.
 
 
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[tbp]
+    \centering
+    \caption{\ac{aa} scenarios with author $i$ is shortened with $A_i$ \citep{altakrori_topic_2021}.}
+    \label{tab:aa_same_topic}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{} & \textbf{Train} & \textbf{Test} \\ \hline
+    \textbf{Topic $T_1$} & $A_1, A_2$ & $A_1, A_2$ \\ \hline
+    \textbf{Topic $T_2$} & $A_1, A_2$ & $A_1, A_2$ \\ \hline
+    \end{tabular}%
+\end{table}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[tbp]
+    \centering
+    \caption{\ac{aa} scenarios with author $i$ is shortened with $A_i$ \citep{altakrori_topic_2021}.}
+    \label{tab:aa_cross_topic}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{} & \textbf{Train} & \textbf{Test} \\ \hline
+    \textbf{Topic $T_1$} & $A_1, A_2$ &  \\ \hline
+    \textbf{Topic $T_2$} &  & $A_1, A_2$ \\ \hline
+    \end{tabular}%
+\end{table}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{graphicx}
+\begin{table}[tbp]
+    \centering
+    \caption{\ac{aa} scenarios with author $i$ is shortened with $A_i$ \citep{altakrori_topic_2021}.}
+    \label{tab:aa_topic_confusion}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    \textbf{} & \textbf{Train} & \textbf{Test} \\ \hline
+    \textbf{Topic $T_1$} & $A_1$ & $A_2$ \\ \hline
+    \textbf{Topic $T_2$} & $A_2$ & $A_1$ \\ \hline
+    \end{tabular}%
+\end{table}
+
+
 For the \dataGutenberg{} dataset, pairs were selected such that texts share the same genre and century. 
 Authors were split into training (80\%) and test (20\%) sets.
 

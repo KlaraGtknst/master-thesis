@@ -1,1 +1,110 @@
 \subsection{Technical Background}
+
+
+
+% AV -> open-set
+\ac{av} is an open-set problem, meaning that the author of an anonymous document 
+may or may be not be part of the set of candidate authors.
+
+% AA -> closed-set
+\ac{aa} is a closed-set problem, meaning that the author of an anonymous document
+is part of the set of candidate authors.
+For each candidate author, writing samples are available.
+The task is to determine the author of the anonymous document from the set of candidate authors.
+
+% reduction: closed-set AA -> open-set AV
+\citet{koppel_determining_2014} state that all closed-set \ac{aa} problems are reducible to the \ac{av} problem.
+The reverse is not true.
+To reduce the \ac{aa} problem to the \ac{av} problem, we solve a \ac{av} problem, i.e. if text was written by a candidate author, 
+for each of the respective candidates.
+Ideally, we receive one positive answer for the correct candidate author and negative answers for all other candidates.
+
+% complexity
+\citet{koppel_determining_2014} explain that the \ac{av} problem is more complex than the \ac{aa} problem.
+They claim that the ability to solve a closed-set \ac{aa} problem does not imply the ability to solve an open-set \ac{av} problem.
+
+% open-set identification/ AA = many candidates problem
+\citet{koppel_determining_2014} define the many-candidates problem, or the so-called open-set identification problem:
+Given a large set of candidate authors, determine which, if any, of them wrote a given anonymous document.
+According to \citet{koppel_determining_2014}, the many-candidates problem can be solved reasonably well: \autoref{lst:many_candidate_algo}.
+
+
+\begin{definition}
+    [One-class classification]
+    A classification problem where the classifier is trained on samples of a single class.
+    If counterexamples, i.e. so-called outliers, are available, they are usually not considered to be representative of \textit{non-target class}.
+    Hence, the classifier has to learn the concept of the target class in the absence of discriminating features 
+    \citep{stein_intrinsic_2011,koppel_authorship_2004}.
+    Examples of one-class classification are intrinsic plagiarism analysis and \ac{av}.
+    Approaches to one-class classification fall into the following categories \citep{stein_intrinsic_2011}:
+    \begin{itemize}
+        \item One-class density estimation, e.g., Naive Bayes
+        \item One-class boundary estimation
+        \item One-class reconstruction
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    [Open-set classification]
+    The true author is not necessarily included in the set of candidate authors \citep{stamatatos_survey_2009,barlas_cross_domain_2020,neal_surveying_2018}.
+    It is a generalization of the closed-set classification problem allowing for an unknown author using a threshold for similarity \citep{neal_surveying_2018}.
+\end{definition}
+
+\begin{definition}
+    [Closed-set classification]
+    The true author is one necessarily one of the candidate authors \citep{stamatatos_survey_2009,koppel_authorship_2011,barlas_cross_domain_2020,boenninghoff_o2d2_2021,neal_surveying_2018}.
+    In other words: The set of all possible author classes is known a priori.
+    Hence, closed-set problems can use supervised or unsupervised classification techniques \citep{abbasi_writeprints_2008}.
+\end{definition}
+
+\begin{definition}
+    [Closed world]
+    In the realm of plagiarism detection, closed world refers to the assumption 
+    that a reference collection $D$ of documents, 
+    that are supposed to be compared to the possibly plagiarized text, is given \citep{stein_intrinsic_2011}.
+    In the realm of \ac{av} and \ac{aa} texts in the test set are assumed to be written by one of the authors in the training set \citep{boenninghoff_o2d2_2021,neal_surveying_2018}.
+\end{definition}
+
+
+\begin{definition}
+    [Supervised techniques]
+    Supervised techniques for stylometric analysis require (author-)class labels for categorization.
+    Examples include \acp{svm}, \acp{nn}, decision trees, and linear discriminant analysis.
+    \acp{svm} are very common in authorship analysis due to their robustness \citep{abbasi_writeprints_2008}.
+\end{definition}
+
+\begin{definition}
+    [Unsupervised techniques]
+    Unsupervised techniques make categorizations with no prior knowledge of author classes.
+    Examples include \ac{pca} and cluster analysis.
+    \ac{pca} has been used in previous authorship studies due to its ability to 
+    capture essential variance across large number of features in a reduced dimensionality \citep{abbasi_writeprints_2008}.
+\end{definition}
+
+\begin{definition}
+    [Covariate shift]
+    The distribution of neural stylometric features changes between training and test set due to, for instance, topic variability \citep{boenninghoff_o2d2_2021}.
+\end{definition}
+
+\begin{definition}
+    [train-test-validation split]
+    \citet{bischoff_importance_2020,altakrori_topic_2021,boenninghoff_o2d2_2021} train their model on a selection of the dataset (i.e. training set), 
+    optimize the model's hyperparameters on a second disjoint selection of the dataset (i.e. validation set),
+    and evaluate the model on a third disjoint selection of the dataset (i.e. test set).
+    \citet{bischoff_importance_2020} ensure that there is no data leakage between the training, validation and test sets 
+    (i.e. prevent parts of one fanfiction being in more than one of the data splits).
+    \citet{altakrori_topic_2021} ensure the classifier to be trained has no access to any information about the setup 
+    (topic confusion: group configuration or topic labels).
+\end{definition}
+
+\begin{definition}
+    [Cross-domain]
+    Texts of known authorship (training set) differ from texts of disputed authorship (test set) 
+    in topic (i.e. cross-topic) or genre (i.e. cross-genre) 
+    \citep{barlas_cross_domain_2020}.
+\end{definition}
+
+\begin{definition}
+    [Cross-topic]
+    New, unseen topics are used in the testing phase \citep{altakrori_topic_2021}.
+\end{definition}
