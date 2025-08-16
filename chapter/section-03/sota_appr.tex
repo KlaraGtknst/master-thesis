@@ -1,33 +1,63 @@
 \section{Canonical Methods}
 
-\begin{table}[tbp]
-    \centering
-    \caption{Building blocks for \ac{av} from \citep{stein_intrinsic_2011}.}
-    \label{tab:authorship_verification_blocks}
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{|l|lll|l|}
-    \hline
-    \rowcolor[HTML]{EFEFEF} 
-    Pre-analysis & \multicolumn{3}{l|}{\cellcolor[HTML]{EFEFEF}Modeling and classifier methods} & Post-processing \\ \hline
-    \rowcolor[HTML]{EFEFEF} 
-    Impurity assessment & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}Decomposition strategy} & \multicolumn{1}{l|}{\cellcolor[HTML]{EFEFEF}Style model construction} & Outlier identification & Outlier post-processing \\ \hline
-    Document length analysis & \multicolumn{1}{l|}{Uniform length} & \multicolumn{1}{l|}{Lexical character features} & One-class density estimation & Heuristric voting \\
-    Genre Analysis & \multicolumn{1}{l|}{Structural boundaries} & \multicolumn{1}{l|}{Lexical word features} & One-class boundary estimation & Citation analysis \\
-    Analysis of issuing institution & \multicolumn{1}{l|}{Text element boundaries} & \multicolumn{1}{l|}{Syntactical features} & One-class reconstruction & Human inspection \\
-     & \multicolumn{1}{l|}{Topical boundaries} & \multicolumn{1}{l|}{Structural features} & Two-class discrimination & Unmasking \\
-     & \multicolumn{1}{l|}{Stylistic boundaries} & \multicolumn{1}{l|}{Language modeling} &  & Qsum \\
-     & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} &  & Batch means
-    \end{tabular}%
-    }
-\end{table}
-Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for approaches.
+The following sections introduce \ac{sota} approaches to \ac{av}.
+We begin with compression-based methods, continue with traditional and generalized Unmasking and end with the traditional \impAppr{}.
 
-\subsubsection{Compression-based???}
-\textcolor{red}{TODO}
+\subsubsection{Compression-based}
+
+% compression models, e.g. RAR or GZIP (more info Paper)
+Compression models are based on the idea that the text of one author can be compressed more efficiently than the text of multiple authors.
+The new text is concatenated with the author profile and then compressed.
+The differences between the compressed concatenation with the unseen text and compressed author profiles without the unseen text are computed 
+\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.
+The author profile with the lowest difference is selected as the predicted author \citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
+Tested compression algorithms include RAR, LZW, GZIP, BZIP2 and 7ZIP. 
+RAR is the most accurate one \citep{elmanarelbouanani_authorship_2014}.
+\citet{elmanarelbouanani_authorship_2014} include the Normalized Compressor Distance (NCD) as a distance measure for compression-based methods. % Chap. 4.2
+\citet{stamatatos_survey_2009} claim that probabilistic approaches are faster in comparison to compression models.
+\citet{neal_surveying_2018} state that LZ77 is a lossless data compression algorithm that is used to compress data by detecting duplicates.
+
+
+Compression-based models can also be considered similarity-based measures which are slow 
+since the compression algorithm is called for each training text \citep{stamatatos_survey_2009,neal_surveying_2018}.
+
+% compression-based features
+The idea of compression based approaches is to use the compression model acquired from one text to compress another text. 
+If both texts are from the same author, the bit-wise size of the compressed file will be relatively low \citep{stamatatos_survey_2009,neal_surveying_2018}.
+Since compression models usually describe characteristics of the texts based on the repetition of character sequences, 
+they can be considered as character-based features. \todo{Is this still the case? Paper is from 2009}
+
+
+\citet{tyo_state_2022} first present character embeddings.
+Starting with RNN models shared across multiple authors with individual heads, 
+further presenting CNNs and % CNN for AA: char better than word embeddings.
+compression-based methods such as ZIP, RAR (i.e. a variant of \ac{ppm}), \ac{ppm}, 
+to build representations comparable via distance metrics.
+For \ac{aa}, \citet{tyo_state_2022} claim, that \ac{ppm} is a low performer and scales poorly to large datasets.
+\citet{bevendorff_divergence_based_2020} quote someone else, who recommend compression-based cosine (CBC) calculated on text pairs after compression with the PPMD algorithm.
+They explain that natural language allows very good for compression ratios due to its predictability (English has an entropy of at most 1.75 bits per character).
+PPMD uses finite-order Markov language models for compression, which work well for predicting characters in a sentence but are sensitive to increased entropy stemming from obfuscation.
+
+\todo{Partial Matching (PPM)= text compression; byte-pair encoding (modern \ac{aa} method)}
+page 3 in \citep{tyo_state_2022}: table about \ac{aa} and \ac{av} datasets with their respective characteristics
+
 
 
 \subsubsection{Unmasking Method}
 \textcolor{red}{TODO}
+
+% Unmasking is a meta-learning approach which is based on the idea that
+% omitting discriminant features and the consequent drop in accuracy of the classifier 
+% can be used for inference of the author of the unseen text.
+% An unseen text is chunked, such that multiple examples either all belong to the author or to a different author, 
+% are generated \citep{koppel_authorship_2004}.
+% This gives rise to the idea of two examples sets which are either generated by a single generating process (author) 
+% or by two different processes \citep{koppel_authorship_2004}.
+% For each unseen text, a \ac{svm} is built to discriminate it, i.e. its segments, 
+% from the training texts of each candidate author.
+% Hence, for each candidate author, a \ac{svm} is trained.
+% After a few iterations, the classifier is no longer able to discriminate between the unseen text and 
+% the training texts of the true author, i.e. low accuracy \citep{stamatatos_survey_2009,koppel_authorship_2004}.
 
 
 \begin{definition}
