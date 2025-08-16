@@ -4,131 +4,124 @@ The following sections introduce \ac{sota} approaches to \ac{av}.
 We begin with compression-based methods, continue with traditional and generalized Unmasking and end with the traditional \impAppr{}.
 
 \subsubsection{Compression-based}
+% compression models, e.g. RAR or GZIP 
+This category of \ac{aa} approaches is based on general-purpose compression models such as RAR or PPMD. %(i.e. a variant of \ac{ppm}~\citep{tyo_state_2022}), LZW, GZIP, BZIP2 and 7ZIP.
+Such models capture textual characteristics by exploiting repeated character sequences~\citep{stamatatos_survey_2009,neal_surveying_2018}. 
+Natural language, in particular, allows for high compression ratios due to its strong predictability (English has an entropy of at most 1.75 bits per character). 
+For example, PPMD employs finite-order Markov language models for compression, which are highly effective in predicting character sequences in natural text but are also sensitive to increased entropy caused by text obfuscation~\citep{bevendorff_divergence_based_2020}.
+Accordingly, compression-based \ac{aa} methods are considered character-based approaches.
 
-% compression models, e.g. RAR or GZIP (more info Paper)
-Compression models are based on the idea that the text of one author can be compressed more efficiently than the text of multiple authors.
-The new text is concatenated with the author profile and then compressed.
-The differences between the compressed concatenation with the unseen text and compressed author profiles without the unseen text are computed 
-\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.
-The author profile with the lowest difference is selected as the predicted author \citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
-Tested compression algorithms include RAR, LZW, GZIP, BZIP2 and 7ZIP. 
-RAR is the most accurate one \citep{elmanarelbouanani_authorship_2014}.
-\citet{elmanarelbouanani_authorship_2014} include the Normalized Compressor Distance (NCD) as a distance measure for compression-based methods. % Chap. 4.2
-\citet{stamatatos_survey_2009} claim that probabilistic approaches are faster in comparison to compression models.
-\citet{neal_surveying_2018} state that LZ77 is a lossless data compression algorithm that is used to compress data by detecting duplicates.
+They are further classified as profile-based methods. In this framework, an author profile is first constructed for each candidate author by concatenating all texts attributed to them and then compressing the resulting sequence. 
+The disputed text is subsequently concatenated with each author profile and compressed as well. 
+The difference in compression size between (i) the concatenated profile with the disputed text and (ii) the profile alone is then calculated~\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}. 
+The author whose profile yields the smallest difference is selected as the most likely author~\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
 
+The rationale behind this approach is that texts written by the same author can typically be compressed more efficiently than texts produced by different authors~\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
 
-Compression-based models can also be considered similarity-based measures which are slow 
-since the compression algorithm is called for each training text \citep{stamatatos_survey_2009,neal_surveying_2018}.
+% RAR is the most accurate one \citep{elmanarelbouanani_authorship_2014}.
+% \citet{elmanarelbouanani_authorship_2014} include the Normalized Compressor Distance (NCD) as a distance measure for compression-based methods. % Chap. 4.2
+% \citet{stamatatos_survey_2009} claim that probabilistic approaches are faster in comparison to compression models.
+% \citet{neal_surveying_2018} state that LZ77 is a lossless data compression algorithm that is used to compress data by detecting duplicates.
 
-% compression-based features
-The idea of compression based approaches is to use the compression model acquired from one text to compress another text. 
-If both texts are from the same author, the bit-wise size of the compressed file will be relatively low \citep{stamatatos_survey_2009,neal_surveying_2018}.
-Since compression models usually describe characteristics of the texts based on the repetition of character sequences, 
-they can be considered as character-based features. \todo{Is this still the case? Paper is from 2009}
-
-
-\citet{tyo_state_2022} first present character embeddings.
-Starting with RNN models shared across multiple authors with individual heads, 
-further presenting CNNs and % CNN for AA: char better than word embeddings.
-compression-based methods such as ZIP, RAR (i.e. a variant of \ac{ppm}), \ac{ppm}, 
-to build representations comparable via distance metrics.
-For \ac{aa}, \citet{tyo_state_2022} claim, that \ac{ppm} is a low performer and scales poorly to large datasets.
-\citet{bevendorff_divergence_based_2020} quote someone else, who recommend compression-based cosine (CBC) calculated on text pairs after compression with the PPMD algorithm.
-They explain that natural language allows very good for compression ratios due to its predictability (English has an entropy of at most 1.75 bits per character).
-PPMD uses finite-order Markov language models for compression, which work well for predicting characters in a sentence but are sensitive to increased entropy stemming from obfuscation.
-
-\todo{Partial Matching (PPM)= text compression; byte-pair encoding (modern \ac{aa} method)}
-page 3 in \citep{tyo_state_2022}: table about \ac{aa} and \ac{av} datasets with their respective characteristics
+% Compression-based models can also be considered similarity-based measures which are slow 
+% since the compression algorithm is called for each training text \citep{stamatatos_survey_2009,neal_surveying_2018}.
 
 
 
 \subsubsection{Unmasking Method}
-\textcolor{red}{TODO}
+\label{subsec:unmasking}
 
-% Unmasking is a meta-learning approach which is based on the idea that
-% omitting discriminant features and the consequent drop in accuracy of the classifier 
-% can be used for inference of the author of the unseen text.
-% An unseen text is chunked, such that multiple examples either all belong to the author or to a different author, 
-% are generated \citep{koppel_authorship_2004}.
-% This gives rise to the idea of two examples sets which are either generated by a single generating process (author) 
-% or by two different processes \citep{koppel_authorship_2004}.
-% For each unseen text, a \ac{svm} is built to discriminate it, i.e. its segments, 
-% from the training texts of each candidate author.
-% Hence, for each candidate author, a \ac{svm} is trained.
-% After a few iterations, the classifier is no longer able to discriminate between the unseen text and 
-% the training texts of the true author, i.e. low accuracy \citep{stamatatos_survey_2009,koppel_authorship_2004}.
+The meta-learning approach Unmasking algorithm was first proposed by \citet{koppel_authorship_2004}.
+Meta learning is a technique where the system learns to learn based on learning successes and failures.
+It is based on the idea that omitting discriminant features and the consequent drop in accuracy of the classifier can be used for inference of the author of the unseen text.
+For Unmasking, (1) an unseen text is chunked, such that the non-overlapping chunks compose multiple samples belonging either to the author or to a different author.
+Next, one \ac{svm} is trained for each candidate author to discriminate the disputed texts' chunks from the candidate author's texts.
+The \acp{svm}' features are usually frequencies over the $n=250$ highest average frequency words.
+(2) The 10-fold cross validation accuracy for the trained model are obtained.
+(3) For the next iteration, omit the most discriminating features among those left.
+(4) Repeat steps (3) and (4).
+(5) Another linear \ac{svm} classifier is trained on the accuracy curve, its central-difference gradients (first- and second order), 
+and its gradients sorted by magnitude.
+This classifier is used to predict the whether the texts originate from the same author.
+
+After a few iterations, the classifier is no longer able to discriminate between the unseen text and the texts of the true author~\citep{stein_intrinsic_2011,tyo_state_2022,bevendorff_divergence_based_2020,koppel_authorship_2004,stamatatos_survey_2009} 
+Two texts are probably written by different authors if the differences between are robust to changes in the underlying feature set used to represent the documents.
+
+To operationalize this idea, differences are measured using classification via cross-validation accuracy~\citep{koppel_authorship_2011,bevendorff_generalizing_2019,bevendorff_divergence_based_2020,potthast_stylometric_2018,koppel_authorship_2004}, 
+creating a performance degradation curve~\citep{tyo_state_2022,koppel_authorship_2004}.
+An \ac{svm} is trained to classify the degradation curve to determine whether two text originated from the same author~\citep{tyo_state_2022,bevendorff_generalizing_2019,koppel_authorship_2004}.
+Steep decrease in the curve indicates that the two texts are similar, and thus, written by the same authors~\citep{potthast_stylometric_2018,koppel_authorship_2004}.
+% Provided that the unseen text is very large, this method can handle small open candidate sets \citep{koppel_authorship_2011}.
+% koppel_determining_2014, pg. 1 + bevendorff_generalizing_2019 chap. 3.1 incl. algo: based on text chunks of length >= 500 words each
+% \citet{koppel_determining_2014,bevendorff_generalizing_2019} claim that effective unmasking requires input documents to be large 
+% (i.e. > 10000 words~\citep{koppel_determining_2014}, book-length~\citep{bevendorff_generalizing_2019}, 
+% $\geq$ 5000 words (500 words per chunk) \citep{bevendorff_divergence_based_2020}).
+% Otherwise the training set becomes too sparse and no descriptive curves can be generated 
+% \citep{bevendorff_generalizing_2019,bevendorff_divergence_based_2020}.
+
+% generalized unmasking
+\citet{bevendorff_generalizing_2019,bevendorff_divergence_based_2020} propose creating chunks by oversampling words in a bootstrap aggregating manner. 
+Each text is a pool of words, from which words are sampled without replacement.
+The pool is replenished if it is exhausted before the chunk has sufficiently many words.
+Since the random sampling of unmasking features introduces variance, unmasking is performed multiple times and the curves are averaged.
+The algorithm is displayed in \autoref{alg:generalized_unmasking}.
+The content of the while loop is, except the number of removed features (\citep{koppel_authorship_2004}: 6 total), similar to the original unmasking algorithm \citep{koppel_authorship_2004}.
+
+\begin{algorithm}
+    \caption{Generalized Unmasking Algorithm \citep{bevendorff_generalizing_2019,bevendorff_divergence_based_2020}}
+    \label{alg:generalized_unmasking}
+    \begin{algorithmic}[1]
+    \Procedure{Unmasking}{$A$, $B$}
+        \Comment{$A$, $B$: input documents}
+    
+        \State $\mathcal{C}_A \gets \text{RandomChunks}(A, 30, 700)$ \Comment{30 chunks, 700 words each}
+        \State $\mathcal{C}_B \gets \text{RandomChunks}(B, 30, 700)$
+        \State $\mathcal{F} \gets \text{TopFreqWords}(A, B, 250)$
+        \State $\mathcal{C} \gets \mathcal{C}_A \cup \mathcal{C}_B$
+
+        
+        \While{$|\mathcal{F}| \geq 0$}
+        \State $a \gets \text{CVAcc}(\mathcal{C}_A, \mathcal{C}_B, \mathcal{F}, linSVM)$ \Comment{Append $10$-fold cross-validation accuracy}
+        \State $\mathcal{F} \gets \mathcal{F} \setminus \mathcal{F}_{\text{top}}^{\pm}$ \Comment{Remove top $5$ most significant positive and negative features}
+    
+        \EndWhile
+    
+        \State \Return List of recorded accuracies $a$
+    \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+% hyperparameters
+% The most important hyperparameters are the number of chunks, the number of words per chunk, the size of feature vectors, 
+% the number of word removals per round, and the number of averaged unmasking runs.
+% More chunks result in generally shallower curves while shorter features vectors or more removals produce steep curves.
+% Ideally, curves are not too steep and granular enough to allow distinguishing between different same and different author pairs.
+% \citet{bevendorff_bias_2019} recommend 25 to 50 chunks, vector sizes of 250 to 400 features, not fewer than 5, yet not more than 20 removals per round, 
+% between 500 and 700 words per chunk and about 10 runs to average for a curve.
+% They increase the minimal distance between the \ac{svm} hyperplane and the decision boundary, i.e. their confidence parameter $c$, to increase precision.
+% In a medium- to high-assurance scenario (where \acp{fp} should be avoided, but are not entirely critical), they recommend $c \geq 0.6$.
+% If \acp{fp} should be avoided at all costs, they recommend $c \geq 0.7$.
+% \citet{bevendorff_bias_2019} claim that, for this approach, hyperparameter tuning is simpler than for black box approaches.
+
+% % metric results
+% \citet{bevendorff_bias_2019} report that the generalized unmasking approach heavily prioritizes precision 
+% opposed to compression-based approaches that balance precision and recall.
+    
 
 
-\begin{definition}
-    [n-gram]
-    $n$ contiguous words also known as word collocations. \todo{cite, reference?\citep{koppel_authorship_2011}?}
-    n-grams are no stylometric features \citep{altakrori_topic_2021}.
-    % Quelle Martin Potthast Gespräch 19.05.2025:
-    Tri-grams are commonly used in stylistic analysis, due to their ability to capture inflections, % Flexion/ Beugung in Deutsch
-    morphemes, %  smallest meaningful constituents within a linguistic expression and particularly within a word
-    and other syntactic structures for Germanic languages.
-    Character-level $n$-gram features capture the frequency of $n$ consecutive characters in a text \citep{neal_surveying_2018}.
-    The optimal $n$ is language dependent \citep{neal_surveying_2018}.
-\end{definition}
 
-\begin{definition}
-    [Space free n-gram]
-    Removing spaces from the $n$-gram reduces the number of $n$-grams.
-    \citet{koppel_authorship_2011} use these definitions:
-    \begin{enumerate}
-        \item a string of $n$ characters that not include spaces
-        \item a string of less than $n$ characters that is surrounded by spaces
-    \end{enumerate}
-\end{definition}
-
-\begin{definition}
-    [Meta learning]
-    \todo{Based on learning successes and failures, the system learns to learn. }
-    Approaches include:
-    \begin{itemize}
-        \item Unmasking: Measurement of reconstruction errors starting from a good reconstruction and iteratively impairing the reconstruction. % example on page 9 of Benno's paper
-        \item Qsum heuristic: Compares the growth rates of two cumulative sums over a sequence of sentences. The sums are calculated via the deviations from the mean sentence length and the deviations of the function words.
-        \item Batch means: \todo{For a series of values the variance development of the sample mean is measured while the sample size is successively increased.}
-    \end{itemize}
-\end{definition}
-
-\begin{definition}
-    [Unmasking]
-    The idea of this meta learning approach is that with progressively omitting more and more frequent words/ 
-    most discriminating features, 
-    topic specific words are excluded and thus, leaving only writing style specific words \citep{stein_intrinsic_2011}.
-    After several iterations, remaining features which are not powerful enough to discriminate two documents indicate that 
-    these documents originate from the same author \citep{stein_intrinsic_2011,tyo_state_2022,bevendorff_divergence_based_2020,koppel_authorship_2004}.
-    In other words: 
-    Two texts are probably written by different authors if the differences between are robust to changes in the underlying feature set used to represent the documents.
-    Differences can be measured using instance-based (meta) classification via cross-validation accuracy 
-    \citep{koppel_authorship_2011,bevendorff_generalizing_2019,bevendorff_divergence_based_2020,potthast_stylometric_2018,koppel_authorship_2004}, 
-    creating a performance degradation curve \citep{tyo_state_2022,koppel_authorship_2004}.
-    An \ac{svm} is trained to classify the degradation curve to determine whether two text originated from the same author 
-    \citep{tyo_state_2022,bevendorff_generalizing_2019,koppel_authorship_2004}.
-    Cf. \citep{bevendorff_divergence_based_2020} Chapt. 2 for a detailed algorithm.
-    Steep decrease in the curve indicates that the two texts are similar, and thus, 
-    written by the same authors \citep{potthast_stylometric_2018,koppel_authorship_2004}.
-    Provided that the unseen text is very large, this method can handle small open candidate sets \citep{koppel_authorship_2011}.
-    % koppel_determining_2014, pg. 1 + bevendorff_generalizing_2019 chap. 3.1 incl. algo: based on text chunks of length >= 500 words each
-    \citet{koppel_determining_2014,bevendorff_generalizing_2019} claim that effective unmasking requires input documents to be large 
-    (i.e. > 10000 words~\citep{koppel_determining_2014}, book-length~\citep{bevendorff_generalizing_2019}, 
-    $\geq$ 5000 words (500 words per chunk) \citep{bevendorff_divergence_based_2020}).
-    Otherwise the training set becomes too sparse and no descriptive curves can be generated 
-    \citep{bevendorff_generalizing_2019,bevendorff_divergence_based_2020}.
-\end{definition}
 
 
 
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/unmasking/unmasking.svg}
-    \caption{Unmasking.}
+    \caption{Workflow of Generalized Unmasking~\citep{bevendorff_generalizing_2019}: (1) Create chunks by oversampling words of disputed and candidate texts and represent them using word frequencies. (2) Obtain \ac{svm} accuracy. (3) Eliminate most discriminative features. (4) Repeat from (3)-(4).}
     \label{fig:unmasking}
 \end{figure}
-Our method is an extension of the original \impAppr{} by \citet{koppel_determining_2014}.
-By varying the seed and temperature, we can generate as many texts as we want.
+
+
+
   
 \subsubsection{\imp{} Method}
 \label{sec:impostor_method_theory}
