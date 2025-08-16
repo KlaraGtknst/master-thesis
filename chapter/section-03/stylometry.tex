@@ -20,51 +20,6 @@ Static features are context-free such as function words, word-length distributio
 We outline prominent style marker taxonomy categories in \autoref{tab:stylometric_features} in the following. 
 Generally speaking, the more detailed the style marker extraction process, the more noisy are the produced measures~\citep{stamatatos_survey_2009}.
 
-% lexical
-Lexical features treat text as a mere sequence tokens~\citep{stamatatos_survey_2009}.
-Token units include character, word, and sentence.
-We \autoref{tab:comp_lexical} we present characteristics of the character and word feature units.
-Character (n-gram) counts, average word~\citep{stein_intrinsic_2011}, sentence length~\citep{stein_intrinsic_2011,abbasi_writeprints_2008}, are examples for character, sentence, and sentence unit-based lexical features.
-% line length~\citep{abbasi_writeprints_2008}, word length distribution~\citep{abbasi_writeprints_2008}, 
-% vocabulary richness~\citep{abbasi_writeprints_2008,neal_surveying_2018} ...) 
-Errors in \autoref{tab:stylometric_features} refers to idiosyncratic features include misspellings, grammatical mistakes, and other usage anomalies~\citep{abbasi_writeprints_2008,neal_surveying_2018}.
-
-
-\begin{table}[]
-\centering
-\caption{Comparison of a subset of lexical features~\citep{stamatatos_survey_2009}. Requirements refer to computational requirements such as a tokenizer.}
-\label{tab:comp_lexical}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lllll}
-    \toprule
-    \textbf{unit} & \textbf{complexity} & \textbf{language-independent} & \textbf{affected by noise} & \textbf{requirements} \\
-    \midrule
-    character & low & \checkmark & low & \xmark  \\
-    word & high & \xmark  & high  & \checkmark    \\
-    \bottomrule
-    \end{tabular}%
-}
-\end{table}
-
-% syntactic
-Syntax or syntactic structure is the structural organization of sentences \citep{kurt_pehlivanoglu_comparative_2024}.
-Given robust \ac{nlp} tools, syntactic features are considered more reliable than lexical features.
-Well-established syntactic features built on function words, or on syntactic errors such as mismatched tense or sentence fragments, or use morpho-syntactic \ac{pos} tags for each word token for \ac{pos} tag (n-gram) frequencies~\citep{abbasi_writeprints_2008,stamatatos_survey_2009}.
-It is evident, that every syntactic feature requires parsing or processing of natural language and is thus, language-dependent~\citep{neal_surveying_2018,stamatatos_survey_2009}.
-
-% semantic
-Semantic features capture meaning behind words, phrases, and sentences, such as through analysis of synonyms and semantic dependencies \citep{neal_surveying_2018}.
-Semantic similarities between words, synonym or hyponym relationships are derived using WordNet, any thesaurus or latent semantic analysis.
-Semantic dependencies such as the specification of a person with location, can boost classification performance when combined with lexical and syntactic information~\cite{stamatatos_survey_2009}.
-
-
-% application specific (structural + content)
-Structural features include text organization, layout, file extensions, font, sizes, colours, 
-use of braces and comments (for analysing computer programs)~\citep{abbasi_writeprints_2008,neal_surveying_2018}.
-Content-specific features include important keywords and phrases on certain topics such as word $n$-grams~\citep{abbasi_writeprints_2008}.
-Domain-specific features include ratios of quoted words and external links, number of paragraphs, and paragraphs average length for the news article domain~\citep{potthast_stylometric_2018}
-
-
 \begin{table}[]
     \centering
     \caption{Incomplete taxonomy of style markers from \citep{stamatatos_survey_2009}.}
@@ -102,3 +57,50 @@ Domain-specific features include ratios of quoted words and external links, numb
     \end{tabular}%
 
 \end{table}
+
+% lexical
+Lexical features treat text as a mere sequence tokens~\citep{stamatatos_survey_2009}.
+Token units include character, word, and sentence.
+We \autoref{tab:comp_lexical} we present characteristics of the character and word feature units.
+Character (n-gram) counts, average word~\citep{stein_intrinsic_2011}, sentence length~\citep{stein_intrinsic_2011,abbasi_writeprints_2008}, are examples for character, sentence, and sentence unit-based lexical features.
+% line length~\citep{abbasi_writeprints_2008}, word length distribution~\citep{abbasi_writeprints_2008}, 
+% vocabulary richness~\citep{abbasi_writeprints_2008,neal_surveying_2018} ...) 
+Errors in \autoref{tab:stylometric_features} refers to idiosyncratic features include misspellings, grammatical mistakes, and other usage anomalies~\citep{abbasi_writeprints_2008,neal_surveying_2018}.
+
+
+\begin{table}[]
+\centering
+\caption{Comparison of a subset of lexical features~\citep{stamatatos_survey_2009}. Requirements refer to computational requirements such as a tokenizer.}
+\label{tab:comp_lexical}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lllll}
+    \toprule
+    \textbf{Unit} & \textbf{Complexity} & \textbf{Language-independent} & \textbf{Noise-sensitivity} & \textbf{Requirements} \\
+    \midrule
+    character & low & \checkmark & low & \xmark  \\
+    word & high & \xmark  & high  & \checkmark    \\
+    \bottomrule
+    \end{tabular}%
+}
+\end{table}
+
+% syntactic
+Syntax or syntactic structure is the structural organization of sentences \citep{kurt_pehlivanoglu_comparative_2024}.
+Given robust \ac{nlp} tools, syntactic features are considered more reliable than lexical features.
+Well-established syntactic features built on function words, or on syntactic errors such as mismatched tense or sentence fragments, or use morpho-syntactic \ac{pos} tags for each word token for \ac{pos} tag (n-gram) frequencies~\citep{abbasi_writeprints_2008,stamatatos_survey_2009}.
+It is evident, that every syntactic feature requires parsing or processing of natural language and is thus, language-dependent~\citep{neal_surveying_2018,stamatatos_survey_2009}.
+
+% semantic
+Semantic features capture meaning behind words, phrases, and sentences, such as through analysis of synonyms and semantic dependencies \citep{neal_surveying_2018}.
+Semantic similarities between words, synonym or hyponym relationships are derived using WordNet, any thesaurus or latent semantic analysis.
+Semantic dependencies such as the specification of a person with location, can boost classification performance when combined with lexical and syntactic information~\cite{stamatatos_survey_2009}.
+
+
+% application specific (structural + content)
+Application-specific features vary by domain.
+E-mails may include structural elements such as greetings absent in, for instance, e-commerce platform's item descriptions or source code.
+More general structural features include layout, file extensions, font, sizes, and colours~\citep{abbasi_writeprints_2008,neal_surveying_2018}.
+Given texts belonging to a distinct genre and topic, content-specific features are defined as frequent words.
+Different to syntactic feature built on function words, frequent words carry semantic information.
+It is important to note, that frequent words features should not be used in cross-topic or cross-genre scenarios and that there is no instruction on how to choose of such words~\citep{abbasi_writeprints_2008}.
+% Domain-specific features include ratios of quoted words and external links, number of paragraphs, and paragraphs average length for the news article domain~\citep{potthast_stylometric_2018}
