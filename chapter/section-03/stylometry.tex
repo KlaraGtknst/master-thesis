@@ -52,26 +52,18 @@ Given robust \ac{nlp} tools, syntactic features are considered more reliable tha
 Well-established syntactic features built on function words, or on syntactic errors such as mismatched tense or sentence fragments, or use morpho-syntactic \ac{pos} tags for each word token for \ac{pos} tag (n-gram) frequencies~\citep{abbasi_writeprints_2008,stamatatos_survey_2009}.
 It is evident, that every syntactic feature requires parsing or processing of natural language and is thus, language-dependent~\citep{neal_surveying_2018,stamatatos_survey_2009}.
 
-
-
 % semantic
 Semantic features capture meaning behind words, phrases, and sentences, such as through analysis of synonyms and semantic dependencies \citep{neal_surveying_2018}.
 Semantic similarities between words, synonym or hyponym relationships are derived using WordNet, any thesaurus or latent semantic analysis.
 Semantic dependencies such as the specification of a person with location, can boost classification performance when combined with lexical and syntactic information~\cite{stamatatos_survey_2009}.
 
-% application specific/ structural
-\begin{definition}
-    [Structural features]
-    Structural features include text organization, layout, file extensions, font, sizes, colours, 
-    use of braces and comments (for analysing computer programs) \citep{abbasi_writeprints_2008,neal_surveying_2018}.
-\end{definition}
 
-\begin{definition}
-    [Content-specific features]
-    Content-specific features include important keywords and phrases on certain topics such as word $n$-grams \citep{abbasi_writeprints_2008}.
-    Domain-specific features include ratios of quoted words and external links, number of paragraphs, 
-    and paragraphs average length for the news article domain \citep{potthast_stylometric_2018}
-\end{definition}
+% application specific (structural + content)
+Structural features include text organization, layout, file extensions, font, sizes, colours, 
+use of braces and comments (for analysing computer programs)~\citep{abbasi_writeprints_2008,neal_surveying_2018}.
+Content-specific features include important keywords and phrases on certain topics such as word $n$-grams~\citep{abbasi_writeprints_2008}.
+Domain-specific features include ratios of quoted words and external links, number of paragraphs, and paragraphs average length for the news article domain~\citep{potthast_stylometric_2018}
+
 
 \begin{table}[]
     \centering
@@ -105,7 +97,7 @@ Semantic dependencies such as the specification of a person with location, can b
     %  \midrule
     Application-specific & Structural  \\
      & Content-specific\\
-     & Language-specific \\
+    %  & Language-specific \\
      \bottomrule
     \end{tabular}%
 
