@@ -39,6 +39,23 @@ Due to the lack of a universal definition of paraphrases~\citep{gohsen_task_orie
 \end{itemize}
 
 
+\citet{ayele_overview_2024,bevendorff_overview_2024} collected articles of major 2021 US news from Google News (Pan AI News 2021 \citep{bevendorff_overview_2024}).
+They chose this time period since it predates the release of GPT-3.5 \citep{bevendorff_overview_2024,ayele_overview_2024}.
+As a consequence, they claim that their dataset is most likely human-authored.
+% artificial texts
+Next, they used GPT-4-Turbo to create bullet-point summaries of the articles \citep{bevendorff_overview_2024,ayele_overview_2024}. 
+According to \citet{bevendorff_overview_2024}, the prompt used to generate the summaries in 2021 was:
+\begin{quote}
+    \textit{Summarize the following text in five to six short bullet points and give an overall description
+    of the genre and tone of the text.}
+\end{quote}
+% in JSON format:
+Moreover, they extracted the article's type (nine classes), target audience (three classes), the author's political stance (three classes), the article's dateline, 
+and the names and functions of directly quoted spokespersons, if any \citep{bevendorff_overview_2024}.
+Based on these summaries, 15 \acp{llm}-generated newspaper articles \citep{ayele_overview_2024}.
+They were prompted to assume the role of the journalist describes by the additional information extracted from the original texts \citep{bevendorff_overview_2024}.
+
+
 % Notes
 According to \citet{gohsen_task_oriented_2024}, there are two perspectives to paraphrasing: 
 Lexical (i.e. changes at word level) and syntactic (i.e. changes at syntactic level).
