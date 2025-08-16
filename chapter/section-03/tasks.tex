@@ -1,2 +1,80 @@
 \subsection{Tasks}
 
+In the following we will outline the most prominent tasks of \ai{} or authorship analyse.
+We will start with author profiling, resuming with author obfuscation, \ac{aa}, plagiarism detection and finally conclude with \ac{av}.
+
+% author profiling
+Building upon the foundation of stylometry which states that subconscious authorial idiosyncrasies are encoded in author's writing, there is plenty of information to extract from a given text.
+Formally, inferring an extensive set of personal information from a collection of texts is denoted author profiling.
+Extracted information may include sociolinguistic attributes like age, gender, occupation, education, socio-economic status, cultural background, language familiarity and mental health issues~\citep{emmery_adversarial_2021,stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
+% The task is also referred to as author characterization \citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
+% Author obfuscation
+Since the extracted information can contain sensitive personal details, there are efforts of altering texts to render an author's style imperceptible~\citep{bischoff_importance_2020}.
+This process is called author obfuscation.
+It is an adversarial task of preventing successful verification of the author by altering the text's style so that it no longer resembles the original author's style \citep{bevendorff_divergence_based_2020,gohsen_task_oriented_2024}.
+
+% authorship attribution
+What the \ai{} pioneers of the \nth{19} century did when they tried to answer who among Francis Bacon, Christopher Marlowe, and William Shakespeare was the true author of the Shakespearean plays is called \ac{aa}.
+
+\begin{definition}
+    [\acl{aa}]   
+    \ac{aa} is the task of determining the author of a text given a set of candidate authors with undisputed writing samples.
+    % \citep{stein_intrinsic_2011,koppel_authorship_2004,stamatatos_survey_2009,tyo_state_2022,bischoff_importance_2020,barlas_cross_domain_2020,altakrori_topic_2021,bevendorff_divergence_based_2020,elmanarelbouanani_authorship_2014,abbasi_writeprints_2008,llm_detection_av_2025,neal_surveying_2018}
+    \textcolor{red}{TODO: too many references}
+\end{definition}
+
+\ac{aa} is a multiclass, single-label text classification task~\citep{stamatatos_survey_2009,koppel_authorship_2004,elmanarelbouanani_authorship_2014}.
+Formally, \ac{aa} is defined as a tuple $(A,K,U)$, where $A$ is the set of authors, $K=\underset{a\in A}{\cup}K_a$ is the set of known texts and $U$ is the set of unknown texts.
+For closed-set \ac{aa}, each text $d \in U$ is attributed to exactly one author $a \in A$.
+In cross-topic or cross-genre scenarios, the topic or genre of documents in $d \in U$ is different from the topics or genres found in $K$~\citep{barlas_cross_domain_2020}. 
+
+% The decision is made based on stylistic traits rather than the content of the document \citep{neal_surveying_2018}.
+
+% The task is also referred to as author(ship) identification \citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
+
+% \citet{elmanarelbouanani_authorship_2014} describe the workflow of \ac{aa} as follows:
+% \begin{enumerate}
+%     \item Data cleaning
+%     \item Feature extraction
+%     \item Normalization
+%     \item Converting each text into a feature vector, where author is the class label
+%     \item Split the dataset into training and test set
+% \end{enumerate}
+% Common classifiers include \ac{svm}, decision trees, and \acp{nn} \citep{elmanarelbouanani_authorship_2014}.
+
+% Plagiarism detection
+More prominent than ever, with probabilistic \acp{lm} generating texts based on existing texts from their training data, we have to deal with plagiarism.
+Plagiarism is the appropriation of another author's information, language, ideas, results or writing without properly acknowledging the original source~\citep{stein_intrinsic_2011,gohsen_task_oriented_2024}.
+% \citet{elmanarelbouanani_authorship_2014} define plagiarism as the complete or partial replication 
+% of a piece of work with or without permission of the original author.
+Plagiarism detection is the task of identifying plagiarized text~\citep{stein_intrinsic_2011}.
+% It includes finding similarities between two texts \citep{stamatatos_survey_2009}.
+Different to \ac{aa}, it is not important identifying the author's identity but rather whether multiple pieces of work were produced by a single author~\citep{elmanarelbouanani_authorship_2014}.
+Hence, plagiarism detection is an application of \ac{av}~\citep{rivera_soto_learning_2021}.
+
+% authorship verification
+\begin{definition}
+    [\acl{av}]   
+    Given a set of writing samples $K_a$ of author $A$ and a text $t$, the task is to determine whether $t$ was written by $A$.
+    \textcolor{red}{TODO: too many references}
+    % ~\citep{stein_intrinsic_2011,stamatatos_survey_2009,koppel_authorship_2011,tyo_state_2022,kocher_unine_2015,koppel_authorship_2004}.
+\end{definition}
+
+% Gespräch Martin Potthast 19.05.2025: problem formulation 2 is less common and in the context of very sparse (metadata) information:
+% This task can also be formulated as whether two texts $t_1$ and $t_2$ are written by the same author 
+% \citep{bevendorff_generalizing_2019,bevendorff_divergence_based_2020,embarcadero_ruiz_graph_based_2022,rivera_soto_learning_2021,ordonez_will_2020,futrzynski_pairwise_2021,weerasinghe_feature_vector_difference_2021,llm_detection_av_2025}.
+
+To solve the \ac{av} problem, the disputed document $t$ is compared to documents from the candidate $K_a$.
+Different to other one-class classification problems, this approach disregards negative samples, i.e. all texts not written by the known author.
+In fact, it is neither possible to assemble an exhaustive, nor representative set of samples of the non-target class.
+Hence, \ac{av} is a more general and difficult classification problem than \ac{aa}~\citep{llm_detection_av_2025,neal_surveying_2018,koppel_authorship_2004}.
+It is evident that \ac{av} is the fundamental problem of \ac{aa}, where there is only one candidate author~\citep{barlas_cross_domain_2020,tyo_state_2022}.
+
+The \ac{av} problem can be framed to fit multiple problem categorizations.
+When considering its output \textit{same-author} or \textit{different-author}, we can view \ac{av} a binary classification problem, where \textit{different-author} renders \ac{av} as an open-set problem.
+% ~\citep{neal_surveying_2018}.
+% However, \citet{neal_surveying_2018} consider framing \ac{av} as a one-class classification problem as a common approach (cf. \citep{llm_detection_av_2025}).
+% \citet{elmanarelbouanani_authorship_2014} consider \ac{av} a similarity detection task.
+The \impAppr{}, among other approaches, generates more candidates during inference in order to obtain their final prediction.
+Hence, such approaches artificially create an \ac{aa} problem to solve the original problem~\citep{neal_surveying_2018}.
+
