@@ -7,7 +7,8 @@
 % In other words, stylometry is the statistical analysis of literary style between one writer or genre and another \citep{tyo_state_2022}.
 Researchers working on stylometric features believe that subconscious authorial syntactic idiosyncrasies are quantifiably measurable and sufficient to define an author's unique style~\citep{neal_surveying_2018}. 
 These stylometric features are also referred to as style markers, or stylistic features if they are the most effective discriminators of authorship. 
-Static features are context-free such as function words, word-length distributions, vocabulary richness measures, and dynamic features context-dependent attributes and include $n$-grams and misspelled words~\citep{abbasi_writeprints_2008}.
+Static features, such as function words, word-length distributions, vocabulary richness measures, are context-free.
+Dynamic features are context-dependent attributes and include $n$-grams and misspelled words~\citep{abbasi_writeprints_2008}.
 % Stylometric features include lexical, syntactic and structural features \citep{stein_intrinsic_2011}.
 % Research includes five subtasks \citep{neal_surveying_2018}:
 % \begin{itemize}
@@ -17,8 +18,8 @@ Static features are context-free such as function words, word-length distributio
 %     \item Stylochronometry
 %     \item adversarial stylometry
 % \end{itemize}
-We outline prominent style marker taxonomy categories in \autoref{tab:stylometric_features} in the following. 
 Generally speaking, the more detailed the style marker extraction process, the more noisy are the produced measures~\citep{stamatatos_survey_2009}.
+We outline prominent style marker taxonomy categories from \autoref{tab:stylometric_features} in the following. 
 
 \begin{table}[]
     \centering
@@ -61,11 +62,11 @@ Generally speaking, the more detailed the style marker extraction process, the m
 % lexical
 Lexical features treat text as a mere sequence tokens~\citep{stamatatos_survey_2009}.
 Token units include character, word, and sentence.
-We \autoref{tab:comp_lexical} we present characteristics of the character and word feature units.
-Character (n-gram) counts, average word~\citep{stein_intrinsic_2011}, sentence length~\citep{stein_intrinsic_2011,abbasi_writeprints_2008}, are examples for character, sentence, and sentence unit-based lexical features.
+In \autoref{tab:comp_lexical}, we present characteristics of the character and word feature units.
+Character (n-gram) counts, word lengths~\citep{stein_intrinsic_2011}, sentence lengths~\citep{stein_intrinsic_2011,abbasi_writeprints_2008}, are examples for character, word, and sentence unit-based lexical features.
 % line length~\citep{abbasi_writeprints_2008}, word length distribution~\citep{abbasi_writeprints_2008}, 
 % vocabulary richness~\citep{abbasi_writeprints_2008,neal_surveying_2018} ...) 
-Errors in \autoref{tab:stylometric_features} refers to idiosyncratic features include misspellings, grammatical mistakes, and other usage anomalies~\citep{abbasi_writeprints_2008,neal_surveying_2018}.
+Errors in \autoref{tab:stylometric_features} refers to idiosyncratic features, which include misspellings, grammatical mistakes, and other usage anomalies~\citep{abbasi_writeprints_2008,neal_surveying_2018}.
 
 
 \begin{table}[]
@@ -93,14 +94,14 @@ It is evident, that every syntactic feature requires parsing or processing of na
 % semantic
 Semantic features capture meaning behind words, phrases, and sentences, such as through analysis of synonyms and semantic dependencies \citep{neal_surveying_2018}.
 Semantic similarities between words, synonym or hyponym relationships are derived using WordNet, any thesaurus or latent semantic analysis.
-Semantic dependencies such as the specification of a person with location, can boost classification performance when combined with lexical and syntactic information~\cite{stamatatos_survey_2009}.
+Semantic dependencies such as the specification of a person with a location, can boost classification performance combined with lexical and syntactic information~\cite{stamatatos_survey_2009}.
 
 
 % application specific (structural + content)
 Application-specific features vary by domain.
 E-mails may include structural elements such as greetings absent in, for instance, e-commerce platform's item descriptions or source code.
 More general structural features include layout, file extensions, font, sizes, and colours~\citep{abbasi_writeprints_2008,neal_surveying_2018}.
-Given texts belonging to a distinct genre and topic, content-specific features are defined as frequent words.
-Different to syntactic feature built on function words, frequent words carry semantic information.
-It is important to note, that frequent words features should not be used in cross-topic or cross-genre scenarios and that there is no instruction on how to choose of such words~\citep{abbasi_writeprints_2008}.
+Given texts belonging to a distinct genre and topic, frequent words are a content-specific feature.
+Different to syntactic features built on function words, frequent words carry semantic information.
+It is important to note that frequent words features should not be used in cross-topic or cross-genre scenarios and that there is no instruction on how to choose of such words~\citep{abbasi_writeprints_2008}.
 % Domain-specific features include ratios of quoted words and external links, number of paragraphs, and paragraphs average length for the news article domain~\citep{potthast_stylometric_2018}
