@@ -1,6 +1,16 @@
 \subsection{\impAppr{}}
 \label{sec:impostor_method_theory}
 
+\impAppr{} input text pairs are represented via \ac{tfidf} vectors of the \num{100000} most frequent space-free character 4-grams.
+Character n-grams are $n$ consecutive characters in a text also known as character collocations~\citep{neal_surveying_2018}.
+Space free n-grams are strings of $n$ characters that do not include spaces, or strings of less than $n$ characters that are surrounded by spaces~\citep{koppel_authorship_2011}.
+While the optimal $n$ is language dependent~\citep{neal_surveying_2018}, tri-grams are commonly used in stylistic analysis, due to their ability to capture inflections, % Flexion/ Beugung in Deutsch
+morphemes, %  smallest meaningful constituents within a linguistic expression and particularly within a word
+and other syntactic structures for Germanic languages.
+Explorative study on character n-gram proposed that character n-grams are successful in \ai{} tasks, due to their ability to capture different stylometry feature categories.
+Affix (word end) n-grams capture morphology, and n-grams containing punctuation marks capture style information valuable for cross-domain settings.
+Word n-grams capture topic information which is not necessary to obtain valid performance~\citep{Sapkota_ngrams_2015}.
+
 The \impAppr{} builds on the n-gram Unmasking method, which classifies authorship by measuring how quickly classifier accuracy declines under repeated feature subsampling~\citep{koppel_authorship_2004}. 
 Whereas the n-gram Unmasking method relies on complex, interdependent projections, the \impAppr{} uses random projections to transform features into lower-dimensional spaces.
 After each projection step, the method records how often a candidate author is predicted as the source of the text. 
@@ -34,30 +44,6 @@ The final prediction is obtained by averaging these scores and applying a thresh
 
 
 
-  \begin{definition}
-    [n-gram]
-    $n$ contiguous words also known as word collocations. \todo{cite, reference?\citep{koppel_authorship_2011}?}
-    n-grams are no stylometric features \citep{altakrori_topic_2021}.
-    % Quelle Martin Potthast Gespräch 19.05.2025:
-    Tri-grams are commonly used in stylistic analysis, due to their ability to capture inflections, % Flexion/ Beugung in Deutsch
-    morphemes, %  smallest meaningful constituents within a linguistic expression and particularly within a word
-    and other syntactic structures for Germanic languages.
-    Character-level $n$-gram features capture the frequency of $n$ consecutive characters in a text \citep{neal_surveying_2018}.
-    The optimal $n$ is language dependent \citep{neal_surveying_2018}.
-\end{definition}
-
-\begin{definition}
-    [Space free n-gram]
-    Removing spaces from the $n$-gram reduces the number of $n$-grams.
-    \citet{koppel_authorship_2011} use these definitions:
-    \begin{enumerate}
-        \item a string of $n$ characters that not include spaces
-        \item a string of less than $n$ characters that is surrounded by spaces
-    \end{enumerate}
-\end{definition}
-
-
-
 % \begin{definition}
 %     [within-domain]
 %     Experiments with P=Q.
@@ -78,26 +64,15 @@ The final prediction is obtained by averaging these scores and applying a thresh
 % \end{definition}
 
 
-Explorative study on character n-gram proposed that character n-grams are successful in \ai{} tasks, due to their ability to capture different stylometry feature categories.
-Affix (word end) n-grams capture morphology, and n-grams containing punctuation marks capture style information valuable for cross-domain settings.
-Word n-grams capture topic information which is not necessary to obtain valid performance~\citep{Sapkota_ngrams_2015}.
-
 
 \subsubsection{Traditional \imp{} Generation}
 \label{subsubsec:traditional_impostor_generation}
 
-\textcolor{red}{TODO: traditional impostor generation}
-
-
-\citet{koppel_determining_2014} propose three \imp{} generation approaches.
-The fixed approach randomly samples impostors from a fixed set of impostor documents having no special relation to the document pair in question.
-They used aggregated results of random English Google queries.
-The on-the-fly method first selects 50 small set of 3 to 5 random medium-frequency words from the candidate text.
-Each set is used for a Google query.
-Aggregate the top 25 results of the respective queries.
-The results are considered impostors which are on-topic.
-Blogs \imps{} are randomly chosen texts from bloggers.
-\citet{koppel_determining_2014} state that these \imps{} belong to the same genre as the input text pair.
-
-
-
+\citet{koppel_determining_2014} introduce three approaches to generating \imps{}. 
+In the fixed approach, \imps{} are drawn at random from a predetermined pool of documents that bear no particular relation to the input pair.
+In their study, this pool consisted of texts collected from random English Google queries. 
+The on-the-fly approach, by contrast, derives impostors based on the candidate text. 
+Specifically, sets of three to five medium-frequency words are sampled from the text, each set is submitted as a Google query, and the top 25 results are aggregated. 
+The retrieved documents serve as \imps{} that are, at least in theory, on-topic. 
+Finally, in the blog approach, impostors are selected at random from the \dataBlog{} dataset. 
+This method, according to the authors, ensures that impostor texts share the same genre as the input pair.
