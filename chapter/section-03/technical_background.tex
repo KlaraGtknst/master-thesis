@@ -1,164 +1,62 @@
 \section{Technical Background}
 
-In the following, we provide some technical background on general \ac{ml} and attribution principles.
-We start with different nuances of classification, and resume with some train-test scenarios.
-We conclude with basic categories of attribution methods.
+This section outlines the \ac{ml} principles and attribution paradigms that underpin modern authorship analysis. 
+We first introduce the main classification settings relevant to \ac{av}. 
+We then discuss training and evaluation practices, including domain shift scenarios. 
+Finally, we present the principal categories of attribution methods.
 
-\subsection{\acl{ml}}
-% classification
-In the context of \ac{ml}, we distinguish regression and classification.
-For regression, the model predicts a continuous numerical value, while in a classification scenario, the model predicts a discrete class.
-%% closed
-Ideally, the set of all possible author classes is known a priori.
-This situation is called closed-set classification where the true author is definitely one of the candidate authors~\citep{stamatatos_survey_2009,koppel_authorship_2011,barlas_cross_domain_2020,boenninghoff_o2d2_2021,neal_surveying_2018}.
-% Hence, closed-set problems can use supervised or unsupervised classification techniques \citep{abbasi_writeprints_2008}.
-%% open
-In an open-set classification the true author is might not be included in the set of candidate authors~\citep{stamatatos_survey_2009,barlas_cross_domain_2020,neal_surveying_2018}.
-It is a generalization of the closed-set classification problem.
-%  allowing for an unknown author using a threshold for similarity \citep{neal_surveying_2018}.
+\subsection{\acl{ml} Principles}
 
-%%% 1-class
-One-class classification denote problems where the classifier is trained on samples of a single class.
-If counterexamples, i.e. so-called outliers, are available, they are usually not considered to be representative of non-target class.
-Hence, the classifier has to learn the concept of the target class in the absence of discriminating features~\citep{stein_intrinsic_2011,koppel_authorship_2004}.
-% Examples of one-class classification are intrinsic plagiarism analysis and \ac{av}.
-% Approaches to one-class classification fall into the following categories \citep{stein_intrinsic_2011}:
-% \begin{itemize}
-%     \item One-class density estimation, e.g., Naive Bayes
-%     \item One-class boundary estimation
-%     \item One-class reconstruction
-% \end{itemize}
+In \ac{aa}, the task is typically framed as a classification problem: given an anonymous text, assign it to one of several candidate authors. 
+Unlike regression, where the output is a continuous value, classification predicts a discrete label corresponding to the author identity.
 
-%%% multi-class
+\paragraph{Closed- vs. open-set classification.} 
+In a closed-set scenario, the true author is guaranteed to be among the candidate set~\citep{stamatatos_survey_2009,koppel_authorship_2011,barlas_cross_domain_2020,boenninghoff_o2d2_2021,neal_surveying_2018}. 
+In contrast, open-set classification acknowledges that the author of a disputed document may not belong to the candidate set, requiring methods to reject uncertain assignments~\citep{stamatatos_survey_2009,barlas_cross_domain_2020,neal_surveying_2018}. 
+
+\paragraph{One-class classification.} 
+In some cases, training data is available for only a single class, and the task is to decide whether a new sample belongs to this class.
+If counterexamples, i.e. so-called outliers, are available, they are usually not considered to be representative of non-target class. 
+This is formalized as one-class classification, where the model learns the characteristics of the target class without reliable counterexamples~\citep{stein_intrinsic_2011,koppel_authorship_2004}.
+
+\paragraph{Multi-class classification.} 
+The standard formulation involves multiple authors, each represented by several training texts. 
+Here, the challenge is to discriminate among a large and often imbalanced set of classes.
 
 
-%% train-test
-In \ac{ml}, we generally train models on a selection of the dataset (i.e. training set), optimize the models' hyperparameters on a second disjoint selection of the dataset (i.e. validation set), and evaluate the models on a third disjoint selection of the dataset (i.e. test set).
-There should be no data leakage between the training, validation and test sets to ensure the validity of the results~\citep{bischoff_importance_2020,altakrori_topic_2021,boenninghoff_o2d2_2021}.
-%% covariate shift
-In the domain of stylometry, we denote covariate shift the change of distribution of neural stylometric features between training and test set due to, for instance, topic variability \citep{boenninghoff_o2d2_2021}.
-%% cross-topic + cross-domain
-This may include cross-topic scenarios, where new, unseen topics are used in the testing phase~\citep{altakrori_topic_2021}, or more generally, cross-domain scenarios there is a topic or genre change between training and test set~\citep{barlas_cross_domain_2020}.
+\subsection{Training and Evaluation Scenarios}
 
-%% un-/supervised
-In terms of training, there are two concepts:
-Supervised techniques for stylometric analysis require class labels for the training phase.
-Examples include \acp{svm}, \acp{nn}, decision trees, and linear discriminant analysis.
-\acp{svm} are very common in authorship analysis due to their robustness~\citep{abbasi_writeprints_2008}.
-Unsupervised techniques train with no prior knowledge of classes.
-Examples include \ac{pca} and cluster analysis.
-\ac{pca} has been used in previous authorship studies due to its ability to capture essential variance across large number of features in a reduced dimensionality~\citep{abbasi_writeprints_2008}.
+Models are typically trained on one portion of the data (training set), tuned on another (validation set), and evaluated on a disjoint partition (test set). 
+Any overlap between these partitions constitutes data leakage and invalidates the results~\citep{bischoff_importance_2020,altakrori_topic_2021,boenninghoff_o2d2_2021}. 
+
+A major challenge in stylometry is covariate shift, i.e., a mismatch between the distribution of training and test data. 
+This often arises from topic variability~\citep{boenninghoff_o2d2_2021}. 
+Two common evaluation settings are:
+\begin{itemize}
+    \item \textbf{Cross-topic attribution}, where models trained on one set of topics are tested on previously unseen topics~\citep{altakrori_topic_2021}.  
+    \item \textbf{Cross-domain attribution}, where training and test texts differ in topic or genre~\citep{barlas_cross_domain_2020}.  
+\end{itemize}
+
+\paragraph{Supervised vs. unsupervised learning.}  
+Supervised methods require labelled training data and include classifiers such as \acp{svm}, decision trees, \acp{nn}, and linear discriminant analysis. 
+\acp{svm} are particularly common in authorship analysis due to their robustness. 
+Unsupervised methods do not rely on labels.
+Clustering techniques or \ac{pca} have been used to uncover latent stylistic patterns or to reduce feature dimensionality~\citep{abbasi_writeprints_2008}.
+
 
 \subsection{Attribution Methods}
 \label{subsec:attribution_methods}
 
-There are two categories to attribution.
-% profile-based
-Methods belonging to the profile-based category concatenate all the available training texts per author in one big file 
-and extract a cumulative representation of that author's style from this concatenated text. % tyo_state_2022: "representation of all author texts"
-Hence, methods in this category are better if only short texts are available for training.
-The difference of texts written by the same author are disregarded~\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.
-% The unseen text is compared to each author file and the most similar one based on a distance measure is selected as the predicted author:
-% $$ author(x) = argmin_{a \in A} d(x, x_a) $$
-% where $x$ is the text to be classified, $A$ is the set of authors, and $d(x, x_a)$ is a distance measure 
-% between the text and the author file $x_a$ \citep{stamatatos_survey_2009}.
-% % probabilistic models
-% Probabilistic models are a special case of profile-based methods.
-% They attempt to maximize the probability $P(x|a)$ of the text $x$ belonging to candidate author $a$ \citep{stamatatos_survey_2009,neal_surveying_2018}.
-% The attribution model seeks the author that maximizes the similarity metric: 
-% $$ author(x) = argmax_{a \in A} \frac{P(x|a)}{P(x|\overline{a})} $$
-% where the conditional probabilities are estimated by $x_a$ for author $a$ and the rest of the texts, respectively \citep{stamatatos_survey_2009}.
-% Naive Bayes is a variant of this probabilistic  classifier \citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.
-% \citet{elmanarelbouanani_authorship_2014} describe a Naive Bayes classifier that takes a feature vector of 365 normalized function word frequencies.
-% % compression models, e.g. RAR or GZIP (more info Paper)
-% Compression models are based on the idea that the text of one author can be compressed more efficiently than the text of multiple authors.
-% The new text is concatenated with the author profile and then compressed.
-% The differences between the compressed concatenation with the unseen text and compressed author profiles without the unseen text are computed 
-% \citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.
-% The author profile with the lowest difference is selected as the predicted author \citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
-% Tested compression algorithms include RAR, LZW, GZIP, BZIP2 and 7ZIP. 
-% RAR is the most accurate one \citep{elmanarelbouanani_authorship_2014}.
-% \citet{elmanarelbouanani_authorship_2014} include the Normalized Compressor Distance (NCD) as a distance measure for compression-based methods. % Chap. 4.2
-% \citet{stamatatos_survey_2009} claim that probabilistic approaches are faster in comparison to compression models.
-% \citet{neal_surveying_2018} state that LZ77 is a lossless data compression algorithm that is used to compress data by detecting duplicates.
-% % Common n-grams
-% For the \ac{cng} method, the author profile is composed of the $L$ most common $n$-grams of the training texts.
-% The similarity between to texts is estimated by a distance measure based on relative frequencies of the $n$-grams.
-% \ac{cng} favours author profiles shorter than $L$ or in imbalanced cases.
-% % Simplified Profile Intersection
-% \ac{spi} is a simpler distance measure to mitigate the disadvantages of \ac{cng}.
-% It is based on the idea that the more common $n$-grams two texts share, the more similar they are.
-% It counts the number of common $n$-grams between the two texts and disregards the rest.
-% % most similar in terms of distance
-% \citep{koppel_authorship_2011} describe the similarity-based paradigm as a profile-based approach 
-% where the unseen text is attributed to the author whose profile is closest in terms of a distance metric.
-% As a distance metric, \citet{koppel_authorship_2011} suggest the cosine distance in a vector space 
-% defined by the space-free character 4-gram frequencies.
-% % similarity of vocabularies
-% \citet{neal_surveying_2018} define intertextual distances as measures of the similarity between the vocabularies of two texts.
-% Some of the most common measures are the following:
-% \begin{itemize}
-%     \item Delta measures the difference in $z$-scores, or standard scores, of the relative frequencies of the most frequent words in texts, which he termed \textit{Delta}. 
-%     Delta has proven one of the most robust intertextual distance measures by computing 
-%     $\frac{1}{n}\sum_{i=1}^{n} \left| z(f_i(D)) - z(f_i(D')) \right|$ between two texts $D$ and $D'$.
-%     \item Chi-Square Distance $\chi^2$: $\chi^2=\sum_{k=1}^{n}\frac{(O_k-E_k)^2}{E_k}$ is a non-parametric goodness-of-fit statistical measure for determining
-%     if a set of frequencies were drawn from the same population.
-%     $O$ is the observed frequency and $E$ is the expected frequency.
-%     In intertextual distance, the frequencies of lexical features are used, where the population is a collection of candidate author samples.
-%     A lower $\chi^2$ value indicates that a sample was drawn from a particular population.
-%     \item Kullback-Leibler Divergence $D_{KL}(P||Q)=\sum_{i}P(i) log \frac{P(i)}{Q(i)}$ 
-%     is a measure of how one discrete probability distribution $Q$ diverges from a second expected discrete probability distribution $P$.
-%     \item Stamatatos Distance is measure based on character $n$-grams.
-%     An author profile $P$ is a pair ($n$-gram, normalized frequency) of the $L$ most frequent $n$-grams in a text sample.
-%     The first metric measures the distance between an unknown text profile and candidate author profile: 
-%     $d_1(P(x),P(T_a))=\sum_{g \in P(x)} (\frac{2(f_x(g)-f_{T_a}(g))}{f_x(g)+ f_{T_a}(g)})^2$, 
-%     where $P(x)$ is the profile of the unknown text, $P(T_a)$ is the profile of the text of the candidate author $a$, 
-%     $f_x(g)$ is the frequency of $n$-gram $g$ in $P(x)$, and $f_{T_a}(g)$ is the frequency of $n$-gram $g$ in the candidate author text.
-%     The second metric concatenates all training samples as a normalization step:
-%     $d_2(P(x),P(T_a),P(N)))=\sum_{g \in P(x)} (\frac{2(f_x(g)-f_{T_a}(g))}{f_x(g)+ f_{T_a}(g)})^2 \cdot (\frac{2(f_x(g)-f_N(g))}{f_x(g)+ f_N(g)})^2$, 
-%     where $N$ is the concatenated text.
-% \end{itemize}
-% instance-based
-The family of instance-based methods, on the other hand, requires multiple training text samples per author. 
-Each sample is a separate instance of authorial style~\citep{stamatatos_survey_2009,altakrori_topic_2021,elmanarelbouanani_authorship_2014,neal_surveying_2018}.
-% If only one training sample is available, the method segments the sample into multiple parts of similar length.
-% \citet{stamatatos_survey_2009} state that samples of variable length should be normalized and 
-% shorter samples should be discarded.
-% % vector space models
-% Each text is represented as a vector in a multivariate space.
-% \citet{stamatatos_survey_2009} list a number of statistical and machine learning algorithms as classifiers.
-% They stress that \acp{svm} are extremely popular in high-dimensional spaces.
-% However, they also state that class imbalance is a problem 
-% which should be overcome by segmentation, filtering or oversampling.
-% \citet{koppel_authorship_2011,koppel_determining_2014} denote this approach belonging to the machine learning paradigm.
-% \citet{koppel_determining_2014} claim that machine learning methods are not suitable for large number of candidate authors 
-% since they are designed for small number of classes. 
-% They also state that the introduction of ensembles of multiple binary classifiers is not a solution to this problem 
-% due to the ambiguity of multiple positive answers.
-% % similarity-based measures
-% Similarity-based measures are used to measure the distance between the unseen text and all other training texts.
-% The most likely author is estimated based on a $k$-nearest-neighbour algorithm.
-% If $k=1$, the approaches are sensitive to noise.
-% However, for $k>1$ and majority vote or weighted vote schemes, the methods are more robust.
-% % others in Paper
-% Compression-based models can also be considered similarity-based measures which are slow 
-% since the compression algorithm is called for each training text \citep{stamatatos_survey_2009,neal_surveying_2018}.
-% % Meta-learning models
-% Existing classification algorithms can be used as meta-learning models.
-% Unmasking is a meta-learning approach which is based on the idea that
-% omitting discriminant features and the consequent drop in accuracy of the classifier 
-% can be used for inference of the author of the unseen text.
-% An unseen text is chunked, such that multiple examples either all belong to the author or to a different author, 
-% are generated \citep{koppel_authorship_2004}.
-% This gives rise to the idea of two examples sets which are either generated by a single generating process (author) 
-% or by two different processes \citep{koppel_authorship_2004}.
-% For each unseen text, a \ac{svm} is built to discriminate it, i.e. its segments, 
-% from the training texts of each candidate author.
-% Hence, for each candidate author, a \ac{svm} is trained.
-% After a few iterations, the classifier is no longer able to discriminate between the unseen text and 
-% the training texts of the true author, i.e. low accuracy \citep{stamatatos_survey_2009,koppel_authorship_2004}.
-% hybrid
-Hybrid approaches include a combination of profile- and instance based aspects.
-Text samples are represented individually (i.e. instance-based) and 
-the profile vector is built via computing the feature-wise average over the author's sample vectors~\citep{stamatatos_survey_2009}.
-% The similarity between the unseen text and the author profile is used to predict the true author~\citep{stamatatos_survey_2009}.
+Approaches to \ac{aa} can be grouped into three families~\citep{stamatatos_survey_2009}:
+
+\paragraph{Profile-based methods.} 
+All training texts of an author are concatenated into a single profile, from which a cumulative feature representation is extracted. 
+This approach is effective when only short texts are available.
+Profile-based methods ignore intra-author variation, which can lead to overgeneralization~\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.  
+
+\paragraph{Instance-based methods.} 
+Here, each training text is treated as a separate instance of the author's style. 
+This allows models to capture intra-author variability~\citep{stamatatos_survey_2009,altakrori_topic_2021,elmanarelbouanani_authorship_2014,neal_surveying_2018}.  
+
+\paragraph{Hybrid methods.} 
+Hybrid approaches combine both paradigms: they represent texts individually but aggregate author profiles via feature-wise averages over an author’s texts~\citep{stamatatos_survey_2009}. 

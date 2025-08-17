@@ -1,37 +1,19 @@
 % \section{First Approaches}
 
 % Approaches of the \nth{19} century were limited to the analysis of word lengths.
-The \nth{20} century brought new measures, such as Zipf's law (1932) and Yule's Characteristic (1944).
-Zipf's law describes the relationship between rank and frequency of words.
-Yule's Characteristic was proposed by George Yule as a first attempt to measure vocabulary richness via word frequencies~\citep{neal_surveying_2018,stamatatos_survey_2009}.
+In the early \nth{20}, statistical measures such as Zipf's law (1932) and Yule's characteristic (1944) were introduced. 
+These measures captured word frequency distributions and vocabulary richness, laying the foundation for more formalized analyses of writing style~\citep{neal_surveying_2018,stamatatos_survey_2009}.
 
-A massive milestone was proposed in 1964 by Mosteller and Wallace with their computer-assisted stylometry on "The Federalist Papers" from the \nth{18} century.
-Their discriminations were built on a Bayesian statistical analysis of the frequencies of a small set of common words such as "and" or "to".
-This approach instigated stylometry, the research of finding features that quantify writing style.
-In the peak years of stylometry between 1964 and the late 1990s, around \num{1000} different measurements were proposed.
-Such measures include sentence or words lengths, word or character frequencies, and vocabulary richness.
-The main shortcomings of stylometry in the \nth{20} century included the lack of method comparison due to the absence of suitable benchmark data and the mostly subjective evaluation of individual methods via visual inspection of scatterplots~\citep{stamatatos_survey_2009}.
+A decisive milestone came with the work of Mosteller and Wallace (1964), who applied Bayesian statistical analysis to the authorship of the "The Federalist Papers".
+Their computer-assisted approach, based on the frequencies of a subset of common function words (e.g., "and", "to"), demonstrated the potential of rigorous quantitative methods for \ac{aa}. 
+This work is often regarded as the beginning of modern stylometry, the systematic study of quantifiable features of writing style.
 
-The late 1990s initiated a new era of \ai{}.
-The growing amount of electronic texts and benchmark data marked significant progress towards objective comparative evaluation of methods.
-Moreover, \ac{ml} algorithms allowed for more expressive text representations than before. 
-The focus shifted from answering disputed literary questions to solving real-world problems and creating practical applications~\citep{stamatatos_survey_2009}.
-According to \citet{abbasi_writeprints_2008}, until 2008 stylometry not only lacked of scalability in terms of number of authors and across genres, but also was applied exclusively to closed-world scenarios.
+Between the 1960s and the late 1990s, stylometric research flourished.
+Around \num{1000} features were proposed, including sentence and word lengths, character and word frequencies, and vocabulary richness. 
+However, the field faced two major limitations: the absence of benchmark datasets prevented systematic comparison of methods, and evaluation often relied on subjective inspection of visualizations (e.g., scatterplots) rather than standardized metrics~\citep{stamatatos_survey_2009}.
 
-
-% % potential introduction to style chapter
-% \citet{bischoff_importance_2020} assume that each author has a unique style, unconsciously encoded in their writing.
-% This style depends on the author's personal traits, customs an author adopts due to genre, register, type, and topic.
-% These concepts are too vague and ill-separable to be efficiently operationalized.
-% The goal is to discover a set of style markers more likely to be determined by the author's personality than by domain customs.
-
-% They claim that features frequent function words and word length have a high correlation with topic. \todo{????}
-% Hence, traditional author style models are highly susceptible to learning domain-specific features and 
-% prone to pick up domain artefacts unless domains are controlled, 
-% which imposes severe practical limitations.
-
-% % char 3-gram
-% \citet{bischoff_importance_2020} analyse the robustness of character trigrams as a feature for \ac{aa}.
-% They find that the character trigrams feature set is not robust in a cross-topic setting, but across two genres.
-
-
+The late 1990s marked the transition into a new era. 
+The growing availability of electronic text collections enabled the construction of benchmark datasets and more thorough evaluation. 
+At the same time, \ac{ml} algorithms facilitated more expressive text representations, moving beyond simple frequency counts toward feature-rich models. 
+As a result, the scope of \ai{} expanded from resolving historical literary questions to addressing practical, real-world applications such as \ac{av} in digital forensics~\citep{stamatatos_survey_2009}. 
+Nevertheless, as \citet{abbasi_writeprints_2008} note, even by 2008 stylometric methods struggled with scalability across large author sets, diverse genres, and open-world scenarios.
