@@ -1,6 +1,11 @@
 \section{\imp{} Generation}
 \label{sec:impostor_generation}
 
+The generation of \imps{} relies on the paraphrasing capabilities of \acp{llm}. 
+An \imp{} can be obtained either in a single step, where the model directly produces a paraphrase, or in two steps, where the model first extracts information from the reference text and subsequently generates a paraphrase based on the extracted information. 
+The latter allows for more rigorous disentanglement of content and style, but at the cost of additional computational overhead. 
+In both cases, \imp{} generation functions as a proxy re-generating the reference text, yielding text variants that systematically neutralize confounding stylistic factors while retaining the core meaning of the original document.
+
 % good \imps{}: hard negatives
 Equivalent to the original \impAppr{} by \citet{koppel_determining_2014}, we denote ideal \imp{} texts as hard negatives.
 In other words, texts that are not authored by the candidate author, but are difficult to distinguish from the candidate author's texts.

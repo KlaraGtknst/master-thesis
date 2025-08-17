@@ -1,17 +1,12 @@
 \chapter{\acs{llm}-based \imp{} Method}
 \label{chap:llm_impostor_method}
 
-\section{Introduction}
-
 A central challenge in \ai{} is the presence of confounding factors such as register, genre, topic, and target audience. 
-These dimensions influence linguistic choices independently of authorial style, thereby obscuring the stylometric features relevant for authorship-related tasks. 
+These dimensions restrict linguistic options, thereby obscuring the stylometric features relevant for authorship-related tasks. 
 To address this issue, we propose an extension of the \impAppr{} originally proposed by \citet{koppel_determining_2014} that leverages \acp{llm} to systematically control for such confounders. 
-By generating texts under carefully constrained conditions, we obtain \imps{} that preserve the semantic content of the original while capturing the \ac{llm}'s authorial style, thereby serving as controlled proxies for modeling the actual generation process of the reference text.
+By generating texts under carefully constrained conditions, we obtain \imps{} that preserve the semantic content of the original reference text while capturing the \ac{llm}'s authorial style, thereby serving as controlled proxies for modeling the actual generation process of the reference text.
 
-The generation of \imps{} relies on the paraphrasing capabilities of \acp{llm}. 
-An \imp{} can be obtained either in a single step, where the model directly produces a paraphrase, or in two steps, where the model first extracts information from the reference text and subsequently generates a paraphrase based on the extracted information. 
-The latter allows for more rigorous disentanglement of content and style, but at the cost of additional computational overhead. 
-In both cases, \imp{} generation functions as a proxy re-generating the reference text, yielding text variants that systematically neutralize confounding stylistic factors while retaining the core meaning of the original document.
+
 
 \input{chapter/section-04/impact_confounders.tex}
 

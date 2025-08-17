@@ -1,48 +1,40 @@
-\section{Contextual factors/ Confounder impact on Authorial Style}
+\section{Impact of Confounders on Authorial Style}
 \label{sec:contextual_factors}
-\textcolor{red}{TODO}
 
-Authorial style is heavily influenced by contextual factors, or so-called confounders.
-Confounders compose of the author's personal traits, customs an author adopts due to genre, register, type, and topic.
-Since these concepts are too vague and ill-separable to be efficiently operationalized, stylometry research has focused on finding features invariant to domain variables~\citep{bischoff_importance_2020}.
-As studies show, this undertaking has not yet borne measurable fruit. 
-In the context of \ac{llm} detection, \ac{sota} models including DetectGPT~\citep{mitchell_detectgpt_2023} have proven vulnerable to \ac{ood} scenarios.
-When faced with texts originating from a domain, language, or \ac{llm} other than those they were trained on, performance declines rapidly~\citep{Wu_ODD_challenges_2025}.
+\Acl{sota} models for authorship analysis exhibit strong sensitivity to domain shifts. 
+Performance often deteriorates sharply when models are applied in \ac{ood} scenarios, i.e. outside their training distribution, a phenomenon largely attributable to the influence of confounders such as topic, genre, and register~\citep{Sundararajan_style_18,bischoff_importance_2020}
+
+Confounders are problematic because they influence the very features used to characterize authorial style. 
+Topical vocabulary, for example, can dominate lexical distributions, while genre-specific conventions shape syntax. 
+As these factors cannot be cleanly separated from genuine stylistic markers~\citep{bischoff_importance_2020}, they obscure the style markers.
+
+The interdependence of author and topic illustrates this entanglement. 
+Topics can be represented by characteristic word distributions.
+Authors choose a subset of words, i.e. document, according to their idiosyncratic preferences in synonym choice~\citep{altakrori_topic_2021}. 
+Consequently, texts from the same author across different topics may appear unrelated, while texts from different authors on the same topic may appear deceptively similar.
+
+Empirical evidence confirms the severity of this problem:
+Both \ac{llm} detection approaches, such as DetectGPT~\citep{mitchell_detectgpt_2023,Wu_ODD_challenges_2025}, and contemporary \acp{av} methods~\citep{Thomas_cross_topic_24} suffer significant performance degradation in \ac{ood} scenarios.
+
+As a result, authorship research has split into two directions. 
+One line seeks domain-invariant features, a goal that remains unresolved~\citep{bischoff_importance_2020}. 
+The other has converged on \ac{id} scenarios, where confounders are deliberately controlled. 
+Restricting tasks to a single topic or genre does not eliminate the underlying entanglement, but it reduces its impact sufficiently to produce stable and interpretable performance.
 
 
-
-
-They claim that features frequent function words and word length have a high correlation with topic. \todo{????}
-Hence, traditional author style models are highly susceptible to learning domain-specific features and 
-prone to pick up domain artefacts unless domains are controlled, 
-which imposes severe practical limitations.
-
-% char 3-gram
-\citet{bischoff_importance_2020} analyse the robustness of character trigrams as a feature for \ac{aa}.
-They find that the character trigrams feature set is not robust in a cross-topic setting, but across two genres.
-
-
-
-% error
-\citet{altakrori_topic_2021} propose topic confusion.
-It is a task specifically designed to evaluate \ac{aa} models' effectiveness.
-The task splits the error into two parts:
-\begin{itemize}
-    \item \textbf{Models' confusion}: The model is confused about the topic of the text.
-    \item \textbf{Features' inability}: The features are unable to capture the authors' writing style.
-\end{itemize}
-
-% dependency of author and topic
-\citet{altakrori_topic_2021} present an example to explain the dependency of author and topic:
-Consider a topic defined by a unique word distribution.
-An author selects a subset of words from the topic due to the limited length of documents.
-Since the authors choose wordings, i.e. synonyms, the dependency of the topic on the author varies from one author to another.
-
-% features
-% stylometric features
-Based on empirical evidence (one paper, one dataset), stylometric features are rather topic-invariant \citep{altakrori_topic_2021}.
-% POS
-According to \citet{altakrori_topic_2021}, \ac{pos} tags capture stylistic variations in language grammar between authors.
-% n-grams
-Character-level n-grams are favourable over word-level n-grams in terms of cross-group error.
-Hence, character-level n-grams are more topic-invariant than word-level n-grams.
+% Some promising steps towards mitigating this issue is the analysis of feature categories' suitability for different scenarios.
+% Findings include that lexical features can be applied to boost performance of lexical features, and that proper nouns are heavily influenced by topic which make them less attractive for cross-domain tasks~\citep{Sundararajan_style_18}.
+% Training predictive models on all topics apart the one in question improves the performance opposed to only using one negative class~\citep{Menon_cross_domain_2011}. 
+% However, since the non-target class is not exhaustive, this is not easy.
+% % char 3-gram: unclear if belong to lexical, syntactic (affix-like n-grams), style (puntuation base ngrams), thematic content (word-like ngrams) cf. Sapkota_ngrams_2015
+% \citet{bischoff_importance_2020} analyse the robustness of character trigrams as a feature for \ac{aa}.
+% They find that the character trigrams feature set is not robust in a cross-topic setting, but across two genres.
+% \citet{Menon_cross_domain_2011} find that they are not robust against domain changes.
+% % features
+% % stylometric features
+% Based on empirical evidence (one paper, one dataset), stylometric features are rather topic-invariant \citep{altakrori_topic_2021}.
+% % POS
+% According to \citet{altakrori_topic_2021}, \ac{pos} tags capture stylistic variations in language grammar between authors.
+% % n-grams
+% Character-level n-grams are favourable over word-level n-grams in terms of cross-group error.
+% Hence, character-level n-grams are more topic-invariant than word-level n-grams.
