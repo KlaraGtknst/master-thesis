@@ -60,7 +60,8 @@ Steep decrease in the curve indicates that the two texts are similar, and thus, 
 % \citep{bevendorff_generalizing_2019,bevendorff_divergence_based_2020}.
 
 % generalized unmasking
-\citet{bevendorff_generalizing_2019,bevendorff_divergence_based_2020} propose creating chunks by oversampling words in a bootstrap aggregating manner. 
+\citet{bevendorff_generalizing_2019,bevendorff_divergence_based_2020} propose generalized Unmasking as displayed in \autoref{fig:generalized_unmasking}.
+Opposed to the original method, chunks by oversampling words in a bootstrap aggregating manner. 
 Each text is a pool of words, from which words are sampled without replacement.
 The pool is replenished if it is exhausted before the chunk has sufficiently many words.
 Since the random sampling of unmasking features introduces variance, unmasking is performed multiple times and the curves are averaged.
@@ -115,9 +116,9 @@ The content of the while loop is, except the number of removed features (\citep{
 
 \begin{figure}[htbp]
     \centering
-    \includesvg[width=\textwidth]{images/unmasking/unmasking.svg}
+    \includesvg[width=\textwidth]{images/unmasking/generalized_unmasking.svg}
     \caption{Workflow of Generalized Unmasking~\citep{bevendorff_generalizing_2019}: (1) Create chunks by oversampling words of disputed and candidate texts and represent them using word frequencies. (2) Obtain \ac{svm} accuracy. (3) Eliminate most discriminative features. (4) Repeat from (3)-(4).}
-    \label{fig:unmasking}
+    \label{fig:generalized_unmasking}
 \end{figure}
 
 
