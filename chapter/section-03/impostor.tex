@@ -56,7 +56,7 @@ The final prediction is obtained by averaging these scores and applying a thresh
     \end{enumerate}
 \end{definition}
 
-\textcolor{red}{TODO: traditional impostor generation}
+
 
 % \begin{definition}
 %     [within-domain]
@@ -83,6 +83,21 @@ Affix (word end) n-grams capture morphology, and n-grams containing punctuation 
 Word n-grams capture topic information which is not necessary to obtain valid performance~\citep{Sapkota_ngrams_2015}.
 
 
+\subsubsection{Traditional \imp{} Generation}
+\label{subsubsec:traditional_impostor_generation}
+
+\textcolor{red}{TODO: traditional impostor generation}
+
+
+\citet{koppel_determining_2014} propose three \imp{} generation approaches.
+The fixed approach randomly samples impostors from a fixed set of impostor documents having no special relation to the document pair in question.
+They used aggregated results of random English Google queries.
+The on-the-fly method first selects 50 small set of 3 to 5 random medium-frequency words from the candidate text.
+Each set is used for a Google query.
+Aggregate the top 25 results of the respective queries.
+The results are considered impostors which are on-topic.
+Blogs \imps{} are randomly chosen texts from bloggers.
+\citet{koppel_determining_2014} state that these \imps{} belong to the same genre as the input text pair.
 
 
 

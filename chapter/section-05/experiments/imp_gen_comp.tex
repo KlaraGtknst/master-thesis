@@ -5,6 +5,12 @@ We evaluated the performance of traditional impostor generation~\citep{koppel_de
 For each dataset, one sample was selected from both the training and test splits. 
 The detector configuration is shown in Table~\ref{tab:imp_gen_comp}.
 
+To assess the quality of our \impAppr{} implementation, we first reimplement the original \impAppr{} by \citet{koppel_determining_2014}.
+Unlike \citet{koppel_determining_2014}, the fixed impostor generation in our implementation refers to texts from the same genre.
+We use texts from the test/ train set if the input text pair originates from the train/ test pair, respectively.
+Hence, we forgo explicitly including the blog impostor generation approach in our experiments, since it is the same as the fixed approach for the \dataBlog{} dataset.
+The parameters are set to the original default values.
+
 \begin{table}[h]
 \centering\small
 \caption{Configurations for detector.}
