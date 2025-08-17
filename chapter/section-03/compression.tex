@@ -1,0 +1,22 @@
+\subsubsection{Compression-based}
+% compression models, e.g. RAR or GZIP 
+This category of \ac{aa} approaches is based on general-purpose compression models such as RAR or PPMD. %(i.e. a variant of \ac{ppm}~\citep{tyo_state_2022}), LZW, GZIP, BZIP2 and 7ZIP.
+Such models capture textual characteristics by exploiting repeated character sequences~\citep{stamatatos_survey_2009,neal_surveying_2018}. 
+Natural language, in particular, allows for high compression ratios due to its strong predictability (English has an entropy of at most 1.75 bits per character). 
+For example, PPMD employs finite-order Markov language models for compression, which are highly effective in predicting character sequences in natural text but are also sensitive to increased entropy caused by text obfuscation~\citep{bevendorff_divergence_based_2020}.
+Accordingly, compression-based \ac{aa} methods are considered character-based approaches.
+
+They are further classified as profile-based methods. In this framework, an author profile is first constructed for each candidate author by concatenating all texts attributed to them and then compressing the resulting sequence. 
+The disputed text is subsequently concatenated with each author profile and compressed as well. 
+The difference in compression size between (i) the concatenated profile with the disputed text and (ii) the profile alone is then calculated~\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}. 
+The author whose profile yields the smallest difference is selected as the most likely author~\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
+
+The rationale behind this approach is that texts written by the same author can typically be compressed more efficiently than texts produced by different authors~\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
+
+% RAR is the most accurate one \citep{elmanarelbouanani_authorship_2014}.
+% \citet{elmanarelbouanani_authorship_2014} include the Normalized Compressor Distance (NCD) as a distance measure for compression-based methods. % Chap. 4.2
+% \citet{stamatatos_survey_2009} claim that probabilistic approaches are faster in comparison to compression models.
+% \citet{neal_surveying_2018} state that LZ77 is a lossless data compression algorithm that is used to compress data by detecting duplicates.
+
+% Compression-based models can also be considered similarity-based measures which are slow 
+% since the compression algorithm is called for each training text \citep{stamatatos_survey_2009,neal_surveying_2018}.
