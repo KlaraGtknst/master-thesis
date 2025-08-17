@@ -63,13 +63,18 @@ A key component of the \impAppr{} is the use of hard negative mining.
 The \impAppr{} generates impostor candidates to make verification more robust. 
 In the \ac{aa} context, hard negatives are defined as text pairs from different authors that are nonetheless highly similar. 
 To ensure difficulty, impostor texts must be drawn from the same domain as the candidate, where “domain” encompasses factors such as topic, genre, register, idiolect, or time period~\citep{bischoff_importance_2020}. 
+The workflow described above is illustrated in \autoref{fig:impostor}.
 
-The overall workflow of the method is illustrated in \autoref{fig:impostor}.
+The process is carried out twice for each pair of texts, swapping the roles of the disputed text and the candidate text. 
+In this way, each text serves once as the disputed text and once as the reference for impostor generation. 
+For each direction, a score is computed based on the number of times a candidate is identified as most similar to the disputed text across random feature reductions. 
+The final prediction is obtained by averaging these scores and applying a threshold.
+
 
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/imposter/impostor.svg}
-    \caption{Workflow of the \imp{} method.}
+    \caption{\impAppr{} workflow: (1) Impostor generation, (2) creation of feature vectors using frequent n-grams, (3) random dimensionality reduction, (4) similarity computation and selection of the most similar candidate.}
     \label{fig:impostor}
 \end{figure}
 
