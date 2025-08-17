@@ -1,10 +1,5 @@
-\section{\imp{} Generation}
+\section{\acs{llm}-based \Imp{} Generation}
 \label{sec:impostor_generation}
-
-The generation of \imps{} relies on the paraphrasing capabilities of \acp{llm}. 
-An \imp{} can be obtained either in a single step, where the model directly produces a paraphrase, or in two steps, where the model first extracts information from the reference text and subsequently generates a paraphrase based on the extracted information. 
-The latter allows for more rigorous disentanglement of content and style, but at the cost of additional computational overhead. 
-In both cases, \imp{} generation functions as a proxy re-generating the reference text, yielding text variants that systematically neutralize confounding stylistic factors while retaining the core meaning of the original document.
 
 % good \imps{}: hard negatives
 Equivalent to the original \impAppr{} by \citet{koppel_determining_2014}, we denote ideal \imp{} texts as hard negatives.
@@ -12,15 +7,6 @@ In other words, texts that are not authored by the candidate author, but are dif
 Note that the quality of the \imps{} directly contributes to the performance of the model, 
 since easy \imps{} lead to \acp{fp} and too difficult ones to \acp{fn}.
 
-\subsubsection{Traditional \imp{} Generation}
-\label{subsubsec:traditional_impostor_generation}
-
-To assess the quality of our \impAppr{} implementation, we first reimplement the original \impAppr{} by \citet{koppel_determining_2014}.
-The parameters are set to the original default values.
-
-
-\subsubsection{Novel \imp{} Generation}
-\label{subsubsec:novel_impostor_generation}
 % obstacles for \imp{} generation in the past
 The traditional generation techniques outlined by \citet{koppel_determining_2014} faced difficulties in controlling essential factors such as text topic or genre.
 Since authorial style heavily depends on these factors, traditional \imps{} can differ a lot from the candidate text.
@@ -30,63 +16,27 @@ i.e. among others, the author's task, and references.
 Hence, all external influential factors are specified to match the original conditions.
 Unfortunately, due to the nature of this task 
 (i.e. requirement of \ac{av} is often linked to a lack of information of the author either due to death in the case of literary texts or 
-due to unwillingness of cooperation in case of plagiarism), this information is in most cases not available.
+due to unwillingness of cooperation in case of plagiarism or dispute over autorship), this information is in most cases not available.
 % heuristics: paraphrase
 With \acp{llm} it is possible attempt to control external factors and 
 as a heuristic to modelling the generation process, paraphrase the original text.
+
+\subsection{Theoretical background on paraphrasing} 
+
 % lack of definition of paraphrase
 Due to the lack of a universal definition of paraphrases~\citep{gohsen_task_oriented_2024}, the following criteria are used to determine the quality of the generated paraphrases:
 % our criteria for good paraphrases
 \begin{itemize}
-    \item The generated text should belong to the same topic, genre and exhibit the same tone (\textcolor{red}{=tone???}) as the original text.
+    \item The generated text should belong to the same topic, genre and exhibit the same tone as the original text.
     \item The semantic information may differ (i.e. hallucination is allowed).
     \item The generated text should be different to the original text in terms of style, i.e. wording and sentence structure (i.e. syntactic similarity). \textcolor{red}{threshold to exclude near-duplicate paraphrases~\citep{gohsen_captions_2023}?}
 \end{itemize}
 
-
-\citet{ayele_overview_2024,bevendorff_overview_2024} collected articles of major 2021 US news from Google News (Pan AI News 2021 \citep{bevendorff_overview_2024}).
-They chose this time period since it predates the release of GPT-3.5 \citep{bevendorff_overview_2024,ayele_overview_2024}.
-As a consequence, they claim that their dataset is most likely human-authored.
-% artificial texts
-Next, they used GPT-4-Turbo to create bullet-point summaries of the articles \citep{bevendorff_overview_2024,ayele_overview_2024}. 
-According to \citet{bevendorff_overview_2024}, the prompt used to generate the summaries in 2021 was:
-\begin{quote}
-    \textit{Summarize the following text in five to six short bullet points and give an overall description
-    of the genre and tone of the text.}
-\end{quote}
-% in JSON format:
-Moreover, they extracted the article's type (nine classes), target audience (three classes), the author's political stance (three classes), the article's dateline, 
-and the names and functions of directly quoted spokespersons, if any \citep{bevendorff_overview_2024}.
-Based on these summaries, 15 \acp{llm}-generated newspaper articles \citep{ayele_overview_2024}.
-They were prompted to assume the role of the journalist describes by the additional information extracted from the original texts \citep{bevendorff_overview_2024}.
-
-
-% prompting
-The quality of \ac{llm} generated text depends on the quality of prompt~\citep{Wu_ODD_challenges_2025}.
-There are multiple popular prompting approaches, such as few-shot prompt~\citep{brown_few_shot_prompting_2020}, combining prompt, Chain of Thought~\citep{Wei_CoT_2022}, zero-shot Chain of Thought~\citep{kojima_zeroshot_2022}.
-
-% Notes
-According to \citet{gohsen_task_oriented_2024}, there are two perspectives to paraphrasing: 
+There are two perspectives to paraphrasing:
 Lexical (i.e. changes at word level) and syntactic (i.e. changes at syntactic level).
-Paraphrase types can be classified into surface and semantic level. Finer levels are outlined in \citep{gohsen_task_oriented_2024}.
+Paraphrase types can be classified into surface and semantic level~\citep{gohsen_task_oriented_2024}.
 
-Popular paraphrase categories include \citep{fu_learning_2024}:
-\begin{itemize}
-    \item Top-level classification perspective: 
-        \begin{itemize}
-            \item Lexicon-based changes
-            \item Morphology-based changes
-            \item others
-        \end{itemize}
-    \item Second-level classification perspective:
-        \begin{itemize}
-            \item Change of format
-            \item Semantic-based
-            \item Change of order
-        \end{itemize}
-\end{itemize}
-
-\citet{zhou_paraphrase_2025} (pg. 3, tab.1, and examples afterwards) define a topology of paraphrase types:
+\citet{zhou_paraphrase_2025} define a topology of paraphrase types:
 \begin{itemize}
     \item Morphology based: inflection changes (e.g. singular to plural), derivation changes (e.g. adjective to verb), functional word substitution (e.g. this to that).
     \item Lexicon based: Same polarity substitution (e.g. synonym), opposite polarity substitution (e.g. antonym), converse substitution (e.g. opposite view point), spelling changes, synthetic/ analytic substitution, relational substitution
@@ -97,4 +47,90 @@ Popular paraphrase categories include \citep{fu_learning_2024}:
 
 \citet{zhou_paraphrase_2021} claim it is difficult to control the style of generated paraphrases.
 
-Another approach to paraphrasing is back-translation, which may limit diversity \citep{zhou_paraphrase_2025}.
+
+
+
+The generation of \imps{} relies on the paraphrasing capabilities of \acp{llm} and the quality of prompt~\citep{Wu_ODD_challenges_2025}. 
+
+% In both cases, \imp{} generation functions as a proxy re-generating the reference text, yielding text variants that systematically neutralize confounding stylistic factors while retaining the core meaning of the original document.
+
+\subsection{One-step paraphrasing}
+An \imp{} can be obtained in a single step, where the model directly produces a paraphrase based on a prompt.
+% prompting
+There are multiple popular prompting approaches, such as few-shot prompt~\citep{brown_few_shot_prompting_2020}, combining prompt, Chain of Thought~\citep{Wei_CoT_2022}, zero-shot Chain of Thought~\citep{kojima_zeroshot_2022}.
+We iteratively refined our prompts. 
+Our main findings were that (1) is important to specify what the \ac{llm} should avoid when generating an answer and (2) that the instruction should be positioned at the end of the blog, since \acp{llm} forget the task if the input text is too big (e.g., Gutenberg corpus).
+Finally, we used the two prompts below.
+\begin{quote}
+    \textit{For the text above: Paraphrase the sentence by first identifying the main subject, verb, and object. Then find synonyms for each and construct a new sentence. Only output the final paraphrased sentence.}
+\end{quote}
+\begin{quote}
+    \textit{For the text above: Paraphrase this sentence. Do not change the meaning, but use different words and structure. Output only the paraphrased sentence.}
+\end{quote}
+
+We also explored different \acp{llm} and APIs.
+We tested T5 based models from Huggingface but found that were bad at instruction following and often failed to return results of desired structure.
+Finally, we used the models specified in \autoref{tab:base_llms}.
+\begin{table}[]
+\centering
+\caption{Base \acp{llm} used for paraphrasing.}
+\label{tab:base_llms}
+% \resizebox{\textwidth}{!}{%
+\begin{tabular}{ll}
+\toprule
+\textbf{Model ID}                    & \textbf{Host} \\
+\midrule
+qwen3-32b                            & GWDG/ SAIA    \\
+mistral-large-instruct               & GWDG/ SAIA    \\
+openai-gpt-oss-120b                  & GWDG/ SAIA    \\
+meta-llama-3.1-8b-instruct           & GWDG/ SAIA    \\
+meta-llama/Llama-3.3-70B-Instruct    & IONOS         \\
+mistralai/Mixtral-8x7B-Instruct-v0.1 & IONOS     \\
+\bottomrule   
+\end{tabular}%
+% }
+\end{table}
+
+
+\subsection{Two-step paraphrasing}
+
+All our two step approaches consist of two \ac{llm} instances.
+By default, these instances belong to the same model.
+In our code, we opted to use openai-gpt-oss-120b as our base model.
+However, it can be adapted to personal preferences whether that should be the case.
+
+Our first category of two-step \imp{} generation is translation based.
+The input text is translated to another language, by default French, and subsequently translated back to English.
+Research claims that this approach has limited diversity~\citep{zhou_paraphrase_2025}.
+
+The other category of our two-step paraphrasing is inspired by \ac{pan} 2021~\citep{bevendorff_overview_2024,ayele_overview_2024}, where they use two steps as well.
+First, the following prompt instructs GPT-4-Turbo to create bullet-point summaries of the articles.
+\begin{quote}
+    \textit{Summarize the following text in five to six short bullet points and give an overall description
+    of the genre and tone of the text.}
+\end{quote}
+% in JSON format:
+They also extracted the article's type, target audience, the author's political stance, the article's dateline, and the names and functions of directly quoted spokespersons, if any.
+Based on these summaries, 15 \acp{llm} generated newspaper articles.
+They were prompted to assume the role of the journalist describes by the additional information extracted from the original texts \citep{bevendorff_overview_2024,ayele_overview_2024}
+
+An \imp{} can be obtained in two steps, where the model first extracts information from the reference text and subsequently generates a paraphrase based on the extracted information. 
+This allows for rigorous disentanglement of content and style, but at the cost of additional computational overhead. 
+
+All two-step generators belonging two this second category are built based on the same principle, but one detail differs across different approaches.
+All approaches extract in the first step the tone, time period, register, target audience and genre from the input text.
+Depending on the approach they also extract either a bullet point summary, the task of the author, the topic of the text, or the title of the text. 
+The bullet point extractor prompt is specified in the following, while all others can be derived from the Appendix.
+
+% bullet point
+\begin{quote}
+    \textit{Summarize the text above in five to six short bullet points. Respond ONLY with a JSON object in the following format: $\{$"bullet\_points":"<list of bullet points>","tone":"<tone>","time\_period":<time\_period>,"language\_register":<register>,"target\_audience":"<target\_audience>","genre":"<genre>"$\}$. Do not use direct quotes.}
+\end{quote}
+
+The second step consists of generating the paraphrase based on the extracted information.
+Again, all methods slightly differ from the one given below and can be obtained from the Appendix.
+\begin{minted}{python}
+prompt = "Write a text which covers the following items:\n" 
+    + "\n".join(f"- {bp}" for bp in bullet_points)
+\end{minted}
+
