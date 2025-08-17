@@ -26,100 +26,126 @@ The rationale behind this approach is that texts written by the same author can 
 % Compression-based models can also be considered similarity-based measures which are slow 
 % since the compression algorithm is called for each training text \citep{stamatatos_survey_2009,neal_surveying_2018}.
 
-
-
 \subsubsection{Unmasking Method}
 \label{subsec:unmasking}
 
-The meta-learning approach Unmasking algorithm was first proposed by \citet{koppel_authorship_2004}.
-Meta learning is a technique where the system learns to learn based on learning successes and failures.
-It is based on the idea that omitting discriminant features and the consequent drop in accuracy of the classifier can be used for inference of the author of the unseen text.
-For Unmasking, (1) an unseen text is chunked, such that the non-overlapping chunks compose multiple samples belonging either to the author or to a different author.
-Next, one \ac{svm} is trained for each candidate author to discriminate the disputed texts' chunks from the candidate author's texts.
-The \acp{svm}' features are usually frequencies over the $n=250$ highest average frequency words.
-(2) The 10-fold cross validation accuracy for the trained model are obtained.
-(3) For the next iteration, omit the most discriminating features among those left.
-(4) Repeat steps (3) and (4).
-(5) Another linear \ac{svm} classifier is trained on the accuracy curve, its central-difference gradients (first- and second order), 
-and its gradients sorted by magnitude.
-This classifier is used to predict the whether the texts originate from the same author.
+The Unmasking algorithm was first introduced by \citet{koppel_authorship_2004} as a meta-classification approach to \ac{av}. 
+The central idea is that two texts by the same author should become increasingly indistinguishable once the most discriminative stylistic features are removed. 
+In contrast, if texts are from different authors, their differences persist even when top-ranked features are discarded. 
+This behaviour is captured through the performance degradation of a classifier trained to distinguish between the texts.
 
-After a few iterations, the classifier is no longer able to discriminate between the unseen text and the texts of the true author~\citep{stein_intrinsic_2011,tyo_state_2022,bevendorff_divergence_based_2020,koppel_authorship_2004,stamatatos_survey_2009} 
-Two texts are probably written by different authors if the differences between are robust to changes in the underlying feature set used to represent the documents.
+The original procedure can be summarized as follows:
+\begin{enumerate}
+    \item Split the disputed text and the candidate text into non-overlapping chunks, which serve as samples from the unknown author and the candidate author respectively. 
+    \item Represent the chunks using word-frequency features (typically the $n=250$ most frequent words across the combined texts).
+    \item Train a linear \ac{svm} to discriminate between the two sets of chunks and record the 10-fold cross-validation accuracy.
+    \item Remove the most discriminative features (e.g., the top three positive and top three negative weights).  
+    \item Repeat steps 3–4 until no features remain, yielding an accuracy degradation curve.  
+    \item Finally, train a meta-classifier on this curve (and optionally on its first- and second-order gradients) to decide whether the two texts were written by the same author.  
+\end{enumerate}
+The intuition is that, for same-author comparisons, the classifier’s accuracy quickly drops to chance level as the most informative features are eliminated. 
+For different-author comparisons, classification remains feasible for longer, resulting in a slower degradation curve~\citep{stein_intrinsic_2011,tyo_state_2022,bevendorff_divergence_based_2020,stamatatos_survey_2009}. 
 
-To operationalize this idea, differences are measured using classification via cross-validation accuracy~\citep{koppel_authorship_2011,bevendorff_generalizing_2019,bevendorff_divergence_based_2020,potthast_stylometric_2018,koppel_authorship_2004}, 
-creating a performance degradation curve~\citep{tyo_state_2022,koppel_authorship_2004}.
-An \ac{svm} is trained to classify the degradation curve to determine whether two text originated from the same author~\citep{tyo_state_2022,bevendorff_generalizing_2019,koppel_authorship_2004}.
-Steep decrease in the curve indicates that the two texts are similar, and thus, written by the same authors~\citep{potthast_stylometric_2018,koppel_authorship_2004}.
-% Provided that the unseen text is very large, this method can handle small open candidate sets \citep{koppel_authorship_2011}.
-% koppel_determining_2014, pg. 1 + bevendorff_generalizing_2019 chap. 3.1 incl. algo: based on text chunks of length >= 500 words each
-% \citet{koppel_determining_2014,bevendorff_generalizing_2019} claim that effective unmasking requires input documents to be large 
-% (i.e. > 10000 words~\citep{koppel_determining_2014}, book-length~\citep{bevendorff_generalizing_2019}, 
-% $\geq$ 5000 words (500 words per chunk) \citep{bevendorff_divergence_based_2020}).
-% Otherwise the training set becomes too sparse and no descriptive curves can be generated 
-% \citep{bevendorff_generalizing_2019,bevendorff_divergence_based_2020}.
+To address the applicability restricted to long texts, \citet{bevendorff_generalizing_2019,bevendorff_divergence_based_2020} proposed Generalized Unmasking. 
+Instead of splitting texts into contiguous chunks, they construct chunks by randomly sampling words in a bootstrap-aggregated manner. 
+Words are drawn without replacement from a pool until the target chunk size is reached.
+If the pool is exhausted, it is replenished. 
+Because random sampling introduces variance, unmasking is repeated multiple times and the resulting curves are averaged. 
+% The generalized algorithm is summarized in Listing \ref{alg:generalized_unmasking}, and its workflow is visualized in \autoref{fig:generalized_unmasking}. 
+The Generalized Unmasking workflow is visualized in \autoref{fig:generalized_unmasking}. 
+Except for the modified sampling strategy and the adjusted number of features removed per iteration (six in the original method~\citep{koppel_authorship_2004}, ten in the generalized variant~\citep{bevendorff_generalizing_2019}), the procedure remains identical to the original unmasking framework.
 
-% generalized unmasking
-\citet{bevendorff_generalizing_2019,bevendorff_divergence_based_2020} propose generalized Unmasking as displayed in \autoref{fig:generalized_unmasking}.
-Opposed to the original method, chunks by oversampling words in a bootstrap aggregating manner. 
-Each text is a pool of words, from which words are sampled without replacement.
-The pool is replenished if it is exhausted before the chunk has sufficiently many words.
-Since the random sampling of unmasking features introduces variance, unmasking is performed multiple times and the curves are averaged.
-The algorithm is displayed in \autoref{alg:generalized_unmasking}.
-The content of the while loop is, except the number of removed features (\citep{koppel_authorship_2004}: 6 total), similar to the original unmasking algorithm \citep{koppel_authorship_2004}.
-
-\begin{algorithm}
-    \caption{Generalized Unmasking Algorithm \citep{bevendorff_generalizing_2019,bevendorff_divergence_based_2020}}
-    \label{alg:generalized_unmasking}
-    \begin{algorithmic}[1]
-    \Procedure{Unmasking}{$A$, $B$}
-        \Comment{$A$, $B$: input documents}
-    
-        \State $\mathcal{C}_A \gets \text{RandomChunks}(A, 30, 700)$ \Comment{30 chunks, 700 words each}
-        \State $\mathcal{C}_B \gets \text{RandomChunks}(B, 30, 700)$
-        \State $\mathcal{F} \gets \text{TopFreqWords}(A, B, 250)$
-        \State $\mathcal{C} \gets \mathcal{C}_A \cup \mathcal{C}_B$
-
+% \begin{algorithm}
+%     \caption{Generalized Unmasking Algorithm \citep{bevendorff_generalizing_2019,bevendorff_divergence_based_2020}}
+%     \label{alg:generalized_unmasking}
+%     \begin{algorithmic}[1]
+%     \Procedure{Unmasking}{$A$, $B$}
+%         \Comment{$A$, $B$: input documents}
+%         \State $\mathcal{C}_A \gets \text{RandomChunks}(A, 30, 700)$
+%         \State $\mathcal{C}_B \gets \text{RandomChunks}(B, 30, 700)$
+%         \State $\mathcal{F} \gets \text{TopFreqWords}(A, B, 250)$
+%         \State $\mathcal{C} \gets \mathcal{C}_A \cup \mathcal{C}_B$
         
-        \While{$|\mathcal{F}| \geq 0$}
-        \State $a \gets \text{CVAcc}(\mathcal{C}_A, \mathcal{C}_B, \mathcal{F}, linSVM)$ \Comment{Append $10$-fold cross-validation accuracy}
-        \State $\mathcal{F} \gets \mathcal{F} \setminus \mathcal{F}_{\text{top}}^{\pm}$ \Comment{Remove top $5$ most significant positive and negative features}
-    
-        \EndWhile
-    
-        \State \Return List of recorded accuracies $a$
-    \EndProcedure
-    \end{algorithmic}
-\end{algorithm}
-
-% hyperparameters
-% The most important hyperparameters are the number of chunks, the number of words per chunk, the size of feature vectors, 
-% the number of word removals per round, and the number of averaged unmasking runs.
-% More chunks result in generally shallower curves while shorter features vectors or more removals produce steep curves.
-% Ideally, curves are not too steep and granular enough to allow distinguishing between different same and different author pairs.
-% \citet{bevendorff_bias_2019} recommend 25 to 50 chunks, vector sizes of 250 to 400 features, not fewer than 5, yet not more than 20 removals per round, 
-% between 500 and 700 words per chunk and about 10 runs to average for a curve.
-% They increase the minimal distance between the \ac{svm} hyperplane and the decision boundary, i.e. their confidence parameter $c$, to increase precision.
-% In a medium- to high-assurance scenario (where \acp{fp} should be avoided, but are not entirely critical), they recommend $c \geq 0.6$.
-% If \acp{fp} should be avoided at all costs, they recommend $c \geq 0.7$.
-% \citet{bevendorff_bias_2019} claim that, for this approach, hyperparameter tuning is simpler than for black box approaches.
-
-% % metric results
-% \citet{bevendorff_bias_2019} report that the generalized unmasking approach heavily prioritizes precision 
-% opposed to compression-based approaches that balance precision and recall.
-    
-
-
-
-
-
+%         \While{$|\mathcal{F}| > 0$}
+%             \State $a \gets \text{CVAcc}(\mathcal{C}_A, \mathcal{C}_B, \mathcal{F}, \text{linSVM})$
+%             \State $\mathcal{F} \gets \mathcal{F} \setminus \mathcal{F}_{\text{top}}^{\pm}$
+%         \EndWhile
+%         \State \Return List of accuracies $a$
+%     \EndProcedure
+%     \end{algorithmic}
+% \end{algorithm}
 
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/unmasking/generalized_unmasking.svg}
-    \caption{Workflow of Generalized Unmasking~\citep{bevendorff_generalizing_2019}: (1) Create chunks by oversampling words of disputed and candidate texts and represent them using word frequencies. (2) Obtain \ac{svm} accuracy. (3) Eliminate most discriminative features. (4) Repeat from (3)-(4).}
+    \caption{Workflow of Generalized Unmasking~\citep{bevendorff_generalizing_2019}: (1) Generate chunks by oversampling words from the disputed text $A$ and the candidate text $B$. (2) Represent the chunks using the most frequent words as features. (3) Train a linear \ac{svm} and record the 10-fold cross-validation accuracy. (4) Remove the six most discriminative features. (5) Repeat steps (3)–(4) until no features remain.}
     \label{fig:generalized_unmasking}
 \end{figure}
+
+% \subsubsection{Unmasking Method}
+% \label{subsec:unmasking}
+
+% The meta-learning approach Unmasking algorithm was first proposed by \citet{koppel_authorship_2004}.
+% Meta learning is a technique where the system learns to learn based on learning successes and failures.
+% It is based on the idea that omitting discriminant features and the consequent drop in accuracy of the classifier can be used for inference of the author of the unseen text.
+% For Unmasking, (1) an unseen text is chunked, such that the non-overlapping chunks compose multiple samples belonging either to the author or to a different author.
+% Next, one \ac{svm} is trained for each candidate author to discriminate the disputed texts' chunks from the candidate author's texts.
+% The \acp{svm}' features are usually frequencies over the $n=250$ highest average frequency words.
+% (2) The 10-fold cross validation accuracy for the trained model are obtained.
+% (3) For the next iteration, omit the most discriminating features among those left.
+% (4) Repeat steps (3) and (4).
+% (5) Another linear \ac{svm} classifier is trained on the accuracy curve, its central-difference gradients (first- and second order), 
+% and its gradients sorted by magnitude.
+% This classifier is used to predict the whether the texts originate from the same author.
+
+% After a few iterations, the classifier is no longer able to discriminate between the unseen text and the texts of the true author~\citep{stein_intrinsic_2011,tyo_state_2022,bevendorff_divergence_based_2020,koppel_authorship_2004,stamatatos_survey_2009} 
+% Two texts are probably written by different authors if the differences between are robust to changes in the underlying feature set used to represent the documents.
+
+% To operationalize this idea, differences are measured using classification via cross-validation accuracy~\citep{koppel_authorship_2011,bevendorff_generalizing_2019,bevendorff_divergence_based_2020,potthast_stylometric_2018,koppel_authorship_2004}, 
+% creating a performance degradation curve~\citep{tyo_state_2022,koppel_authorship_2004}.
+% An \ac{svm} is trained to classify the degradation curve to determine whether two text originated from the same author~\citep{tyo_state_2022,bevendorff_generalizing_2019,koppel_authorship_2004}.
+% Steep decrease in the curve indicates that the two texts are similar, and thus, written by the same authors~\citep{potthast_stylometric_2018,koppel_authorship_2004}.
+
+% % generalized unmasking
+% \citet{bevendorff_generalizing_2019,bevendorff_divergence_based_2020} propose generalized Unmasking as displayed in \autoref{fig:generalized_unmasking}.
+% Opposed to the original method, chunks by oversampling words in a bootstrap aggregating manner. 
+% Each text is a pool of words, from which words are sampled without replacement.
+% The pool is replenished if it is exhausted before the chunk has sufficiently many words.
+% Since the random sampling of unmasking features introduces variance, unmasking is performed multiple times and the curves are averaged.
+% The algorithm is displayed in \autoref{alg:generalized_unmasking}.
+% The content of the while loop is, except the number of removed features (\citep{koppel_authorship_2004}: 6 total), similar to the original unmasking algorithm \citep{koppel_authorship_2004}.
+
+% \begin{algorithm}
+%     \caption{Generalized Unmasking Algorithm \citep{bevendorff_generalizing_2019,bevendorff_divergence_based_2020}}
+%     \label{alg:generalized_unmasking}
+%     \begin{algorithmic}[1]
+%     \Procedure{Unmasking}{$A$, $B$}
+%         \Comment{$A$, $B$: input documents}
+    
+%         \State $\mathcal{C}_A \gets \text{RandomChunks}(A, 30, 700)$ \Comment{30 chunks, 700 words each}
+%         \State $\mathcal{C}_B \gets \text{RandomChunks}(B, 30, 700)$
+%         \State $\mathcal{F} \gets \text{TopFreqWords}(A, B, 250)$
+%         \State $\mathcal{C} \gets \mathcal{C}_A \cup \mathcal{C}_B$
+
+        
+%         \While{$|\mathcal{F}| \geq 0$}
+%         \State $a \gets \text{CVAcc}(\mathcal{C}_A, \mathcal{C}_B, \mathcal{F}, linSVM)$ \Comment{Append $10$-fold cross-validation accuracy}
+%         \State $\mathcal{F} \gets \mathcal{F} \setminus \mathcal{F}_{\text{top}}^{\pm}$ \Comment{Remove top $5$ most significant positive and negative features}
+    
+%         \EndWhile
+    
+%         \State \Return List of recorded accuracies $a$
+%     \EndProcedure
+%     \end{algorithmic}
+% \end{algorithm}
+
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includesvg[width=\textwidth]{images/unmasking/generalized_unmasking.svg}
+%     \caption{Workflow of Generalized Unmasking~\citep{bevendorff_generalizing_2019}: (1) Create chunks by oversampling words of disputed and candidate texts and represent them using word frequencies. (2) Obtain \ac{svm} accuracy. (3) Eliminate most discriminative features. (4) Repeat from (3)-(4).}
+%     \label{fig:generalized_unmasking}
+% \end{figure}
 
 
 
