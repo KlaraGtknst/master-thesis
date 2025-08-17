@@ -1,78 +1,18 @@
 \chapter{\acs{llm}-based \imp{} Method}
 \label{chap:llm_impostor_method}
-    LLM-based \imp{} method
-    - why? control confounders
-    - how to generate \imps{}? 
-        - model generation process-> proxy paraphrase
-        - paraphrases
-        - 1 vs 2 steps
 
+\section{Introduction}
 
-  \begin{definition}
-    [n-gram]
-    $n$ contiguous words also known as word collocations. \todo{cite, reference?\citep{koppel_authorship_2011}?}
-    n-grams are no stylometric features \citep{altakrori_topic_2021}.
-    % Quelle Martin Potthast Gespräch 19.05.2025:
-    Tri-grams are commonly used in stylistic analysis, due to their ability to capture inflections, % Flexion/ Beugung in Deutsch
-    morphemes, %  smallest meaningful constituents within a linguistic expression and particularly within a word
-    and other syntactic structures for Germanic languages.
-    Character-level $n$-gram features capture the frequency of $n$ consecutive characters in a text \citep{neal_surveying_2018}.
-    The optimal $n$ is language dependent \citep{neal_surveying_2018}.
-\end{definition}
+A central challenge in \ai{} is the presence of confounding factors such as register, genre, topic, and target audience. 
+These dimensions influence linguistic choices independently of authorial style, thereby obscuring the stylometric features relevant for authorship-related tasks. 
+To address this issue, we propose an extension of the \impAppr{} originally proposed by \citet{koppel_determining_2014} that leverages \acp{llm} to systematically control for such confounders. 
+By generating texts under carefully constrained conditions, we obtain \imps{} that preserve the semantic content of the original while capturing the \ac{llm}'s authorial style, thereby serving as controlled proxies for modeling the actual generation process of the reference text.
 
-\begin{definition}
-    [Space free n-gram]
-    Removing spaces from the $n$-gram reduces the number of $n$-grams.
-    \citet{koppel_authorship_2011} use these definitions:
-    \begin{enumerate}
-        \item a string of $n$ characters that not include spaces
-        \item a string of less than $n$ characters that is surrounded by spaces
-    \end{enumerate}
-\end{definition}
+The generation of \imps{} relies on the paraphrasing capabilities of \acp{llm}. 
+An \imp{} can be obtained either in a single step, where the model directly produces a paraphrase, or in two steps, where the model first extracts information from the reference text and subsequently generates a paraphrase based on the extracted information. 
+The latter allows for more rigorous disentanglement of content and style, but at the cost of additional computational overhead. 
+In both cases, \imp{} generation functions as a proxy re-generating the reference text, yielding text variants that systematically neutralize confounding stylistic factors while retaining the core meaning of the original document.
 
-\section{Contextual factors/ Confounder impact on Authorial Style}
-\label{sec:contextual_factors}
-\textcolor{red}{TODO}
+\input{chapter/section-04/impact_confounders.tex}
 
 \input{chapter/section-04/imposter_generation.tex}
-
-\textcolor{red}{Incorrect display + on-the-fly is missing}
-\begin{figure}[htbp]
-  \centering
-  \begin{subfigure}[b]{0.45\textwidth}
-    \centering
-    \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig4/blog/roc_prec_recall_curve_r100_top100000_Same_Author_dif_imp_gen.svg}
-    \caption{\dataBlog{}}
-    \label{fig:blog_same_author}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{0.45\textwidth}
-    \centering
-    \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig4/student_essays/roc_prec_recall_curve_r100_top100000_Same_Author_dif_imp_gen.svg}
-    \caption{\dataStudent{}}
-    \label{fig:student_essays_same_author}
-  \end{subfigure}
-  \caption{Same authors}
-  \label{fig:same_authors}
-\end{figure}
-
-
-\begin{figure}[htbp]
-  \centering
-  \begin{subfigure}[b]{0.45\textwidth}
-    \centering
-    \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig4/blog/roc_prec_recall_curve_r100_top100000_Different_Author_dif_imp_gen.svg}
-    \caption{\dataBlog{}}
-    \label{fig:blog_different_author}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{0.45\textwidth}
-    \centering
-    \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig4/student_essays/roc_prec_recall_curve_r100_top100000_Different_Author_dif_imp_gen.svg}
-    \caption{\dataStudent{}}
-    \label{fig:student_essays_different_author}
-  \end{subfigure}
-  \caption{Different authors}
-  \label{fig:different_authors}
-\end{figure}
-

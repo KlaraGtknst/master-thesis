@@ -29,6 +29,13 @@ Our approach differs from the work of \citet{uchendu_authorship_2020} in that ou
 but only \acp{llm}.
 Moreover, we use different classifiers originally designed for \ac{av}, rather than \ac{aa}.
 
+There are different categories of \ac{llm} detectors-
+Metric-based detectors classify based on a threshold and the inferred log-probability from the generator \ac{llm}.
+Examples inlcude GLTR, Range, LogRank and DetectGPT.
+Fine-tuned detectors are pretrained \acp{lm} in a supervised scenario.
+Examples include the OpenAI Detector.
+Watermark-based detectors add algorithmically detectable signatures into the text during generation~\citep{wang_stumbling_2024}.
+
 %% LLM (gpt-3.5, GPT-4) as detector
 \citet{bhattacharjee_fighting_2024} evaluate using an \ac{llm} as classifier for \ac{llm} detection.
 They use \ac{gpt}-3.5 and \ac{gpt}-4 to classify texts as human or machine generated.
@@ -78,6 +85,7 @@ DetectGPT receives a disputed text and a candidate \ac{llm} as input.
 While we use a similarity measure on traditional n-gram frequency vectors, 
 \citet{mitchell_detectgpt_2023} require a scoring \ac{llm} to compute the perturbation discrepancy $d$.
 Hence, our approach is easier in terms of computational resources and requirements.
+Research building on DetectGPt finds that the whitebox approach is vulnerable to unknown models, especiall GPT-3.5-Turbo~\citep{Wu_ODD_challenges_2025}.
 
 %% LLM rewrite LLM texts less than human texts (no AA, but edit distance hypothesis)
 RAIDAR~\citep{mao_raidar_2024} builds upon the invariance property of \acp{llm}, 
@@ -136,3 +144,15 @@ but construct our own frequency based n-gram vectors input vector similarity met
 However, this approach discards the information which \ac{llm} produced the most similar paraphrase. 
 While our goal is to solve an \ac{aa} problem (i.e. multiclass classification), 
 \citet{baradia_mirror_2025} solve a binary classification problem (i.e. human vs. \ac{ai} generated text).
+
+
+% Paraphrasing
+\citet{Krishna_dipper_2023} have found that \ac{sota} \ac{llm} detectors are vulnerable to paraphrasing attacks.
+These adversarial attacks paraphrase the text such that the semantic content remains the same, but the syntactic and lexical features distributions change~\citep{wang_stumbling_2024}.
+The 11B parameter paraphrase generation model (DIPPER) manages to evade several detectors, including DetectGPT and OpenAI's text classifier.
+DIPPER is explicitely trained to be a paraphraser~\citep{Krishna_dipper_2023}.
+\citet{Sadasivan_t5_2023} employ DIPPER, LLaMA-2-7B-Chat with 7B parameters and T5-based paraphraser with 222M parameters as paraphrasers.
+The first two provide one-shot paraphrases while the T5 generates paraphrases in a sentence by sentence fashion.
+LLaMA-2-7B-Chat is an instruction-tuned model for chat purposes which is instructed to be a paraphraser via a system prompt.
+This system prompt instructs the model to generate diverse outputs while maintaining text length, text quality and grammar~\citep{Sadasivan_t5_2023}.
+We opted to omit explicit specification of diversity in our instruction, because for future application of our method to \ac{llm} detection, we want to capture the \ac{llm}'s style properties.

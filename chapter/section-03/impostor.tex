@@ -34,6 +34,29 @@ The final prediction is obtained by averaging these scores and applying a thresh
 
 
 
+  \begin{definition}
+    [n-gram]
+    $n$ contiguous words also known as word collocations. \todo{cite, reference?\citep{koppel_authorship_2011}?}
+    n-grams are no stylometric features \citep{altakrori_topic_2021}.
+    % Quelle Martin Potthast Gespräch 19.05.2025:
+    Tri-grams are commonly used in stylistic analysis, due to their ability to capture inflections, % Flexion/ Beugung in Deutsch
+    morphemes, %  smallest meaningful constituents within a linguistic expression and particularly within a word
+    and other syntactic structures for Germanic languages.
+    Character-level $n$-gram features capture the frequency of $n$ consecutive characters in a text \citep{neal_surveying_2018}.
+    The optimal $n$ is language dependent \citep{neal_surveying_2018}.
+\end{definition}
+
+\begin{definition}
+    [Space free n-gram]
+    Removing spaces from the $n$-gram reduces the number of $n$-grams.
+    \citet{koppel_authorship_2011} use these definitions:
+    \begin{enumerate}
+        \item a string of $n$ characters that not include spaces
+        \item a string of less than $n$ characters that is surrounded by spaces
+    \end{enumerate}
+\end{definition}
+
+\textcolor{red}{TODO: traditional impostor generation}
 
 % \begin{definition}
 %     [within-domain]
