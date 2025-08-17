@@ -1,89 +1,101 @@
+% \subsubsection{\imp{} Method}
+% \label{sec:impostor_method_theory}
 
-\subsubsection{\imp{} Method}
+
+% The \impAppr{} extends the n-gram Unmasking method, i.e. classifying the accuracy drop from a trained classifier for repeated feature subsampling~\citep{koppel_determining_2014}.
+% Similarly, it leverages random projections to lower dimensional spaces (i.e. random set of features set to zero is a projection).
+% It takes score of how often an author is predicted after each feature-elimination step.
+% The final prediction is made based on this score \citep{tyo_state_2022}.
+
+% % AV -> open-set
+% \ac{av} is an open-set problem, meaning that the author of an anonymous document may or may be not be part of the set of candidate authors.
+% % reduction: closed-set AA -> open-set AV
+% \citet{koppel_determining_2014} state that all closed-set \ac{aa} problems are reducible to the \ac{av} problem.
+% For a closed-set problem, the author of an anonymous document is part of the set of candidate authors.
+% For each candidate author, writing samples are available.
+% The task is to determine the author of the anonymous document from the set of candidate authors.
+% The universal reverse reduction is not true.
+% To reduce the \ac{aa} problem to the \ac{av} problem, we solve a \ac{av} problem, i.e. if text was written by a candidate author, 
+% for each of the respective candidates.
+% Ideally, we receive one positive answer for the correct candidate author and negative answers for all other candidates.
+% % complexity
+% \citet{koppel_determining_2014} explain that the \ac{av} problem is more complex than the \ac{aa} problem.
+% They claim that the ability to solve a closed-set \ac{aa} problem does not imply the ability to solve an open-set \ac{av} problem.
+% % open-set identification/ AA = many candidates problem
+% \citet{koppel_determining_2014} define the many-candidates problem, or the so-called open-set identification problem:
+% Given a large set of candidate authors, determine which, if any, of them wrote a given anonymous document.
+% According to \citet{koppel_determining_2014}, the many-candidates problem can be solved reasonably well: \autoref{lst:many_candidate_algo}.
+
+
+% \citet{koppel_determining_2014}' features Hard Negative Mining: 
+% It generates impostors as candidates for an artificial many-candidates problem.
+% Hence, the model selects the most difficult examples in each batch during training.
+% In the \ac{aa} context, hard negatives are defined as the most similar two texts from different authors.
+% Therefore, impostors should belong to the same domain as the candidate text.
+% The domain include topic, genre, register, idiolect, time period etc.~\citep{bischoff_importance_2020}.
+
+% The workflow is displayed in \autoref{fig:impostor}.
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includesvg[width=\textwidth]{images/imposter/imposter.svg}
+%     \caption{\imp{}.}
+%     \label{fig:impostor}
+% \end{figure}
+
+
+\subsubsection{\impAppr{}}
 \label{sec:impostor_method_theory}
 
+The \impAppr{} builds on the n-gram Unmasking method, which classifies authorship by measuring how quickly classifier accuracy declines under repeated feature subsampling~\citep{koppel_authorship_2004}. 
+Whereas the n-gram Unmasking method relies on complex, interdependent projections, the \impAppr{} uses random projections to transform features into lower-dimensional spaces.
+After each projection step, the method records how often a candidate author is predicted as the source of the text. 
+The aggregated score across all elimination steps forms the basis for the final prediction~\citep{tyo_state_2022}.
 
-\begin{definition}
-    [\imp{} method]
-    This method extends the ngram-unmasking method, i.e. iteratively omitting most influencely features (repeated feature subsampling \citep{koppel_determining_2014})
-    from a trained classifier and classifying the accuracy drop.
-    It takes score of how often an author is predicted after each feature-elimination step.
-    The final prediction is made based on this score \citep{tyo_state_2022}.
-\end{definition}
+\ac{av} is an open-set problem: the true author of an anonymous text may or may not be the candidate author. 
+As \citet{koppel_determining_2014} argue, every closed-set \ac{aa} problem can be reduced to an \ac{av} problem. 
+This reduction is achieved by testing each candidate author individually: if the verifier confirms authorship for exactly one candidate, attribution is successful. 
+However, the reverse does not hold: solving closed-set \ac{aa} does not guarantee the ability to solve the more complex open-set \ac{av} problem.
 
+Extending \ac{av}, \citet{koppel_determining_2014} introduce the many-candidates (or: open-set \ac{aa}) problem: given a large pool of candidate authors, determine which (if any) authored a given anonymous text. 
 
-\begin{definition}
-    [Hard Negative Mining]
-    This method updates the model during training only with the most difficult examples in each batch.
-    In the \ac{aa} context, difficult is defined as the most similar two texts from different authors, 
-    which makes the decision the most difficult.
-    \citet{tyo_state_2022} claim that the \ac{av} setting is strictly easier since 
-    it most compare to only a single text.
-    Due to the fact, that the most difficult example is model-dependent, \ac{av} problems can be made harder 
-    but they can not exist of exactly the hardest negatives.
-\end{definition}
+A key component of the \impAppr{} is the use of hard negative mining. 
+The \impAppr{} generates impostor candidates to make verification more robust. 
+In the \ac{aa} context, hard negatives are defined as text pairs from different authors that are nonetheless highly similar. 
+To ensure difficulty, impostor texts must be drawn from the same domain as the candidate, where “domain” encompasses factors such as topic, genre, register, idiolect, or time period~\citep{bischoff_importance_2020}. 
 
+The overall workflow of the method is illustrated in \autoref{fig:impostor}.
 
-\begin{definition}
-    [Domain]
-    The domain include topic, genre, register, idiolect, time period etc. \citep{bischoff_importance_2020}.
-\end{definition}
-  
-\begin{definition}
-    [Domain variables]
-    These include topic, genre and language \citep{bischoff_importance_2020}.
-\end{definition}
-
-\begin{definition}
-    [within-domain]
-    Experiments with P=Q.
-    Hence, it is necessary to ensure all texts are mutually from the same domain \citep{bischoff_importance_2020}.
-    \begin{table}[tbp]
-        \centering
-        \caption{Typical scheme $S_1$ for \ac{aa} problem instances, where A, B, are authors and P, Q domains and 
-        the vertical mapping denotes which author has written in which domain. 
-        For training, texts from A and B take turn; for testing, previously unseen texts from A and B are used \citep{bischoff_importance_2020}.}
-        \label{tab:within_domain_aa}
-        \begin{tabular}{|l|ll|ll|}
-        \hline
-        \textbf{Scheme $S_1$} & \multicolumn{2}{l|}{\textbf{training}} & \multicolumn{2}{l|}{\textbf{testing}} \\ \hline
-        \textbf{authors} & \multicolumn{1}{l|}{A} & B & \multicolumn{1}{l|}{A} & B \\ \hline
-        \textbf{domains} & \multicolumn{1}{l|}{P} & Q & \multicolumn{1}{l|}{P} & Q \\ \hline
-        \end{tabular}%
-    \end{table}
-\end{definition}
-
-
-The \impAppr{} leverages random projections to lower dimensional spaces (i.e. random set of features set to zero is a projection).
 \begin{figure}[htbp]
     \centering
-    \includesvg[width=\textwidth]{images/imposter/imposter.svg}
-    \caption{\imp{}.}
+    \includesvg[width=\textwidth]{images/imposter/impostor.svg}
+    \caption{Workflow of the \imp{} method.}
     \label{fig:impostor}
 \end{figure}
 
-% AV -> open-set
-\ac{av} is an open-set problem, meaning that the author of an anonymous document 
-may or may be not be part of the set of candidate authors.
 
-% AA -> closed-set
-\ac{aa} is a closed-set problem, meaning that the author of an anonymous document
-is part of the set of candidate authors.
-For each candidate author, writing samples are available.
-The task is to determine the author of the anonymous document from the set of candidate authors.
 
-% reduction: closed-set AA -> open-set AV
-\citet{koppel_determining_2014} state that all closed-set \ac{aa} problems are reducible to the \ac{av} problem.
-The reverse is not true.
-To reduce the \ac{aa} problem to the \ac{av} problem, we solve a \ac{av} problem, i.e. if text was written by a candidate author, 
-for each of the respective candidates.
-Ideally, we receive one positive answer for the correct candidate author and negative answers for all other candidates.
 
-% complexity
-\citet{koppel_determining_2014} explain that the \ac{av} problem is more complex than the \ac{aa} problem.
-They claim that the ability to solve a closed-set \ac{aa} problem does not imply the ability to solve an open-set \ac{av} problem.
+% \begin{definition}
+%     [within-domain]
+%     Experiments with P=Q.
+%     Hence, it is necessary to ensure all texts are mutually from the same domain \citep{bischoff_importance_2020}.
+%     \begin{table}[tbp]
+%         \centering
+%         \caption{Typical scheme $S_1$ for \ac{aa} problem instances, where A, B, are authors and P, Q domains and 
+%         the vertical mapping denotes which author has written in which domain. 
+%         For training, texts from A and B take turn; for testing, previously unseen texts from A and B are used \citep{bischoff_importance_2020}.}
+%         \label{tab:within_domain_aa}
+%         \begin{tabular}{|l|ll|ll|}
+%         \hline
+%         \textbf{Scheme $S_1$} & \multicolumn{2}{l|}{\textbf{training}} & \multicolumn{2}{l|}{\textbf{testing}} \\ \hline
+%         \textbf{authors} & \multicolumn{1}{l|}{A} & B & \multicolumn{1}{l|}{A} & B \\ \hline
+%         \textbf{domains} & \multicolumn{1}{l|}{P} & Q & \multicolumn{1}{l|}{P} & Q \\ \hline
+%         \end{tabular}%
+%     \end{table}
+% \end{definition}
 
-% open-set identification/ AA = many candidates problem
-\citet{koppel_determining_2014} define the many-candidates problem, or the so-called open-set identification problem:
-Given a large set of candidate authors, determine which, if any, of them wrote a given anonymous document.
-According to \citet{koppel_determining_2014}, the many-candidates problem can be solved reasonably well: \autoref{lst:many_candidate_algo}.
+
+
+
+
