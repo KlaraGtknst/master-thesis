@@ -62,7 +62,24 @@ The final prediction is obtained by averaging these scores and applying a thresh
 %         \end{tabular}%
 %     \end{table}
 % \end{definition}
+\begin{figure}[htbp]
+    \centering
+    \includesvg{notes/Koppel_imposter_2014/problem_hierarchy_complexity}
+    \caption{Problem hierarchy and complexity.}
+    \label{fig:problem_hierarchy}
+\end{figure}
 
+
+The problem to solve is the \ac{av} problem:
+For two documents $X, Y$ determine if they were written by the same author.
+As displayed in \autoref{fig:problem_reduction}, \citet{koppel_determining_2014} propose reducing the \ac{av} problem to the many-candidates problem.
+
+\begin{figure}[htbp]
+    \centering
+    \includesvg{notes/Koppel_imposter_2014/reduction_closed_set_AV_to_open_set_AA}
+    \caption{Reducing the \ac{av} problem to the many-candidates problem.}
+    \label{fig:problem_reduction}
+\end{figure}
 
 
 \subsubsection{Traditional \imp{} Generation}
@@ -76,3 +93,9 @@ Specifically, sets of three to five medium-frequency words are sampled from the 
 The retrieved documents serve as \imps{} that are, at least in theory, on-topic. 
 Finally, in the blog approach, impostors are selected at random from the \dataBlog{} dataset. 
 This method, according to the authors, ensures that impostor texts share the same genre as the input pair.
+
+
+First the $m$ most similar impostor (in terms of min-max similarity) documents are selected.
+Then, $n$ random impostor documents are selected from the $m$ impostor documents.
+\citet{koppel_determining_2014} found that using a selection of $n$ \imps{} rather than all $m$ impostor documents produces better results.
+The approach is insensitive to $m,n$.
