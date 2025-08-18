@@ -16,24 +16,24 @@ Application of models in cross-domain settings, short or inconsistent texts, lar
 These challenges have motivated successive methodological innovations, which this section reviews.
 
 % Stylometry and Classical Approaches
-Starting with Mosteller and Wallace (1964), numerous stylometric features have been proposed. 
-Ranging from writeprints, a set of lexical, syntactic and structural text features~\citep{abbasi_writeprints_2008} to function words~\citep{abbasi_writeprints_2008} and character n-grams.
-Both function words and n-grams have proven especially effective~\citep{tyo_state_2022,altakrori_topic_2021,koppel_authorship_2011}, and writeprints has functioned as basis for other approaches~\citep{weerasinghe_feature_vector_difference_2021}. 
+Since the seminal work of Mosteller and Wallace (1964), numerous stylometric features have been proposed.
+These range from writeprints, a set of lexical, syntactic and structural text features~\citep{abbasi_writeprints_2008} to function words~\citep{abbasi_writeprints_2008} and character n-grams.
+Function words and n-grams have consistently proven to be among the most effective features for authorship~\citep{tyo_state_2022,altakrori_topic_2021,koppel_authorship_2011}, while writeprints has provided a versatile framework that has served as the basis for several subsequent approache~\citep{weerasinghe_feature_vector_difference_2021}. 
 
 % cross-domain
-Studies~\citep{stamatatos_survey_2009,barlas_cross_domain_2020} have shown that character, function word and \ac{pos} n-grams are more topic-invariant than other stylometric features.
-Still, \citet{bischoff_importance_2020} claim that frequent function words have a high correlation with topics.
-Not only are many traditional stylometric features are sensitive to domain variation, but \citet{rivera_soto_learning_2021} find that even neural authorship models perform poor in \ac{ood} domains.
+Studies~\citep{stamatatos_survey_2009,barlas_cross_domain_2020} have shown that character, function word and \ac{pos} n-grams are generally more topic-invariant than other stylometric features.
+Nevertheless, \citet{bischoff_importance_2020} argue that frequent function words still exhibit a strong correlation with topic.
+More broadly, many traditional stylometric features remain sensitive to domain variation, and even neural authorship models have been found to perform poorly in \ac{ood} settings~\citep{rivera_soto_learning_2021}.
 
 Compression-based \ac{av} methods estimate similarity through compressibility, bypassing the need for explicit features. 
 The difference of the compressed files calculates the cross-entropy between the two texts.
-Notable distance measures, such as the Normalized Compression Distance (NCD)~\citep{elmanarelbouanani_authorship_2014}, or the Compression-Based Classification (CBC)~\citep{bevendorff_divergence_based_2020,bevendorff_overview_2024}, rely on compression algorithms such as PPM, LZW, and GZIP. 
 The central intuition is that if two texts are authored by the same individual, their concatenation will compress more efficiently than unrelated texts. 
+Notable approaches using distance measures, such as the Normalized Compression Distance (NCD)~\citep{elmanarelbouanani_authorship_2014}, or the Compression-Based Classification (CBC)~\citep{bevendorff_divergence_based_2020,bevendorff_overview_2024}, rely on compression algorithms such as PPM, LZW, and GZIP. 
 While conceptually elegant, compression methods tend to be computationally expensive, slow and less effective on large datasets~\citep{tyo_state_2022,neal_surveying_2018}. 
 
 %% Meta learning and Unmasking
 The unmasking approach reframes \ac{av} as a meta-learning problem. 
-Instead of focusing on absolute similarity, unmasking iteratively removes the most discriminative features between two documents and observes how quickly classification accuracy degrades. 
+Unmasking iteratively removes the most discriminative features between two documents and observes how quickly classification accuracy degrades. 
 If the texts are by the same author, performance collapses rapidly under feature removal and if not, accuracy remains relatively stable~\citep{koppel_authorship_2004}. 
 Unmasking has been empirically effective, particularly on long documents such as novels~\citep{koppel_authorship_2011}. 
 Its main drawback, however, is its dependence on large text volumes~\citep{koppel_determining_2014,bevendorff_generalizing_2019}.
@@ -48,17 +48,17 @@ In the \impAppr{}, \citet{koppel_determining_2014} reduce the open-set \ac{av} p
 They denote the latter many-candidates problem. 
 Unlike closed-set attribution, where the true author is guaranteed to be among the candidates, open-set scenarios require distinguishing not only between multiple authors but also between "in-set" and "out-of-set" cases. 
 The \ac{av} problem is reduced to the many-candidates problem via adding so-called impostor texts to the candidates pool. 
-Instead of relying on fixed feature sets, it repeatedly samples random subsets of features and compares the target text against both candidate authors and a set of unrelated \imps{}. 
+Instead of relying on fixed feature sets, it repeatedly samples random subsets of features and compares the target text against both candidate author and the set of \imps{}. 
 By aggregating many such trials, the method estimates whether the candidate consistently outperforms the \imps{} across varying conditions~\citep{koppel_determining_2014}. 
 The method's effectiveness depends heavily on the relevance of available impostor texts. 
 This dependency motivates the use of synthetic \imps{} generated by \acp{llm}, which allow for better control over confounders.
 
 %% LLM-Based Authorship and Detection
 Recent advances in \acp{llm} have reshaped the landscape of \ac{av}. 
-The emergence of \ac{ai}-generated text introduces both a novel adversary and a valuable methodological resources.
+The emergence of \ac{ai} generated text introduces both a novel adversary and a valuable methodological resources.
 Detecting \ac{ai} generated text can be regarded as a special case of \ac{av}, where the author is a generative model~\citep{bevendorff_overview_2024}. 
 Reflecting this shift, the \ac{pan} 2024 shared task "Voight-Kampff" focused on generative \ac{ai} detection, challenging participants to develop systems capable of distinguishing between human and machine-authored texts~\citep{bevendorff_overview_2024,ayele_overview_2024}.
-\citet{llm_detection_av_2025} observe that, although current \ac{llm}-generated texts still exhibit detectable differences from human writing, such differences are expected to diminish as models continue to improve.
+\citet{llm_detection_av_2025} observe that, although current \ac{llm} generated texts still exhibit detectable differences from human writing, such differences are expected to diminish as models continue to improve.
 At the same time, \acp{llm} can serve as discriminators~\citep{futrzynski_pairwise_2021} or tools for augmenting \ac{av} methods, for instance through text generation, or paraphrasing~\citep{mao_raidar_2024,baradia_mirror_2025}.
 Since text distortion has previously proven effective in cross-domain scenarios~\citep{bischoff_importance_2020}, \acp{llm} appear particularly promising as generators of controlled distortions in \ac{av} research.
 
@@ -67,21 +67,20 @@ Among these, DetectGPT is influential example for metric-based approach~\citep{w
 DetectGPT assumes that model-generated text corresponds to regions of high model log probability. 
 By perturbing candidate texts and rescoring them, the method measures the difference of their respective probabilities.
 If it is near zero, the text is likely human authored~\citep{mitchell_detectgpt_2023}. 
-While powerful, DetectGPT is limited by its white-box scenarios (access to model probabilities) and is vulnerable to paraphrasing or detecting unseen models~\citep{Wu_ODD_challenges_2025}.
+While powerful, DetectGPT is limited by its white-box scenarios %(access to model probabilities) 
+and is vulnerable to paraphrasing or detecting unseen models~\citep{Wu_ODD_challenges_2025}.
 
 Other detection methods also make use of rewriting. 
 Paraphrases can be generated through rule-based or thesaurus-driven substitutions, by means of monolingual machine translation~\citep{zhou_paraphrase_2021}, or by explicitly prompting generative \acp{ai} such as T5 or GPT models~\citep{kurt_pehlivanoglu_comparative_2024}.
 RAIDAR, for instance, generates perturbed versions of a text using paraphrasing and compares edit distances~\citep{mao_raidar_2024}, while Mirror Minds employs paraphrasing combined with syntactic similarity metrics such as BLEU and METEOR~\citep{baradia_mirror_2025}. 
-%%% compared to our work: RAIDAR
-%%%% generation of texts during inference
-Both approaches are similar to our work in that they use \acp{llm} to generate texts during inference.
-We do not fine-tune an \ac{llm} for paraphrasing but use off-the-shelf models (like RAIDAR).
-%%%% similarity measure
-All these approaches compute the similarity of the original text and the generated text.
-However, we do not use edit distance, BLEU or METEOR as similarity measure, nor do we compare directly on paraphrase-level (i.e. BLEU calculates n-gram overlap) but construct our own frequency-based n-gram vectors input vector similarity metrics.
-%%% limitations
-These approaches are unable to detect which \ac{llm} generated the text.
-
+Based on RAIDAR, \citet{li_learning_2025} propose fine-tuning an \ac{llm} to rewrite human authored texts more than machine generated text.
+%%% compared to our work: 
+All of these approaches are similar to ours in that they leverage \acp{llm} to generate texts at inference time. 
+However, unlike \citet{li_learning_2025}, we do not fine-tune an \ac{llm} for paraphrasing, instead relying on off-the-shelf models.
+These methods also generally compute the similarity between the original and generated texts. 
+Unlike them, we do not use conventional metrics such as edit distance, BLEU, or METEOR, nor do we perform comparisons at the paraphrase level (e.g., BLEU measures n-gram overlap). 
+Instead, we construct frequency-based n-gram vectors and apply input vector similarity metrics.
+Finally, a limitation of these approaches is that they cannot identify which \ac{llm} produced a given text.
 
 % Paraphrasing and Evaluation Metrics
 Paraphrasing undermines detectors while also offering methodological utility. 
