@@ -1,28 +1,59 @@
-\chapter{Related Work}
 \label{chap:related_work}
+\chapter{Related Work}
 
+% where does my work fit in literetaure?
+% why does my work matter?
+% what gap is addressed by my work?
+
+% start with classical, thjen recent and then my own work
+
+% AV, AA & established approaches
+First research on \ac{av} and \ac{aa} dates back to the \nth{19} century.
+Since then, hundreds of stylometric features have been proposed and evaluated in regard to their invariance to domain variables~\citep{stamatatos_survey_2009,barlas_cross_domain_2020}.
+Multiple studies indicate that character n-grams are useful features~\citep{tyo_state_2022,altakrori_topic_2021}. 
+Other feature extraction methods are based on embeddings of characters.
+This category of \ac{aa} approaches is based on general-purpose compression models such as RAR (i.e. a variant of \ac{ppm}~\citep{tyo_state_2022}), LZW, GZIP, BZIP2 and 7ZIP.
+Compressions are compared via distance metrics, Normalized Compressor Distance (NCD)~\citep{elmanarelbouanani_authorship_2014} or compression-based cosine (CBC)~\citep{bevendorff_divergence_based_2020,bevendorff_overview_2024}.
+When comparing the compression methods ZIP, RAR, and \ac{ppm}, for \ac{aa}, \citet{tyo_state_2022} claim, that \ac{ppm} performs and scales poorly to large datasets.
+
+
+%% Meta learning
+Another established \ai{} category is meta learning.
+Meta-classifiers are trained on the performance of another existing classification algorithm in different scenarios.
+Unmasking is a meta-learning approach which is based on the idea that omitting discriminant features and the consequent drop in accuracy of the classifier can be used for inference of the author of the unseen text~\citep{koppel_authorship_2004}.
+Provided that the unseen text is very large, this method can handle small open candidate sets \citep{koppel_authorship_2011}.
+There has also been studies about the minimum text length for approaches to be effective. 
+\citet{koppel_determining_2014,bevendorff_generalizing_2019} claim that effective unmasking requires input documents to be large (i.e. > 10000 words~\citep{koppel_determining_2014}, book-length~\citep{bevendorff_generalizing_2019}, $\geq$ 5000 words (500 words per chunk) \citep{bevendorff_divergence_based_2020}).
+\citet{bevendorff_generalizing_2019,bevendorff_divergence_based_2020} generalized unmasking, an extension of the traditional unmasking algorithm which creates chunks by oversampling words in a bootstrap aggregating manner. 
+Using this approach, texts below the minimum text length identified in prior research can be used.
+
+
+%% Impostor & many candidates
+% open-set identification/ AA = many candidates problem
+\citet{koppel_determining_2014} define the many-candidates problem, or the so-called open-set identification problem:
+Given a large set of candidate authors, determine which, if any, of them wrote a given anonymous document.
+According to \citet{koppel_determining_2014}, the many-candidates problem can be solved reasonably well: \autoref{lst:many_candidate_algo}.
+% AV -> many-candidates problem
+To reduce the \ac{av} problem to the many-candidates problem, we need to generate a large set of imposter candidates.
+Similar to unmasking, \citet{koppel_determining_2014} repeatedly select random subsets of features that serve as the basis for comparing documents.
+If a documents $Y$ is more similar to document $X$ than any other document for many feature subsets, 
+it is likely that $X$ and $Y$ are by the same author.
 This work is different to the work of \citet{koppel_determining_2014} and \citet{kocher_unine_2015} 
 in that it uses \acp{llm} to generate \imp{} texts.
 
-\textcolor{red}{TODO: Aufschlüsseln was hier behandelt wird}
-% \section{Traditional \acs{llm} Detection}
-% \label{sec:llm_detection}
-\textcolor{red}{TODO: LLM Detection chapter here or in Ausblick: Falls wenig Experimente, dann nicht hier}
-\input{chapter/section-02/perplexity.tex}
+%% LLM Detection
+\citet{bevendorff_overview_2024} note the similarity of \ac{llm} detection to \ac{aa} and \ac{av} tasks, 
+where the \ac{ai} is considered an author that exhibits identifiable characteristics.
+They want prior research of authorship tasks in this \ac{ai} detection task to be considered.
 
-% AV
 % LLM detection using generative models
 %% AA against LLMs
-With the recent advances of \ac{nlg} come new challenges in text authorship.
-The new technologies may be misused for fraudulent activities to scam naive or inexperienced users~\citep{uchendu_authorship_2020,bhattacharjee_fighting_2024}.
+
 \citet{uchendu_authorship_2020} identified three authorship tasks essential for fighting fraudulent activities:
 (1) Given two texts $t_1$ and $t_2$, determine whether they were produced by the same method (i.e. human author or a specific \ac{nlg} method).
 (2) Given a text $t$, determine whether it was human authored or machine generated (Turing Test).
 (3) Given a text $t$, find its author among $k+1$ candidates, which consists of one human and $k$ machines.
-They compare classical \ac{ml} models, neural models and state-of-the-art \ac{aa} models as classifiers 
-for these single- (Problem 1 and 2) and multi-class (Problem 3) tasks.
-Their findings include, that as of 2020, most \ac{nlg} methods were distinguishable from human authors, 
-but some \acp{llm} proved difficult to detect.
+
 %%% compared to our work
 In the following, we consider (1) \ac{av}, (2) classical \ac{llm} detection, and (3) closed-set \ac{aa}.
 Our approach differs from the work of \citet{uchendu_authorship_2020} in that our candidates (i.e. \imps{}) do not include a human author (3), 
@@ -35,16 +66,6 @@ Examples inlcude GLTR, Range, LogRank and DetectGPT.
 Fine-tuned detectors are pretrained \acp{lm} in a supervised scenario.
 Examples include the OpenAI Detector.
 Watermark-based detectors add algorithmically detectable signatures into the text during generation~\citep{wang_stumbling_2024}.
-
-%% LLM (gpt-3.5, GPT-4) as detector
-\citet{bhattacharjee_fighting_2024} evaluate using an \ac{llm} as classifier for \ac{llm} detection.
-They use \ac{gpt}-3.5 and \ac{gpt}-4 to classify texts as human or machine generated.
-They find that \ac{gpt}-3.5 performs better when being fed simple instructions, rather than constrained prompts.
-They find that \ac{gpt}-4 predicts almost exclusively \ac{ai} generated texts, 
-while \ac{gpt}-3.5 predictions are more reliable (especially for actually human authored texts).
-%%% compared to our work
-Our work differs from theirs in that we use \acp{llm} to generate \imp{} texts specific to the candidate text, 
-rather than using the publicly available dataset TuringBench with previously generated texts.
 
 %% DetectGPT: Perturb (Mask), score, compare (unsupervised)
 \citet{mitchell_detectgpt_2023} propose DetectGPT, a method that is threefold:
@@ -95,14 +116,7 @@ consider texts generated by (different) \acp{llm} as high quality that do not re
 Change is measured by the edit distance between the original text and the rewritten text. 
 \citet{mao_raidar_2024} propose using an edit distance based on the Levenshtein distance or \ac{bow} representations.
 RAIDAR operates on character level rather than using deep neural network features, and it does not require the original generating model for classification. 
-RAIDAR fails to detect \ac{llm} generated texts in out-of-distribution scenarios (i.e. different domains than training), 
-or when \ac{llm} were explicitly instructed to produce text prone to heavy \ac{llm} modification when being asked to rewrite the text \citep{li_learning_2025}.
-Based on RAIDAR (\citep{mao_raidar_2024}), \citet{li_learning_2025} propose fine-tuning an \ac{llm} to rewrite human authored texts more than machine generated text.
 Classification is carried out by comparing the edit distance of the original text and the rewritten text to a threshold.
-\citet{li_learning_2025} admit that their approach is slow in inference time, 
-since a candidate text has to be rewritten multiple times (about 200 different prompts) to obtain a reliable score.
-\citet{mao_raidar_2024} find that the quality of perturbation based models (i.e. rewriting) for \ac{llm} detection correlates with the perturbation model size.
-\citet{mitchell_detectgpt_2023} find a negative correlation (\textcolor{red}{TODO: chapter 2 vorletzter Absatz}) between the size of the perturbation model and the performance of DetectGPT.
 %%% compared to our work
 %%%% generation of texts during inference
 Both approaches are similar to our work in that they use \acp{llm} to generate texts during inference.
@@ -146,13 +160,33 @@ While our goal is to solve an \ac{aa} problem (i.e. multiclass classification),
 \citet{baradia_mirror_2025} solve a binary classification problem (i.e. human vs. \ac{ai} generated text).
 
 
-% Paraphrasing
+%% AV/ AA via LLMs
+
+%% Paraphrasing + Evaluation metrics
 \citet{Krishna_dipper_2023} have found that \acl{sota} \ac{llm} detectors are vulnerable to paraphrasing attacks.
 These adversarial attacks paraphrase the text such that the semantic content remains the same, but the syntactic and lexical features distributions change~\citep{wang_stumbling_2024}.
 The 11B parameter paraphrase generation model (DIPPER) manages to evade several detectors, including DetectGPT and OpenAI's text classifier.
-DIPPER is explicitely trained to be a paraphraser~\citep{Krishna_dipper_2023}.
+DIPPER is explicitly trained to be a paraphraser~\citep{Krishna_dipper_2023}.
 \citet{Sadasivan_t5_2023} employ DIPPER, LLaMA-2-7B-Chat with 7B parameters and T5-based paraphraser with 222M parameters as paraphrasers.
-The first two provide one-shot paraphrases while the T5 generates paraphrases in a sentence by sentence fashion.
 LLaMA-2-7B-Chat is an instruction-tuned model for chat purposes which is instructed to be a paraphraser via a system prompt.
 This system prompt instructs the model to generate diverse outputs while maintaining text length, text quality and grammar~\citep{Sadasivan_t5_2023}.
 We opted to omit explicit specification of diversity in our instruction, because for future application of our method to \ac{llm} detection, we want to capture the \ac{llm}'s style properties.
+
+Among others, \citet{Thomas_cross_topic_24} have evaluated paraphrases based on dimensions of readability, complexity and grade level.
+They use Textstat, a Python library that helps extract statistics from text.
+
+According to \citet{zhou_paraphrase_2021}, automatic evaluation metrics mainly focus on the n-gram overlaps instead of meaning, and hence, human evaluation is more accurate and has a higher quality.
+There is syntactic and semantic evaluation of paraphrases~\citep{gohsen_captions_2023}.
+
+\ac{bleu} (2002) was developed for machine translation~\citep{papineni_bleu_2001}.
+GLEU (Google-\ac{bleu})~\citep{kurt_pehlivanoglu_comparative_2024} is a variant of \ac{bleu} that was developed to be closer to human judgement, \ac{meteor} (2014) aims to address \ac{bleu}'s shortcomings.
+\ac{rouge} (2004)~\citep{lin_rouge_2004} has multiple versions.
+TER (2006) was developed for machine translation~\citep{zhou_paraphrase_2021}.
+Common metrics for semantic similarity include BERTScore, 
+cosine similarity of dense vector representations derived from a BERT-based sentence transformer, 
+and \ac{wmd}~\citep{gohsen_captions_2023}.
+\citet{kurt_pehlivanoglu_comparative_2024} adapted to the Semantic Textual Similarity Benchmark (STSB)~\citep{kurt_pehlivanoglu_comparative_2024}.
+\ac{t5}-CoLA metric (ranges from 0 to 5~\citep{kurt_pehlivanoglu_comparative_2024}) utilizes the Corpus of Linguistic Acceptability (CoLA) to evaluate the grammatical correctness of sentences and thus, 
+contributes linguistic evaluation~\citep{kurt_pehlivanoglu_comparative_2024}.
+\citet{krishna_paraphrasing_2023} compute the lexical diversity using unigram token overlap and call it F1 score.
+As a semantic similarity score, they use the ACL Antology 2022 published \href{https://aclanthology.org/2022.emnlp-demos.38.pdf}{P-SP}.
