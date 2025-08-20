@@ -1,72 +1,85 @@
-
-We will present state-of-the-art quantitative evaluation measures for \ac{aa}, \ac{av} and paraphrase generation.
-Ideally, quantitative measures are comparable and reproducible since they do not arise from human biased judgment.
-
 \subsection{\ac{av} Quality Measures}
 \label{subsec:av_quality_measures}
 
-Common metrics for evaluating the \ac{av} performance are:
-\begin{itemize}
-    \item $Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$ \citep{elmanarelbouanani_authorship_2014,neal_surveying_2018} 
-    measures the percentage of classified correctly over all test cases \citep{neal_surveying_2018}.
+\ac{av} and \ac{aa} are both classification problems, although they differ in scope. 
+While \ac{aa} seeks to assign a text to one of many candidate authors, \ac{av} addresses the more fundamental question of whether two given texts were written by the same author. 
+Since \ac{av} forms the core of \ac{aa}, and because every \ac{aa} metric can be transferred to \ac{av}, this work focuses primarily on \ac{av}. 
+Depending on the methodological framing, \ac{av} can be cast as a one-class classification task, a binary decision task, or a similarity detection problem~\citep{neal_surveying_2018,koppel_authorship_2004}. 
+Regardless of this framing, evaluation relies on standard classification metrics, each with distinct advantages and limitations.
 
-    \item $Precision = \frac{TP}{TP + FP}$ \citep{elmanarelbouanani_authorship_2014,neal_surveying_2018,chen_web_2008} 
-    measures how often a system gets positive classification correctly \citep{neal_surveying_2018}.
+The most straightforward metric is accuracy (\autoref{eq:accuracy}), which measures the proportion of correctly classified cases across all test samples. 
+While intuitive, accuracy can be misleading in scenarios with class imbalance, a well-known issue in \ac{av} where negative pairs (different-author cases) typically dominate. 
+Precision and recall address this shortcoming by emphasizing the performance on the positive class, i.e., the correct identification of same-author cases. 
+Precision quantifies how often the system’s positive predictions are correct, while recall measures how often the true positive cases are successfully detected. 
+Since these metrics often trade off against each other, the harmonic mean of precision and recall, known as the F1 score, is frequently adopted to provide a balanced assessment~\citep{neal_surveying_2018}.
 
-    \item $Recall = \frac{TP}{TP + FN}$ \citep{elmanarelbouanani_authorship_2014,neal_surveying_2018,chen_web_2008} 
-    measures how often a system correctly classifies positive samples when it encounters them \citep{neal_surveying_2018}.
-    Recall is also called sensitivity or \acl{tp} rate \citep{palivela_optimization_2021}
-
-    \item $F-measure = \frac{2 \cdot precision \cdot recall}{precision + recall}$~\citep{chen_web_2008,abbasi_writeprints_2008}
-
-    % PAN
-    \item \ac{roc-auc} \citep{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021,kocher_unine_2015}
-    where \ac{roc} plots \ac{fpr} $= \frac{FP}{FP+TN}$ on the x-axis against the \ac{tpr} $=\frac{TP}{TP+FN}$ on the y-axis 
-    for varying thresholds \citep{kocher_unine_2015,neal_surveying_2018}.
-    The maximum \ac{roc} value of 1.0 indicated a perfect performance \citep{kocher_unine_2015}.
-    Greater \ac{auc} indicates a better performance \citep{neal_surveying_2018}.
-    % The \ac{auc} of the \ac{roc} is biased since the \ac{roc} gives more emphasis 
-    % on the first position and therefore increases the total \ac{auc}.
-    % A misclassification with a lower probability is less penalized with \ac{roc-auc} \citep{kocher_unine_2015}.
-    \citet{kocher_unine_2015} claim that both \ac{roc} and \ac{auc} are difficult to interpret.
-    % LLM detection as AV task
-    \citet{llm_detection_av_2025} argue that the reduction from the \ac{fpr}-\ac{tpr} curve of \ac{roc} to a single \ac{roc-auc} number 
-    comes with information loss due to the absence of a fixed threshold and trade-off.
-    Moreover, \ac{roc}'s \ac{fpr} and \ac{tpr} are independent of class prevalence, which is desirable.
-    However, in highly imbalanced class scenarios \ac{roc} can be misleading (overly optimistic or pessimistic).
-    
-    \item BRIER: Complement of the Brier score \citep{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021}, 
-    in \citet{bevendorff_overview_2024}'s case equivalent to the mean squared loss.
-    The Brier score is used to evaluate the ability of \ac{av} methods to abstain from hard samples \citep{tyo_state_2022}.
-    
-    \item $C@1 = \frac{nc}{np}(1+\frac{nu}{np})$ where $np$ is the number of problems, $nc$ the number of correct answers, 
-    and $nu$ the number of unanswered problems \citep{kocher_unine_2015}. 
-    Modified version of the accuracy \citep{bevendorff_overview_2024}/ F1-score \citep{weerasinghe_feature_vector_difference_2021} score, 
-    where the non-answers (abstained) \citep{llm_detection_av_2025} are assigned the average accuracy of the remaining cases \citep{bevendorff_overview_2024}. 
-    It rewards systems that leave difficult problems unanswered \citep{weerasinghe_feature_vector_difference_2021}.
-    
-    \item $F_1 = 2 \cdot \frac{precision \cdot recall}{precision + recall}$~\citep{neal_surveying_2018}: Harmonic mean of precision and recall \citep{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021}.
-    A higher value indicates a better performance \citep{neal_surveying_2018}.
-    
-    \item $F_{0.5u}$: Modified version of the $F_{0.5}$ score, where the non-answers are considered \acp{fn} \citep{bevendorff_overview_2024}. 
-    A measure that puts more emphasis on deciding same-author cases correctly \citep{weerasinghe_feature_vector_difference_2021}.
-    Used to evaluate the ability of \ac{av} methods to abstain from hard samples \citep{tyo_state_2022}.
-\end{itemize}
-$TP$ is the number of \aclp{tp}, $FP$ is the number of \aclp{fp} 
-and $FN$ is the number of \aclp{fn}~\citep{chen_web_2008}.
+\begin{equation}\label{eq:accuracy}
+    \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+\end{equation}
 
 
+Beyond these basic measures, \ac{av} research has introduced metrics that explicitly account for the difficulty of borderline cases. 
+The modified $F_{0.5u}$ score penalizes non-answers by treating them as \acp{fn}~\citep{bevendorff_overview_2024}. 
+This places additional weight on correctly deciding same-author cases~\citep{weerasinghe_feature_vector_difference_2021}, thereby evaluating the ability of \ac{av} methods to abstain from hard samples~\citep{tyo_state_2022}. 
+Similarly, the $c@1$ metric was designed to reward abstention from particularly ambiguous cases. 
+It does so by granting unanswered problems partial credit, equal to the average accuracy on the remaining cases~\citep{bevendorff_overview_2024}, thus encouraging systems to remain silent when uncertain.
 
-% PAN AA & AV metrics: Abstaining from hard samples
-% The \todo{F0.5u, C@1, and Brier Score metrics} are used to evaluate the ability of \ac{av} methods 
+However, in the present work, $c@1$ and $F_{0.5u}$ are not appropriate measures. 
+The metrics assume that models can explicitly abstain by assigning a score of exactly 0.5, a convention used in \ac{pan} shared tasks~\citep{tyo_state_2022,bevendorff_overview_2024,kocher_unine_2015}. 
+In our setting, the model produces only the binary outcomes "same author" or "don't know" with thresholds determining the decision boundary. 
+Since there is no natural mechanism for producing a calibrated 0.5 score, abstention cannot be meaningfully represented. 
+One could theoretically introduce two thresholds to create an artificial abstention region, but this would not align with the open-set nature of \ac{av}. 
+The "different author" class is inherently ill-defined, as the set of possible authors is unbounded and cannot be exhaustively represented. 
+
+For this reason, the focus in this thesis remains on precision, recall, and F1-based measures. 
+These metrics align more closely with the open-set characteristics of our \ac{av} model and provide a fairer evaluation of methods that must operate without exhaustive negative samples.
+
+% A well-known metric is accuracy which measures the percentage of classified correctly over all test cases~\citep{neal_surveying_2018}.
+% The computation is given in \autoref{eq:accuracy}.
+% Accuracy can produce misleading results if there is class imbalance.
+% \begin{equation}\label{eq:accuracy}
+%     $Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$
+% \end{equation}
+
+% If the focus is on getting positive class prediction correct, a better metric to use is precision as computed in 
+% It measures how often a system gets positive classification correctly~\citep{neal_surveying_2018}.
+% \begin{equation}\label{eq:precision}
+%     $Precision = \frac{TP}{TP + FP}$
+% \end{equation}
+
+% Recall measures how often a system gets positive classification correctly~\citep{neal_surveying_2018}
+% \begin{equation}\label{eq:recall}
+%     $Recall = \frac{TP}{TP + FN}$
+% \end{equation}
+
+
+% F1~\citep{neal_surveying_2018}: Harmonic mean of precision and recall \citep{bevendorff_overview_2024,weerasinghe_feature_vector_difference_2021}.
+%     A higher value indicates a better performance \citep{neal_surveying_2018}.
+%     $F_{0.5u}$: Modified version of the $F_{0.5}$ score, where the non-answers are considered \acp{fn} \citep{bevendorff_overview_2024}. 
+%     A measure that puts more emphasis on deciding same-author cases correctly \citep{weerasinghe_feature_vector_difference_2021}.
+%     Used .
+% \begin{equation}\label{eq:f1}
+%     $F_1 = 2 \cdot \frac{precision \cdot recall}{precision + recall}$
+% \end{equation}
+
+
+
+% c@1 where $np$ is the number of problems, $nc$ the number of correct answers, 
+%     and $nu$ the number of unanswered problems \citep{kocher_unine_2015}. 
+%     Modified version of the accuracy \citep{bevendorff_overview_2024}/ F1-score \citep{weerasinghe_feature_vector_difference_2021} score, 
+%     where the non-answers (abstained) \citep{llm_detection_av_2025} are assigned the average accuracy of the remaining cases \citep{bevendorff_overview_2024}. 
+%     It rewards systems that leave difficult problems unanswered \citep{weerasinghe_feature_vector_difference_2021}.
+% \begin{equation}\label{eq:cat1}
+%     $C@1 = \frac{nc}{np}(1+\frac{nu}{np})$
+% \end{equation}
+
+% $TP$ is the number of \aclp{tp}, $FP$ is the number of \aclp{fp} 
+% and $FN$ is the number of \aclp{fn}~\citep{chen_web_2008}.
+
+
+
+% % PAN AA & AV metrics: Abstaining from hard samples
+% The F0.5u, C@1 metrics are used to evaluate the ability of \ac{av} methods 
 % to abstain from hard samples \citep{tyo_state_2022}.
 % For each sample, a score $\in [0, 1]$ is assigned to the sample.
 % A score of exactly 0.5 means the model abstains from the sample \citep{tyo_state_2022,bevendorff_overview_2024,kocher_unine_2015}.
-
-% The AUC metric is used to evaluate the ability of methods to rank predictions.
-% No threshold is required.
-% \ac{pan} ignores any abstained samples when calculating the AUC metric \citep{tyo_state_2022}.
-
-% != PAN
-% \citet{tyo_state_2022} chose to adopt the macro-averaged accuracy metric, so-called macro-accuracy, for \ac{aa}, 
-% and AUC \ac{av} tasks.
