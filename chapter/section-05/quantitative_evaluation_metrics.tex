@@ -1,12 +1,7 @@
 \subsection{Traditional Quantitative Paraphrase Evaluation Measures}
 \label{subsec:traditional_quantitative_evaluation_measures}
 
-% Syntactic (\ac{bleu}, \ac{rouge}-1, \ac{rouge}-L), semantic (BERTScore, cosine similarity of SBERT vectors, WMS), human evaluation (TODO)
 
-% There is manual (by humans) evaluation and automatic evaluation for paraphrase generation \citep{fu_learning_2024,zhou_paraphrase_2021}.
-% According to \citet{zhou_paraphrase_2021}, automatic evaluation metrics mainly focus on the n-gram overlaps instead of meaning, 
-% and hence, human evaluation is more accurate and has a higher quality.
-% In the following, we focus on automatic evaluation.
 
 There is syntactic and semantic evaluation of paraphrases \citep{gohsen_captions_2023}.
 % Metrics for syntactic evaluation include \ac{bleu}, \ac{rouge}-1, \ac{rouge}-L, 
@@ -16,19 +11,9 @@ There is syntactic and semantic evaluation of paraphrases \citep{gohsen_captions
 % The \ac{wmd} computes the minimum amount of distance that embedded words of a text need to travel 
 % to reach the embedded words of another text \citep{gohsen_captions_2023}.
 % \citet{gohsen_captions_2023} normalized all metrics and averaged the semantic and syntactic scores separately.
-Syntactic evaluation metrics mainly focus on the n-gram overlaps. % no reference
+Syntactic evaluation metrics mainly focus on the n-gram overlaps~\citet{zhou_paraphrase_2021}. 
 Common syntactic evaluation metrics include \ac{bleu}, \ac{meteor} \ac{rouge}-1, \ac{rouge}-L.
 \textcolor{red}{\citet{kurt_pehlivanoglu_comparative_2024} claims \ac{meteor} is a semantic metric.}
-
-% Generally, \citet{kurt_pehlivanoglu_comparative_2024} order the metrics by their contribution area:
-% \begin{itemize}
-%     \item semantic: BERTScore, STSB, \ac{meteor}
-%     \item Fluency: CoLA
-%     \item Diversity: \ac{rouge}1/2/L, \ac{bleu}, GLEU
-% \end{itemize}
-
-% \bluert{} is machine evaluation metric for paraphrase generation.
-% \citet{fu_learning_2024} use \bluert{} to filter out incorrect paraphrases (i.e. using a threshold $\theta$).
 
 \ac{bleu} (2002) was developed for machine translation \citep{palivela_optimization_2021,zhou_paraphrase_2021,papineni_bleu_2001}.
 Its values range from 0 to 1 \citep{papineni_bleu_2001}.
@@ -87,13 +72,6 @@ Moreover, \ac{bleu} fails to capture good paraphrases that are not similar to th
 \citet{kurt_pehlivanoglu_comparative_2024} found that \ac{bleu} tends to overestimate the quality of paraphrases.
 \citet{zhou_paraphrase_2021} suggest combining \ac{bleu} with human evaluation to overcome its limitations.
 
-% GLEU (Google-\ac{bleu}) (ranges from 0 to 1 \citep{kurt_pehlivanoglu_comparative_2024}) is a variant of \ac{bleu} that was developed to be closer to human judgement, and to 
-% overcome \ac{bleu}'s drawback of per sentence reward objective \citep{palivela_optimization_2021}.
-% GLEU computes n-gram precisions (overlaps \citep{kurt_pehlivanoglu_comparative_2024}) overgold/reference paraphrases 
-% and weighs n-grams by their change from the source text \citep{palivela_optimization_2021}.
-% GLEU assesses the fluency, order of n-grams, structural and semantic accuracy 
-% and penalizes shorter average m-gram lengths in the generated text compared to the reference \citep{kurt_pehlivanoglu_comparative_2024}.
-% Lower GLEU scores indicate greater diversity \citep{kurt_pehlivanoglu_comparative_2024}.
 
 \ac{meteor} (2014) aims to address \ac{bleu}'s shortcomings.
 Its values range from 0 to 1 \citep{kurt_pehlivanoglu_comparative_2024}.
@@ -156,26 +134,9 @@ Hence, if the candidate text is the reverse of the reference text, the \ac{rouge
 \citet{kurt_pehlivanoglu_comparative_2024} claim that \ac{rouge} may not be adequate to assess semantic similarity and fluency.
 Lower \ac{rouge} scores indicate greater diversity \citep{kurt_pehlivanoglu_comparative_2024}.
 
-% TER (2006) was developed for machine translation \citep{zhou_paraphrase_2021}.
-% It computes the number of edits required to change the translation until it matches the reference translation.
-% It ranges from 0 (i.e. no edits needed) to 1 (i.e. all words need to be changed).
-
-% \citet{fu_learning_2024} describe the Gini Coefficient as a measure of inequality in a distribution, ranging from 0 (i.e. even distribution across categories) to 1.
-
-% \citet{master_thesis_paraphrasing_2024} include a table (tab. 3.1, pg. 18) with numerous stylometric metric including readbility, vocabulary richness, and word/character counts.
-
-% \citet{palivela_optimization_2021} state that accuracy, precision, recall and F1-score are suitable for \ac{pi}.
-% For \ac{pg}, they suggest \ac{rouge}, \ac{bleu}, GLEU, WER (Word Error Rate), and \ac{meteor} as suitable metrics.
-% WER is the number of substitutions (replacements of words), insertions (adding words) and deletions (removing words) 
-% divided by the total number of words in the reference text \citep{palivela_optimization_2021}.
-
 Common metrics for semantic similarity include BERTScore, 
 cosine similarity of dense vector representations derived from a BERT-based sentence transformer, 
 and \ac{wmd} \citep{gohsen_captions_2023}.
-
-% \citet{kurt_pehlivanoglu_comparative_2024} additionally use T5-STSB.
-% The metric is based on \ac{t5} model adapted to the Semantic Textual Similarity Benchmark (STSB).
-% It evaluates semantic equivalence by assigning a similarity score from 0 (no similarity) to 5 (complete equivalence) \citep{kurt_pehlivanoglu_comparative_2024}.
 
 BERTScore calculates the cosine similarity between the contextual embeddings of the reference and generated texts. 
 Hence, is assesses semantic equivalence and correlates well with human judgment \citep{kurt_pehlivanoglu_comparative_2024}.
@@ -202,9 +163,3 @@ to $\hat{P}_{BERT} = \frac{P_{BERT} - a}{1 - a}$ ($R_{BERT}$ analogous), where $
 The \ac{wmd} computes the minimum amount of distance that embedded words of a text need to travel 
 to reach the embedded words of another text \citep{gohsen_captions_2023}.
 
-% \ac{t5}-CoLA metric (ranges from 0 to 5 \citep{kurt_pehlivanoglu_comparative_2024}) utilizes the Corpus of Linguistic Acceptability 
-% (CoLA) to evaluate the grammatical correctness of sentences and thus, 
-% contributes linguistic evaluation \citep{kurt_pehlivanoglu_comparative_2024}.
-
-% \citet{krishna_paraphrasing_2023} compute the lexical diversity using unigram token overlap and call it F1 score.
-% As a semantic similarity score, they use the ACL Antology 2022 published \href{https://aclanthology.org/2022.emnlp-demos.38.pdf}{P-SP}.
