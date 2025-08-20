@@ -1,19 +1,19 @@
 % motivation
-\ac{av} denotes the task of determining whether two texts were written by the same author. 
+\Acf{av} denotes the task of determining whether two texts were written by the same author. 
 It forms the foundation of broader authorship-related problems such as authorship attribution. 
 Historically, \ac{av} has been applied to literary disputes, but contemporary concerns have shifted. 
 In an era where large amounts of text can be copied, paraphrased, or fabricated with ease, \ac{av} has gained renewed importance in practical contexts such as plagiarism detection in digital communication.
 
 The emergence of \acp{llm} adds an additional layer of complexity. 
 While these models are widely embraced for beneficial applications such as summarization, code generation, and customer service automation, their ability to convincingly imitate human writing creates new risks. 
-\acp{llm} can be exploited to generate misinformation, fabricate academic submissions, or impersonate individuals, thereby undermining trust in digital communication. 
+\acp{llm} can be exploited to generate misinformation, engender academic submissions, or impersonate individuals, thereby inflict harm on individuals who fall victim to these schemes. 
 Since \acp{llm} can be conceptualized as authors their detection naturally falls within the scope of \ac{av} rather than requiring a separate methodological framework. 
 Thus, instead of treating \ac{llm} detection as an isolated task, it is more consistent to frame it as a specialized case of \ac{av}.
 
 % specificity rather than generality
 Despite significant advances in \ac{av}, many existing approaches pursue generalized solutions, training a model once and applying it across domains. 
 Evidence shows that such models struggle in \ac{ood} settings, where topic or genre diverges from the training data. 
-This shortcoming motivates a shift toward scenario-specific solutions, where models are trained anew for narrowly defined cases. 
+This shortcoming motivates a shift toward scenario-specific solutions, i.e. models are trained anew for narrowly defined cases. 
 Such single-case approaches enable more precise control over contextual factors and place greater emphasis on stylistic idiosyncrasies rather than domain-level variation.
 
 % AV
@@ -23,5 +23,5 @@ However, the method's effectiveness is limited by the quality and contextual ade
 Previous work did not fully address how to construct challenging \imps{} via controlled contextual variables.
 
 This thesis extends the \impAppr{} by leveraging \acl{sota} \acp{llm} to generate hard negative examples in a controlled scenario. 
-By integrating \ac{llm}-based \imp{} generation, we bridge the gap between traditional \ac{av} and modern challenges involving \acp{llm}. 
-The contribution lies not in proposing a new detection paradigm, but in enhancing an established verification method by improving its treatment of contextual factors and strengthening its ability to discriminate between genuine and artificial authorship.
+By integrating \ac{llm}-based \imp{} generation, we leverage \acp{llm} to extend a traditional \ac{av} method. 
+The contribution lies not in proposing a new detection paradigm, but in enhancing an established \ac{av} method by improving its treatment of contextual factors and strengthening its ability to discriminate between genuine and artificial authorship.
