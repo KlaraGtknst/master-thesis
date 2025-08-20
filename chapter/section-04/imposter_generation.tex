@@ -2,8 +2,7 @@
 \label{sec:impostor_generation}
 
 % good \imps{}: hard negatives
-Following the notion introduced by \citet{koppel_determining_2014}, ideal \imp{} texts can be understood as hard negatives: 
-Documents not written by the candidate author, yet sufficiently similar in style to be difficult to distinguish from the candidate's own writing. 
+Following the notion introduced by \citet{koppel_determining_2014}, ideal \imp{} texts can be understood as hard negatives, i.e. documents not written by the candidate author, yet sufficiently similar in style to be difficult to distinguish from the candidate's own writing. 
 The quality of \imps{} directly affects model performance.
 If they are too different from the candidate text, models are trained on trivial contrasts, yielding \acp{fp}. 
 Conversely, if \imps{} are too similar to the candidate, the risk of \acp{fn} increases.
@@ -11,7 +10,7 @@ Conversely, if \imps{} are too similar to the candidate, the risk of \acp{fn} in
 % obstacles for \imp{} generation in the past
 Traditional \imp{} generation techniques struggled to control \imp{} similarity. 
 The fixed approach samples from a fixed pool of unrelated texts, while the on-the-fly approach fails to align genre with the candidate text~\citep{koppel_determining_2014}. 
-Since authorial style is tightly entangled with such contextual factors, \imps{} produced by these methods differ systematically from the candidate text, weakening their utility. 
+Since authorial style is tightly entangled with contextual factors, \imps{} produced by these methods differ systematically from the candidate text, weakening their utility. 
 Ideally, \imp{} generation should replicate the conditions of original text production, including task, topic, register, target audience and century. 
 In practice, however, this information is rarely available.
 In \ac{av}, the candidate author may be deceased, unavailable, or unwilling to cooperate.
@@ -25,41 +24,38 @@ The model produces stylistic variants of the candidate's writing while maintaini
 
 \subsection{Paraphrasing as a Basis for \Imp{} Generation}
 
-The lack of a universally accepted definition of paraphrase complicates evaluation~\citep{gohsen_task_oriented_2024}. 
-For the present work, paraphrases are considered suitable impostors if they satisfy three conditions: 
-They remain consistent with the original text's topic, genre, and tone; 
-they exhibit sufficient lexical and syntactic divergence to avoid near-duplication; 
-and they may diverge semantically, including mild hallucinations, provided the stylistic resemblance is preserved.
-Paraphrase quality is largely determined by prompt design and model selection~\citep{Wu_ODD_challenges_2025}.
+The lack of a universally accepted definition of paraphrases complicates their generation and evaluation~\citep{gohsen_task_oriented_2024}. 
+In this work, paraphrases are considered suitable \imps{} when they preserve the topic, genre, and tone of the original text, introduce sufficient lexical and syntactic variation to prevent near-duplication, and allow limited semantic divergence including mild hallucinations.
 
 Paraphrasing is often analysed along two main dimensions. 
-At the lexical level, it involves word-level substitutions such as synonym replacement, typically achieved through rule-based methods or thesaurus-driven resources. 
+At the lexical level, it involves word-level substitutions such as synonym replacement, typically achieved through rule-based or thesaurus-driven methods. 
 At the syntactic level, paraphrasing entails changes to sentence structure, which can be realized through monolingual machine translation~\citep{zhou_paraphrase_2021} or by explicitly prompting \acp{llm}~\citep{kurt_pehlivanoglu_comparative_2024}.
 % While more fine-grained taxonomies exist~\citep{zhou_paraphrase_2025}, they are not central here, as this study does not involve training or constructing paraphrase models directly.
+In this case, paraphrase quality is largely determined by prompt design and model selection~\citep{Wu_ODD_challenges_2025}.
 
 
 \subsection{One-step Paraphrasing}
 
-In the one-step approach, an \imp{} is produced directly through prompting an \ac{llm}. 
+In our one-step approach, an \imp{} is produced directly through prompting an \ac{llm}. 
 Effective prompting proved essential.
 We observed that specification of what to avoid was vital to obtain valid results. 
 Moreover, task instructions placed at the end of the prompt reduced cases where models ignored them in long-context settings, such as the \dataGutenberg{} corpus.
 
-After iterative refinement, the following two prompts yielded consistent results.
+After iterative refinement, the following two prompts yielded \textcolor{orange}{consistent results}.
 The first explicitly decomposes the sentence into subject, verb, and object before reconstruction, encouraging lexical diversity. 
 The second instructs the model to preserve meaning while varying wording and structure. 
 Both emphasize concise outputs restricted to the paraphrase itself.
 
 \begin{quote}
-    \textit{For the text above: Paraphrase the sentence by first identifying the main subject, verb, and object. Then find synonyms for each and construct a new sentence. Only output the final paraphrased sentence.}
+    \textit{Paraphrase the given sentence by identifying the main subject, verb, and object. Replace each with synonyms or closely related words, adjusting grammar naturally. Keep the new sentence close in length to the original. Output only the final paraphrased sentence.}
 \end{quote}
 
 \begin{quote}
-    \textit{For the text above: Paraphrase this sentence. Do not change the meaning, but use different words and structure. Output only the paraphrased sentence.}
+    \textit{Paraphrase the sentence above without changing its meaning. Use different words and vary the sentence structure while keeping the tone consistent. Keep the new sentence similar in length to the original. Output only the paraphrased sentence, with no explanations or extra text.}
 \end{quote}
 
 We initially experimented with T5-based models from HuggingFace, but these demonstrated poor instruction following and often produced malformed outputs. 
-Our final experiments used the models listed in \autoref{tab:base_llms}, all accessed through GWDG/SAIA or IONOS infrastructure.
+Our final experiments used the models listed in \autoref{tab:base_llms}, all accessed through the GWDG/SAIA infrastructure.
 
 \begin{table}[]
 \centering
@@ -74,8 +70,6 @@ qwen3-32b                            & GWDG/ SAIA    \\
 mistral-large-instruct               & GWDG/ SAIA    \\
 openai-gpt-oss-120b                  & GWDG/ SAIA    \\
 meta-llama-3.1-8b-instruct           & GWDG/ SAIA    \\
-meta-llama/Llama-3.3-70B-Instruct    & IONOS         \\
-mistralai/Mixtral-8x7B-Instruct-v0.1 & IONOS     \\
 \bottomrule   
 \end{tabular}%
 % }
@@ -92,24 +86,9 @@ In the first stage, the model identifies contextual features of the input text.
 These feature include tone, register, time period, target audience, and genre.
 Different approaches extract an additional feature specific to their approach.
 The additional features are a bullet point summary, the authorial task, topic, or title. 
-The bullet point extractor prompt is specified in the following, while all others can be derived from the Appendix.
-
-\begin{quote}
-    \textit{Summarize the following text in five to six short bullet points and give an overall description
-    of the genre and tone of the text.}
-\end{quote}
-
+The extractor prompts can be derived from \autoref{app:extractor_prompts}.
 In the second stage, a paraphrase is generated based on the extracted information. 
-Again, all methods other than the bullet point based one slightly differ from the one given below in Listing~\ref{lst:two_step_bullet_point_prompt} and can be found in the Appendix.
-
-\begin{listing}[ht]
-\begin{minted}{python}
-prompt = "Write a text which covers the following items:\n" 
-    + "\n".join(f"- {bp}" for bp in bullet_points)
-\end{minted}
-\caption{Two-step paraphrase generation prompt.}
-\label{lst:two_step_bullet_point_prompt}
-\end{listing}
+Again, all generator prompts can be found in \autoref{app:generator_prompts}.
 
 Translation-based paraphrasing is a related two-step variant, where a text is first translated into another language and then back into English. 
 Although conceptually simple, this approach has been shown to yield limited stylistic diversity~\citep{zhou_paraphrase_2025}.

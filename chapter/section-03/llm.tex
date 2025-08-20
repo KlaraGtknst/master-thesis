@@ -1,15 +1,19 @@
 \section{Impact of \acs{llm} on \ai{}}
 
-With advances of generative \acp{llm} with regard to mimicking human writing, we have to face the fact that \acp{llm} will play a crucial role in any \ai{} related tasks from now on.
-Since there is not \textit{the one} \ac{llm}, but a great variety of \acp{llm}, one may find denoting \acp{llm} an author deceptive.
-This implicates individual authorships for different \acp{llm}.
-Recent research~\citep{llm_detection_av_2025}, claimed that \ac{llm} detection is not an \ac{aa} task, i.e., a closed-set binary classification where both classes are sufficiently discriminative, but an \ac{av} task, i.e., an open-set one-class classification problem. 
+With the advances in generative \ac{ai} come risks and opportunity.
+Similarly, we can frame \acp{llm} as authors weakening our trust in the authencity of digital texts, but also see them as valuable tools to enhance our regulatory methods.
 
-There is also the problem that there is no general definition of when a text is \ac{llm} generated rather than co-created by humans with \ac{llm} assistance.
-Obviously, fully generated texts should be marked as \ac{llm} generated.
-Minor edits of \ac{llm} generated texts do not change the fact that the core content was \ac{llm} generated.
+\subsection{\acp{llm} as authors}
+There is no general definition of when a text is \ac{llm} generated rather than co-created by humans with \ac{llm} assistance.
+% Obviously, fully generated texts should be marked as \ac{llm} generated.
+Minor human edits of \ac{llm} generated texts do not change the fact that the core content was \ac{llm} generated.
 If \acp{llm} are used for grammar checking, polishing, and editing suggestion the primary substantial contribution was human.
 One could denote these texts "\ac{ai}-revised Human-Written Text"~\citep{wang_stumbling_2024}.
+
+With advances of generative models with regard to mimicking human writing, we have to face the fact that \acp{llm} will play a crucial role in any authorship analysis related tasks from now on.
+Since there is not \textit{the one} \ac{llm}, but a great variety of \acp{llm}, one may find denoting \acp{llm} an author deceptive.
+This implicates individual authorships for different \acp{llm}.
+\citet{llm_detection_av_2025} claim that \ac{llm} detection is not an \ac{aa} task, i.e., a closed-set binary classification where both classes are sufficiently discriminative, but an \ac{av} task, i.e., an open-set one-class classification problem. 
 
 % differences: also more in ~\citep{wang_stumbling_2024}
 Despite the advances, there are still some statistical differences on \ac{llm} generated and human authored texts.
@@ -19,12 +23,19 @@ Moreover, \acp{llm} possess stylistic fingerprints and memorize patterns from th
 Word length averages and distributions across genre differ for \acp{llm} and humans~\citep{llm_detection_av_2025}.
 
 % future of LLMs
-However, as \acp{llm} advance, basic heuristics applied by human detectors no longer suffice.
+However, as \acp{llm} progress, basic heuristics applied by human detectors no longer suffice.
 \acp{llm} will become more human-like and thus, \ac{llm} detection will increasingly resemble a human authorship classification task~\citep{llm_detection_av_2025}.
 
 
-\subsection{Shortcomings of \acp{lm}}
-\label{sec:topic_confusion_shortcomings_lm}
-\citet{altakrori_topic_2021} suspect that due to the nature of \acp{lm}, where words of similar meaning, i.e. "color" and "colour", 
-are mapped to a similar vector, they do not work well in \ac{aa} tasks.
-In \ac{aa} tasks, language system differences are highly relevant since they reveal the author's identity.  
+\subsection{\acp{llm} as Discriminator}
+\label{sec:llm_discriminator}
+
+While \acp{llm} can generate coherent text, their utility as direct discriminators in \ac{aa} tasks may be limited. 
+\citet{altakrori_topic_2021} note that \acp{lm} map words with similar meaning, such as "color" and "colour" to similar vector representations.
+This reduces sensitivity to subtle language system differences, which are often critical for identifying an author. 
+Consequently, relying on \acp{llm} as the primary discriminator in \ac{aa} or \ac{av} tasks may be suboptimal.
+
+Rather than serving as standalone discriminators, \acp{llm} are more appropriately employed as supporting tools. 
+For instance, they can generate cross-domain training data to improve model robustness. 
+Moreover, prior methods assessed the extent to which text changes under \ac{llm}-based paraphrasing, since machine generated text tends to undergo minimal alteration, whereas human-authored text exhibits greater variation~\citep{mao_raidar_2024}.
+Conversely, in contexts where privacy is a concern, \acp{llm} can facilitate author obfuscation through controlled paraphrasing. 

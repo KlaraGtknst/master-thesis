@@ -1,10 +1,9 @@
 \subsection{Compression-based}
 % compression models, e.g. RAR or GZIP 
-This category of \ac{aa} approaches is based on general-purpose compression models such as RAR or PPMD. %(i.e. a variant of \ac{ppm}~\citep{tyo_state_2022}), LZW, GZIP, BZIP2 and 7ZIP.
+This category of \ac{aa} approaches relies on general-purpose compression models, such as RAR or PPMD. %(i.e. a variant of \ac{ppm}~\citep{tyo_state_2022}), LZW, GZIP, BZIP2 and 7ZIP.
 Such models capture textual characteristics by exploiting repeated character sequences~\citep{stamatatos_survey_2009,neal_surveying_2018}. 
-Natural language, in particular, allows for high compression ratios due to its strong predictability (English has an entropy of at most 1.75 bits per character). 
-For example, PPMD employs finite-order Markov language models for compression, which are highly effective in predicting character sequences in natural text but are also sensitive to increased entropy caused by text obfuscation~\citep{bevendorff_divergence_based_2020}.
-Accordingly, compression-based \ac{aa} methods are considered character-based approaches.
+Because natural language exhibits strong predictability, compression methods that model character sequences can effectively capture author-specific patterns.
+This focus on character-level regularities is the reason compression-based approaches are typically classified as character-based and the reason why they are also sensitive to text obfuscation~\citep{bevendorff_divergence_based_2020}.
 
 They are further classified as profile-based methods. In this framework, an author profile is first constructed for each candidate author by concatenating all texts attributed to them and then compressing the resulting sequence. 
 The disputed text is subsequently concatenated with each author profile and compressed as well. 

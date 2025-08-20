@@ -1,18 +1,18 @@
 \section{Technical Background}
 
-This section outlines the \ac{ml} principles and attribution paradigms that underpin modern authorship analysis. 
-We first introduce the main classification settings relevant to \ac{av}. 
+This section outlines the \ac{ml} principles and paradigms that underpin modern authorship analysis. 
+We first introduce the main classification concepts relevant to \ac{av}. 
 We then discuss training and evaluation practices, including domain shift scenarios. 
-Finally, we present the principal categories of attribution methods.
+Finally, we present the principal categories of authorship analysis methods.
 
 \subsection{\acl{ml} Principles}
 
-In \ac{aa}, the task is typically framed as a classification problem: given an anonymous text, assign it to one of several candidate authors. 
-Unlike regression, where the output is a continuous value, classification predicts a discrete label corresponding to the author identity.
+\ac{aa} tasks are conventionally formulated as classification problems, where the objective is to attribute an anonymous text to one of a set of candidate authors. 
+Unlike regression, which estimates a continuous value, classification yields a discrete label corresponding to the author’s identity.
 
 \paragraph{Closed- vs. open-set classification.} 
 In a closed-set scenario, the true author is guaranteed to be among the candidate set~\citep{stamatatos_survey_2009,koppel_authorship_2011,barlas_cross_domain_2020,boenninghoff_o2d2_2021,neal_surveying_2018}. 
-In contrast, open-set classification acknowledges that the author of a disputed document may not belong to the candidate set, requiring methods to reject uncertain assignments~\citep{stamatatos_survey_2009,barlas_cross_domain_2020,neal_surveying_2018}. 
+In contrast, open-set classification acknowledges that the author of a disputed document may not belong to the candidate set~\citep{stamatatos_survey_2009,barlas_cross_domain_2020,neal_surveying_2018}. 
 
 \paragraph{One-class classification.} 
 In some cases, training data is available for only a single class, and the task is to decide whether a new sample belongs to this class.
@@ -21,10 +21,10 @@ This is formalized as one-class classification, where the model learns the chara
 
 \paragraph{Multi-class classification.} 
 The standard formulation involves multiple authors, each represented by several training texts. 
-Here, the challenge is to discriminate among a large and often imbalanced set of classes.
+Here, the challenge is to discriminate among a large and often imbalanced set of classes~\citep{stamatatos_survey_2009,koppel_authorship_2004,elmanarelbouanani_authorship_2014} .
 
 
-\subsection{Training and Evaluation Scenarios}
+\subsection{Training and Testing}
 
 Models are typically trained on one portion of the data (training set), tuned on another (validation set), and evaluated on a disjoint partition (test set). 
 Any overlap between these partitions constitutes data leakage and invalidates the results~\citep{bischoff_importance_2020,altakrori_topic_2021,boenninghoff_o2d2_2021}. 
@@ -44,19 +44,19 @@ Unsupervised methods do not rely on labels.
 Clustering techniques or \ac{pca} have been used to uncover latent stylistic patterns or to reduce feature dimensionality~\citep{abbasi_writeprints_2008}.
 
 
-\subsection{Attribution Methods}
+\subsection{Authorship analysis Methods}
 \label{subsec:attribution_methods}
 
-Approaches to \ac{aa} can be grouped into three families~\citep{stamatatos_survey_2009}:
+Approaches to authorship analysis can be grouped into three families~\citep{stamatatos_survey_2009}:
 
 \paragraph{Profile-based methods.} 
 All training texts of an author are concatenated into a single profile, from which a cumulative feature representation is extracted. 
 This approach is effective when only short texts are available.
-Profile-based methods ignore intra-author variation, which can lead to overgeneralization~\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.  
+Profile-based methods ignore intra-author variation~\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.  
 
 \paragraph{Instance-based methods.} 
 Here, each training text is treated as a separate instance of the author's style. 
 This allows models to capture intra-author variability~\citep{stamatatos_survey_2009,altakrori_topic_2021,elmanarelbouanani_authorship_2014,neal_surveying_2018}.  
 
 \paragraph{Hybrid methods.} 
-Hybrid approaches combine both paradigms: they represent texts individually but aggregate author profiles via feature-wise averages over an author’s texts~\citep{stamatatos_survey_2009}. 
+Hybrid approaches combine both paradigms by representing texts individually while aggregating author profiles through feature-wise averages computed over an author’s texts~\citep{stamatatos_survey_2009}. 

@@ -1,38 +1,37 @@
 \subsection{\impAppr{}}
 \label{sec:impostor_method_theory}
 
-\impAppr{} input text pairs are represented via \ac{tfidf} vectors of the \num{100000} most frequent space-free character 4-grams.
-Character n-grams are $n$ consecutive characters in a text also known as character collocations~\citep{neal_surveying_2018}.
-Space free n-grams are strings of $n$ characters that do not include spaces, or strings of less than $n$ characters that are surrounded by spaces~\citep{koppel_authorship_2011}.
+\citet{koppel_determining_2014} propose reducing open-set \ac{av} to open-set \ac{aa}, or the so-called many-candidates, which determines which (if any) candidate author from a pool of candidates authored a given anonymous text. 
+They outline the problem hierarchy as displayed in \autoref{fig:problem_hierarchy}.
+The candidates of the open-set \ac{aa} problem are retrieved via hard negative mining. 
+In the \ac{aa} context, hard negatives are defined as text pairs from different authors that are nonetheless highly similar. 
+To ensure difficulty, impostor texts must be drawn from the same domain as the candidate, where “domain” encompasses factors such as topic, genre, register, or time period~\citep{bischoff_importance_2020}. 
+
+\begin{figure}[htbp]
+    \centering
+    \includesvg{notes/Koppel_imposter_2014/problem_hierarchy_complexity}
+    \caption{Problem hierarchy and complexity.}
+    \label{fig:problem_hierarchy}
+\end{figure}
+
+The disputed text and all candidates are represented via \ac{tfidf} vectors of the \num{100000} most frequent space-free character 4-grams.
+Space free n-grams are strings of $n$ characters that do not include spaces, or strings of less than $n$ characters that are surrounded by spaces~\citep{koppel_authorship_2011,neal_surveying_2018}.
 While the optimal $n$ is language dependent~\citep{neal_surveying_2018}, tri-grams are commonly used in stylistic analysis, due to their ability to capture inflections, % Flexion/ Beugung in Deutsch
 morphemes, %  smallest meaningful constituents within a linguistic expression and particularly within a word
 and other syntactic structures for Germanic languages.
-Explorative study on character n-gram proposed that character n-grams are successful in \ai{} tasks, due to their ability to capture different stylometry feature categories.
-Affix (word end) n-grams capture morphology, and n-grams containing punctuation marks capture style information valuable for cross-domain settings.
+Explorative study on character n-gram proposed that character n-grams are successful in \ac{av} tasks, due to their ability to capture different stylometry feature categories.
+Affix n-grams capture morphology, and n-grams containing punctuation marks capture style information valuable for cross-domain settings.
 Word n-grams capture topic information which is not necessary to obtain valid performance~\citep{Sapkota_ngrams_2015}.
 
-The \impAppr{} builds on the n-gram Unmasking method, which classifies authorship by measuring how quickly classifier accuracy declines under repeated feature subsampling~\citep{koppel_authorship_2004}. 
-Whereas the n-gram Unmasking method relies on complex, interdependent projections, the \impAppr{} uses random projections to transform features into lower-dimensional spaces.
+The \impAppr{} builds on unmasking's repeated feature subsampling~\citep{koppel_authorship_2004}. 
+However, unlike unmasking, the \impAppr{} uses random projections to transform features into lower-dimensional spaces.
 After each projection step, the method records how often a candidate author is predicted as the source of the text. 
-The aggregated score across all elimination steps forms the basis for the final prediction~\citep{tyo_state_2022}.
-
-\ac{av} is an open-set problem: the true author of an anonymous text may or may not be the candidate author. 
-As \citet{koppel_determining_2014} argue, every closed-set \ac{aa} problem can be reduced to an \ac{av} problem. 
-This reduction is achieved by testing each candidate author individually: if the verifier confirms authorship for exactly one candidate, attribution is successful. 
-However, the reverse does not hold: solving closed-set \ac{aa} does not guarantee the ability to solve the more complex open-set \ac{av} problem.
-
-Extending \ac{av}, \citet{koppel_determining_2014} introduce the many-candidates (or: open-set \ac{aa}) problem: given a large pool of candidate authors, determine which (if any) authored a given anonymous text. 
-
-A key component of the \impAppr{} is the use of hard negative mining. 
-The \impAppr{} generates impostor candidates to make verification more robust. 
-In the \ac{aa} context, hard negatives are defined as text pairs from different authors that are nonetheless highly similar. 
-To ensure difficulty, impostor texts must be drawn from the same domain as the candidate, where “domain” encompasses factors such as topic, genre, register, idiolect, or time period~\citep{bischoff_importance_2020}. 
+This score is aggregated across all elimination steps~\citep{tyo_state_2022}.
 The workflow described above is illustrated in \autoref{fig:impostor}.
 
 The process is carried out twice for each pair of texts, swapping the roles of the disputed text and the candidate text. 
 In this way, each text serves once as the disputed text and once as the reference for impostor generation. 
-For each direction, a score is computed based on the number of times a candidate is identified as most similar to the disputed text across random feature reductions. 
-The final prediction is obtained by averaging these scores and applying a threshold.
+The final prediction is obtained by averaging the aggregated scores and applying a threshold.
 
 
 \begin{figure}[htbp]
@@ -62,27 +61,18 @@ The final prediction is obtained by averaging these scores and applying a thresh
 %         \end{tabular}%
 %     \end{table}
 % \end{definition}
-\begin{figure}[htbp]
-    \centering
-    \includesvg{notes/Koppel_imposter_2014/problem_hierarchy_complexity}
-    \caption{Problem hierarchy and complexity.}
-    \label{fig:problem_hierarchy}
-\end{figure}
 
 
-The problem to solve is the \ac{av} problem:
-For two documents $X, Y$ determine if they were written by the same author.
-As displayed in \autoref{fig:problem_reduction}, \citet{koppel_determining_2014} propose reducing the \ac{av} problem to the many-candidates problem.
 
-\begin{figure}[htbp]
-    \centering
-    \includesvg{notes/Koppel_imposter_2014/reduction_closed_set_AV_to_open_set_AA}
-    \caption{Reducing the \ac{av} problem to the many-candidates problem.}
-    \label{fig:problem_reduction}
-\end{figure}
+% \begin{figure}[htbp]
+%     \centering
+%     \includesvg{notes/Koppel_imposter_2014/reduction_closed_set_AV_to_open_set_AA}
+%     \caption{Reducing the \ac{av} problem to the many-candidates problem.}
+%     \label{fig:problem_reduction}
+% \end{figure}
 
 
-\subsubsection{Traditional \imp{} Generation}
+\subsubsection{Traditional \Imp{} Generation}
 \label{subsubsec:traditional_impostor_generation}
 
 \citet{koppel_determining_2014} introduce three approaches to generating \imps{}. 
@@ -95,7 +85,7 @@ Finally, in the blog approach, impostors are selected at random from the \dataBl
 This method, according to the authors, ensures that impostor texts share the same genre as the input pair.
 
 
-First the $m$ most similar impostor (in terms of min-max similarity) documents are selected.
-Then, $n$ random impostor documents are selected from the $m$ impostor documents.
+First the $m$ most similar impostor documents in terms of min-max similarity are selected.
+Then, $n < m$ random impostor documents are selected.
 \citet{koppel_determining_2014} found that using a selection of $n$ \imps{} rather than all $m$ impostor documents produces better results.
-The approach is insensitive to $m,n$.
+The approach is insensitive to $m$ and $n$.

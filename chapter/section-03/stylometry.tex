@@ -1,14 +1,14 @@
-% \subsection{Stylometry}
+\section{Stylometry}
 
-\begin{definition}
-    [Stylometry]
+% \begin{definition}
+%     [Stylometry]
     Stylometry is the quantitative analysis of linguistic style through measurable textual features, with the aim of distinguishing between authors.
-\end{definition}
-The central assumption of stylometry is that authors unconsciously leave behind consistent idiosyncratic syntactic traces, so-called style markers, that can be exploited for \ai tasks~\citep{neal_surveying_2018,bischoff_importance_2020}. 
-These traces are presumed to reflect relatively stable personal traits and stylistic habits rather than superficial properties imposed by genre, register, or topic. 
+% \end{definition}
+The central assumption of stylometry is that authors unconsciously leave behind consistent idiosyncratic syntactic traces, so-called style markers, that can be exploited for authorship analysis tasks~\citep{neal_surveying_2018,bischoff_importance_2020}. 
+These traces are presumed to reflect relatively stable personal traits, stylistic habits rather and superficial properties imposed by genre, register, or topic. 
 The practical challenge, therefore, lies in identifying markers that are more strongly determined by authorial traits than by domain conventions.
 
-Stylometric features are commonly grouped into several broad categories~\citep{stamatatos_survey_2009}, outlined in \autoref{tab:stylometric_features}. 
+Stylometric features are commonly grouped into several broad categories outlined in \autoref{tab:stylometric_features}. 
 They range from low-level lexical and character-based statistics to high-level semantic and application-specific indicators.
 High-level features tend to be prone to noise since they rely on processing tools.
 
@@ -79,5 +79,5 @@ Content-specific frequent words may be useful within a single genre, but they sh
 % Domain-specific features include ratios of quoted words and external links, number of paragraphs, and paragraphs average length for the news article domain~\citep{potthast_stylometric_2018}
 
 
-In summary, stylometry rests on the delicate balance between extracting informative style markers and minimizing confounding influences from genre, register, or topic. 
+In summary, stylometry's objective is to extract informative style markers which minimize influences from genre, register, or topic. 
 While lexical features remain the most widely used due to their simplicity, more advanced syntactic and semantic representations, as well as domain-specific markers, can be crucial for tackling diverse real-world scenarios.
