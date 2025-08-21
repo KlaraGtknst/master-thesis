@@ -10,12 +10,11 @@ Combining both perspectives allows identification of good paraphrases which bala
 
 \subsubsection{Syntactic Measures}
 Syntactic evaluation metrics mainly focus on the n-gram overlaps~\citet{zhou_paraphrase_2021}. 
-Common syntactic evaluation metrics include \ac{bleu}, \ac{meteor} \ac{rouge}-1, \ac{rouge}-L.
-\textcolor{red}{\citet{kurt_pehlivanoglu_comparative_2024} claims \ac{meteor} is a semantic metric.}
+Common syntactic evaluation metrics include \acs{bleu}, \acs{rouge}-1, \acs{rouge}-L.
 
 BLEU~\citep{papineni_bleu_2001} was originally developed for machine translation and has since become a standard metric for evaluating paraphrase generation \citep{zhou_paraphrase_2021}. 
 BLEU is based on precision, computing the fraction of generated n-grams that appear in any reference text~\citep{kurt_pehlivanoglu_comparative_2024,palivela_optimization_2021,papineni_bleu_2001}. 
-To prevent inflated scores due to repetition of frequent tokens (e.g., “the”), BLEU introduces a clipping mechanism that caps the count of n-grams at their maximum reference frequency~\citep{papineni_bleu_2001}. 
+To prevent inflated scores due to repetition of frequent tokens (e.g., "the"), BLEU introduces a clipping mechanism that caps the count of n-grams at their maximum reference frequency~\citep{papineni_bleu_2001}. 
 Precision for each $n \in \mathbb{N}_{>0}$ is given by \autoref{eq:bleu}.
 \ac{bleu}'s basic unit of evaluation is a sentence. 
 In order to compute the \ac{bleu} score from \autoref{eq:bleu} for more than one sentence, 
@@ -41,7 +40,7 @@ The brevity penalty $BP$ from \autoref{eq:bleu_brevity_penalty} is additionally 
 \label{eq:bleu_brevity_penalty}
 \end{equation}
 
-\autoref{eq:bleu} and \autoref{eq:bleu_brevity_penalty} combined leads to the final score in\autoref{eq:bleu_final}.
+\autoref{eq:bleu} and \autoref{eq:bleu_brevity_penalty} combined leads to the final score in \autoref{eq:bleu_final}.
 
 \begin{equation}
     \text{BLEU} = BP \cdot \exp\left(\sum_{n=1}^{N} w_n \cdot \log p_n\right)
@@ -66,10 +65,45 @@ As such, it is generally recommended being supplemented with human evaluation~\c
 % and thus, limited syntactic diversity (i.e. inadequate paraphrase) \citep{kurt_pehlivanoglu_comparative_2024}.
 % Note that more reference texts lead to higher \ac{bleu} scores \citep{papineni_bleu_2001}.
 
+\ac{rouge} \citep{lin_rouge_2004}, initially developed for summarization, is recall-oriented and emphasizes coverage of reference content in the candidate text. 
+Several variants exist, including \ac{rouge}-N, which computes n-gram recall, \ac{rouge}-L, which measures the longest common subsequence, and \ac{rouge}-S, which evaluates skip-bigram co-occurrences~\citep{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}. 
+\ac{rouge}-L for a candidate $Y$ of length $n$ and a reference $X$ of length $m$, for example, is defined in \autoref{eq:rouge_l}.
+For \ac{rouge}-L, the intuition is that the longer the longest common subsequence (LCS) between the candidate and reference texts, the more similar they are \citep{lin_rouge_2004}.
+% \ac{rouge}-L requires in-sequence matches that reflect the sentence level word order as n-grams.
+% Moreover, no predefined $n$ is necessary, because \ac{rouge}-L includes the longest in-sequence common n-grams.
+% However, \ac{rouge}-L does not include shorter sequences or alternative LCSes in the final score~\citep{lin_rouge_2004}.
 
+\begin{equation}
+ROUGE-L = F_{lcs} = \frac{(1 + \beta^2)R_{lcs}P_{lcs}}{R_{lcs} + \beta^2 P_{lcs}},
+\label{eq:rouge_l}
+\end{equation}
 
-METEOR was proposed to address BLEU’s deficiencies. 
-Unlike BLEU, which is precision-oriented, METEOR explicitly incorporates recall and includes mechanisms for handling morphological and semantic variation, such as stemming and synonym matching. 
+$R_{lcs} = \frac{LCS(X,Y)}{m}$ and $P_{lcs} = \frac{LCS(X,Y)}{n}$ capture recall and precision based on subsequence length. 
+Although \ac{rouge} is sensitive to word order, it remains a syntactic metric. 
+Its ability to reflect semantic adequacy or fluency is limited, and low \ac{rouge} scores may simply reflect lexical diversity rather than paraphrase inaccuracy \citep{kurt_pehlivanoglu_comparative_2024}.
+
+% Its values range from 0 to 1 \citep{kurt_pehlivanoglu_comparative_2024}.
+% ROUGE-N
+\ac{rouge}-N is an n-gram recall between the candidate text and the reference texts \citep{lin_rouge_2004} as displayed in \autoref{eq:rouge_n}.
+\begin{equation}
+    ROUGE-N = \frac{\sum_{\mathcal{S} \in \left\{ References \right\}}\sum_{n-gram \in\mathcal{S}}Count_{match}(n-gram)}{\sum_{\mathcal{S'} \in \left\{ References \right\}}\sum_{n-gram' \in\mathcal{S'}}Count(n-gram')}
+\label{eq:rouge_n}
+\end{equation}
+$Count_{match}(n-gram)$ is the maximum number of n-grams co-occuring in the candidate text and the set of reference texts \citep{lin_rouge_2004}.
+The nominator sums over all references and thus, gives more weight to matching n-grams that occur in multiple references (i.e. a consensus between references) \citep{lin_rouge_2004}.
+
+% ROUGE-S
+A skip-bigram is any pair of words in their sentence order, allowing for arbitrary gaps \citep{lin_rouge_2004}.
+\ac{rouge}-S measures the overlap of skip-bigrams between the candidate text and the reference texts \citep{lin_rouge_2004}.
+Hence, if the candidate text is the reverse of the reference text, the \ac{rouge}-S score is 0 even though it is not as bad as completely unrelated candidates \citep{lin_rouge_2004}.
+\ac{rouge}-SU extends \ac{rouge}-S with unigrams to solve this issue \citep{lin_rouge_2004}.
+% ROUGE generally
+% \citet{kurt_pehlivanoglu_comparative_2024} claim that \ac{rouge} may not be adequate to assess semantic similarity and fluency.
+Lower \ac{rouge} scores indicate greater diversity \citep{kurt_pehlivanoglu_comparative_2024}.
+
+METEOR was proposed to address BLEU's deficiencies. 
+Unlike BLEU, which is precision-oriented, METEOR explicitly incorporates recall.
+We consider METEOR a syntactic metric due to its conceptual similarity to BLEU, but it captures also semantic characteristics on account of inclusion of stemming and synonym matching modules~\citep{kurt_pehlivanoglu_comparative_2024}. 
 Candidate and reference unigrams are first aligned based on modules (exact match, Porter stemmed match, synonymy), after which the best largest subset of unigram mappings is selected according to cardinality and minimal crossing. 
 From this alignment, METEOR computes the weighted $F$-score from \autoref{eq:meteor}~\citep{banerjee_METEOR_2005}.
 
@@ -81,58 +115,17 @@ From this alignment, METEOR computes the weighted $F$-score from \autoref{eq:met
 The penalty function discourages fragmented matches and reduces the score to $50\%$ bigram or longer matches are absent~\citep{banerjee_METEOR_2005}. 
 METEOR has been shown to correlate more strongly with human judgments than BLEU, particularly at the sentence or segment level, due to its sensitivity to lexical and semantic variation \citep{zhou_paraphrase_2021,kurt_pehlivanoglu_comparative_2024}.
 % Its values range from 0 to 1 \citep{kurt_pehlivanoglu_comparative_2024}.
-There is penality function whenever an incorrect word is encountered~\citep{palivela_optimization_2021} as displayed in \autoref{eq:meteor}.
+$P$ and $R$ denote unigram-precision and unigram-recall respectively~\citep{kurt_pehlivanoglu_comparative_2024,banerjee_METEOR_2005}.
+The penality function whenever an incorrect word is encountered~\citep{palivela_optimization_2021} as displayed in \autoref{eq:meteor}.
 
 
+\subsubsection{Semantic Measures}
+Syntactic measures are inadequate when the goal is to evaluate paraphrases that prioritize semantic preservation over lexical similarity. 
+To address this limitation, semantic metrics leverage distributed representations of words or sentences.
 
-\ac{rouge} (2004) is a recall-based metric developed for text summarization 
-\citep{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024,lin_rouge_2004}.
-Its values range from 0 to 1 \citep{kurt_pehlivanoglu_comparative_2024}.
-\ac{rouge} can focus on the word variations and diversity.
-It has multiple versions, the most popular ones include 
-\ac{rouge}-N (computing the n-gram recall) \citep{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}, 
-\ac{rouge}-L (computing the longest common subsequence) \citep{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}, 
-\ac{rouge}-W (Weighted longest common subsequence) \citep{palivela_optimization_2021}, 
-\ac{rouge}-S (skip-bigram co-occurrence statistics) \citep{palivela_optimization_2021}.
-\ac{rouge}-1 computes the recall by analysing the matching unigrams between the generated paraphrase and the reference paraphrase \citep{palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}.
-% ROUGE-N
-\ac{rouge}-N is an n-gram recall between the candidate text and the reference texts \citep{lin_rouge_2004} as displayed in \autoref{eq:rouge_n}.
-\begin{equation}
-    ROUGE-N = \frac{\sum_{\mathcal{S} \in \left\{ References \right\}}\sum_{n-gram \in\mathcal{S}}Count_{match}(n-gram)}{\sum_{\mathcal{S'} \in \left\{ References \right\}}\sum_{n-gram' \in\mathcal{S'}}Count(n-gram')}
-\label{eq:rouge_n}
-\end{equation}
-$Count_{match}(n-gram)$ is the maximum number of n-grams co-occuring in the candidate text and the set of reference texts \citep{lin_rouge_2004}.
-The nominator sums over all references and thus, gives more weight to matching n-grams that occur in multiple references (i.e. a consensus between references) \citep{lin_rouge_2004}.
-Refer to \citet{lin_rouge_2004} for more details on the work with multiple references (I do not understand that, because I thought we already use multiple).
-% ROUGE-L
-For \ac{rouge}-L, the intuition is that the longer the longest common subsequence (LCS) between the candidate and reference texts, the more similar they are \citep{lin_rouge_2004}.
-For a candidate $Y$ of length $n$ and a reference $X$ of length $m$, the \ac{rouge}-L score is defined as follows in \autoref{eq:rouge_l}:
-\begin{equation}
-    ROUGE-L = F_{lcs} = \frac{(1 + \beta^2)R_{lcs}P_{lcs}}{R_{lcs} + \beta^2 P_{lcs}}
-\label{eq:rouge_l}
-\end{equation}
-where $R_{lcs} = \frac{LCS(X,Y)}{m}$ and $P_{lcs} = \frac{LCS(X,Y)}{n}$ \citep{lin_rouge_2004}.
-\ac{rouge}-L requires in-sequence matches that reflect the sentence level word order as n-grams \citep{lin_rouge_2004}.
-Moreover, no predefined $n$ is necessary, because \ac{rouge}-L includes the longest in-sequence common n-grams \citep{lin_rouge_2004}.
-However, \ac{rouge}-L does not include shorter sequences or alternative LCSes in the final score \citep{lin_rouge_2004}.
-% ROUGE-S
-A skip-bigram is any pair of words in their sentence order, allowing for arbitrary gaps \citep{lin_rouge_2004}.
-\ac{rouge}-S measures the overlap of skip-bigrams between the candidate text and the reference texts \citep{lin_rouge_2004}.
-Hence, if the candidate text is the reverse of the reference text, the \ac{rouge}-S score is 0 even though it is not as bad as completely unrelated candidates \citep{lin_rouge_2004}.
-\ac{rouge}-SU extends \ac{rouge}-S with unigrams to solve this issue \citep{lin_rouge_2004}.
-% ROUGE generally
-\citet{kurt_pehlivanoglu_comparative_2024} claim that \ac{rouge} may not be adequate to assess semantic similarity and fluency.
-Lower \ac{rouge} scores indicate greater diversity \citep{kurt_pehlivanoglu_comparative_2024}.
+BERTScore \citep{hanna_fine_grained_2021} computes similarity between contextual BERT embeddings of candidate and reference texts~\citep{hanna_fine_grained_2021}. 
+For reference vectors $z$ and candidate vectors $\hat{z}$, precision and recall are defined as \autoref{eq:bert_p} and \autoref{eq:bert_r}, respectively.
 
-Common metrics for semantic similarity include BERTScore, 
-cosine similarity of dense vector representations derived from a BERT-based sentence transformer, 
-and \ac{wmd} \citep{gohsen_captions_2023}.
-
-BERTScore calculates the cosine similarity between the contextual embeddings of the reference and generated texts. 
-Hence, is assesses semantic equivalence and correlates well with human judgment \citep{kurt_pehlivanoglu_comparative_2024}.
-First, token vector representations are computed for both the reference and generated texts using a pre-trained BERT model \citep{hanna_fine_grained_2021}.
-Let reference $z$ and candidate $\hat{z}$ be the vector representations of the reference and candidate texts, respectively.
-Then, the BERTScore precision, recall and $F_1$ score is computed as follows in \autoref{eq:bert_p}, \autoref{eq:bert_r}, and \autoref{eq:bert_f1}, respectively:
 \begin{equation}
     P_{BERT} = \frac{1}{|\hat{z}|} \sum_{\hat{z}_j \in \hat{z}} \max_{z_j \in z} z_i\top \hat{z}_j
 \label{eq:bert_p}
@@ -141,15 +134,15 @@ Then, the BERTScore precision, recall and $F_1$ score is computed as follows in 
     R_{BERT} = \frac{1}{|z|} \sum_{z_j \in z} \max_{\hat{z}_j \in \hat{z}} z_i\top \hat{z}_j
 \label{eq:bert_r}
 \end{equation}
-\begin{equation}
-    F_1 = \frac{2 P_{BERT} R_{BERT}}{P_{BERT} + R_{BERT}} 
-\label{eq:bert_f1}
-\end{equation}
-Since $F_1 \in \left[-1,1\right]$ it can be rescaled to $[0,1]$ by modifying the precision and recall calculation 
-to $\hat{P}_{BERT} = \frac{P_{BERT} - a}{1 - a}$ ($R_{BERT}$ analogous), where $a$ is the empirical lower bound on the BERTScore \citep{hanna_fine_grained_2021}.
-% The BERTScore has difficulties on datasets with lexically similar (i.e. lexical overlap of content words) incorrect candidates 
-% opposed to lexically different more correct candidates \citep{hanna_fine_grained_2021}.
 
-The \ac{wmd} computes the minimum amount of distance that embedded words of a text need to travel 
-to reach the embedded words of another text \citep{gohsen_captions_2023}.
+% \begin{equation}
+%     F_1 = \frac{2 P_{BERT} R_{BERT}}{P_{BERT} + R_{BERT}} 
+% \label{eq:bert_f1}
+% \end{equation}
+% Since $F_1 \in \left[-1,1\right]$ it can be rescaled to $[0,1]$ by modifying the precision and recall calculation 
+% to $\hat{P}_{BERT} = \frac{P_{BERT} - a}{1 - a}$ ($R_{BERT}$ analogous), where $a$ is the empirical lower bound on the BERTScore \citep{hanna_fine_grained_2021}.
 
+
+BERTScore correlates with human judgment at the semantic level \citep{kurt_pehlivanoglu_comparative_2024}, although it may struggle when lexically overlapping but semantically incorrect candidates are present \citep{hanna_fine_grained_2021}.
+
+\ac{wmd} measures the minimal transport cost of aligning word embeddings from one text to another \citep{gohsen_captions_2023}. 

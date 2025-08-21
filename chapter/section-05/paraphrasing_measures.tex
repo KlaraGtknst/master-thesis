@@ -37,7 +37,7 @@ This is followed by a discussion of human evaluation, which complements automati
 \label{subsec:text_extraction}
 
 In order to evaluate the quality of the information extracted by the \pextractor{}, 
-we decided to compare the genre, century, and the paraphrase-specifc topic to the 
+we decided to compare the genre, century, and the paraphrase-specific topic to the 
 ground truth available for the \dataBlog{}, \dataGutenberg{} and the \dataCustom{} dataset.
 
 We found that the instructions for the \pextractor{} have to be positioned after the text to be extracted, 
@@ -74,7 +74,7 @@ We therefore also employed qualitative evaluation of the paraphrases.
 % shortcoming of traditional quantitative paraphrase metrics
 We used state-of-the art measures for the quantitative evaluation of paraphrases. 
 Unfortunately, these measures can be misleading since it is unclear what they actually measure.
-Generally high scores in BLEU, ROUGE, METEOR mean nearly identical paraphrase (high n-gram overlap).
+Generally high scores in BLEU, \ac{rouge}, METEOR mean nearly identical paraphrase (high n-gram overlap).
 In this case, we want value syntactic diversity, rendering these measures unintuitive 
 for high values do not necessarily correspond to good paraphrases.
 Semantic similarity measurements compare the content of the paraphrase to the original text, 
