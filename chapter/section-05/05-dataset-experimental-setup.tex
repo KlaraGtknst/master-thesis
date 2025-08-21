@@ -14,6 +14,21 @@ This includes not only allocation, preprocessing and pair selection of each data
 % for each: Question to answer, experiment design, same language (unified description), when duplicate: short description and reference to other occurence (but avoid sole references)
 % questions can be specific, should be related to research question(s)
 
+The following experiments are designed to systematically evaluate the extension of the \impAppr{}~\citep{koppel_determining_2014} with \ac{llm} generated impostors. 
+The evaluation proceeds in several stages in order to both reproduce baseline results and to assess the proposed modifications in a controlled and comparative manner.
+
+We begin by reproducing the original \impAppr{} experiments of \citet{koppel_determining_2014} to establish a reliable baseline and to ensure comparability between our implementation and previously reported results. 
+Next, we investigate the quality of paraphrases used in \imp{} generation. 
+In particular, we compare a one-step paraphrasing strategy with a two-step approach. 
+We compare paraphrase metrics across different numbers of text chunks.
+We then analyse the effect of syntactic similarity between paraphrases and original texts on \imp{} scores. 
+Then, we compare different strategies for \imp{} generation, ranging from traditional baselines to \ac{llm}-based paraphrasing methods. 
+We evaluate both the raw \imp{} scores and their behaviour under different experimental scenarios, such as varying sources of input text pairs. 
+This allows us to examine not only the overall effectiveness of different \imp{} generation approaches, but also their relative strengths under specific \ac{av} settings.
+
+Together, these experiments provide a comprehensive analysis of the impact of paraphrase quality, syntactic similarity, and \imp{} generation strategy on the performance of the \impAppr{}, thereby offering insights into the role of \acp{llm} in enhancing authorship verification.
+
+
 \input{chapter/section-05/experiments/reproduction.tex}
 
 \input{chapter/section-05/experiments/chunks.tex}
@@ -21,8 +36,6 @@ This includes not only allocation, preprocessing and pair selection of each data
 \input{chapter/section-05/experiments/comp_paraphrasers.tex}
 
 \input{chapter/section-05/experiments/impact_syn_sim.tex}
-
-\subsection{Naive Paraphrasers and \acp{fp}}
 
 \input{chapter/section-05/experiments/imp_gen_comp.tex}
 
