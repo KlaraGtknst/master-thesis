@@ -24,7 +24,7 @@ For genre and topic, we compute the cosine similarity on SBERT embedding.
 For the genre extraction, we split the extractors' result by comma and use the maximum similarity.
 Since the ground truth topic usually consists of multiple topics separated by comma, we split them into a list and use the maximum similarity.
 For century match, we processed the result of the extractor by mapping \textit{present}, \textit{current}, and \textit{now} to 21, then extracting digits and omitting the last two digits from any numbers with at least three digits and finally adding one if the original digit was not divisible by 100.
-We then use the ground truth as a baseline $b$ for extracted century $a$ and compute $\frac{b}{a}$.
+We then use the ground truth as a baseline $b$ for extracted century $a$ and compute $\frac{a}{b}$.
 \textcolor{red}{TODO: examples}
 While the \dataBlog{} already provides metadata in its csv dataset, we had to construct the \dataStudent{} from the existing information about and in the dataset, whereas the \dataGutenberg{} metadata was completely manually curated.
 Any ground truth century values was processed the same way with additionally selecting only the year from dates.
