@@ -1,49 +1,38 @@
 \subsection{Traditional Quantitative Paraphrase Evaluation Measures}
 \label{subsec:traditional_quantitative_evaluation_measures}
 
+The evaluation of paraphrases can be broadly divided into syntactic and semantic approaches~\citep{gohsen_captions_2023}. 
+Syntactic metrics primarily assess measure n-gram overlaps between a candidate text and reference texts~\citep{zhou_paraphrase_2021}. 
+By contrast, semantic metrics aim to capture equivalence of meaning. 
+Combining both perspectives allows identification of good paraphrases which balance syntactic diversity and semantic similarity.
 
-
-There is syntactic and semantic evaluation of paraphrases \citep{gohsen_captions_2023}.
-% Metrics for syntactic evaluation include \ac{bleu}, \ac{rouge}-1, \ac{rouge}-L, 
-% while metrics for semantic similarity include BERTScore, 
-% cosine similarity of dense vector representations derived from a BERT-based sentence transformer, 
-% and \ac{wmd} \citep{gohsen_captions_2023}.
-% The \ac{wmd} computes the minimum amount of distance that embedded words of a text need to travel 
-% to reach the embedded words of another text \citep{gohsen_captions_2023}.
 % \citet{gohsen_captions_2023} normalized all metrics and averaged the semantic and syntactic scores separately.
+
+\subsubsection{Syntactic Measures}
 Syntactic evaluation metrics mainly focus on the n-gram overlaps~\citet{zhou_paraphrase_2021}. 
 Common syntactic evaluation metrics include \ac{bleu}, \ac{meteor} \ac{rouge}-1, \ac{rouge}-L.
 \textcolor{red}{\citet{kurt_pehlivanoglu_comparative_2024} claims \ac{meteor} is a semantic metric.}
 
-\ac{bleu} (2002) was developed for machine translation \citep{palivela_optimization_2021,zhou_paraphrase_2021,papineni_bleu_2001}.
-Its values range from 0 to 1 \citep{papineni_bleu_2001}.
-\ac{bleu} is a precision measure \citep{kurt_pehlivanoglu_comparative_2024,papineni_bleu_2001}.
-It counts the matching n-grams (unigrams) in the generated/candidate text that appear in any of the gold/ reference texts \citep{palivela_optimization_2021,papineni_bleu_2001}, 
-and then divides them by the total number of n-grams (unigrams) in the candidate text \citep{papineni_bleu_2001}.
-Since candidates consisting only of high-probability n-grams (e.g. "the") would receive a high score without deserving it, 
-\citet{papineni_bleu_2001} introduced a clipping mechanism to limit the count of n-grams in the candidate text 
-to the maximum count of that n-gram in any of the reference texts.
-The clipped n-grams occurrences are added up and divided by the total number 
-of unclipped n-grams in the candidate text \citep{papineni_bleu_2001}.
-\citet{papineni_bleu_2001} state that unigrams are used to test adequacy, while longer n-grams are used to test fluency.
+BLEU~\citep{papineni_bleu_2001} was originally developed for machine translation and has since become a standard metric for evaluating paraphrase generation \citep{zhou_paraphrase_2021}. 
+BLEU is based on precision, computing the fraction of generated n-grams that appear in any reference text~\citep{kurt_pehlivanoglu_comparative_2024,palivela_optimization_2021,papineni_bleu_2001}. 
+To prevent inflated scores due to repetition of frequent tokens (e.g., “the”), BLEU introduces a clipping mechanism that caps the count of n-grams at their maximum reference frequency~\citep{papineni_bleu_2001}. 
+Precision for each $n \in \mathbb{N}_{>0}$ is given by \autoref{eq:bleu}.
 \ac{bleu}'s basic unit of evaluation is a sentence. 
 In order to compute the \ac{bleu} score from \autoref{eq:bleu} for more than one sentence, 
 one (1) computes the n-grams matches sentence by sentence, 
 then (2) adds the clipped n-grams matches across all sentences, 
 and finally (3) divides the total clipped n-grams matches by 
 the total number of unclipped n-grams in all candidate sentences \citep{papineni_bleu_2001}.
+
 \begin{equation}
     p_n = \frac{\sum_{\mathcal{C} \in \left\{ Candidates \right\}}\sum_{n-gram \in\mathcal{C}}Count_{clip}(n-gram)}{\sum_{\mathcal{C'} \in \left\{ Candidates \right\}}\sum_{n-gram' \in\mathcal{C'}}Count(n-gram')}
 \label{eq:bleu}
 \end{equation}
-\ac{bleu} combines the scores for different n-grams (separately computed) using the average logarithm with uniform weights, 
-which is equivalent to using the geometric mean of the scores \citep{papineni_bleu_2001,banerjee_METEOR_2005}.
-\citet{gohsen_captions_2023} use up to 4-grams.
-\ac{bleu} automatically penalizes n-grams appearing in the candidate text but not in the reference text, 
-as well as n-grams appearing more often in the candidate than in the reference text \citep{papineni_bleu_2001}.
-According to \citet{papineni_bleu_2001}, they need to add a brevity penalty to the \ac{bleu} score 
-to enforce proper length of the candidate text. 
-Hence, the brevity penalty $BP$ is defined as follows in \autoref{eq:bleu_brevity_penalty}:
+
+Unigrams are used to test adequacy, while longer n-grams are used to test fluency~\citep{papineni_bleu_2001}.
+Combined scores across different n-gram orders are computed via the geometric mean, weighted uniformly across different $n$~\citep{papineni_bleu_2001,banerjee_METEOR_2005}. 
+The brevity penalty $BP$ from \autoref{eq:bleu_brevity_penalty} is additionally applied to discourage excessively short candidates~\citep{papineni_bleu_2001}.
+
 \begin{equation}
     BP = \begin{cases}
         1 & \text{if } c > r \\
@@ -51,49 +40,48 @@ Hence, the brevity penalty $BP$ is defined as follows in \autoref{eq:bleu_brevit
     \end{cases}
 \label{eq:bleu_brevity_penalty}
 \end{equation}
-Combining all these, the final \ac{bleu} score is computed as follows in \autoref{eq:bleu_final}:
+
+\autoref{eq:bleu} and \autoref{eq:bleu_brevity_penalty} combined leads to the final score in\autoref{eq:bleu_final}.
+
 \begin{equation}
     \text{BLEU} = BP \cdot \exp\left(\sum_{n=1}^{N} w_n \cdot \log p_n\right)
 \label{eq:bleu_final}
 \end{equation}
-For multiple sentences, they (1) add the best match (among the reference texts) length for each candidate sentence, 
-and (2) divide this sum $r$ by the total length of all candidate sentences $c$. 
-They cannot use recall for length-related problems here, 
-because \ac{bleu} uses multiple reference texts, which may have different lengths \citep{papineni_bleu_2001,banerjee_METEOR_2005}.
-If the generated candidate is significantly shorter than the reference text, the brevity penalty $BP$ is applied.
-A \ac{bleu} score approaching 1 signifies the candidate matches one reference almost exactly \citep{papineni_bleu_2001}, 
-and thus, limited syntactic diversity (i.e. inadequate paraphrase) \citep{kurt_pehlivanoglu_comparative_2024}.
-Note that more reference texts lead to higher \ac{bleu} scores \citep{papineni_bleu_2001}.
-Unigrams are token-wise and bi-grams are word-pairs \citet{palivela_optimization_2021}.
-According to \citet{zhou_paraphrase_2021}'s survey, \ac{bleu} is the most frequently used metric for paraphrase generation.
-\ac{bleu} is unable to measure semantic equivalents \citep{kurt_pehlivanoglu_comparative_2024,zhou_paraphrase_2021} 
-when applied to low-resource languages \citep{zhou_paraphrase_2021}.
-Moreover, \ac{bleu} fails to capture good paraphrases that are not similar to the reference text \citep{zhou_paraphrase_2021}.
-\citet{kurt_pehlivanoglu_comparative_2024} found that \ac{bleu} tends to overestimate the quality of paraphrases.
-\citet{zhou_paraphrase_2021} suggest combining \ac{bleu} with human evaluation to overcome its limitations.
+
+Although BLEU is the most frequently applied metric in paraphrase evaluation, it has well-known shortcomings. 
+It disregards semantic similarity completely and therefore judges paraphrases only based on n-gram overlap. 
+As such, it is generally recommended being supplemented with human evaluation~\citep{zhou_paraphrase_2021}.
+
+% Its values range from 0 to 1 \citep{papineni_bleu_2001}.
+
+% \ac{bleu} automatically penalizes n-grams appearing in the candidate text but not in the reference text, 
+% as well as n-grams appearing more often in the candidate than in the reference text \citep{papineni_bleu_2001}.
+
+% For multiple sentences, they (1) add the best match (among the reference texts) length for each candidate sentence, 
+% and (2) divide this sum $r$ by the total length of all candidate sentences $c$. 
+% They cannot use recall for length-related problems here, 
+% because \ac{bleu} uses multiple reference texts, which may have different lengths \citep{papineni_bleu_2001,banerjee_METEOR_2005}.
+% If the generated candidate is significantly shorter than the reference text, the brevity penalty $BP$ is applied.
+% A \ac{bleu} score approaching 1 signifies the candidate matches one reference almost exactly \citep{papineni_bleu_2001}, 
+% and thus, limited syntactic diversity (i.e. inadequate paraphrase) \citep{kurt_pehlivanoglu_comparative_2024}.
+% Note that more reference texts lead to higher \ac{bleu} scores \citep{papineni_bleu_2001}.
 
 
-\ac{meteor} (2014) aims to address \ac{bleu}'s shortcomings.
-Its values range from 0 to 1 \citep{kurt_pehlivanoglu_comparative_2024}.
-First a mapping, so-called alignment, between the unigrams in the candidate text and the reference texts is created \citep{banerjee_METEOR_2005}.
-Each unigram has zero or one match.
-This alignment is created incrementally in repeating two steps:
-(1) List all possible unigram mappings derived from different modules (i.e. exact matches, Porter stemmed matches, synonym matches), 
-and (2) select the largest subset of unigram mappings that constitute a valid alignment 
-(matches obtained from different modules are treated the same).
-(3) Choose the subset with the largest cardinality and if there are multiple, 
-choose the one with the fewest unigram mapping crosses \citep{banerjee_METEOR_2005}.
-\ac{meteor} computes a weighted F-score 
-(unigram-precision, unigram-recall \citep{kurt_pehlivanoglu_comparative_2024,banerjee_METEOR_2005} 
-and a measure of fragmentation \citep{banerjee_METEOR_2005,kurt_pehlivanoglu_comparative_2024})
-with a penality function whenever an incorrect word is encountered \citep{palivela_optimization_2021} as displayed in \autoref{eq:meteor}.
+
+METEOR was proposed to address BLEU’s deficiencies. 
+Unlike BLEU, which is precision-oriented, METEOR explicitly incorporates recall and includes mechanisms for handling morphological and semantic variation, such as stemming and synonym matching. 
+Candidate and reference unigrams are first aligned based on modules (exact match, Porter stemmed match, synonymy), after which the best largest subset of unigram mappings is selected according to cardinality and minimal crossing. 
+From this alignment, METEOR computes the weighted $F$-score from \autoref{eq:meteor}~\citep{banerjee_METEOR_2005}.
+
 \begin{equation}
     METEOR = F_{mean} = \frac{10 \cdot P \cdot R}{R + 9P} \cdot (1 - Penalty)
 \label{eq:meteor}
 \end{equation}
-The penalty is designed to reduce the $F_{mean}$ score to $50\%$ if there are no bigram or longer matches \citep{banerjee_METEOR_2005}.
-It has better correlation with human judgment at the sentence/segment level than \ac{bleu} \citep{zhou_paraphrase_2021}, 
-because it not only consists of simple n-gram matching but also including synonymy and stemming \citep{kurt_pehlivanoglu_comparative_2024}.
+
+The penalty function discourages fragmented matches and reduces the score to $50\%$ bigram or longer matches are absent~\citep{banerjee_METEOR_2005}. 
+METEOR has been shown to correlate more strongly with human judgments than BLEU, particularly at the sentence or segment level, due to its sensitivity to lexical and semantic variation \citep{zhou_paraphrase_2021,kurt_pehlivanoglu_comparative_2024}.
+% Its values range from 0 to 1 \citep{kurt_pehlivanoglu_comparative_2024}.
+There is penality function whenever an incorrect word is encountered~\citep{palivela_optimization_2021} as displayed in \autoref{eq:meteor}.
 
 \ac{rouge} (2004) is a recall-based metric developed for text summarization 
 \citep{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024,lin_rouge_2004}.
