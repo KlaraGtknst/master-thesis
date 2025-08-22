@@ -189,15 +189,17 @@ The choice of minimum text length was informed by literature research.
 \citet{bevendorff_generalizing_2019} used text chunks of at least 700 words for an unmasking approach, while \citet{koppel_authorship_2004} set the minimum to 500 words.
 Recent work~\citep{llm_detection_av_2025} identifies \num{2500}-\num{4000} characters to be sufficient for effective \ac{llm} detection framed as \ac{av}.
 
-% \begin{table}[h]
-\begin{sidewaystable}
+\begin{table}[h]
+% \begin{sidewaystable}
 \centering\small
-\caption{Statistics of preprocessed datasets \dataPan{}, \dataBlog{}, \dataGutenberg{}, and \dataStudent{}.}
+\caption{Statistics of preprocessed datasets \dataPan{}, \dataBlog{}, \dataGutenberg{}, and \dataStudent{}.
+$l_w$, $l_c$ denotes text length in words and characters, respectively.
+$p_s$, $p_{\neg s}$ denote same-author and different-authors pairs, respectively.}
 \label{tab:data_stats}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lrrrrrrrrr@{}}   % numbers should be right aligned, text left aligned
 \toprule
-dataset & num\_pairs & num\_authors & num\_same\_pairs & num\_different\_pairs & avg\_text\_len & max\_text\_len\_words & std\_text\_len\_words & median\_text\_len\_words \\
+dataset & \#pairs & \# authors & \# $p_s$ & \# $p_{\neg s}$ & \diameter $l_w$ ($l_c$) & max $l_w$ & $\sigma_{l_w}$ & median $l_w$ \\
 \midrule
 pan20           & 66905 & 52771 & 35616 & 31289 & 21418.76 (3914.76)   & 55413 & 512.19 & 3889 \\
 blog            & 11565 & 5997  & 6204 & 5361  & 6249.94 (1154.25)     & 115365 & 1493.97 & 913 \\
@@ -206,5 +208,5 @@ student\_essays & 224  & 163   & 112   & 112  & 4403.73 (851.45)     & 1520 & 13
 \bottomrule
 \end{tabular}%
 }
-% \end{table}
-\end{sidewaystable}
+\end{table}
+% \end{sidewaystable}
