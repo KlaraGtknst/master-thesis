@@ -2,12 +2,9 @@
 \section{Evaluation measures}
 \label{sec:evaluation_measures}
 
-In this chapter, we introduce state-of-the-art quantitative evaluation metrics for \ac{aa}, \ac{av}, and paraphrase generation. 
-Unlike subjective human judgments, these metrics are designed to be comparable and reproducible, providing a more objective basis for evaluation.
+In the following section, we introduce state-of-the-art quantitative evaluation metrics for \ac{av}, and paraphrase generation. 
+While human judgment is subjective, quantitive metrics are designed to be comparable and reproducible, providing a more objective basis for evaluation.
 
-\textcolor{red}{
-c@1 does not make sense here bc (1) output is "same author" or "i do not know" (standard 0.5 from PAN) and (2) output is 0 or 1, that is why we have threshold -> never 0.5. Maybe we could train two thresholds and could return 0.5 if neither is triggered, but does not make sense bc "different author" class ill-defined (open set -> no representative/exhaustive samples)
-}
 
 \input{chapter/section-05/av_evaluation_measures.tex}
 
