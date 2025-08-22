@@ -12,25 +12,19 @@ Following the general description of all datasets, we outline our preprocessing 
 
 % Blog
 The \dataBlog{} corpus~\citep{blog_dataset_2006} consists of blog posts collected from \textit{blogger.com} on or before August 2004, with each blog authored by a single user.
-According to the Kaggle repository~\footnote{\href{https://www.kaggle.com/datasets/rtatman/blog-authorship-corpus?resource=download}{Kaggle dataset \texttt{rtatman/blog-authorship-corpus}} (26.07.2025)}, the dataset contains \num{681288} posts from \num{19320} bloggers, averaging approximately 35 posts and \num{7250} words per author.
-Users are grouped into three age categories: 13-17, 23-27, and 33-47.
+According to the \textcolor{red}{TODO: why space? Kaggle repository}~\footnote{\href{https://www.kaggle.com/datasets/rtatman/blog-authorship-corpus?resource=download}{Kaggle dataset \texttt{rtatman/blog-authorship-corpus}} (26.07.2025)}, the dataset contains \num{681288} posts from \num{19320} bloggers, averaging approximately 35 posts and \num{7250} words per author.
 Each record includes the following metadata: \texttt{id}, \texttt{gender}, \texttt{age}, \texttt{topic}, 
 \texttt{sign} (referring to the author's astrological/zodiac sign), \texttt{date}, and \texttt{text}.
 
 % student essays
 The \dataStudent{} dataset is not publicly available due to the presence of sensitive student information. 
-We gratefully acknowledge J. W. Pennebaker for granting access to the original data used by \citet{koppel_determining_2014} in their study. 
+% We gratefully acknowledge J. W. Pennebaker for granting access to the original data used by \citet{koppel_determining_2014} in their study. 
+Researchers seeking access to the \dataStudent{} dataset should contact J. W. Pennebaker, the official data custodian. 
 The dataset comprises \num{7052} student essays written for five assignments by a cohort of 950 university students in 2006~\citep{koppel_determining_2014}.
 
 The assignments include (1) a stream-of-consciousness task, (2) a reflections on childhood, (3) a self-assessment of personality, (4) a thematic apperception test, and (5) four examples of four different theories.
-An inconsistency in the file naming convention is notable: 
 Most files are named solely by the author ID, whereas those from the first assignment follow the format \texttt{2006\_authorID}.
-Following \citet{koppel_determining_2014}, our \impAppr{} experiments employ only the first four assignments. 
-Consistent with \citet{koppel_determining_2014}, disputed–candidate pairs in our setup are drawn from different assignments, irrespective of their class label (\texttt{same-author} or \texttt{different-author}).
-In contrast to the original \impAppr{}, which truncated each essay to the first 500 words, we crop texts to the minimum length of the text pair.
-
-Due to privacy restrictions, researchers seeking access to the \dataStudent{} dataset should contact J. W. Pennebaker, the official data custodian. 
-For establishing a baseline in our \imp{} experiments, we use both the \dataBlog{} and \dataStudent{} datasets.
+Following \citet{koppel_determining_2014}, our dataset is built from the first four assignments. 
 
 
 \subsection{Additional Data}
@@ -46,13 +40,31 @@ Each text belongs exclusively to one fandom (i.e. thematic category), with no cr
 According to \href{https://pan.webis.de/clef20/pan20-web/author-identification.html}{the official \ac{pan} website}, 
 train and test set originate from two different fanfictions and approximate the (long-tail) distribution of the fandoms in the original dataset.
 Dataset features include \texttt{id}, \texttt{fandoms}, and \texttt{pair}, where the latter contains the paired texts.
-An additional \texttt{jsonl} file provides the ground truth for each pair, specifying \texttt{id}, \texttt{same} (authorship label), and \texttt{authors}.
+An additional \texttt{jsonl} file provides the ground truth for each pair, specifying \texttt{id}, \texttt{same} (ground truth label for \ac{av}), and \texttt{authors}.
 
 % Gutenberg
 The \dataGutenberg{} dataset~\footnote{\href{https://www.gutenberg.org/}{Project Gutenberg} (26.07.2025)} contains a curated selection of literary works from Project Gutenberg, a digital library dedicated primarily to older works whose U.S. copyrights have expired.
-As of this writing, the collection contains over \num{75000} digitized and proofread e-books contributed by volunteers.
-For our experiments, we selected 19 works authored by 7 writers from the 16th to 19th centuries, covering genres such as drama, fiction, and poetry.
+As of this writing, the collection contains over \num{75000} digitized and proofread e-books contributed by volunteers according to their website.
+% For our experiments, we selected 19 works authored by 7 writers from the 16th to 19th centuries, the distribution of genres is given in \autoref{tab:genre_counts_gutenberg}.
+For our experiments, we selected 19 works authored by 7 writers from the 16th to 19th centuries, covering nine dramas, nine fiction texts and one poetry work.
 Metadata for these works was manually extracted from the Project Gutenberg website and Wikipedia.
+
+% \begin{table}[]
+% \centering
+% \caption{Unique value count of genres of \dataGutenberg{} dataset.}
+% \label{tab:genre_counts_gutenberg}
+% % \resizebox{\textwidth}{!}{%
+% \begin{tabular}{ll}
+%     \toprule
+% \textbf{Genre} & \textbf{Count} \\
+% \midrule
+% Drama          & 9              \\
+% Fiction        & 9              \\
+% Poetry         & 1    \\
+% \bottomrule         
+% \end{tabular}%
+% % }
+% \end{table}
 
 
 \subsection{Dataset Preprocessing}
@@ -62,25 +74,45 @@ To control confounding factors that influence authorial style, we preprocess eac
 (1) Prior to generating arrow dataset file and (2) before using the \impAppr{}.
 This two-stage approach addresses both experimental scenarios, where all material is prepared in advance, and inference scenarios in which the \impAppr{} model is applied directly to texts.
 The preprocessing process was designed to meet the following requirements:
-\begin{itemize}
-    \item Removal of all formatting and layout information to produce plain text.
-    \item Cropping texts to match the length of the shorter text in each pair.
-\end{itemize}
-It is important to note that text-length adjustment is performed exclusively within the \impAppr{} implementation and is not applied to the Arrow dataset itself.
+\begin{enumerate}
+    \item Removal of all formatting and layout information to produce plain text
+    \item Cropping texts to match the length of the shorter text in each pair
+    \item Removal of texts with less than 700 words
+\end{enumerate}
 For a controlled evaluation environment in our \impAppr{}, we opted to work with relatively small, curated datasets rather than scaling to larger collections.  
-The effect of individual preprocessing steps on vocabulary size was analysed, with results presented in \autoref{fig:preprocesing_impact_vocab_size}.
-In line with \citep{koppel_determining_2014}, the vocabulary consists of space-free character 4-grams.
-Removing formatting and layout information includes removing HTML artefacts, play artefacts, newlines, 
-converting UTF-8 to ASCII, and stripping leading and trailing whitespace.
-Since both \dataBlog{} and \dataPan{} originate from the Internet, we applied HTML-specific preprocessing steps, which had minimal impact on their respective vocabularies.
-Upon inspection of the \dataGutenberg{}, we found that certain patterns reappear due to the \textit{play} genre. 
-Notably, since we do not consider actor instructions (e.g., character cues) or structural elements (e.g., chapter headings) as part of authorial style, these patterns were removed using regular expressions.
+Consequently, text-length filter are essential to create optimal testbeds for \ac{av}.
+
+To determine the necessary preprocessing steps, we examined our datasets and analysed their respective artefacts.
+
+Since both the \dataBlog{} and the \dataPan{} dataset originate from the Internet, some of their documents contain HTML fragments such as \texttt{< >} enclosed texts.
+Upon inspection of the \dataGutenberg{} dataset, we found that certain patterns reappear due to the presences of many plays.
+Based on these findings, we collected eight preprocessing steps we deemed potentially useful. 
+Notably, we do not consider actor instructions (e.g., character cues) or structural elements (e.g., chapter headings) as part of authorial style.
+Hence, we intend to remove these patterns using regular expressions.
+You may find the regular expression attached in the \autoref{ch:appendix}.
+Note that the preceived uitility of these steps should reevaluted for other datasets.
+Next, we analysed the effect of individual preprocessing steps on vocabulary size.  
+We define the vocabulary of a dataset as unique tokens across all texts (regardless of their text length or split) of that dataset.
+In line with \citep{koppel_determining_2014}, tokens are space-free character 4-grams.
+We leave the capitalization of tokens unchanged. 
+The results displayed in \autoref{fig:preprocesing_impact_vocab_size}.
+
+We found that HTML-specific preprocessing steps had minimal impact on the size of vocabularies.
+Similary, removing play artefacts hardly changed the vocabulary size.
+The results aligned with expectations, as the vocabularies are defined over space-free 4-gram units that, due to their limited length, exhibit a high likelihood of redundancy.
+Consequently, repetitive patterns are mapped on the same vocabulary item.
+Once the repetitive patterns are filtered out, the vocabulary lacks their respective items, which are not many.
+
+Based on these sonsiderations, our preprocessing steps include removing HTML artefacts, play artefacts, newlines, converting UTF-8 to ASCII, and stripping leading and trailing whitespace.
 We opted to forgo lowercasing the texts, as our preliminary analysis indicated that lowercasing had no meaningful effect on any dataset while potentially discarding deliberate authorial capitalization choices.
+Due to preprocessing, our \dataPan{} version differs from those applied elsewhere.
 
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/dataset/impact_preprocessing_steps.svg}
-    \caption{Effect of preprocessing steps on vocabulary size (space-free character 4-grams).}
+    \caption{Effect of preprocessing steps on vocabulary size. The vocabulary contains unique space-free character 4-grams.
+    For this experiment, there was no minimum text length.
+    For \dataPan{}, train and test split were combined.}
     \label{fig:preprocesing_impact_vocab_size}
 \end{figure}
 
@@ -90,60 +122,57 @@ We opted to forgo lowercasing the texts, as our preliminary analysis indicated t
 
 For the \dataBlog{}, \dataStudent{}, and \dataGutenberg{} datasets, we selected pairs of texts according to specific criteria to control potential confounding factors.
 Only texts with a minimum length of \num{700} words were considered eligible. 
-For the \dataPan{} dataset, we retained the existing pairs in the Arrow dataset to ensure comparability with prior work. 
+For the \dataPan{} dataset, we retained the existing pairs in the Arrow dataset, but filtered out texts with less than 700 words. 
 All datasets include both same-author and different-author pairs. 
 
-For \dataBlog{}, pairs were constructed so that the two texts share the same topic, year, gender, and age (the latter referencing the author). 
+For \dataBlog{}, pairs were constructed such that the two texts share the same topic, year, gender, and age (the latter referencing the author). 
 The training set comprises 80\% of the data and the test set 20\%, with different topics assigned to each split.
 
-For \dataStudent{}, texts were assigned to either the training (70\%) or test (30\%) set. 
+For \dataStudent{}, as per \citep{koppel_determining_2014}, all text pairs are drawn from the different tasks, such that authors share the same sex, ethnicity, and political orientation. 
+Pairs were assigned to either the training (70\%) or test (30\%) set. 
 The test set is larger because each author typically contributes only one essay per task and if only a single task were included in the test set, no same-author pairs could be formed. 
-Same-author pairs were selected such that authors share the same sex, ethnicity, and political orientation. 
-As per \citep{koppel_determining_2014}, all text pairs are drawn from the different tasks.
 
+% % Please add the following required packages to your document preamble:
+% % \usepackage{graphicx}
+% \begin{table}[tbp]
+%     \centering
+%     \caption{\ac{aa} scenarios with author $i$ is shortened with $A_i$ \citep{altakrori_topic_2021}.}
+%     \label{tab:aa_same_topic}
+%     \begin{tabular}{|l|l|l|}
+%     \hline
+%     \textbf{} & \textbf{Train} & \textbf{Test} \\ \hline
+%     \textbf{Topic $T_1$} & $A_1, A_2$ & $A_1, A_2$ \\ \hline
+%     \textbf{Topic $T_2$} & $A_1, A_2$ & $A_1, A_2$ \\ \hline
+%     \end{tabular}%
+% \end{table}
 
+% % Please add the following required packages to your document preamble:
+% % \usepackage{graphicx}
+% \begin{table}[tbp]
+%     \centering
+%     \caption{\ac{aa} scenarios with author $i$ is shortened with $A_i$ \citep{altakrori_topic_2021}.}
+%     \label{tab:aa_cross_topic}
+%     \begin{tabular}{|l|l|l|}
+%     \hline
+%     \textbf{} & \textbf{Train} & \textbf{Test} \\ \hline
+%     \textbf{Topic $T_1$} & $A_1, A_2$ &  \\ \hline
+%     \textbf{Topic $T_2$} &  & $A_1, A_2$ \\ \hline
+%     \end{tabular}%
+% \end{table}
 
-% Please add the following required packages to your document preamble:
-% \usepackage{graphicx}
-\begin{table}[tbp]
-    \centering
-    \caption{\ac{aa} scenarios with author $i$ is shortened with $A_i$ \citep{altakrori_topic_2021}.}
-    \label{tab:aa_same_topic}
-    \begin{tabular}{|l|l|l|}
-    \hline
-    \textbf{} & \textbf{Train} & \textbf{Test} \\ \hline
-    \textbf{Topic $T_1$} & $A_1, A_2$ & $A_1, A_2$ \\ \hline
-    \textbf{Topic $T_2$} & $A_1, A_2$ & $A_1, A_2$ \\ \hline
-    \end{tabular}%
-\end{table}
-
-% Please add the following required packages to your document preamble:
-% \usepackage{graphicx}
-\begin{table}[tbp]
-    \centering
-    \caption{\ac{aa} scenarios with author $i$ is shortened with $A_i$ \citep{altakrori_topic_2021}.}
-    \label{tab:aa_cross_topic}
-    \begin{tabular}{|l|l|l|}
-    \hline
-    \textbf{} & \textbf{Train} & \textbf{Test} \\ \hline
-    \textbf{Topic $T_1$} & $A_1, A_2$ &  \\ \hline
-    \textbf{Topic $T_2$} &  & $A_1, A_2$ \\ \hline
-    \end{tabular}%
-\end{table}
-
-% Please add the following required packages to your document preamble:
-% \usepackage{graphicx}
-\begin{table}[tbp]
-    \centering
-    \caption{\ac{aa} scenarios with author $i$ is shortened with $A_i$ \citep{altakrori_topic_2021}.}
-    \label{tab:aa_topic_confusion}
-    \begin{tabular}{|l|l|l|}
-    \hline
-    \textbf{} & \textbf{Train} & \textbf{Test} \\ \hline
-    \textbf{Topic $T_1$} & $A_1$ & $A_2$ \\ \hline
-    \textbf{Topic $T_2$} & $A_2$ & $A_1$ \\ \hline
-    \end{tabular}%
-\end{table}
+% % Please add the following required packages to your document preamble:
+% % \usepackage{graphicx}
+% \begin{table}[tbp]
+%     \centering
+%     \caption{\ac{aa} scenarios with author $i$ is shortened with $A_i$ \citep{altakrori_topic_2021}.}
+%     \label{tab:aa_topic_confusion}
+%     \begin{tabular}{|l|l|l|}
+%     \hline
+%     \textbf{} & \textbf{Train} & \textbf{Test} \\ \hline
+%     \textbf{Topic $T_1$} & $A_1$ & $A_2$ \\ \hline
+%     \textbf{Topic $T_2$} & $A_2$ & $A_1$ \\ \hline
+%     \end{tabular}%
+% \end{table}
 
 
 For the \dataGutenberg{} dataset, pairs were selected such that texts share the same genre and century. 
@@ -156,9 +185,9 @@ and the \texttt{same} column indicates whether the texts are from the same autho
 Descriptive statistics for all preprocessed datasets are provided in Table~\ref{tab:data_stats}.
 
 % minimum length necessesary for AV/ AA
-The choice of minimum text length was informed by related research in \ac{av} and \ac{aa}.
-\citet{bevendorff_generalizing_2019}used text chunks of at least 700 words for an unmasking approach, while \citet{koppel_authorship_2004} set the minimum at 500 words.
-Recent work~\citep{llm_detection_av_2025} identifies \num{2500}-\num{4000} characters to be sufficient for effective \ac{llm} detection framed as \ac{av} or \ac{aa}, leading those authors to adopt a \num{3000}-character minimum for their datasets.
+The choice of minimum text length was informed by literature research.
+\citet{bevendorff_generalizing_2019} used text chunks of at least 700 words for an unmasking approach, while \citet{koppel_authorship_2004} set the minimum to 500 words.
+Recent work~\citep{llm_detection_av_2025} identifies \num{2500}-\num{4000} characters to be sufficient for effective \ac{llm} detection framed as \ac{av}.
 
 % \begin{table}[h]
 \begin{sidewaystable}
@@ -173,7 +202,7 @@ dataset & num\_pairs & num\_authors & num\_same\_pairs & num\_different\_pairs &
 pan20           & 66905 & 52771 & 35616 & 31289 & 21418.76 (3914.76)   & 55413 & 512.19 & 3889 \\
 blog            & 11565 & 5997  & 6204 & 5361  & 6249.94 (1154.25)     & 115365 & 1493.97 & 913 \\
 gutenberg       & 12    & 7     & 6     & 6     & 437870.75 (78698.79) & 297704 & 68329.91 & 60282 \\
-student\_essays & 224  & 222   & 112   & 112  & 4459.32 (865.90)     & 1634 & 157.41 & 815  \\
+student\_essays & 224  & 163   & 112   & 112  & 4403.73 (851.45)     & 1520 & 138.15 & 807  \\
 \bottomrule
 \end{tabular}%
 }
