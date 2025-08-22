@@ -1,47 +1,49 @@
-\subsection{Reproducing \citet{koppel_determining_2014}'s Experiments}
+\subsection{Exp. 1: Reproduction of Original Work}
 
-To assess the validity of our extension to the traditional \impAppr{}, we first verified the correctness of our implementation of the original \impAppr{}. 
+To assess the validity of our extension to the traditional \impAppr{}, we first verified the correctness of our implementation. 
+For both the \dataBlog{} and \dataStudent{} dataset, we selected 15 pairs from the training and test sets. 
 For this purpose, we designed two experiments.
 
-The first experiment evaluates the effect of varying the number of \imps{} while keeping the \imp{} generation method fixed (cf. Table~\ref{tab:repr_exp1}). 
-Due to its baseline character, we decided to use the \texttt{fixed} \imp{} generation method.
-Precision and recall were used as the primary evaluation metrics. 
-To visualize performance, we constructed precision-recall curves across different thresholds for the final prediction of the \impAppr{}.
+\paragraph{Exp. 1(a): Varying number of \imps{}}
+The first experiment evaluates the effect of varying the number of \imps{} while setting the \imp{} generation method to \texttt{fixed} (cf. Table~\ref{tab:repr_exp1}). 
+Adhering \citet{koppel_determining_2014}, we computed precision and recall scores across different thresholds.
+For comparison, reference precision-recall points reported by \citet{koppel_determining_2014} were included in our visualization. 
+Based on their description, we deduced that their reported scores were obtained using the \dataBlog{} dataset.
+
 
 \begin{table}[h]
 \centering\small
-\caption{Configurations for detector.}
+\caption{Exp. 1(a): Detector configurations.}
 \label{tab:repr_exp1}
 \begin{tabular}{@{}llrrl@{}}   % numbers should be right aligned, text left aligned
 \toprule
-\# impostors & impostor generation & rounds & top\_n & upsample \\
+\# Impostors & Generation & Rounds & Top $n$ & Upsample \\
 \midrule
-\textit{variable} & fixed & 100 & \num{100000} & False \\
+\textit{Variable} & Fixed & 100 & \num{100000} & False \\
 \bottomrule
 \end{tabular}%
 \end{table}
 
-For both the \dataBlog{} and \dataStudent{} datasets, we selected 15 pairs from the training and test sets. 
-A detector instance was trained on each training set, and the optimal decision threshold was determined using Youden's J statistic. 
-This threshold was then applied to the 15 test set pairs to generate final predictions, which were summarized in a confusion matrix.
+% Exp 1c: find best threshold via different metrics
+% A detector instance was trained on each training set, and the optimal decision threshold was determined using Youden's J statistic. 
+% This threshold was then applied to the 15 test set pairs to generate final predictions, which were summarized in a confusion matrix.
 
-We also considered using thresholds that maximized alternative metrics, such as the F1 score, but rejected this approach because it produced imbalanced detector classifications. 
-For comparison, reference precision-recall points reported by \citet{koppel_determining_2014} were included in our visualization. 
-Based on their description, we deduced that their reported scores were obtained using the \dataBlog{} dataset.
+% We also considered using thresholds that maximized alternative metrics, such as the F1 score, but rejected this approach because it produced imbalanced detector classifications. 
 
+\paragraph{Exp. 1(b): Varying impostor generation}
 The second experiment evaluates different \imp{} generation methods while keeping the number of \imps{} fixed (cf. Table~\ref{tab:repr_exp2}). 
 Following \citet{koppel_determining_2014}, we compared the \texttt{fixed} and \texttt{on-the-fly} \imp{} generation methods with their baseline approaches. 
-We reimplemented three baselines: the unsupervised min-max similarity method, the unsupervised cosine similarity method, and the supervised linear \ac{svm} method.
+We reimplemented the unsupervised min-max similarity baseline, the unsupervised cosine similarity baseline, and the supervised linear \ac{svm} baseline.
 
 \begin{table}[h]
 \centering\small
-\caption{Configurations for detector.}
+\caption{Exp. 1(b): Detector configurations.}
 \label{tab:repr_exp2}
 \begin{tabular}{@{}rlrrl@{}}   % numbers should be right aligned, text left aligned
 \toprule
-\# impostors & impostor generation & rounds & top\_n & upsample \\
+\# Impostors & Generation & Rounds & Top $n$ & Upsample \\
 \midrule
-50 & \textit{variable} & 100 & \num{100000} & False \\
+50 & \textit{Variable} & 100 & \num{100000} & False \\
 \bottomrule
 \end{tabular}%
 \end{table}

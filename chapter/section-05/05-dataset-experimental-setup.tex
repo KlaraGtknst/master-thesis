@@ -19,21 +19,19 @@ The evaluation proceeds in several stages in order to both reproduce baseline re
 
 We begin by reproducing the original \impAppr{} experiments of \citet{koppel_determining_2014} to establish a reliable baseline and to ensure comparability between our implementation and previously reported results. 
 Next, we investigate the quality of paraphrases used in \imp{} generation. 
-In particular, we compare a one-step paraphrasing strategy with a two-step approach. 
-We compare paraphrase metrics across different numbers of text chunks.
+In particular, we compare our one-step paraphrasing strategy with our two-step approach based on the paraphrasing measures from \autoref{subsec:traditional_quantitative_evaluation_measures}. 
+Then, we evaluate paraphrase quality across different numbers of text chunks.
 We then analyse the effect of syntactic similarity between paraphrases and original texts on \imp{} scores. 
 Then, we compare different strategies for \imp{} generation, ranging from traditional baselines to \ac{llm}-based paraphrasing methods. 
-We evaluate both the raw \imp{} scores and their behaviour under different experimental scenarios, such as varying sources of input text pairs. 
+We evaluate the behaviour of different \ac{av} methods for varying sources of input text pairs. 
 This allows us to examine not only the overall effectiveness of different \imp{} generation approaches, but also their relative strengths under specific \ac{av} settings.
-
-Together, these experiments provide a comprehensive analysis of the impact of paraphrase quality, syntactic similarity, and \imp{} generation strategy on the performance of the \impAppr{}, thereby offering insights into the role of \acp{llm} in enhancing authorship verification.
 
 
 \input{chapter/section-05/experiments/reproduction.tex}
 
-\input{chapter/section-05/experiments/chunks.tex}
-
 \input{chapter/section-05/experiments/comp_paraphrasers.tex}
+
+\input{chapter/section-05/experiments/chunks.tex}
 
 \input{chapter/section-05/experiments/impact_syn_sim.tex}
 

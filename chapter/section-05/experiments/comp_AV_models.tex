@@ -1,7 +1,19 @@
-\subsection{Comparing \ac{av} Methods}
+\subsection{Exp. 6: Comparing \ac{av} Methods in different scenarios}
 
 This experiment evaluates the performance of the \impAppr{} in comparison to established \ac{av} methods.
-As baselines, we employ generalized unmasking~\citep{bevendorff_generalizing_2019} and the compression-based approach PPMD approach.
-All methods share the common characteristic of operating on lower-dimensional representations of the input text pair to determine whether both texts originate from the same author.
+As baselines, we employ generalized unmasking~\citep{bevendorff_generalizing_2019} and the compression-based approach PPMD approach and baselines from the original work~\citep{koppel_determining_2014}.
 
-Following the experimental setup described in \autoref{subsec:imp_gen}, we assess performance using  accuracy, precision, recall, and the F1 score. 
+Following the experimental setup described in \autoref{tab:av_comp}, we assess performance using  accuracy, precision, recall, and the F1 score. 
+
+\begin{table}[h]
+\centering\small
+\caption{Exp. 6: Detector configurations.}
+\label{tab:av_comp}
+\begin{tabular}{@{}rlrrl@{}}   % numbers should be right aligned, text left aligned
+\toprule
+\# Impostors & Generation & Rounds & Top $n$ & Upsample \\
+\midrule
+50 & \textit{Variable} & 100 & \num{100000} & False \\
+\bottomrule
+\end{tabular}%
+\end{table}

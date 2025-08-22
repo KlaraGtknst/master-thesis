@@ -1,32 +1,21 @@
-\subsection{Comparing \citet{koppel_determining_2014}'s to \ac{llm}-based \imps{}}
+\subsection{Exp. 5: Comparing traditional to \ac{llm}-based \imps{}}
 \label{subsec:imp_gen}
 
 We evaluated the performance of traditional impostor generation~\citep{koppel_determining_2014}, against \ac{llm}-based impostor generation on the \dataBlog{} and \dataStudent{} datasets. 
-For each dataset, one sample was selected from both the training and test splits. 
+For each dataset, \textcolor{red}{one} sample was selected from both the training and test splits. 
 The detector configuration is shown in Table~\ref{tab:imp_gen_comp}.
-
-To assess the quality of our \impAppr{} implementation, we first reimplement the original \impAppr{} by \citet{koppel_determining_2014}.
-Unlike \citet{koppel_determining_2014}, the fixed impostor generation in our implementation refers to texts from the same genre.
-We use texts from the test/ train set if the input text pair originates from the train/ test pair, respectively.
-Hence, we forgo explicitly including the blog impostor generation approach in our experiments, since it is the same as the fixed approach for the \dataBlog{} dataset.
-The parameters are set to the original default values.
 
 \begin{table}[h]
 \centering\small
-\caption{Configurations for detector.}
+\caption{Exp. 5: Detector configurations.}
 \label{tab:imp_gen_comp}
 \begin{tabular}{@{}rlrrl@{}}   % numbers should be right aligned, text left aligned
 \toprule
-\# impostors & impostor generation & rounds & top\_n & upsample \\
+\# Impostors & Generation & Rounds & Top $n$ & Upsample \\
 \midrule
-50 & \textit{variable} & 100 & \num{100000} & False \\
+50 & \textit{Variable} & 100 & \num{100000} & False \\
 \bottomrule
 \end{tabular}%
 \end{table}
 
-The detector was trained on the training set, and the optimal decision threshold was determined using Youden’s J statistic. 
-Predictions on the test set were obtained by applying this threshold to the detector’s scores.
-
-For each impostor generation method, we computed accuracy, precision, recall, and F1 score. 
-The results are presented as bar plots, with separate plots for each metric to facilitate direct comparison. 
-We also examined the effect of varying decision thresholds on detector performance, plotting all impostor generation methods together for each metric to enable side-by-side evaluation.
+For each impostor generation method, we computed accuracy, precision, recall, and F1 score for different thresholds. 

@@ -1,14 +1,22 @@
-\subsection{Paraphrasing Chunks}
+\subsection{Exp. 3: Paraphrasing Chunks}
 \label{subsec:paraphrasing_chunks}
 
-We wanted to evaluate whether chunk-to-chunk paraphrases exhibit better control than text-to-text paraphrases, since chunks are shorter than text and contain fewer topic changes in theory.
-We use five texts from the \dataBlog{}, \dataGutenberg{}, and the \dataStudent{} dataset.
-There are two steps to this experiment: (1) generating chunks and their respective paraphrases, (2) 
+We designed this expieriment to evaluate whether chunk-to-chunk paraphrases exhibit better control than text-to-text paraphrases, since chunks contain fewer topic changes than whole texts in theory.
+We use five texts from the \dataBlog{}, \dataGutenberg{}, and the \dataStudent{} dataset, respectively.
 
-When chunking texts, we preserved sentences via using \texttt{nltk}'s \texttt{sent\_tokenize}.
-We grouped sentences in order and such that each chunk roughly contains the same number of words.
-We tested the detector performance for 1 to 5 chunks per text across all \imp{} generation models, on two prompts for one-tep paraphrasers and on two temperatures for two-step paraphrasers.
-Each paraphraser returns one paraphrase per configuration.
+First, texts are chunked preserving sentences.
+Chunks are filled with sentences in sentence order that each chunk roughly contains the same number of words.
+Second, paraphrase configurations are defined.
+Each one-step paraphraser is paired with two prompts, while each two-step paraphraser is paired with two temperatures.
+Third, each chunk is paraphrased with all configurations.
+Finally, for each paraphrase, we compute BLEU, ROUGE1, ROUGE2, ROUGEL, ROUGELsum, METEOR, BERTScore Precision, BERTScore Recall, BERTScore F1, SBERT \ac{wms}, SBERT cosine similarity.
+Scores for chunks of a text are averaged per configuration to obtain the final score for a text configuration pair.
+The adequat formula is given in \autoref{eq:avg_chunks} and an example is illustrated in \autoref{fig:mean-bleu}.
+
+\begin{equation}
+    score(t) = \frac{1}{\#\text{ chunks}}\sum_{i=1}^{\#\text{ chunks}}score(c_i)\text{, for chunk }c_i \in \text{text }t
+\label{eq:avg_chunks}
+\end{equation}
 
 \begin{figure}[ht]
   \centering
@@ -33,7 +41,7 @@ Each paraphraser returns one paraphrase per configuration.
 \node[anchor=west, text=violet, scale=1.2]         at (3.6,0.4) {BLEU $=\,0.3$};
 
 % --- n_chunks = 3 (black) ---
-\node[anchor=west, text=black, scale=1.2] at (0.0,-1.0) {$n\_\text{chunks}=3$};
+\node[anchor=west, text=black, scale=1.2] at (0.0,-1.0) {$\#\text{ chunks}=3$};
 
 % --- Arrow to the right and mean BLEU expression ---
 \draw[black, very thick, ->, >=latex] (7.7,1.6) -- (9.1,1.6);
@@ -47,5 +55,3 @@ Each paraphraser returns one paraphrase per configuration.
   \caption{Computation of the mean \ac{bleu} score over 3 text chunks.}
   \label{fig:mean-bleu}
 \end{figure}
-
-For each configuration, we compute BERTScore Precision, BERTScore Recall, BERTScore F1, SBERT \ac{wms}, SBERT cosine similarity, ROUGE1, ROUGE2, ROUGEL, ROUGELsum, BLEU, and METEOR.
