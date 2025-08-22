@@ -51,6 +51,44 @@ Although BLEU is the most frequently applied metric in paraphrase evaluation, it
 It disregards semantic similarity completely and therefore judges paraphrases only based on n-gram overlap. 
 As such, it is generally recommended being supplemented with human evaluation~\citep{zhou_paraphrase_2021}.
 
+\begin{figure}[ht]
+  \centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[line join=round,line cap=round, >=latex, font=\sffamily]
+
+% --- Left black container with three chunks ---
+\draw[black, very thick, rounded corners=6pt]
+  (-0.2,3.6) rectangle (3.0,-0.4);
+
+% three inner rounded rectangles
+\foreach \y in {2.8,1.6,0.4}{
+  \draw[black, thick, rounded corners=5pt] (0.3,\y+0.4) rectangle (2.5,\y-0.4);
+  % squiggle inside
+  \draw[black, thick, decorate, decoration={snake,amplitude=1.2pt,segment length=6pt}]
+    (0.55,\y) -- (2.25,\y);
+}
+
+% --- Colored BLEU labels next to each chunk ---
+\node[anchor=west, text=teal!80!black, scale=1.2]  at (3.6,2.8) {BLEU $=\,0.1$};
+\node[anchor=west, text=orange!85!black, scale=1.2] at (3.6,1.6) {BLEU $=\,0.5$};
+\node[anchor=west, text=violet, scale=1.2]         at (3.6,0.4) {BLEU $=\,0.3$};
+
+% --- n_chunks = 3 (black) ---
+\node[anchor=west, text=black, scale=1.2] at (0.0,-1.0) {$n\_\text{chunks}=3$};
+
+% --- Arrow to the right and mean BLEU expression ---
+\draw[black, very thick, ->, >=latex] (7.7,1.6) -- (9.1,1.6);
+
+\node[anchor=west, text=black, scale=1.4] at (9.3,1.6)
+  {$\varnothing\ \text{BLEU} \;=\; \displaystyle
+   \frac{\textcolor{teal!80!black}{0.1}+\textcolor{orange!85!black}{0.5}+\textcolor{violet}{0.3}}{3}$};
+
+\end{tikzpicture}
+}
+  \caption{Computation of the mean BLEU score over 3 text chunks.}
+  \label{fig:mean-bleu}
+\end{figure}
+
 % Its values range from 0 to 1 \citep{papineni_bleu_2001}.
 
 % \ac{bleu} automatically penalizes n-grams appearing in the candidate text but not in the reference text, 
