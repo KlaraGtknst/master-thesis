@@ -1,14 +1,16 @@
 \subsection{Exp. 3: Paraphrasing Chunks}
 \label{subsec:paraphrasing_chunks}
 
-We designed this expieriment to evaluate whether chunk-to-chunk paraphrases exhibit better control than text-to-text paraphrases, since chunks contain fewer topic changes than whole texts in theory.
+We designed this experiment to evaluate whether chunk-to-chunk paraphrases exhibit better control than text-to-text paraphrases, since chunks contain fewer topic changes than whole texts in theory.
 We use five texts from the \dataBlog{}, \dataGutenberg{}, and the \dataStudent{} dataset, respectively.
 
 
 \begin{figure}[htbp]
-\centering
-    \includesvg[width=\linewidth]{images/paraphrasing/experiments/chunks/setup/chunk_api_calls.svg}
-  \caption{Total 936 API calls. 
+  \centering
+  \includesvg[width=\linewidth]{images/paraphrasing/experiments/chunks/setup/chunk_api_calls.svg}
+  \caption{Breakdown of individual hyperparameters in the paraphrase configuration.
+  We use one document per dataset, chunked into one to five sections and paraphrased with all nine paraphrasers in two variance inducing settings (i.e. prompt for one-step, temperature for two-step) versions.
+  This amounts to a total of 936 API calls. 
   }
   \label{fig:chunks_api_calls}
 \end{figure}
@@ -19,6 +21,8 @@ Chunks are filled with sentences in sentence order that each chunk roughly conta
 Second, paraphrase configurations are defined.
 Each one-step paraphraser is paired with two prompts, while each two-step paraphraser is paired with two temperatures.
 Third, each chunk is paraphrased with all configurations.
+These steps account for a minimum of 936 API calls for paraphrasing.
+Each component of the configuration is displayed in \autoref{fig:chunks_api_calls}.
 Finally, for each paraphrase, we compute BLEU, ROUGE1, ROUGE2, ROUGEL, ROUGELsum, METEOR, BERTScore Precision, BERTScore Recall, BERTScore F1, SBERT \ac{wms}, SBERT cosine similarity.
 Scores for chunks of a text are averaged per configuration to obtain the final score for a text configuration pair.
 The adequat formula is given in \autoref{eq:avg_chunks} and an example is illustrated in \autoref{fig:mean-bleu}.
