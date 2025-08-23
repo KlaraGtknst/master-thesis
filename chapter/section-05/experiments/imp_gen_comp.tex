@@ -1,19 +1,35 @@
 \subsection{Exp. 5: Comparing traditional to \ac{llm}-based \imps{}}
 \label{subsec:imp_gen}
 
-We evaluated the performance of traditional impostor generation~\citep{koppel_determining_2014}, against \ac{llm}-based impostor generation on the \dataBlog{} and \dataStudent{} datasets. 
-For each dataset, \textcolor{red}{one} sample was selected from both the training and test splits. 
-The detector configuration is shown in Table~\ref{tab:imp_gen_comp}.
+We want to answer the question of how our \ac{llm}-based \imp{} generation performs compared to (a) traditional \imp{} generation in the \impAppr{}~\citep{koppel_determining_2014}, and compared to (b) \ac{sota} \ac{av} methods in the traditional \ac{av} scenario.
+We thus, create 100 same- and 100 different-author pairs from the \dataStudent{} 
+% 1 each on and the \dataBlog{} datasets % 1 for Blog, 100 for Student Essays
+dataset and evaluate the performance of the approaches for different thresholds.
+It is noteworthy, that the dataset contains equally many naive same- and different-author pairs and hence, an approach predicting only one output will obtain an accuracy of $0.5$.
+The \impAppr{} and unmasking detector configuration are shown in \autoref{tab:exp5_imp_config} and \autoref{tab:exp5_unmasking_config}, respectively.
 
 \begin{table}[h]
 \centering\small
-\caption{Exp. 5: Detector configurations.}
-\label{tab:imp_gen_comp}
+\caption{Exp. 5: \impAppr{} configurations.}
+\label{tab:exp5_imp_config}
 \begin{tabular}{@{}rlrrl@{}}   % numbers should be right aligned, text left aligned
 \toprule
 \# Impostors & Generation & Rounds & Top $n$ & Upsample \\
 \midrule
 50 & \textit{Variable} & 100 & \num{100000} & False \\
+\bottomrule
+\end{tabular}%
+\end{table}
+
+\begin{table}[h]
+\centering\small
+\caption{Exp. 5: Unmasking configurations.}
+\label{tab:exp5_unmasking_config}
+\begin{tabular}{@{}rrrrl@{}}   % numbers should be right aligned, text left aligned
+\toprule
+\# CV Folds & \# Chunks & Rounds & Top $n$ & Upsample \\
+\midrule
+3 & 60 & 30 & \num{250} & False \\
 \bottomrule
 \end{tabular}%
 \end{table}
