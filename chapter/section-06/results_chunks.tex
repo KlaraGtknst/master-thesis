@@ -21,7 +21,7 @@ we will not use chunks for the paraphrasing process but rather stick to text-to-
  
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{images/paraphrasing/experiments/T5_Google_PAWS_metrics_plot.png}
+    \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/results/openai-gpt-oss-120b_metrics_plot_category_Cross-Genre.svg}
     \caption{Average score over different prompts (standard deviation shaded) for different paraphrasing scores for the \ac{t5} model.
     The syntactic scores rise with the number of chunks, while the semantic scores is stable.
     Consequently, the Gohsen Delta score is decreasing with the number of chunks.}
@@ -30,8 +30,16 @@ we will not use chunks for the paraphrasing process but rather stick to text-to-
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{images/paraphrasing/experiments/BulletPoint_metrics_plot.png}
+    \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/results/Translation_metrics_plot_category_Cross-Genre.svg}
     \caption{Different paraphrasing scores for the BulletPoint model. 
     This model is not affected by the number of chunks.}
     \label{fig:abl_chunks_BulletPoint}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/results/BulletPoint_metrics_plot_category_Cross-Genre.svg}
+    \caption{Different paraphrasing scores for the BulletPoint model. 
+    This model is not affected by the number of chunks.}
+    \label{fig:abl_chunks_Translation}
 \end{figure}
