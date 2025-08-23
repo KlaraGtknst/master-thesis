@@ -4,6 +4,16 @@
 We designed this expieriment to evaluate whether chunk-to-chunk paraphrases exhibit better control than text-to-text paraphrases, since chunks contain fewer topic changes than whole texts in theory.
 We use five texts from the \dataBlog{}, \dataGutenberg{}, and the \dataStudent{} dataset, respectively.
 
+
+\begin{figure}[htbp]
+\centering
+    \includesvg[width=\linewidth]{images/paraphrasing/experiments/chunks/setup/chunk_api_calls.svg}
+  \caption{Total 936 API calls. 
+  }
+  \label{fig:chunks_api_calls}
+\end{figure}
+
+
 First, texts are chunked preserving sentences.
 Chunks are filled with sentences in sentence order that each chunk roughly contains the same number of words.
 Second, paraphrase configurations are defined.
@@ -54,4 +64,68 @@ The adequat formula is given in \autoref{eq:avg_chunks} and an example is illust
 }
   \caption{Computation of the mean \ac{bleu} score over 3 text chunks.}
   \label{fig:mean-bleu}
+\end{figure}
+
+
+\begin{figure}[h!]
+    \centering
+    \resizebox{\textwidth}{!}{%
+        \begin{tikzpicture}[scale=1.2, transform shape, node distance=2cm and 1.5cm]
+
+        % Cylinder (Chunks)
+        \begin{scope}[shift={(0,0)}]
+          \draw[thick] (0,0) ellipse (0.6 and 0.2); % top ellipse
+          \draw[thick] (-0.6,0) -- (-0.6,-1.2);
+          \draw[thick] (0.6,0) -- (0.6,-1.2);
+          \draw[thick] (0.6,-1.2) arc (0:180:0.6 and 0.2); % bottom ellipse (visible)
+          \draw[dashed, thick] (0.6,-1.2) arc (0:-180:0.6 and 0.2); % dashed hidden part
+          \node at (0,-1.5) {3x};
+        \end{scope}
+        \node at (0,0.6) {Chunks};
+
+        % Reference block
+        \node[block, right=of {0,-0.6}] (reference) {reference};
+        \node[below=0.1cm of reference] {1x};
+
+        % Multiple outputs (Σ=15)
+        \node[smallblock, right=0.7cm of reference, yshift=1cm] (b1) {};
+        \node[smallblock, below=0.3cm of b1] (b2) {};
+        \node[smallblock, below=0.3cm of b2] (b3) {};
+        \node[smallblock, below=0.3cm of b3] (b4) {};
+        \node[right=0.3cm of b2] (dots) {$\cdots$};
+        \node[below=0.1cm of b4] {$\Sigma=15$};
+
+        % Prompt + Temp stacked
+        \node[draw, cloud, cloud puffs=10, cloud puff arc=120, minimum width=2.2cm, minimum height=1cm, right=4.5cm of reference] (prompt) {Prompt};
+        \node[circle, draw, minimum size=1cm, below=0.8cm of prompt] (temp) {Temp.};
+        \node[below=0.1cm of temp] {2x};
+
+        % Paraphrasers
+        \node[person, right=3cm of temp, yshift=0.6cm] (p1) {};
+        \node[person, right=0.8cm of p1] (p2) {};
+        \node[person, right=3cm of temp, yshift=-1.2cm] (p3) {};
+
+        \node[above=0.1cm of p1] {5x2};
+        \node[below=0.1cm of p3] {4x1};
+        \node[above=0.2cm of p2] {Paraphraser};
+
+        % Paraphrases
+        \node[block, right=3cm of p2, minimum height=1cm, minimum width=1.2cm] (paraphrases) {};
+        \node[below=0.1cm of paraphrases] {Paraphrases};
+
+        % Arrows
+        \draw[arrow] (0.7,-0.6) -- (reference.west);
+        \draw[arrow] (reference.east) -- (b1.west);
+        \draw[arrow] (reference.east) -- (b2.west);
+        \draw[arrow] (reference.east) -- (b3.west);
+        \draw[arrow] (reference.east) -- (b4.west);
+        \draw[arrow] (b2.east) -- (prompt.west);
+        \draw[arrow] (prompt.south) -- (temp.north);
+        \draw[arrow] (temp.east) -- (p1.west);
+        \draw[arrow] (temp.east) -- (p3.west);
+        \draw[arrow] (p2.east) -- (paraphrases.west);
+
+        \end{tikzpicture}%
+    }
+    \caption{Scaled TikZ diagram}
 \end{figure}

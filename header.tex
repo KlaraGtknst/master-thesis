@@ -34,7 +34,14 @@
 % Drawing graphs etc.
 \usepackage{pgf}
 \usepackage{tikz}
-\usetikzlibrary{arrows,automata,decorations.pathmorphing}
+\usetikzlibrary{arrows,automata,decorations.pathmorphing,arrows.meta, positioning,shapes.misc, shapes.symbols}
+
+\tikzset{
+  block/.style = {draw, thick, minimum width=1.8cm, minimum height=1.2cm, align=center},
+  smallblock/.style = {draw, thick, minimum width=0.8cm, minimum height=0.8cm},
+  arrow/.style = {thick, -{Stealth[length=3mm]}},
+  person/.style = {draw, thick, circle, minimum size=0.7cm},
+}
 
 % Footnotes
 \usepackage{footmisc}
