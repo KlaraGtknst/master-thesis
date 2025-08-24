@@ -120,7 +120,17 @@ Again, all generator prompts can be found in \autoref{app:generator_prompts}.
 \node[above=0.8cm of reference.north] (meta) {Ground Truth Metadata};
 \node[block, right=of reference.east] (extractor) {Extractor};
 \node[block, right=of extractor] (generator) {Generator};
-\node[block, right=of generator, blue] (paraphrase) {Paraphrase};
+
+% paraphrase
+\node[draw, very thick, rounded corners=6pt, minimum width=1.8cm, minimum height=2cm,
+      right=of generator, inner sep=4pt, blue] (paraphrase) {};
+
+% Add multiple snakes inside reference (smaller, stacked)
+\foreach \y in {0.8,0.4, 0.0,-0.4,-0.8}{
+  \draw[blue, thick, decorate, decoration={snake,amplitude=2pt,segment length=5pt}]
+    ($(paraphrase.west)+(0.3,\y)$) -- ($(paraphrase.east)+(-0.3,\y)$);
+}
+\node[below=0.2cm of paraphrase] {Paraphrase};
 
 % Arrows
 \draw[arrow] (dataset) -- (reference.west);
