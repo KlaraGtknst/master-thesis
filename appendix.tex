@@ -34,7 +34,7 @@ prompt = "Write a text which covers the following items:\n"
 \end{minted}
 
 % task
-\begin{minted}{python}
+\begin{minted}[breaklines]{python}
 generator_prompt = "Write a text of about {l} words with a {tone} tone, a {genre} genre, in the {register} register for the target audience of {target_audience} and in the {time_period} time period, covering the following task:\n{task}. Do not use asterisks. Only output the text without any additional commentary.".format(
             l=len(text.split()),
             tone=tone,
@@ -47,7 +47,7 @@ generator_prompt = "Write a text of about {l} words with a {tone} tone, a {genre
 \end{minted}
 
 % topic
-\begin{minted}{python}
+\begin{minted}[breaklines]{python}
 generator_prompt = "Write a text of about {l} words with a {topic} topic, {tone} tone, a {genre} genre, in the {register} register for the target audience of {target_audience} and in the {time_period} time period. Do not use asterisks. Only output the text without any additional commentary.".format(
             l=len(text.split()),
             tone=tone,
@@ -60,7 +60,7 @@ generator_prompt = "Write a text of about {l} words with a {topic} topic, {tone}
 \end{minted}
 
 % title
-\begin{minted}{python}
+\begin{minted}[breaklines]{python}
 generator_prompt = "Write a text of about {l} words with a {title} title, {tone} tone, a {genre} genre, in the {register} register for the target audience of {target_audience} and in the {time_period} time period. Do not use asterisks. Only output the text without any additional commentary.".format(
             l=len(text.split()),
             tone=tone,
