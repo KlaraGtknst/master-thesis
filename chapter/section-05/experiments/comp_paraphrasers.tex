@@ -6,6 +6,7 @@ We hence designed two experiments.
 The first experiment computes state-of-the-art paraphrasing measures for all paraphrasers on different datasets.
 The second experiments aims to evaluate the ability of our two-step models to adhere to instructions.
 We tested their proficiency extracting metadata and generating paraphrases of similar length as the reference text.
+While the \dataBlog{} ground truth metadata comes with its csv dataset, the \dataStudent{} metadata is derived from existing information about and in the dataset, and the \dataGutenberg{} metadata was completely manually curated.
 
 \paragraph{Exp. 2(a): Quantitative evaluation.}
 
@@ -19,16 +20,35 @@ We save the extremest (min, max) paraphrases per metric.
 The scores are subsequently visualized via syntactic-semantic scatters, score distributions, and radar plots per paraphraser and per prompt. 
 
 \paragraph{Exp. 2(b): Evaluation of prompt adherence.}
-For the second experiment, we select five samples from the \dataBlog{}, \dataGutenberg{} and the \dataStudent{} datasets. 
+For the second experiment, we select five samples from the \dataBlog{}, \dataGutenberg{} and the \dataStudent{} datasets repspectively. 
 Our extractor extracts the genre, the topic, and the century of each input text.
 Extracted and ground truth values are lowercased and stripped from leading and trailing whitespaces. 
-For single genre and topic values, we compute the cosine similarity on their respective SBERT embedding.
-For the genre extraction, we split the extractors' result by comma and use the maximum similarity.
-Since the ground truth topic usually consists of multiple topics separated by comma, we split them into a list and use the maximum similarity.
-For century match, we processed the result of the extractor by mapping \textit{present}, \textit{current}, and \textit{now} to 21, then extracting digits and omitting the last two digits from any numbers with at least three digits and finally adding one if the original digit was not divisible by 100.
-We then use the ground truth as a baseline $b$ for extracted century $a$ and compute $\frac{a}{b}$.
-\textcolor{red}{TODO: examples}
-While the \dataBlog{} metadata comes its csv dataset, the \dataStudent{} metadata is derived from existing information about and in the dataset, the \dataGutenberg{} metadata was completely manually curated.
+Genre and topic values can be list of strings separated by comma.
+For the genre extraction, we split the extractors' result by comma to obtain single genre values.
+Similarly, since the ground truth topic usually consists of multiple topics separated by comma, we split them into a list.
+We compute the cosine similarity between the SBERT embeddings of the extracted and ground truth values for single genre and topic values.
+The final score is the maximum of single value similarities.
+For century match, we processed the result of the extractor by mapping \textit{present}, \textit{current}, and \textit{now} to 21, then extracting digits and omitting the last two digits from any numbers with at least three digits and finally adding one.
+Find examples for processing in \autoref{tab:examples_extract_century}.
 Additional to the previously mentioned processing steps for century values, ground truth century date values were casted to dates.
+We then use the ground truth as a baseline $b$ for extracted century $a$ and compute $\frac{a}{b}$.
+
 Moreover, we obtain the relative length difference of the paraphrase and original text for every selected sample. 
-This concludes in an evaluation of our paraphrasing (extractors) in terms of genre, topic, century and length similarity.
+
+\begin{table}[h]
+\centering
+\caption{Examples for century extraction.}
+\label{tab:examples_extract_century}
+% \resizebox{\textwidth}{!}{%
+\begin{tabular}{ll}
+    \toprule
+\textbf{Original} & \textbf{Processeed} \\
+\midrule
+1964              & 20                  \\
+now               & 21                  \\
+190               & 2     \\
+\bottomrule             
+\end{tabular}%
+% }
+\end{table}
+
