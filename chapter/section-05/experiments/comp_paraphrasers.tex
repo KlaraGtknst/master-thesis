@@ -7,13 +7,10 @@ The first experiment computes state-of-the-art paraphrasing measures for all par
 The second experiments aims to evaluate the ability of our two-step models to adhere to instructions.
 We tested their proficiency extracting metadata and generating paraphrases of similar length as the reference text.
 
-\paragraph{Exp. 2(a): Quantitative evaluation}
-There are two ways to feed the generator metadata.
-The extractor can either extract it from the reference text, or the user passes ground truth information when calling the paraphraser function.
-In this experiment we use ground truth data if available.
+\paragraph{Exp. 2(a): Quantitative evaluation.}
 
 We select one text from the \dataBlog{}, the \dataGutenberg{} and the \dataStudent{} dataset, respectively.
-For the \dataGutenberg{} dataset, we load ground truth metadata.
+For the \dataGutenberg{} dataset, we load ground truth metadata. % Student Essay: not used, even though existent
 The paraphraser configurations contain two different temperatures for two-step paraphrasers, and two different prompts for one-step paraphrasers.
 We create one paraphrase for each text configuration pair.
 Evaluation measures include BLEU, ROUGE1, ROUGE2, ROUGEL, ROUGELsum, METEOR, BERTScore Precision, BERTScore Recall, BERTScore F1, SBERT \ac{wms}, SBERT cosine similarity.
@@ -21,7 +18,7 @@ Based on these we also compute syntactic and semantic similarity, as well as Goh
 We save the extremest (min, max) paraphrases per metric.
 The scores are subsequently visualized via syntactic-semantic scatters, score distributions, and radar plots per paraphraser and per prompt. 
 
-\paragraph{Exp. 2(b): Evaluation of prompt adherence}
+\paragraph{Exp. 2(b): Evaluation of prompt adherence.}
 For the second experiment, we select five samples from the \dataBlog{}, \dataGutenberg{} and the \dataStudent{} datasets. 
 Our extractor extracts the genre, the topic, and the century of each input text.
 Extracted and ground truth values are lowercased and stripped from leading and trailing whitespaces. 

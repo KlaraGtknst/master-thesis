@@ -1,11 +1,12 @@
 \subsection{Exp. 1: Reproduction of Original Work}
 
 To assess the validity of our extension to the traditional \impAppr{}, we first verified the correctness of our implementation. 
-For both the \dataBlog{} and \dataStudent{} dataset, we selected 15 pairs from the training and test sets. 
-For this purpose, we designed two experiments.
+For this purpose, we designed two experiments, which we ran on a subset of 100 pairs from the training and test sets of the \dataBlog{} and \dataStudent{} dataset respectively. 
+Half of the selected samples belong to the same author class.
 
-\paragraph{Exp. 1(a): Varying number of \imps{}}
-The first experiment evaluates the effect of varying the number of \imps{} while setting the \imp{} generation method to \texttt{fixed} (cf. Table~\ref{tab:repr_exp1}). 
+\paragraph{Exp. 1(a): Varying number of \imps{}.}
+The first experiment evaluates the effect of varying the number of \imps{} while setting the \imp{} generation method to \texttt{fixed}.
+All other hyperparameter values were set to the default values reported by \citet{koppel_determining_2014} (cf. Table~\ref{tab:repr_exp1}). 
 Adhering \citet{koppel_determining_2014}, we computed precision and recall scores across different thresholds.
 For comparison, reference precision-recall points reported by \citet{koppel_determining_2014} were included in our visualization. 
 Based on their description, we deduced that their reported scores were obtained using the \dataBlog{} dataset.
@@ -13,7 +14,7 @@ Based on their description, we deduced that their reported scores were obtained 
 
 \begin{table}[h]
 \centering\small
-\caption{Exp. 1(a): Detector configurations.}
+\caption{Exp. 1(a): \impAppr{} configuration.}
 \label{tab:repr_exp1}
 \begin{tabular}{@{}llrrl@{}}   % numbers should be right aligned, text left aligned
 \toprule
@@ -30,14 +31,14 @@ Based on their description, we deduced that their reported scores were obtained 
 
 % We also considered using thresholds that maximized alternative metrics, such as the F1 score, but rejected this approach because it produced imbalanced detector classifications. 
 
-\paragraph{Exp. 1(b): Varying impostor generation}
-The second experiment evaluates different \imp{} generation methods while keeping the number of \imps{} fixed (cf. Table~\ref{tab:repr_exp2}). 
-Following \citet{koppel_determining_2014}, we compared the \texttt{fixed} and \texttt{on-the-fly} \imp{} generation methods with their baseline approaches. 
-We reimplemented the unsupervised min-max similarity baseline, the unsupervised cosine similarity baseline, and the supervised linear \ac{svm} baseline.
+\paragraph{Exp. 1(b): Varying impostor generation.}
+The second experiment evaluates different \imp{} generation methods while keeping the number of \imps{} fixed.
+Again, all other hyperparameter values were set to the default values reported by \citet{koppel_determining_2014} (cf. Table~\ref{tab:repr_exp2}). 
+Following \citet{koppel_determining_2014}, we compared the \texttt{fixed} and \texttt{on-the-fly} \imp{} generation methods with the baseline approaches unsupervised min-max similarity, unsupervised cosine similarity, and supervised linear \ac{svm}.
 
 \begin{table}[h]
 \centering\small
-\caption{Exp. 1(b): Detector configurations.}
+\caption{Exp. 1(b): \impAppr{} configuration.}
 \label{tab:repr_exp2}
 \begin{tabular}{@{}rlrrl@{}}   % numbers should be right aligned, text left aligned
 \toprule
@@ -49,4 +50,5 @@ We reimplemented the unsupervised min-max similarity baseline, the unsupervised 
 \end{table}
 
 As in the first experiment, precision and recall were used as the primary evaluation metrics. 
-Consistent with \citet{koppel_determining_2014}, we calculated precision and recall with respect to both classes, alternately treating each as the reference class.
+Consistent with \citet{koppel_determining_2014}, we calculated precision and recall with respect to both the same author and different author class, alternately treating each as the reference class.
+We note that the different author class if ill-defined as \ac{av} is a one-class classification problem.

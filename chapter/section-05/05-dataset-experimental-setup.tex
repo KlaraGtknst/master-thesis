@@ -15,16 +15,14 @@ This includes not only allocation, preprocessing and pair selection of each data
 % questions can be specific, should be related to research question(s)
 
 The following experiments are designed to systematically evaluate the extension of the \impAppr{}~\citep{koppel_determining_2014} with \ac{llm} generated impostors. 
-The evaluation proceeds in several stages in order to both reproduce baseline results and to assess the proposed modifications in a controlled and comparative manner.
 
-We begin by reproducing the original \impAppr{} experiments of \citet{koppel_determining_2014} to establish a reliable baseline and to ensure comparability between our implementation and previously reported results. 
+We begin by reproducing the original experiments by \citet{koppel_determining_2014} to ensure comparability between our implementation and previously reported results. 
 Next, we investigate the quality of paraphrases used in \imp{} generation. 
 In particular, we compare our one-step paraphrasing strategy with our two-step approach based on the paraphrasing measures from \autoref{subsec:traditional_quantitative_evaluation_measures}. 
 Then, we evaluate paraphrase quality across different numbers of text chunks.
 We then analyse the effect of syntactic similarity between paraphrases and original texts on \imp{} scores. 
-Then, we compare different strategies for \imp{} generation, ranging from traditional baselines to \ac{llm}-based paraphrasing methods. 
-We evaluate the behaviour of different \ac{av} methods for varying sources of input text pairs. 
-This allows us to examine not only the overall effectiveness of different \imp{} generation approaches, but also their relative strengths under specific \ac{av} settings.
+Then, we compare different \ac{av} methods including the \impAppr{} with several strategies for \imp{} generation for varying sources of input text pairs. 
+This allows us to examine the relative strengths of different \ac{av} approaches for specific \ac{av} tasks.
 
 
 \input{chapter/section-05/experiments/reproduction.tex}
