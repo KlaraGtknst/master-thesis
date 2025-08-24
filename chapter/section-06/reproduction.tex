@@ -4,16 +4,18 @@
 Our first experiment covers the reproduction of the original results attached in \citet{koppel_determining_2014}'s paper.
 It is noteworthy, that we do not expect exact replication since we could only reimplement the approach to our best knowledge.
 Both Mr. Koppel and Mr. Winter were very forthcoming when we contacted them regarding implementation details that could help to improve our implementation.
-Unfortunately, the code was no longer traceable and neither author could recall exactly what preprocessing steps included.
+Unfortunately, the code was no longer traceable and neither author could recall the preprocessing steps.
 After consultation with Mr. Winter, he assured that our preprocessing steps seem reasonable.
 This, however, certainly is one of the reasons why our implementation diverges from the original work.
 
 \paragraph{Exp. 1(a): Varying number of \imps{}.}
 
-For this experiment, we set the \imp{} generation method to \texttt{fix} and varied only the number of \imps{}.
-We only have reference results of this experiment on \dataBlog{} from the original paper.
-Fortunately, though the form of the original precision-recall plot slightly differs, we obtain the same result:
-In terms of recall, 50 \imps{} achieve the best results.
+For this experiment, we set the \imp{} generation method to \texttt{fix} and vary only the number of \imps{}.
+We only have reference results of this experiment on the \dataBlog{} dataset from the original paper.
+Unlike the original curves, our \impAppr{} recall-precision curves intersect.
+This suggests that \citet{koppel_determining_2014}'s results were better separated.
+In our case, the number of \imps{} has no big impact on the precision and recall scores.
+Although the form of the original precision-recall plot differs, we find that 50 \imps{} achieve the best results in terms of recall.
 
 \begin{figure}[htbp]
   \centering
@@ -37,7 +39,7 @@ In terms of recall, 50 \imps{} achieve the best results.
 
 \paragraph{Exp. 1(b): Varying \imp{} generation.}
 
-Adhereing to \citet{koppel_determining_2014}, we compare the \impAppr{} for fixed, and on-th-fly \imp{} generation with \ac{svc}, and similarity based baselines.
+Adhereing to \citet{koppel_determining_2014}, we compare the \impAppr{} for \texttt{fixed}, and \texttt{on-th-fly} \imp{} generation with \ac{svm}, and similarity based baselines.
 They consider both the same-author and the different-authors class the reference class once.
 The original work included only the results for the \dataBlog{} dataset.
 
@@ -61,7 +63,7 @@ The original work included only the results for the \dataBlog{} dataset.
 \end{figure}
 
 For the same-author reference class, both \citet{koppel_determining_2014} and us find that the fixed \imp{} generation approach generally performs best across different threshold.
-While in the original work, the \ac{svc} baseline performed best from the three baselines, we find the opposite to be true.
+While in the original work, the \ac{svm} baseline performed best from the three baselines, we find the opposite to be true.
 Generally, our results perform worse than the original. 
 While \citet{koppel_determining_2014} obtain precision higher than $0.9$ for recall values up to $0.7$, we drop to sub $0.8$ precision fairly quickly.
 Except for the on-the-fly results, the overall form resembles the original work roughly.
