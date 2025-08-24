@@ -81,14 +81,67 @@ meta-llama-3.1-8b-instruct           & GWDG/ SAIA    \\
 The two-step approaches are inspired by prior literature~\citep{bevendorff_overview_2024, ayele_overview_2024}, and differ in how they extract and utilize auxiliary information from the source text before generating the paraphrase. 
 The two steps enforce a clearer disentanglement of content and style at the cost of increased computational overhead.
 
-Two-step paraphrasing decomposes the task into information extraction and text generation. 
+As displayed in \autoref{fig:two_step_paraphraser}, the two-step paraphrasing decomposes the task into information extraction and text generation. 
 In the first stage, the model identifies contextual features of the input text.
 These feature include tone, register, time period, target audience, and genre.
 Different approaches extract an additional feature specific to their approach.
 The additional features are a bullet point summary, the authorial task, topic, or title. 
 The extractor prompts can be derived from \autoref{app:extractor_prompts}.
-In the second stage, a paraphrase is generated based on the extracted information. 
+In the second stage, a paraphrase is generated based on the extracted metadata information. 
+There are two ways to feed the generator metadata.
+The extractor can either extract it from the reference text, or the user passes ground truth information when calling the paraphraser function.
 Again, all generator prompts can be found in \autoref{app:generator_prompts}.
+
+\begin{figure}[ht]
+  \centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[node distance=2cm]
+
+
+% Dataset node
+\node[dataset] (dataset) {Dataset};
+
+% Anchor for Reference drawing
+\node[draw=none, right=of dataset] (refpos) {};
+
+% Draw Reference as an outer rectangle + snakes inside
+\node[draw, very thick, rounded corners=6pt, minimum width=1.8cm, minimum height=2cm,
+      right=of dataset, inner sep=4pt] (reference) {};
+
+% Add multiple snakes inside reference (smaller, stacked)
+\foreach \y in {0.8,0.4, 0.0,-0.4,-0.8}{
+  \draw[black, thick, decorate, decoration={snake,amplitude=1pt,segment length=5pt}]
+    ($(reference.west)+(0.3,\y)$) -- ($(reference.east)+(-0.3,\y)$);
+}
+
+% Caption
+\node[below=0.2cm of reference] {Reference};
+
+
+% Other blocks
+\node[above=0.8cm of reference.north] (meta) {Ground Truth Metadata};
+\node[block, right=of reference.east] (extractor) {Extractor};
+\node[block, right=of extractor] (generator) {Generator};
+\node[block, right=of generator, blue] (paraphrase) {Paraphrase};
+
+% Arrows
+\draw[arrow] (dataset) -- (reference.west);
+\draw[arrow] (dataset) -- node[midway, above] {$\{0,1\}$} (meta);
+\draw[arrow] (reference.east) -- (extractor);
+\draw[arrow] (extractor) -- (generator);
+\draw[arrow] (generator) -- (paraphrase);
+
+% \draw[arrow] (meta.south) .. controls +(0,-0.8) and +(0,0.8) .. (generator.north);
+
+\draw[arrow] (meta) -- (generator);
+
+
+\end{tikzpicture}
+}
+  \caption{Two-step paraphraser.}
+  \label{fig:two_step_paraphraser}
+\end{figure}
+
 
 Translation-based paraphrasing is a related two-step variant, where a text is first translated into another language and then back into English. 
 Although conceptually simple, this approach has been shown to yield limited stylistic diversity~\citep{zhou_paraphrase_2025}.

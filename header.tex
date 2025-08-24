@@ -34,14 +34,18 @@
 % Drawing graphs etc.
 \usepackage{pgf}
 \usepackage{tikz}
-\usetikzlibrary{arrows,automata,decorations.pathmorphing,arrows.meta, positioning,shapes.misc, shapes.symbols}
+\usetikzlibrary{arrows,automata,decorations.pathmorphing,arrows.meta, positioning,shapes.misc, shapes.symbols,positioning, shapes.geometric,calc}
 
 \tikzset{
-  block/.style = {draw, thick, minimum width=1.8cm, minimum height=1.2cm, align=center},
+  block/.style = {draw, thick, rounded corners, minimum width=2.5cm, minimum height=1cm, align=center},
   smallblock/.style = {draw, thick, minimum width=0.8cm, minimum height=0.8cm},
   arrow/.style = {thick, -{Stealth[length=3mm]}},
   person/.style = {draw, thick, circle, minimum size=0.7cm},
+  dataset/.style = {cylinder, draw, shape border rotate=90, aspect=0.25,
+                    minimum height=1.5cm, minimum width=1cm, align=center,
+                    cylinder uses custom fill, cylinder body fill=white, cylinder end fill=white},
 }
+
 
 % Footnotes
 \usepackage{footmisc}
