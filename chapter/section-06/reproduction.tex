@@ -42,24 +42,51 @@ Although the form of the original precision-recall plot differs, we find that 50
 Adhereing to \citet{koppel_determining_2014}, we compare the \impAppr{} for \texttt{fixed}, and \texttt{on-th-fly} \imp{} generation with \ac{svm}, and similarity based baselines.
 They consider both the same-author and the different-authors class the reference class once.
 The original work included only the results for the \dataBlog{} dataset.
+% original results
+\citet{koppel_determining_2014}'s recall-precision curves suggest that fixed is superior to on-the-fly \imp{} generation.
+Moreover, both minimal fixed and minimal on-the-fly \imp{} generation recall values in the different author reference scenario are better than in the same author reference scenario.
+In terms of precision, both fixed and minimal on-the-fly \imp{} generation recall values in the different author reference scenario are worse than in the same author reference scenario. % true for min and max vals
+This is no surprise, since \ac{av} is an open-set one-class problem, i.e. the different author class is ill-defined due to the lack of (exhaustive) representatives.
+Consequently, there is less information about the different-author class which decreases the portion of samples correct different author predictions and increases the portion of different author pairs correctly predicted.
+In other words, both fixed and minimal on-the-fly \imp{} generation lead to many different author predictions resulting in high different author recall and high same author precision.
 
+% our results
+Our recall-precision curves' form differs from the original.
+While the same author reference results resemble \citet{koppel_determining_2014} in that fixed \imp{} generation is superior, different author reference results paint an entirely different picture than the original.
+In the different author reference scenario, fix \imps{} perform the worst. 
+Generally, all approaches have low precision in this case.
+This suggests, that different author pairs are difficult to identify with high certainty across all approaches. 
+
+Since we had to reduce the number of test samples for on-the-fly \imp{} generation due to API call limits, we suggest analysing this approaches' results with a grain of salt.
+On-the-fly \imp{} generation performs worse for same-author and best for different author reference class.
+We conclude that on-the-fly based detectors predict same author very often since the generated \imps{} are too easy and therefore, produce many \acp{fp}.
+This would explain the low precision in the same-author and the high precision in the different-author scenario.
+Moreover, on-the-fly \imps{} from the original work seem to have been more difficult since this problem was not apparent in their plots.
+Mr. Winter noted that our on-the-fly \imp{} generation implementation seems insufficient, due to the rise of bot prevention blocking web scraping and the very limited number of API calls per month.
+
+
+
+
+\textcolor{red}{TODO: report AUROC values for av approaches}
 \begin{figure}[htbp]
   \centering
   \begin{subfigure}[b]{0.495\textwidth}
     \centering
     \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig4/blog/blog_roc_prec_recall_curve_r100_top100000_Same_Author_dif_imp_gen.svg}
-    \caption{\dataBlog{}}
+    \caption{Same author reference class. }
     \label{fig:blog_same_author}
   \end{subfigure}
   \hfill
   \begin{subfigure}[b]{0.495\textwidth}
     \centering
-    \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig4/student_essays/student_roc_prec_recall_curve_r100_top100000_Same_Author_dif_imp_gen.svg}
-    \caption{\dataStudent{}}
-    \label{fig:student_essays_same_author}
+    \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig4/blog/blog_roc_prec_recall_curve_r100_top100000_Different_Author_dif_imp_gen.svg}
+    \caption{Different author reference class.}
+    \label{fig:blog_diff_author}
   \end{subfigure}
-  \caption{Recall-precision curves for the class same-author. Due to API limit restrictions, the test set for on-the-fly was smaller which is visible in the respective curves.}
-  \label{fig:same_authors}
+  \caption{Recall-precision curves for the \dataBlog{} dataset. 
+  (B) indicates \citet{koppel_determining_2014}'s baseline approaches.
+  Due to API limit restrictions, the test set for on-the-fly was smaller which is visible in the respective curves.}
+  \label{fig:diff_imp_gen_blog}
 \end{figure}
 
 For the same-author reference class, both \citet{koppel_determining_2014} and us find that the fixed \imp{} generation approach generally performs best across different threshold.
@@ -68,24 +95,6 @@ Generally, our results perform worse than the original.
 While \citet{koppel_determining_2014} obtain precision higher than $0.9$ for recall values up to $0.7$, we drop to sub $0.8$ precision fairly quickly.
 Except for the on-the-fly results, the overall form resembles the original work roughly.
 
-\begin{figure}[htbp]
-  \centering
-  \begin{subfigure}[b]{0.495\textwidth}
-    \centering
-    \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig4/blog/blog_roc_prec_recall_curve_r100_top100000_Different_Author_dif_imp_gen.svg}
-    \caption{\dataBlog{}}
-    \label{fig:blog_different_author}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{0.495\textwidth}
-    \centering
-    \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig4/student_essays/student_roc_prec_recall_curve_r100_top100000_Different_Author_dif_imp_gen.svg}
-    \caption{\dataStudent{}}
-    \label{fig:student_essays_different_author}
-  \end{subfigure}
-  \caption{Recall-precision curves for the class different-author. Due to API limit restrictions, the test set for on-the-fly was smaller which is visible in the respective curves.}
-  \label{fig:different_authors}
-\end{figure}
 
 For different authors as reference class, our results greatly differ from the original work.
 Even though, \citet{koppel_determining_2014}'s precision scores for fixed and on-the-fly \imp{} generation are generally lower than those for the same-author reference class, our scores are way lower.
