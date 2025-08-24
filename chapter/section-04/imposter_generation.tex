@@ -123,11 +123,11 @@ Again, all generator prompts can be found in \autoref{app:generator_prompts}.
 
 % paraphrase
 \node[draw, very thick, rounded corners=6pt, minimum width=1.8cm, minimum height=2cm,
-      right=of generator, inner sep=4pt, blue] (paraphrase) {};
+      right=of generator, inner sep=4pt, teal!80!black] (paraphrase) {};
 
 % Add multiple snakes inside reference (smaller, stacked)
 \foreach \y in {0.8,0.4, 0.0,-0.4,-0.8}{
-  \draw[blue, thick, decorate, decoration={snake,amplitude=2pt,segment length=5pt}]
+  \draw[teal!80!black, thick, decorate, decoration={snake,amplitude=2pt,segment length=5pt}]
     ($(paraphrase.west)+(0.3,\y)$) -- ($(paraphrase.east)+(-0.3,\y)$);
 }
 \node[below=0.2cm of paraphrase] {Paraphrase};
