@@ -3,30 +3,51 @@
 Initially, we hypothesized that smaller chunks of text would lead to better paraphrases, since smaller chunks are easer to process and control in terms of topic, suggesting that the separation of text into smaller chunks would be beneficial for the paraphrasing process.
 We therefore designed an experiment to test this hypothesis.
 We computed several paraphrasing measurements for the same input texts averaged over the number of chunks.
-As visualized in \autoref{fig:abl_chunks_gpt_oss}, \autoref{fig:abl_chunks_Translation} and \autoref{fig:abl_chunks_BulletPoint},
+The essence of our findings is summarized in \autoref{tab:impact_chunks_dataset_paraphraser}.
+For two-step paraphrasers, the Gohsen $\Delta$ increases with increasing number of chunks due to decreasing average Syntactic similarity for the \dataBlog{} and the \dataStudent{}.
+The impact of the number of chunks on the two-step translation based approach is viusalized in \autoref{fig:abl_chunks_blog_translation}.
+On the \dataGutenberg{} chunking had no effect but on the translation based paraphraser where the semantic similarity and therefore, the Gohsen $\Delta$ decrease with increasing number of chunks.
+Two-step approaches had a peak in syntactic measures at two chunks on the \dataPan{}.
+As visualized in \autoref{fig:abl_chunks_student_essays_llama}, chunking had no effect on one-step paraphrasing approaches.
+Find more visualizations in \autoref{sec:app_chunks}.
+
+As visualized in \autoref{fig:abl_chunks_blog_translation}, \autoref{fig:abl_chunks_student_essays_llama} and \autoref{fig:abl_chunks_BulletPoint},
 the scores of paraphrasers are influenced by the number of text chunks.
 Since chunking produces computational overhead increasing time spent and API calls used, we will not use chunks for the paraphrasing process but rather stick to text-to-text paraphrases.
+
+\begin{table}[]
+\centering
+\caption{Effect of increasing the number of chunks on different paraphrasers on different datasets. The asterisk * indicates that \texttt{qwen3-32b}'s syntactic measures have a peak at three chunks.}
+\label{tab:impact_chunks_dataset_paraphraser}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llll}
+    \toprule
+\textbf{Dataset} & \textbf{One-step} & \multicolumn{2}{l}{\textbf{Two-step}}                                                   \\
+                 &                   & \textbf{Extraction-Generation} & \textbf{Translation}                                   \\
+\midrule
+\dataBlog{}           & --* & $\downarrow \ \text{Syntactic} $ & $\downarrow \ \text{Syntactic} $ \\
+\dataGutenberg{}      & -- & --                                   & $\downarrow \ \text{Semantic}$ \\
+\dataPan{}          & -- & \text{Syntactic Peak at two chunks}  & \text{Syntactic Peak at two chunks}   \\
+\dataStudent{} & -- & $\downarrow \ \text{Syntactic}$      & $\downarrow \ \text{Syntactic}$       \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
  
 \begin{figure}[htbp]
     \centering
-    \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/results/openai-gpt-oss-120b_metrics_plot_category_Cross-Genre.svg}
-    \caption{Average score over different prompts and temperature (standard deviation shaded) for different paraphrasing scores for the \texttt{openai-gpt-oss-120b} model.
-    The number of chunks has no effect in terms of scores.}
-    \label{fig:abl_chunks_gpt_oss}
+    \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Blog/Translation_metrics_plot_category_Blog.svg}
+    \caption{Average score over different temperature (standard deviation shaded) for different paraphrasing scores for the translation paraphraser.
+    With increase of the number of chunks the syntactic scores decrease.}
+    \label{fig:abl_chunks_blog_translation}
 \end{figure}
+
+
 
 \begin{figure}[htbp]
     \centering
-    \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/results/Translation_metrics_plot_category_Cross-Genre.svg}
-    \caption{Different paraphrasing scores for the Translation model. 
-    Changing the number of chunks has little effect on the model scores, but a small reduction of the standard deviation.}
-    \label{fig:abl_chunks_Translation}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/results/BulletPoint_metrics_plot_category_Cross-Genre.svg}
-    \caption{Different paraphrasing scores for the BulletPoint model. 
+    \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Student_Essays/meta-llama-3.1-8b-instruct_metrics_plot_category_Student Essays.svg}
+    \caption{Average score over different prompts (standard deviation shaded) for different paraphrasing scores for a LLAMA model. 
     This model is not affected by the number of chunks.}
-    \label{fig:abl_chunks_BulletPoint}
+    \label{fig:abl_chunks_student_essays_llama}
 \end{figure}
