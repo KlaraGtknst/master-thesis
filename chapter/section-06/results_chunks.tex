@@ -4,24 +4,64 @@ Initially, we hypothesized that smaller chunks of text would lead to better para
 We therefore designed an experiment to test this hypothesis.
 We computed several paraphrasing measurements for the same input texts averaged over the number of chunks.
 
+
 \begin{table}[]
 \centering
-\caption{Effect of increasing the number of chunks on different paraphrasers on different datasets. The asterisk * indicates that \texttt{qwen3-32b}'s syntactic measures have a peak at three chunks.}
+\caption{Impact of the number of chunks on syntactic and semantic paraphrase measures.}
 \label{tab:impact_chunks_dataset_paraphraser}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{llll}
+\begin{tabular}{llllll}
     \toprule
-\textbf{Dataset} & \textbf{One-step} & \multicolumn{2}{l}{\textbf{Two-step}}                                                   \\
-                 &                   & \textbf{Extraction-Generation} & \textbf{Translation}                                   \\
+\textbf{}         & \textbf{}            & \multicolumn{2}{l}{\textbf{Syntactic measure} $\downarrow$} & \multicolumn{2}{l}{\textbf{Semantic measure} $\uparrow$} \\
+\textbf{category} & \textbf{model type} & \textbf{mean}          & \textbf{std}          & \textbf{mean}          & \textbf{std}         \\
 \midrule
-\dataBlog{}           & --* & $\downarrow \ \text{Syntactic} $ & $\downarrow \ \text{Syntactic} $ \\
-\dataGutenberg{}      & -- & --                                   & $\downarrow \ \text{Semantic}$ \\
-\dataPan{}          & -- & \text{Syntactic Peak at two chunks}  & \text{Syntactic Peak at two chunks}   \\
-\dataStudent{} & -- & $\downarrow \ \text{Syntactic}$      & $\downarrow \ \text{Syntactic}$       \\
-\bottomrule
+\multirow{2}{*}{Blog}           & one-step & 0.01  & 0.01 & -0.03 & 0.02 \\
+                                & two-step & -0.12 & 0.08 & -0.03 & 0.04 \\
+\multirow{2}{*}{Gutenberg}      & one-step & 0.0   & 0.0  & -0.04 & 0.03 \\
+                                & two-step & 0.0   & 0.0  & -0.01 & 0.05 \\
+\multirow{2}{*}{Student Essays} & one-step & 0.03  & 0.04 & 0.03  & 0.07 \\
+                                & two-step & -0.15 & 0.08 & -0.05 & 0.02 \\
+                                \bottomrule
 \end{tabular}%
 }
 \end{table}
+
+% \begin{table}[]
+% \centering
+% \caption{Impact of the number of chunks on syntactic and semantic paraphrase measures.}
+% \label{tab:impact_chunks_dataset_paraphraser}
+% \resizebox{\textwidth}{!}{%
+% \begin{tabular}{llllll}
+% \textbf{}         & \textbf{}            & \multicolumn{2}{l}{\textbf{Syntactic measure}} & \multicolumn{2}{l}{\textbf{Semantic measure}} \\
+% \textbf{category} & \textbf{model\_type} & \textbf{mean}          & \textbf{std}          & \textbf{mean}          & \textbf{std}         \\
+% \multirow{2}{*}{Blog}           & one-step & 1.28 & 0.27 & 0.96 & 0.04 \\
+%                                 & two-step & 0.49 & 0.07 & 0.96 & 0.05 \\
+% \multirow{2}{*}{Gutenberg}      & one-step & 1.23 & 0.54 & 0.92 & 0.04 \\
+%                                 & two-step & 1.9  & 1.13 & 0.99 & 0.08 \\
+% \multirow{2}{*}{Student Essays} & one-step & 2.7  & 3.1  & 1.06 & 0.14 \\
+%                                 & two-step & 0.41 & 0.04 & 0.93 & 0.03
+% \end{tabular}%
+% }
+% \end{table}
+
+% \begin{table}[]
+% \centering
+% \caption{Effect of increasing the number of chunks on different paraphrasers on different datasets. The asterisk * indicates that \texttt{qwen3-32b}'s syntactic measures have a peak at three chunks.}
+% \label{tab:impact_chunks_dataset_paraphraser}
+% \resizebox{\textwidth}{!}{%
+% \begin{tabular}{llll}
+%     \toprule
+% \textbf{Dataset} & \textbf{One-step} & \multicolumn{2}{l}{\textbf{Two-step}}                                                   \\
+%                  &                   & \textbf{Extraction-Generation} & \textbf{Translation}                                   \\
+% \midrule
+% \dataBlog{}           & --* & $\downarrow \ \text{Syntactic} $ & $\downarrow \ \text{Syntactic} $ \\
+% \dataGutenberg{}      & -- & --                                   & $\downarrow \ \text{Semantic}$ \\
+% \dataPan{}          & -- & \text{Syntactic Peak at two chunks}  & \text{Syntactic Peak at two chunks}   \\
+% \dataStudent{} & -- & $\downarrow \ \text{Syntactic}$      & $\downarrow \ \text{Syntactic}$       \\
+% \bottomrule
+% \end{tabular}%
+% }
+% \end{table}
 
 The essence of our findings is summarized in \autoref{tab:impact_chunks_dataset_paraphraser}.
 For two-step paraphrasers, the Gohsen $\Delta$ increases with increasing number of chunks due to decreasing average Syntactic similarity for the \dataBlog{} dataset and the \dataStudent{} dataset.
