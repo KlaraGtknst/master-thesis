@@ -1,29 +1,25 @@
 % results
 \section{Exp. 6: Comparing \ac{av} Methods in \acs{llm} author scenarios}
 
+This experiment evaluates the performance of the \impAppr{} in comparison to established \ac{av} methods when each input pair contains at least one \ac{llm} generated text.
 Baseline Mirror minds performs reasonable well compared to the other approaches due to its high recall.
 You may find the recall curves across different threshold attached in the Appendix in \autoref{sec:app_detection_scenarios}.
-Paraphrases are single words, which prompt the discriminator to always predict same-author since any candidate text contains more stylistic similarity than the single-word \imps{}.
+Mirror minds' paraphrases are single words, which prompt the discriminator to always predict same-author since any candidate text contains more stylistic similarity than the single-word \imps{}.
 We find this approach produces many \acp{fp}.
 
 
 \paragraph{Human-\ac{llm}}
-\begin{figure}[htbp]
-  \centering
-  \begin{subfigure}[b]{0.48\textwidth}
+
+  \begin{figure}[b]
     \centering
     \includesvg[width=\linewidth]{images/AV_comparison/detection_scenarios/f1/student_essays_Human-LLM_threshold_f1s_curves_all_incl_baselines.svg}
     \caption{F1}
     \label{fig:human-lllm_f1}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{0.48\textwidth}
-    \centering
+  \end{figure}
+
+  \begin{figure}[b]
     \includesvg[width=\linewidth]{images/AV_comparison/detection_scenarios/precision/student_essays_Human-LLM_threshold_precisions_curves_all_incl_baselines.svg}
-    \caption{Precision}
-    \label{fig:student_essays_same_author}
-  \end{subfigure}
-  \caption{Different score curves for the class same-author. 
+  \caption{Precision curves for the class same-author. 
   We find that in the Human-\ac{llm} scenario, non-\ac{llm} \ac{av} approaches perform best. 
   Both Mirror minds and naive \ac{llm}-based have low precision values.
   Their high recall suggests, that \imps{} do not serve as hard negatives yet.}
