@@ -13,15 +13,39 @@ We find this approach produces many \acp{fp}.
   \begin{figure}[b]
     \centering
     \includesvg[width=\linewidth]{images/AV_comparison/detection_scenarios/f1/student_essays_Human-LLM_threshold_f1s_curves_all_incl_baselines.svg}
-    \caption{F1}
-    \label{fig:human-lllm_f1}
+    \caption{F1 scores for the class same-author.
+  One text is \ac{llm} generated.}
+    \label{fig:human-llm_f1}
   \end{figure}
 
   \begin{figure}[b]
     \includesvg[width=\linewidth]{images/AV_comparison/detection_scenarios/precision/student_essays_Human-LLM_threshold_precisions_curves_all_incl_baselines.svg}
   \caption{Precision curves for the class same-author. 
+  One text is \ac{llm} generated.
   We find that in the Human-\ac{llm} scenario, non-\ac{llm} \ac{av} approaches perform best. 
   Both Mirror minds and naive \ac{llm}-based have low precision values.
   Their high recall suggests, that \imps{} do not serve as hard negatives yet.}
-  \label{fig:detec_scen_human-llm}
+  \label{fig:human-llm_prec}
+\end{figure}
+
+
+\paragraph{\ac{llm}-\ac{llm}}
+The overall F1 scores for \ac{av} in \ac{llm}-\ac{llm} are better than in the cross human-\ac{llm} scenario.
+
+
+  \begin{figure}[b]
+    \centering
+    \includesvg[width=\linewidth]{images/AV_comparison/detection_scenarios/f1/student_essays_LLM-AV-(only-LLMs)_threshold_f1s_curves_all_incl_baselines.svg}
+    \caption{F1 scores for the class same-author.
+  All texts are \ac{llm} generated.
+  The overall F1 scores for \ac{av} in \ac{llm}-\ac{llm} are good.
+  }
+    \label{fig:llm-llm_f1}
+  \end{figure}
+
+  \begin{figure}[b]
+    \includesvg[width=\linewidth]{images/AV_comparison/detection_scenarios/accuracy/student_essays_LLM-AV-(only-LLMs)_threshold_accs_curves_all_incl_baselines.svg}
+  \caption{Accuracy scores for the class same-author.
+  All texts are \ac{llm} generated.}
+  \label{fig:llm-llm_acc}
 \end{figure}
