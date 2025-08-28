@@ -1,21 +1,23 @@
 % results
 \section{Exp. 6: Comparing \ac{av} Methods in \acs{llm} author scenarios}
 
-This experiment evaluates the performance of the \impAppr{} in comparison to established \ac{av} methods when each input pair contains at least one \ac{llm} generated text.
-Baseline Mirror minds performs reasonable well compared to the other approaches due to its high recall.
-You may find the recall curves across different threshold attached in the Appendix in \autoref{sec:app_detection_scenarios}.
-Mirror minds' paraphrases are single words, which prompt the discriminator to always predict same-author since any candidate text contains more stylistic similarity than the single-word \imps{}.
-We find this approach produces many \acp{fp}.
+This experiment evaluates the performance of the \impAppr{} against established \ac{av} methods when each input pair contains at least one \ac{llm}-generated text.  
+The baseline \textit{Mirror Minds} performs comparatively well due to its consistently high recall.  
+The recall curves across different thresholds and scenarios can be found in the Appendix (\autoref{sec:app_detection_scenarios}).  
+
+However, \textit{Mirror Minds}' strength is a misconception due to its oversimplified paraphrases, which consist of single words.  
+This triviality biases the discriminator toward predicting \textit{same-author}, since any candidate text necessarily contains more stylistic information than the single-word \imps{}.  
+As a result, this method produces a large number of \acp{fp}.
 
 
 \paragraph{\ac{llm} detection}
 
-In this \ac{llm} detection scenario, the traditional baselines PPMD, Unmasking and supervised \ac{svm} perform best in terms of precision.
-Nevertheless, it becomes clear that all methods can either perform well in terms of precision or in terms of recall, but not both at the same time.
-Other than that, we find that all random sampling based \imp{} generation approaches content, text length and fixed perform better than naive \ac{llm} \imps{}, even though they are still not good.
-In this scenario, mirror minds and naive \ac{llm} \imps{} are too simple leading to low precision and high recall since many input pairs are predicted to belong to the same author class.
-Hence, our approaches perform poorly when asked to detect \acp{llm}.
+In the \ac{llm} detection setting, the traditional baselines PPMD, Unmasking, and the supervised \ac{svm} perform best in terms of precision.  
+Nevertheless, it becomes evident that no method achieves a favourable balance between high precision or high recall since none can attain both simultaneously.  
 
+Among the \imp{}-based approaches, random sampling variants (content, text length, and fixed) outperform naive \ac{llm}-based \imps{}, although their absolute performance remains unsatisfactory.  
+\textit{Mirror Minds} and naive \ac{llm} \imps{} are overly simplistic, leading to consistently low precision and inflated recall, since the majority of input pairs are incorrectly classified as same-author.  
+Consequently, these approaches are particularly ill-suited for detecting \acp{llm}.
 
 \begin{figure}[b]
   \includesvg[width=\linewidth]{images/AV_comparison/detection_scenarios/precision/student_essays_LLM-Detection_threshold_precisions_curves_all_incl_baselines.svg}
@@ -28,12 +30,12 @@ In this scenarios, ground truth True corresponds to the disputed text being \ac{
 
 \paragraph{\ac{llm} \ac{av}}
 
-Opposed to first impression, mirror minds and naive \acp{llm} is not suitable for this task since both have very high recall values.
-This indicates that the generated \imps{} are too simple and thus, there are many \acp{fp}.
-While both PPMD and Unmasking have high precision, they have low recall values resulting in an overall poor F1 performance. 
-Both approaches predict different author class for most samples.
-The best performing approach is the supervised baseline achieving maximum precision of around $0.7$ for a recall of $\le 0.55$.
-Overall, all approaches do no perform well especially in terms of precision (slightly above $0.2$).
+Contrary to initial intuition, neither \textit{Mirror Minds} nor naive \ac{llm} approaches are suitable for this task, as their high recall results in excessive \acp{fp}.  
+Although PPMD and Unmasking achieve relatively high precision, their recall is consistently low, yielding poor overall F1 performance.  
+Both methods predominantly predict different-author, thereby underestimating same-author cases.  
+
+The best-performing baseline is the supervised model, which reaches a maximum precision of approximately $0.7$ for recall $\leq 0.55$.  
+However, overall performance remains unsatisfactory across all methods, particularly in terms of precision, which hovers slightly above $0.2$.
 
 
 \begin{figure}[b]
@@ -48,17 +50,20 @@ In these scenarios, ground truth True corresponds to the disputed text being gen
 
 
 
-\paragraph{\ac{llm}-\ac{llm}}
-The overall F1 scores for \ac{av} in \ac{llm}-\ac{llm} are better than in the cross human-\ac{llm} scenario.
-This indicates that the presence of human authored texts complicates the \ac{av} task.
-On first sight, mirror minds seems to perform best.
-The misconception is due to trivial \imps{} leading to the high recall of mirror minds.
-The Unmasking baseline seems to exhibit the same recall behaviour as mirror minds for a threshold smaller than $0.4$.
-Even though fixed, content and text length based \imp{} generation achieve precision between $0.4$ and $0.7$, their F1 score is poor due to low recall values indicating most pairs between attributed to different author classes.
-Both PPMD and unsupervised min-max have high precision and low recall, leading to poor F1 scores.
-The overall best approach is \ac{naive} \acp{llm}, whose precision is roughly around $0.6$ across all thresholds.
-\ac{naive} \acp{llm} decrease in recall indicates that with the increase of the threshold the same number \acp{tp} and \acp{fp} is discarded from the set of samples predicted with a positive label.
-This means that the generated \imps{} do not distinguish same author from different author pairs.
+\paragraph{\ac{llm}-\ac{llm} \ac{av}}
+
+Overall F1 scores for \ac{av} in the \ac{llm}-\ac{llm} scenario are higher than in the human–\ac{llm} setting, suggesting that the presence of human-authored texts complicates attribution.  
+
+At first glance, \textit{Mirror Minds} appears to perform best. 
+However, this impression is misleading.  
+Its trivial \imps{} inflate recall without offering genuine discriminative power.  
+Interestingly, the Unmasking baseline exhibits similar recall behaviour for thresholds below $0.4$.  
+
+Fixed, content-based, and text-length-driven \imp{} generation methods achieve precision between $0.4$ and $0.7$, yet their F1 scores remain low due to poor recall, i.e. most pairs are incorrectly assigned to the different-author class.  
+Similarly, PPMD and the unsupervised min-max approach yield high precision but equally low recall, again resulting in poor F1 values.  
+
+The overall best-performing approach is naive \ac{llm} generation, which maintains a precision of approximately $0.6$ across thresholds.  
+However, with increasing threshold its recall decreases monotonically indicating both \acp{tp} and \acp{fp} are discarded in roughly equal measure, implying that the generated \imps{} fail to meaningfully distinguish between same- and different-author pairs.
 
 
   \begin{figure}[b]
