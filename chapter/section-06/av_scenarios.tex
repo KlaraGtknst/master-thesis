@@ -19,7 +19,7 @@ Among the \imp{}-based approaches, random sampling variants (content, text lengt
 Mirror Minds and naive \ac{llm} \imps{} are overly simplistic, leading to consistently low precision and inflated recall, since the majority of input pairs are incorrectly classified as same-author.  
 Consequently, these approaches are particularly ill-suited for detecting \acp{llm}.
 
-\begin{figure}[b]
+\begin{figure}[h]
   \includesvg[width=\linewidth]{images/AV_comparison/detection_scenarios/precision/student_essays_LLM-Detection_threshold_precisions_curves_all_incl_baselines.svg}
 \caption{Precision curves for the class same-author. 
 The candidate text is \ac{llm} generated.
@@ -28,7 +28,7 @@ In this scenarios, ground truth True corresponds to the disputed text being \ac{
 \label{fig:llm_detection_prec}
 \end{figure}
 
-\paragraph{\ac{llm} \ac{av}}
+\paragraph{General \ac{llm} \ac{av}}
 
 Contrary to initial intuition, neither Mirror Minds nor naive \ac{llm} approaches are suitable for this task, as their high recall results in excessive \acp{fp}.  
 Although PPMD and Unmasking achieve relatively high precision, their recall is consistently low, yielding poor overall F1 performance.  
@@ -38,7 +38,7 @@ The best-performing baseline is the supervised model, which reaches a maximum pr
 However, overall performance remains unsatisfactory across all methods, particularly in terms of precision, which hovers slightly above $0.2$.
 
 
-\begin{figure}[b]
+\begin{figure}[h]
   \centering
   \includesvg[width=\linewidth]{images/AV_comparison/detection_scenarios/f1/student_essays_LLM-AV_threshold_f1s_curves_all_incl_baselines.svg}
   \caption{F1 scores for the class same-author. 
@@ -66,7 +66,7 @@ The overall best-performing approach is naive \ac{llm} generation, which maintai
 However, with increasing threshold its recall decreases monotonically indicating both \acp{tp} and \acp{fp} are discarded in roughly equal measure, implying that the generated \imps{} fail to meaningfully distinguish between same- and different-author pairs.
 
 
-  \begin{figure}[b]
+  \begin{figure}[h]
     \centering
     \includesvg[width=\linewidth]{images/AV_comparison/detection_scenarios/f1/student_essays_LLM-AV-(only-LLMs)_threshold_f1s_curves_all_incl_baselines.svg}
     \caption{F1 scores for the class same-author.
