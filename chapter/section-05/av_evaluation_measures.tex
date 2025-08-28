@@ -27,6 +27,7 @@ In our setting, the model produces only the binary outcomes "same author" or "do
 Since there is no natural mechanism for producing a calibrated 0.5 score, abstention cannot be meaningfully represented. 
 One could introduce a second threshold to create an artificial abstention region, but this would not align with the open-set nature of \ac{av}. 
 The "different author" class is inherently ill-defined, as the set of possible authors is unbounded and cannot be exhaustively represented. 
+Moreover, we do not report average precision across different recall values, since we do not need good results across different thresholds, but only one threshold which produces a high precision value.
 For this reason, the focus in this thesis remains on precision, recall, and F1-based measures. 
 
 % A well-known metric is accuracy which measures the percentage of classified correctly over all test cases~\citep{neal_surveying_2018}.

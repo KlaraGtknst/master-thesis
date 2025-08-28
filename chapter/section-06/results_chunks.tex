@@ -1,13 +1,17 @@
 \section{Exp. 3: Paraphrasing Chunks}
 
-Initially, we hypothesized that smaller chunks of text would lead to better paraphrases, since smaller chunks are easer to process and control in terms of topic, suggesting that the separation of text into smaller chunks would be beneficial for the paraphrasing process.
+Initially, we hypothesized that the separation of text into smaller chunks would be beneficial for the paraphrasing process due to the limited number of topics compare to the whole texts.
 We therefore designed an experiment to test this hypothesis.
 We computed several paraphrasing measurements for the same input texts averaged over the number of chunks.
 
 
 \begin{table}[]
 \centering
-\caption{Impact of the number of chunks on syntactic and semantic paraphrase measures.}
+\caption{Impact of the number of chunks on syntactic and semantic paraphrase measures.
+Impact is measured in absolute changes between the measure for one chunk and the maximum number of chunks.
+There is no great effect on one-step approaches or on the \dataGutenberg{}.
+Bold values denote the extremest changes.
+Syntactic measures should be small while semantic values should be positive.}
 \label{tab:impact_chunks_dataset_paraphraser}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{llllll}
@@ -16,11 +20,11 @@ We computed several paraphrasing measurements for the same input texts averaged 
 \textbf{category} & \textbf{model type} & \textbf{mean}          & \textbf{std}          & \textbf{mean}          & \textbf{std}         \\
 \midrule
 \multirow{2}{*}{Blog}           & one-step & 0.01  & 0.01 & -0.03 & 0.02 \\
-                                & two-step & -0.12 & 0.08 & -0.03 & 0.04 \\
+                                & two-step & \textbf{-0.12} & 0.08 & -0.03 & 0.04 \\
 \multirow{2}{*}{Gutenberg}      & one-step & 0.0   & 0.0  & -0.04 & 0.03 \\
                                 & two-step & 0.0   & 0.0  & -0.01 & 0.05 \\
 \multirow{2}{*}{Student Essays} & one-step & 0.03  & 0.04 & 0.03  & 0.07 \\
-                                & two-step & -0.15 & 0.08 & -0.05 & 0.02 \\
+                                & two-step & \textbf{-0.15} & 0.08 & -0.05 & 0.02 \\
                                 \bottomrule
 \end{tabular}%
 }
@@ -64,21 +68,22 @@ We computed several paraphrasing measurements for the same input texts averaged 
 % \end{table}
 
 The essence of our findings is summarized in \autoref{tab:impact_chunks_dataset_paraphraser}.
-For two-step paraphrasers, the Gohsen $\Delta$ increases with increasing number of chunks due to decreasing average Syntactic similarity for the \dataBlog{} dataset and the \dataStudent{} dataset.
-The impact of the number of chunks on the two-step translation based approach is viusalized in \autoref{fig:abl_chunks_blog_translation}.
-On the \dataGutenberg{} dataset, chunking had no effect but on the translation based paraphraser where the semantic similarity and therefore, the Gohsen $\Delta$ decrease with increasing number of chunks.
-Two-step approaches had a peak in syntactic measures at two chunks on the \dataPan{} dataset.
+For two-step paraphrasers, the Gohsen $\Delta$ increases with increasing number of chunks due to decreasing average syntactic similarity for the \dataBlog{} dataset and the \dataStudent{} dataset.
+The impact of the number of chunks on the two-step translation based approach on the \dataBlog{} dataset is visualized in \autoref{fig:abl_chunks_blog_translation}.
+On the \dataGutenberg{} dataset, chunking decrease the semantic similarity of translation-based paraphrases. 
+Since other paraphrases were not influenced the overall reported average semantic similarity score differs only slightly.
+Moreover, two-step approaches on the \dataPan{} dataset peaked in syntactic measures at two chunks.
 As visualized in \autoref{fig:abl_chunks_student_essays_llama}, chunking had no effect on one-step paraphrasing approaches.
 Find more visualizations in \autoref{sec:app_chunks}.
 
-In conclusion, multiple chunks can improve paraphrases in terms of syntactic diversity for some datasets using the two-step approach.
+In conclusion, multiple chunks decrease syntactic diversity at the cost of minor semantic score degradation for some datasets using two-step approaches.
 Since applying the two-step approach to $n$ chunk requires $2n$ API calls in the best case scenario and chunking has no effect on one-step paraphrases, we decided to forgo chunking our texts as part of our paraphrasing pipeline.
 
  
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Blog/Translation_metrics_plot_category_Blog.svg}
-    \caption{Average score over different temperature (standard deviation shaded) for different paraphrasing scores for the translation paraphraser.
+    \caption{Average score over different temperature (standard deviation shaded) for different paraphrasing scores for the translation paraphraser on the \dataBlog{} dataset.
     With increase of the number of chunks the syntactic scores decrease.}
     \label{fig:abl_chunks_blog_translation}
 \end{figure}
@@ -88,7 +93,7 @@ Since applying the two-step approach to $n$ chunk requires $2n$ API calls in the
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Student_Essays/meta-llama-3.1-8b-instruct_metrics_plot_category_Student Essays.svg}
-    \caption{Average score over different prompts (standard deviation shaded) for different paraphrasing scores for a LLAMA model. 
+    \caption{Average score over different prompts (standard deviation shaded) for different paraphrasing scores for a LLAMA model on the \dataStudent{} dataset. 
     This model is not affected by the number of chunks.}
     \label{fig:abl_chunks_student_essays_llama}
 \end{figure}
