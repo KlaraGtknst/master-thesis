@@ -9,6 +9,7 @@ The evaluation of paraphrases can be divided into syntactic and semantic approac
 Syntactic evaluation metrics mainly focus on the n-gram overlaps~\citep{zhou_paraphrase_2021}. 
 Common syntactic evaluation metrics include \acs{bleu}, \acs{rouge}-1, and \acs{rouge}-L.
 
+\paragraph{\ac{bleu}}
 \ac{bleu}~\citep{papineni_bleu_2001} was originally developed for machine translation~\citep{zhou_paraphrase_2021}. 
 \ac{bleu}'s basic unit of evaluation is a sentence. 
 \ac{bleu} is based on precision, i.e. computing the fraction of generated n-grams that appear in any reference text~\citep{kurt_pehlivanoglu_comparative_2024,palivela_optimization_2021,papineni_bleu_2001}. 
@@ -26,8 +27,8 @@ the total number of unclipped n-grams in all candidate sentences \citep{papineni
 \label{eq:bleu}
 \end{equation}
 
-The choice of $n$ determines what syntactic charcteristic is evaluated.
-Unigrams are used to test adequacy, while longer n-grams are used to test fluency~\citep{papineni_bleu_2001}. 
+The choice of $n$ determines what syntactic characteristic is evaluated.
+Uni-grams are used to test adequacy, while longer n-grams are used to test fluency~\citep{papineni_bleu_2001}. 
 The brevity penalty $BP$ from \autoref{eq:bleu_brevity_penalty} is applied to discourage excessively short candidates~\citep{papineni_bleu_2001}.
 
 \begin{equation}
@@ -65,13 +66,43 @@ As such, it is generally recommended being supplemented with human evaluation~\c
 % and thus, limited syntactic diversity (i.e. inadequate paraphrase) \citep{kurt_pehlivanoglu_comparative_2024}.
 % Note that more reference texts lead to higher \ac{bleu} scores \citep{papineni_bleu_2001}.
 
+\paragraph{\ac{rouge}}
 \ac{rouge} \citep{lin_rouge_2004}, initially developed for summarization, is recall-oriented and emphasizes coverage of reference content in the candidate text. 
 Several variants exist, including \ac{rouge}-N, which computes n-gram recall, and \ac{rouge}-L, which measures the \ac{lcs}~\citep{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}. 
+% ROUGE generally
+% \citet{kurt_pehlivanoglu_comparative_2024} claim that \ac{rouge} may not be adequate to assess semantic similarity and fluency.
+Lower \ac{rouge} scores indicate greater diversity \citep{kurt_pehlivanoglu_comparative_2024}.
+
+% ROUGE-N
+\ac{rouge}-N is an n-gram recall between the candidate text and the reference texts \citep{lin_rouge_2004}.
+Since we only consider scenarios we use the simpler version for one reference in \autoref{eq:rouge_n}.
+\begin{equation}
+    ROUGE-N = \frac{\sum_{\mathcal{S} \in \left\{ References \right\}}\sum_{n-gram \in\mathcal{S}}Count_{match}(n-gram)}{\sum_{\mathcal{S'} \in \left\{ References \right\}}\sum_{n-gram' \in\mathcal{S'}}Count(n-gram')}
+\label{eq:rouge_n}
+\end{equation}
+Both the nominator and the denominator iterate over all n-grams in all sentences in the reference, i.e. ground truth, text.
+The nominator sums up $Count_{match}(n-gram)$, i.e. the maximum number of occurrences of this reference sentence n-gram in any of the candidate texts.
+Since this sum measures the number of co-occurrences of that n-gram in both candidate and reference text, it is naturally capped to the number of occurrences in the reference.
+This ensures that after normalizing with the denominator, the \ac{rouge}-N values range from 0 to 1~\citep{kurt_pehlivanoglu_comparative_2024}.
+% The nominator sums over all references and thus, gives more weight to matching n-grams that occur in multiple references (i.e. a consensus between references) \citep{lin_rouge_2004}.    % do not use, bc we have only one reference
+The denominator does not consider matches but only sums up the number of times an n-grams appears in the reference sentences~\citep{lin_rouge_2004}.
+If every n-gram from the reference sentences would appear equally often in the candidate, the \ac{rouge}-N would be one since it measures the n-gram overlap between reference and candidate from a reference or recall perspective.
+
 \ac{rouge}-L for a candidate $Y$ of length $n$ and a reference $X$ of length $m$, for example, is defined in \autoref{eq:rouge_l}.
 The intuition is that the length of the \ac{lcs} between the candidate and reference texts correlates with their similarity \citep{lin_rouge_2004}.
 % \ac{rouge}-L requires in-sequence matches that reflect the sentence level word order as n-grams.
 % Moreover, no predefined $n$ is necessary, because \ac{rouge}-L includes the longest in-sequence common n-grams.
 \ac{rouge}-L does not include shorter sequences or alternative \acp{lcs} in the final score~\citep{lin_rouge_2004}.
+
+\begin{equation}
+P_{lcs} = \frac{LCS(X,Y)}{n},
+\label{eq:rouge_l_precision}
+\end{equation}
+
+\begin{equation}
+R_{lcs} = \frac{LCS(X,Y)}{m},
+\label{eq:rouge_l_recall}
+\end{equation}
 
 \begin{equation}
 ROUGE-L = \frac{(1 + \beta^2)R_{lcs}P_{lcs}}{R_{lcs} + \beta^2 P_{lcs}},
@@ -80,7 +111,7 @@ ROUGE-L = \frac{(1 + \beta^2)R_{lcs}P_{lcs}}{R_{lcs} + \beta^2 P_{lcs}},
 
 $R_{lcs} = \frac{LCS(X,Y)}{m}$ and $P_{lcs} = \frac{LCS(X,Y)}{n}$ capture recall and precision based on length $n$ of $X$ and length $m$ of $Y$, respectively.
 $\beta$ is defined as $\frac{P_{lcs}}{R_{lcs}}$.
-There is also a summary-level \ac{lcs} \ac{rouge} variant which computes \ac{rouge}-Lsum via summing over the union \ac{lcs} matches $LCS_\cup(r_i,C)$ between the reference summary $r_i, i \in [1,u]$ and every candidate sentence $c_j$.
+There is also a summary-level \ac{lcs} \ac{rouge} variant which computes \ac{rouge}-Lsum via summing over the union \ac{lcs} matches $LCS_\cup(r_i,C)$ between the reference summary $r_i, i \in [1,u]$ and every candidate sentence $c_j, j \in [1,v]$.
 The total number of words in the references is $m$ and $n$ for the candidates.
 While the formula for the final score $F_{lcs}$ from \autoref{eq:rouge_l} remains the same, the computation of precision (\autoref{eq:rouge_lsum_precision}) and recall (\autoref{eq:rouge_lsum_recall}) differs.
 
@@ -94,26 +125,7 @@ R_{lcs} = \frac{\sum_{i=1}^{u}LCS_\cup(r_i,C)}{m},
 \label{eq:rouge_lsum_recall}
 \end{equation}
 
-
-% Its values range from 0 to 1 \citep{kurt_pehlivanoglu_comparative_2024}.
-% ROUGE-N
-\ac{rouge}-N is an n-gram recall between the candidate text and the reference texts \citep{lin_rouge_2004} as displayed in \autoref{eq:rouge_n}.
-\begin{equation}
-    ROUGE-N = \frac{\sum_{\mathcal{S} \in \left\{ References \right\}}\sum_{n-gram \in\mathcal{S}}Count_{match}(n-gram)}{\sum_{\mathcal{S'} \in \left\{ References \right\}}\sum_{n-gram' \in\mathcal{S'}}Count(n-gram')}
-\label{eq:rouge_n}
-\end{equation}
-\textcolor{red}{$Count_{match}(n-gram)$ is the maximum number of n-grams co-occuring in the candidate text and the set of reference texts.
-The nominator sums over all references and thus, gives more weight to matching n-grams that occur in multiple references (i.e. a consensus between references) \citep{lin_rouge_2004}.}
-
-% ROUGE-S
-A skip-bigram is any pair of words in their sentence order, allowing for arbitrary gaps.
-\ac{rouge}-S measures the overlap of skip-bigrams between the candidate text and the reference texts.
-Hence, if the candidate text is the reverse of the reference text, the \ac{rouge}-S score is 0 even though it is not as bad as completely unrelated candidates.
-\ac{rouge}-SU extends \ac{rouge}-S with unigrams to solve this issue \citep{lin_rouge_2004}.
-% ROUGE generally
-% \citet{kurt_pehlivanoglu_comparative_2024} claim that \ac{rouge} may not be adequate to assess semantic similarity and fluency.
-Lower \ac{rouge} scores indicate greater diversity \citep{kurt_pehlivanoglu_comparative_2024}.
-
+\paragraph{METEOR}
 METEOR was proposed to address \ac{bleu}'s deficiencies. 
 Unlike \ac{bleu}, which is precision-oriented, METEOR explicitly incorporates recall.
 We consider METEOR a syntactic metric due to its conceptual similarity to \ac{bleu}, but it also captures semantic characteristics on account of inclusion of stemming and synonym matching modules~\citep{kurt_pehlivanoglu_comparative_2024}. 
