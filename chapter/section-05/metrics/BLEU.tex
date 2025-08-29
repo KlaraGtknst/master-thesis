@@ -1,15 +1,9 @@
 \paragraph{\ac{bleu}}
-\ac{bleu}~\citep{papineni_bleu_2001} was originally developed for machine translation~\citep{zhou_paraphrase_2021}. 
+\ac{bleu}~\citep{papineni_bleu_2001} was originally developed for machine translation~\citep{zhou_paraphrase_2021,anantha_pearson_metrics_2021}. 
 \ac{bleu}'s basic unit of evaluation is a sentence. 
-\ac{bleu} is based on precision, i.e. computing the fraction of generated n-grams that appear in any reference text~\citep{kurt_pehlivanoglu_comparative_2024,palivela_optimization_2021,papineni_bleu_2001}. 
+\ac{bleu} is based on precision, i.e. computing the fraction of generated n-grams that appear in any reference text~\citep{kurt_pehlivanoglu_comparative_2024,palivela_optimization_2021,papineni_bleu_2001,anantha_pearson_metrics_2021}. 
 To prevent inflated precision scores $p_n$ due to repetition of frequent tokens (e.g. "the"), \ac{bleu} introduces a clipping mechanism that caps the count of n-grams at their maximum reference frequency~\citep{papineni_bleu_2001}. 
 Precision $p_n$ for $n \in \mathbb{N}_{>0}$ is given by \autoref{eq:bleu}.
-
-In order to compute the \ac{bleu} score from \autoref{eq:bleu} for more than one sentence, 
-one (1) computes the n-grams matches sentence by sentence, 
-then (2) adds the clipped n-grams matches across all sentences, 
-and finally (3) divides the total clipped n-grams matches by 
-the total number of unclipped n-grams in all candidate sentences~\citep{papineni_bleu_2001,cordeiro_bleu_2007}.
 
 \begin{equation}
     p_n = \sum_{\mathcal{C} \in \left\{ Candidates \right\}}\sum_{n-gram \in\mathcal{C}} \frac{Count_{match}(n-gram)}{Count(n-gram)}
@@ -20,14 +14,19 @@ The choice of $n$ determines what syntactic characteristic is evaluated.
 Uni-grams are used to test adequacy, while longer n-grams are used to test fluency~\citep{papineni_bleu_2001}. 
 The brevity penalty $BP$ from \autoref{eq:bleu_brevity_penalty} is applied to discourage excessively short candidates $c$~\citep{papineni_bleu_2001}.
 
-
 \begin{equation}
     BP = \begin{cases}
         1 & \text{if } len(c) > len(r) \\
-        e^{1 - \frac{r}{c}} & \text{if } len(c) \leq len(r)
+        e^{1 - \frac{r}{c}} & \text{else}
     \end{cases}
 \label{eq:bleu_brevity_penalty}
 \end{equation}
+
+In order to compute the \ac{bleu} score from \autoref{eq:bleu} for more than one sentence, 
+one (1) computes the n-grams matches sentence by sentence, 
+then (2) adds the clipped n-grams matches across all sentences, 
+and finally (3) divides the total clipped n-grams matches by 
+the total number of unclipped n-grams in all candidate sentences~\citep{papineni_bleu_2001,cordeiro_bleu_2007}.
 
 Combined scores across different n-gram orders are computed via the geometric mean, weighted uniformly (i.e. $w_n$) across different $n$~\citep{papineni_bleu_2001,banerjee_METEOR_2005}.
 Combining precision $p_n$ (\autoref{eq:bleu}) and brevity penalty $BP$ (\autoref{eq:bleu_brevity_penalty}) leads to the final score in \autoref{eq:bleu_final}.
