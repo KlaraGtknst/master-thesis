@@ -4,6 +4,7 @@
 Since \ac{av} forms the core of \ac{aa}, and because every \ac{aa} metric can be reduced to \ac{av}, this section focuses primarily on \ac{av}. 
 Evaluation relies on standard classification metrics, each with distinct advantages and limitations.
 
+\paragraph{Accuracy}
 The most straightforward metric is accuracy (\autoref{eq:accuracy}), which measures the proportion of correctly classified cases across all samples. 
 While intuitive, accuracy can be misleading in scenarios with class imbalance. 
 
@@ -11,11 +12,13 @@ While intuitive, accuracy can be misleading in scenarios with class imbalance.
     \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
 \end{equation}
 
+\paragraph{Precision \& Recall}
 Precision and recall address this shortcoming by emphasizing the performance on the positive class, i.e., the correct identification of same-author cases. 
 Precision quantifies how often the system’s positive predictions are correct, while recall measures how often the true positive cases are successfully detected. 
 Since these metrics often trade off against each other, the harmonic mean of precision and recall, known as the F1 score, is frequently adopted to provide a balanced assessment~\citep{neal_surveying_2018}.
 
-Beyond these basic measures, \ac{av} research has introduced metrics that explicitly account for difficul borderline cases. 
+\paragraph{$F_{0.5u}$ \& $c@1$}
+Beyond these basic measures, \ac{av} research has introduced metrics that explicitly account for difficult borderline cases. 
 The modified $F_{0.5u}$ score penalizes non-answers by treating them as \acp{fn}~\citep{bevendorff_overview_2024}. 
 This places additional weight on correctly deciding same-author cases~\citep{weerasinghe_feature_vector_difference_2021}, thereby evaluating the ability of \ac{av} methods to abstain from hard samples~\citep{tyo_state_2022}. 
 The $c@1$ metric, by contrast, was designed to reward abstention from particularly ambiguous cases. 
