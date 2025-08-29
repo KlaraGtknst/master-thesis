@@ -1,0 +1,18 @@
+
+\paragraph{METEOR}
+METEOR was proposed to address \ac{bleu}'s deficiencies. 
+Unlike \ac{bleu}, which is precision-oriented, METEOR explicitly incorporates recall.
+We consider METEOR a syntactic metric due to its conceptual similarity to \ac{bleu}, but it also captures semantic characteristics on account of inclusion of stemming and synonym matching modules~\citep{kurt_pehlivanoglu_comparative_2024}. 
+Candidate and reference unigrams are first aligned based on modules (exact match, Porter stemmed match, synonymy), after which the best subset of unigram mappings is selected according to cardinality and minimal crossing. 
+From this alignment, METEOR computes the weighted $F$-score from \autoref{eq:meteor}~\citep{banerjee_METEOR_2005}.
+
+\begin{equation}
+    METEOR = F_{mean} = \frac{10 \cdot P \cdot R}{R + 9P} \cdot (1 - Penalty)
+\label{eq:meteor}
+\end{equation}
+
+The penalty function discourages fragmented matches and reduces the score to $50\%$ bigram or longer matches are absent~\citep{banerjee_METEOR_2005}. 
+METEOR has been shown to correlate more strongly with human judgments than \ac{bleu}, particularly at the sentence or segment level, due to its sensitivity to lexical and semantic variation \citep{zhou_paraphrase_2021,kurt_pehlivanoglu_comparative_2024}.
+% Its values range from 0 to 1 \citep{kurt_pehlivanoglu_comparative_2024}.
+$P$ and $R$ denote unigram-precision and unigram-recall, respectively~\citep{kurt_pehlivanoglu_comparative_2024,banerjee_METEOR_2005}.
+

@@ -1,0 +1,56 @@
+\paragraph{\ac{bleu}}
+\ac{bleu}~\citep{papineni_bleu_2001} was originally developed for machine translation~\citep{zhou_paraphrase_2021}. 
+\ac{bleu}'s basic unit of evaluation is a sentence. 
+\ac{bleu} is based on precision, i.e. computing the fraction of generated n-grams that appear in any reference text~\citep{kurt_pehlivanoglu_comparative_2024,palivela_optimization_2021,papineni_bleu_2001}. 
+To prevent inflated precison scores $p_n$ due to repetition of frequent tokens (e.g. "the"), \ac{bleu} introduces a clipping mechanism that caps the count of n-grams at their maximum reference frequency~\citep{papineni_bleu_2001}. 
+Precision $p_n$ for $n \in \mathbb{N}_{>0}$ is given by \autoref{eq:bleu}.
+
+In order to compute the \ac{bleu} score from \autoref{eq:bleu} for more than one sentence, 
+one (1) computes the n-grams matches sentence by sentence, 
+then (2) adds the clipped n-grams matches across all sentences, 
+and finally (3) divides the total clipped n-grams matches by 
+the total number of unclipped n-grams in all candidate sentences \citep{papineni_bleu_2001}.
+
+\begin{equation}
+    p_n = \frac{\sum_{\mathcal{C} \in \left\{ Candidates \right\}}\sum_{n-gram \in\mathcal{C}}Count_{clip}(n-gram)}{\sum_{\mathcal{C'} \in \left\{ Candidates \right\}}\sum_{n-gram' \in\mathcal{C'}}Count(n-gram')}
+\label{eq:bleu}
+\end{equation}
+
+The choice of $n$ determines what syntactic characteristic is evaluated.
+Uni-grams are used to test adequacy, while longer n-grams are used to test fluency~\citep{papineni_bleu_2001}. 
+The brevity penalty $BP$ from \autoref{eq:bleu_brevity_penalty} is applied to discourage excessively short candidates~\citep{papineni_bleu_2001}.
+
+\begin{equation}
+    BP = \begin{cases}
+        1 & \text{if } c > r \\
+        e^{1 - \frac{r}{c}} & \text{if } c \leq r
+    \end{cases}
+\label{eq:bleu_brevity_penalty}
+\end{equation}
+
+Combined scores across different n-gram orders are computed via the geometric mean, weighted uniformly (i.e. $w_n$) across different $n$~\citep{papineni_bleu_2001,banerjee_METEOR_2005}.
+Combining precision $p_n$ (\autoref{eq:bleu}) and brevity penalty $BP$ (\autoref{eq:bleu_brevity_penalty}) leads to the final score in \autoref{eq:bleu_final}.
+
+\begin{equation}
+    \text{BLEU} = BP \cdot \exp\left(\sum_{n=1}^{N} w_n \cdot \log p_n\right)
+\label{eq:bleu_final}
+\end{equation}
+
+\ac{bleu} disregards semantic similarity completely and therefore judges paraphrases only based on n-gram overlap. 
+As such, it is generally recommended being supplemented with human evaluation~\citep{zhou_paraphrase_2021}.
+
+
+
+% Its values range from 0 to 1 \citep{papineni_bleu_2001}.
+
+% \ac{bleu} automatically penalizes n-grams appearing in the candidate text but not in the reference text, 
+% as well as n-grams appearing more often in the candidate than in the reference text \citep{papineni_bleu_2001}.
+
+% For multiple sentences, they (1) add the best match (among the reference texts) length for each candidate sentence, 
+% and (2) divide this sum $r$ by the total length of all candidate sentences $c$. 
+% They cannot use recall for length-related problems here, 
+% because \ac{bleu} uses multiple reference texts, which may have different lengths \citep{papineni_bleu_2001,banerjee_METEOR_2005}.
+% If the generated candidate is significantly shorter than the reference text, the brevity penalty $BP$ is applied.
+% A \ac{bleu} score approaching 1 signifies the candidate matches one reference almost exactly \citep{papineni_bleu_2001}, 
+% and thus, limited syntactic diversity (i.e. inadequate paraphrase) \citep{kurt_pehlivanoglu_comparative_2024}.
+% Note that more reference texts lead to higher \ac{bleu} scores \citep{papineni_bleu_2001}.
