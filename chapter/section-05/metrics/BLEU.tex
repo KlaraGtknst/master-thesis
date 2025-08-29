@@ -2,28 +2,29 @@
 \ac{bleu}~\citep{papineni_bleu_2001} was originally developed for machine translation~\citep{zhou_paraphrase_2021}. 
 \ac{bleu}'s basic unit of evaluation is a sentence. 
 \ac{bleu} is based on precision, i.e. computing the fraction of generated n-grams that appear in any reference text~\citep{kurt_pehlivanoglu_comparative_2024,palivela_optimization_2021,papineni_bleu_2001}. 
-To prevent inflated precison scores $p_n$ due to repetition of frequent tokens (e.g. "the"), \ac{bleu} introduces a clipping mechanism that caps the count of n-grams at their maximum reference frequency~\citep{papineni_bleu_2001}. 
+To prevent inflated precision scores $p_n$ due to repetition of frequent tokens (e.g. "the"), \ac{bleu} introduces a clipping mechanism that caps the count of n-grams at their maximum reference frequency~\citep{papineni_bleu_2001}. 
 Precision $p_n$ for $n \in \mathbb{N}_{>0}$ is given by \autoref{eq:bleu}.
 
 In order to compute the \ac{bleu} score from \autoref{eq:bleu} for more than one sentence, 
 one (1) computes the n-grams matches sentence by sentence, 
 then (2) adds the clipped n-grams matches across all sentences, 
 and finally (3) divides the total clipped n-grams matches by 
-the total number of unclipped n-grams in all candidate sentences \citep{papineni_bleu_2001}.
+the total number of unclipped n-grams in all candidate sentences~\citep{papineni_bleu_2001,cordeiro_bleu_2007}.
 
 \begin{equation}
-    p_n = \frac{\sum_{\mathcal{C} \in \left\{ Candidates \right\}}\sum_{n-gram \in\mathcal{C}}Count_{clip}(n-gram)}{\sum_{\mathcal{C'} \in \left\{ Candidates \right\}}\sum_{n-gram' \in\mathcal{C'}}Count(n-gram')}
+    p_n = \sum_{\mathcal{C} \in \left\{ Candidates \right\}}\sum_{n-gram \in\mathcal{C}} \frac{Count_{match}(n-gram)}{Count(n-gram)}
 \label{eq:bleu}
 \end{equation}
 
 The choice of $n$ determines what syntactic characteristic is evaluated.
 Uni-grams are used to test adequacy, while longer n-grams are used to test fluency~\citep{papineni_bleu_2001}. 
-The brevity penalty $BP$ from \autoref{eq:bleu_brevity_penalty} is applied to discourage excessively short candidates~\citep{papineni_bleu_2001}.
+The brevity penalty $BP$ from \autoref{eq:bleu_brevity_penalty} is applied to discourage excessively short candidates $c$~\citep{papineni_bleu_2001}.
+
 
 \begin{equation}
     BP = \begin{cases}
-        1 & \text{if } c > r \\
-        e^{1 - \frac{r}{c}} & \text{if } c \leq r
+        1 & \text{if } len(c) > len(r) \\
+        e^{1 - \frac{r}{c}} & \text{if } len(c) \leq len(r)
     \end{cases}
 \label{eq:bleu_brevity_penalty}
 \end{equation}
