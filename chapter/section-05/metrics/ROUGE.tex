@@ -7,10 +7,10 @@ Several variants exist, including \ac{rouge}-N, which computes n-gram recall, an
 Lower \ac{rouge} scores indicate greater diversity \citep{kurt_pehlivanoglu_comparative_2024}.
 
 % ROUGE-N
-\ac{rouge}-N is an n-gram recall between the candidate text and the reference texts \citep{lin_rouge_2004}.
+\ac{rouge}-N is an n-gram recall between the candidate text $c$ and the reference text $r$~\citep{lin_rouge_2004}.
 Since we only consider scenarios we use the simpler version for one reference in \autoref{eq:rouge_n}.
 \begin{equation}
-    ROUGE-N = \frac{\sum_{\mathcal{S} \in \left\{ References \right\}}\sum_{n-gram \in\mathcal{S}}Count_{match}(n-gram)}{\sum_{\mathcal{S'} \in \left\{ References \right\}}\sum_{n-gram' \in\mathcal{S'}}Count(n-gram')}
+    ROUGE-N = \frac{\sum_{s \in r}\sum_{n-gram \in s}Count_{match}(n-gram)}{\sum_{s' \in r}\sum_{n-gram' \in s'}Count(n-gram')}
 \label{eq:rouge_n}
 \end{equation}
 Both the nominator and the denominator iterate over all n-grams in all sentences in the reference, i.e. ground truth, text.
@@ -21,19 +21,19 @@ This ensures that after normalizing with the denominator, the \ac{rouge}-N value
 The denominator does not consider matches but only sums up the number of times an n-grams appears in the reference sentences~\citep{lin_rouge_2004}.
 If every n-gram from the reference sentences would appear equally often in the candidate, the \ac{rouge}-N would be one since it measures the n-gram overlap between reference and candidate from a reference or recall perspective.
 
-\ac{rouge}-L for a candidate $Y$ of length $n$ and a reference $X$ of length $m$, for example, is defined in \autoref{eq:rouge_l}.
+\ac{rouge}-L for a candidate $c$ of length $n$ and a reference $r$ of length $m$, for example, is defined in \autoref{eq:rouge_l}.
 The intuition is that the length of the \ac{lcs} between the candidate and reference texts correlates with their similarity \citep{lin_rouge_2004}.
 % \ac{rouge}-L requires in-sequence matches that reflect the sentence level word order as n-grams.
 % Moreover, no predefined $n$ is necessary, because \ac{rouge}-L includes the longest in-sequence common n-grams.
 \ac{rouge}-L does not include shorter sequences or alternative \acp{lcs} in the final score~\citep{lin_rouge_2004}.
 
 \begin{equation}
-P_{lcs} = \frac{LCS(X,Y)}{n},
+P_{lcs} = \frac{LCS(r,c)}{n},
 \label{eq:rouge_l_precision}
 \end{equation}
 
 \begin{equation}
-R_{lcs} = \frac{LCS(X,Y)}{m},
+R_{lcs} = \frac{LCS(r,c)}{m},
 \label{eq:rouge_l_recall}
 \end{equation}
 
@@ -42,7 +42,7 @@ ROUGE-L = \frac{(1 + \beta^2)R_{lcs}P_{lcs}}{R_{lcs} + \beta^2 P_{lcs}},
 \label{eq:rouge_l}
 \end{equation}
 
-$R_{lcs} = \frac{LCS(X,Y)}{m}$ and $P_{lcs} = \frac{LCS(X,Y)}{n}$ capture recall and precision based on length $n$ of $X$ and length $m$ of $Y$, respectively.
+$R_{lcs} = \frac{LCS(r,c)}{m}$ and $P_{lcs} = \frac{LCS(r,c)}{n}$ capture recall and precision based on length $n$ of $r$ and length $m$ of $c$, respectively.
 $\beta$ is defined as $\frac{P_{lcs}}{R_{lcs}}$.
 There is also a summary-level \ac{lcs} \ac{rouge} variant which computes \ac{rouge}-Lsum via summing over the union \ac{lcs} matches $LCS_\cup(r_i,C)$ between the reference summary $r_i, i \in [1,u]$ and every candidate sentence $c_j, j \in [1,v]$.
 The total number of words in the references is $m$ and $n$ for the candidates.
