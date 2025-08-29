@@ -10,7 +10,7 @@ Lower \ac{rouge} scores indicate greater diversity \citep{kurt_pehlivanoglu_comp
 \ac{rouge}-N is an n-gram recall between the candidate text $c$ and the reference text $r$~\citep{lin_rouge_2004}.
 Since we only consider scenarios we use the simpler version for one reference in \autoref{eq:rouge_n}.
 \begin{equation}
-    ROUGE-N = \frac{\sum_{s \in r}\sum_{n-gram \in s}Count_{match}(n-gram)}{\sum_{s' \in r}\sum_{n-gram' \in s'}Count(n-gram')}
+    ROUGE-N = \sum_{s \in r}\sum_{n-gram \in s} \frac{Count_{match}(n-gram)}{Count(n-gram)}
 \label{eq:rouge_n}
 \end{equation}
 Both the nominator and the denominator iterate over all n-grams in all sentences in the reference, i.e. ground truth, text.
