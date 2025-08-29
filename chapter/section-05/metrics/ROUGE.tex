@@ -42,7 +42,8 @@ ROUGE-L = \frac{(1 + \beta^2)R_{lcs}P_{lcs}}{R_{lcs} + \beta^2 P_{lcs}},
 \label{eq:rouge_l}
 \end{equation}
 
-$R_{lcs} = \frac{LCS(r,c)}{m}$ and $P_{lcs} = \frac{LCS(r,c)}{n}$ capture recall and precision based on length $n$ of $r$ and length $m$ of $c$, respectively.
+% $R_{lcs} = \frac{LCS(r,c)}{m}$ and $P_{lcs} = \frac{LCS(r,c)}{n}$ capture recall and precision.
+The length is measured in number of words.
 $\beta$ is defined as $\frac{P_{lcs}}{R_{lcs}}$.
 There is also a summary-level \ac{lcs} \ac{rouge} variant which computes \ac{rouge}-Lsum via summing over the union \ac{lcs} matches $LCS_\cup(r_i,C)$ between the reference summary $r_i, i \in [1,u]$ and every candidate sentence $c_j, j \in [1,v]$.
 The total number of words in the references is $m$ and $n$ for the candidates.
