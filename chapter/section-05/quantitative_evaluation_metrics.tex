@@ -66,19 +66,34 @@ As such, it is generally recommended being supplemented with human evaluation~\c
 % Note that more reference texts lead to higher \ac{bleu} scores \citep{papineni_bleu_2001}.
 
 \ac{rouge} \citep{lin_rouge_2004}, initially developed for summarization, is recall-oriented and emphasizes coverage of reference content in the candidate text. 
-Several variants exist, including \ac{rouge}-N, which computes n-gram recall, \ac{rouge}-L, which measures the longest common subsequence, and \ac{rouge}-S, which evaluates skip-bigram co-occurrences~\citep{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}. 
+Several variants exist, including \ac{rouge}-N, which computes n-gram recall, and \ac{rouge}-L, which measures the \ac{lcs}~\citep{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}. 
 \ac{rouge}-L for a candidate $Y$ of length $n$ and a reference $X$ of length $m$, for example, is defined in \autoref{eq:rouge_l}.
-The intuition is that the length of the longest common subsequence (LCS) between the candidate and reference texts correlates with their similarity \citep{lin_rouge_2004}.
+The intuition is that the length of the \ac{lcs} between the candidate and reference texts correlates with their similarity \citep{lin_rouge_2004}.
 % \ac{rouge}-L requires in-sequence matches that reflect the sentence level word order as n-grams.
 % Moreover, no predefined $n$ is necessary, because \ac{rouge}-L includes the longest in-sequence common n-grams.
-% However, \ac{rouge}-L does not include shorter sequences or alternative LCSes in the final score~\citep{lin_rouge_2004}.
+\ac{rouge}-L does not include shorter sequences or alternative \acp{lcs} in the final score~\citep{lin_rouge_2004}.
 
 \begin{equation}
 ROUGE-L = \frac{(1 + \beta^2)R_{lcs}P_{lcs}}{R_{lcs} + \beta^2 P_{lcs}},
 \label{eq:rouge_l}
 \end{equation}
 
-$R_{lcs} = \frac{LCS(X,Y)}{m}$ and $P_{lcs} = \frac{LCS(X,Y)}{n}$ capture recall and precision based on subsequence length. 
+$R_{lcs} = \frac{LCS(X,Y)}{m}$ and $P_{lcs} = \frac{LCS(X,Y)}{n}$ capture recall and precision based on length $n$ of $X$ and length $m$ of $Y$, respectively.
+$\beta$ is defined as $\frac{P_{lcs}}{R_{lcs}}$.
+There is also a summary-level \ac{lcs} \ac{rouge} variant which computes \ac{rouge}-Lsum via summing over the union \ac{lcs} matches $LCS_\cup(r_i,C)$ between the reference summary $r_i, i \in [1,u]$ and every candidate sentence $c_j$.
+The total number of words in the references is $m$ and $n$ for the candidates.
+While the formula for the final score $F_{lcs}$ from \autoref{eq:rouge_l} remains the same, the computation of precision (\autoref{eq:rouge_lsum_precision}) and recall (\autoref{eq:rouge_lsum_recall}) differs.
+
+\begin{equation}
+P_{lcs} = \frac{\sum_{i=1}^{u}LCS_\cup(r_i,C)}{n},
+\label{eq:rouge_lsum_precision}
+\end{equation}
+
+\begin{equation}
+R_{lcs} = \frac{\sum_{i=1}^{u}LCS_\cup(r_i,C)}{m},
+\label{eq:rouge_lsum_recall}
+\end{equation}
+
 
 % Its values range from 0 to 1 \citep{kurt_pehlivanoglu_comparative_2024}.
 % ROUGE-N

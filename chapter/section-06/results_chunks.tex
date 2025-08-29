@@ -76,6 +76,8 @@ Moreover, two-step approaches on the \dataPan{} dataset peaked in syntactic meas
 As visualized in \autoref{fig:abl_chunks_student_essays_llama}, chunking had no effect on one-step paraphrasing approaches.
 Find more visualizations in \autoref{sec:app_chunks}.
 
+Since we compute the \ac{rouge} scores on text pairs, i.e. we never input more than one paraphrase to the function, both \ac{rouge}-L and \ac{rouge}-Lsum produce the same results (since the union of sentences in the candidate corpus contains only one text).
+
 In conclusion, multiple chunks decrease syntactic diversity at the cost of minor semantic score degradation for some datasets using two-step approaches.
 Since applying the two-step approach to $n$ chunk requires $2n$ API calls in the best case scenario and chunking has no effect on one-step paraphrases, we decided to forgo chunking our texts as part of our paraphrasing pipeline.
 
