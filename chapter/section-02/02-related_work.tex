@@ -85,9 +85,14 @@ This was visible especially for larger models such as GPT-4o and Claude, since t
 Even though the performance was good, \acp{llm} struggle with discerning writing style independently of the content~\citep{schmidt_llm_av_latin_24}.
 \citet{nguyen_bert_topic_av_2023} also found that transformer based methods relied on topical information rather than authorship characteristics.
 
-
-
-
+There are also initiatives to use \acp{llm} for improving explainability of \ac{av} methods.
+\citet{hung_xai_av_llm_2023} compare different prompts for GPT-4 in zero- and few-shot scenarios.
+They note that requesting continuous confidence scores rather than binary outputs reduces a bias towards "no".
+While the accuracy of their approaches ranges from $0.51$ to $0.67$, they observed that the explanation of \acp{llm} sometimes contains hallucinations.
+Besides hallucinations, \citet{ramnath_cave_xai_llm_2025} disclose also issues of propagated bias and incompleteness with their post-hoc explanations.
+Due to the lack of human written explanations for \ac{av} decisions, they create a silver dataset with GPT-4-Turbo as an oracle and subsequently use it to train their CAVE model on.
+All biases present in GPT-4-Turbo therefore propagate to CAVE.
+ 
 \citet{nogueira_doc2query_2019} propose Doc2query, a document expansion strategy to mitigate the effects of missing relevant documents during keyword based information retrieval due to term mismatched.
 Their method consists of a sequence-to-sequence transformer model that predicts a query given an input document.
 Though their approach applies to information retrieval rather than our use case, the usage of a pre-trained model to extract a query a human wants to have answered by the document aligns with our \pextractor{} in the two-step paraphrasing approach.
