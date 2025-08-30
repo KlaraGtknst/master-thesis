@@ -68,6 +68,12 @@ If it is near zero, the text is likely human authored~\citep{mitchell_detectgpt_
 While powerful, DetectGPT is limited to white-box scenarios %(access to model probabilities) 
 and is vulnerable to paraphrases or detecting unseen models~\citep{Wu_ODD_challenges_2025}.
 
+\citet{nogueira_doc2query_2019} propose Doc2query, a document expansion strategy to mitigate the effects of missing relevant documents during keyword based information retrieval due to term mismatched.
+Their method consists of a sequence-to-sequence transformer model that predicts a query given an input document.
+Though their approach applies to information retrieval rather than our use case, the usage of a pre-trained model to extract a query a human wants to have answered by the document aligns with our \pextractor{} in the two-step paraphrasing approach.
+This approach, however, does not rely on the predicted query capturing a comprehensive image of the document but only few relevant points.
+Hence, our approach needs to enhance this idea.
+
 Other detection methods also make use of rewriting. 
 Paraphrases can be generated through rule-based or thesaurus-driven substitutions, by means of monolingual machine translation~\citep{zhou_paraphrase_2021}, or by explicitly prompting generative T5 or GPT models~\citep{kurt_pehlivanoglu_comparative_2024}.
 RAIDAR, for instance, generates perturbed versions of a text using paraphrasing and compares edit distances~\citep{mao_raidar_2024}, while Mirror Minds employs paraphrasing combined with syntactic similarity metrics such as BLEU and METEOR~\citep{baradia_mirror_2025}. 
@@ -92,7 +98,6 @@ Traditional metrics such as BLEU~\citep{papineni_bleu_2001}, ROUGE~\citep{lin_ro
 Embedding-based metrics such as BERTScore~\citep{hanna_fine_grained_2021} and Word Mover's Distance~\citep{gohsen_captions_2023} offer more robust semantic similarity estimates, while human evaluation remains the gold standard~\citep{zhou_paraphrase_2021}. 
 Despite this, no consensus exists on the best metric for evaluating paraphrasing. 
 This uncertainty motivates further exploration of similarity measures for evaluating paraphrases.
-
 
 
 % % LLM detection using generative models
