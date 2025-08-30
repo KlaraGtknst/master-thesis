@@ -63,6 +63,12 @@ They measured difficulty by the inverse mean detection score.
 At the same time, \acp{llm} can serve as discriminators~\citep{futrzynski_pairwise_2021} or tools for augmenting \ac{av} methods, for instance through text generation, or paraphrasing~\citep{mao_raidar_2024,baradia_mirror_2025}.
 Since text distortion has previously proven effective in cross-domain scenarios~\citep{bischoff_importance_2020}, \acp{llm} appear particularly promising as generators of controlled distortions in \ac{av} research.
 
+% BERT: uitility for AV?
+Neural \ac{av} models include the usage of transformer based models such as BERT.
+Though BERT models are well-known for encoding topic information~\citep{sawatphol_cross_topic_av_24}, they have proven useful to distinguish direct speech of characters in novels from each other~\citep{michel_fictional_2024}.
+One might argue that those characters inherently voice the style of the novel's author and thus, the only point separating them is the semantic difference between their speeches.
+It becomes clear that different verification tasks require different tools.
+
 \Ac{llm} detection methods can be grouped into metric-based approaches, fine-tuned classifiers, and watermarking. 
 Among these, DetectGPT is an influential example for a metric-based approach~\citep{wang_stumbling_2024}.
 DetectGPT assumes that artificial generated text corresponds to regions of high model log probability. 
@@ -70,6 +76,17 @@ By perturbing candidate texts and rescoring them, the method measures the differ
 If it is near zero, the text is likely human authored~\citep{mitchell_detectgpt_2023}. 
 While powerful, DetectGPT is limited to white-box scenarios %(access to model probabilities) 
 and is vulnerable to paraphrases or detecting unseen models~\citep{Wu_ODD_challenges_2025}.
+
+\citet{schmidt_llm_av_latin_24} have evaluated the zero-shot performance of \acl{sota} \acp{llm} for \ac{av} and \ac{aa} for low-resource languages.
+Even though they consider Latin high resource historic language, the authors state that the number of available data is limited.
+Models included GPT-4o, Gemini-1.5, Mistral-Large, and Claude.
+They found that more detailed prompts improved precision and identification of syntactic features, but let to \acp{llm} assuming a deterministic relationship between the presence of features and the final prediction, and thus, deteriorated performance.
+This was visible especially for larger models such as GPT-4o and Claude, since they use their extensive intrinsic knowledge more freely with less constrained prompts.
+Even though the performance was good, \acp{llm} struggle with discerning writing style independently of the content~\citep{schmidt_llm_av_latin_24}.
+\citet{nguyen_bert_topic_av_2023} also found that transformer based methods relied on topical information rather than authorship characteristics.
+
+
+
 
 \citet{nogueira_doc2query_2019} propose Doc2query, a document expansion strategy to mitigate the effects of missing relevant documents during keyword based information retrieval due to term mismatched.
 Their method consists of a sequence-to-sequence transformer model that predicts a query given an input document.
