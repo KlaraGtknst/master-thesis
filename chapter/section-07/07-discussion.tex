@@ -1,2 +1,68 @@
 \chapter{Discussion}
 \label{chap:discussion}
+
+In comparing the extended \impAppr{} with existing \ac{av} methods, the findings highlight both the advantages and constraints of incorporating \acp{llm} for \imp{} generation. 
+The following discussion situates these results within the broader \ac{av} literature and addresses their significance for scenario-specific applications.
+\textcolor{red}{Prior to discussing the results, we have to note that due to resource constraints, there were no experiments carried out for the two-step paraphrase \imp{} generation.}
+
+% Interpretation of results
+% What do the findings mean in relation to your research questions or hypotheses?
+In relation to the first research question \autoref{enum:rq1}, the results indicate that controlled \ac{llm}-generated \imps{} can serve as more effective hard negatives than traditional constructions in traditional \ac{av} settings of exclusively human authors.
+The results for our one-step \imp{} generation obtained slightly better results than the baselines, but the performances were overall unsatisfactory.
+The humbling results of our extension to the traditional \impAppr{} may be due to the low similarity scores.
+Due to the interdependence of topic and style, semantic similarity scores between $0.55$ and $0.65$ may be low enough to trigger substantial stylistic divergence.
+Moreover, syntactic scores lower than $0.2$ may indicate syntactic diversity, but may also produce too simple \imps{}.
+Our chunking experiments indicated that the number of chunks reduced the syntactic similarity of two-step approaches which could have led to even worse results.
+\textcolor{red}{TODO: Impact syntactic similarity}
+We find that \ac{av} for exclusively \acp{llm} works better than an \ac{av} scenarios with human candidates, indicating that the presence of human authored candidate texts complicates the task.
+This may be due to the fact that \acp{llm} are prone to rewriting human authored text more than \ac{llm} generated text when being asked to paraphrase it and thus, creating more diverse and easier \imps{} in this scenario.
+These findings indicate using \acp{llm} for \imps{} generation is not worth the computation overhead unless the quality of paraphrases used for \imp{} generation is improved.
+
+% – How do they compare to prior work (agreement, contradiction, extension)?
+Since the baseline scores and reproduction experiments produce results inferior to prior work, we find it difficult to validate our implementation of the original \impAppr{}.
+Mr. Winter said our preprocessing strategy is reasonable, but he thinks the on-the-fly method to be insufficient due to (1) the presence of bot-prevention techniques preventing scraping the web and (2) the very limited number of API calls we had.
+Hence, besides potential the code differences, the selection and preprocessing of text pairs plays into the lack of reproducibility.
+
+With reference to the second research question \autoref{enum:rq2}, we found that even though a variety of syntactic and semantic paraphrase evaluation measures is usually applied in research, the vast number of numbers to consider is not beneficial to evaluation.
+We therefore prefer \citet{gohsen_captions_2023}' notion of defining average syntactic and semantic measures which allow for interpretable comparison of paraphrases in two dimensions.
+We also stress that the usage of \ac{rouge}-Lsum in this scenario turned out to be obsolete because in our implementation it computes the same as \ac{rouge}-L.
+Nevertheless, we found low syntactic similarity scores as predictor of paraphrase quality to be quite unintuitive and would opt for a measure of syntactic dissimilarity instead to facilitate human interpretation.
+We proposed our own set of measures to additional quantify the quality of the \pextractor and the adherence to similar text length.
+The former indicated the capabilities of extracting certain metadata from a text, which turned out poorly for genre and topic. 
+Moreover, we found that the length of paraphrases of long \dataGutenberg{} texts diverged greatly from the original length.
+\textcolor{red}{Qualitative human assessments}
+
+To answer the third research question \autoref{enum:rq3}, we compared different \ac{av} methods across traditional human-human \ac{av} scenarios, in scenarios with at least one \ac{llm}, and in \ac{llm}-\ac{llm} scenarios, as well as for the \ac{llm} detection task.
+We used Unmasking and PPMD as baselines to evaluate our \ac{llm}-based \impAppr{}.
+Although computationally intensive, our method is designed as a solution tailored to specific detection tasks  rather than a general-purpose \ac{llm} detection tool.
+We find that all methods perform rather poorly on the test data, indicating difficult pairs.
+Moreover, in most scenarios models fail to achieve a reasonable precision-recall trade-off leading to poor F1 scores.
+Though, superior in some scenarios, the application of the extended \impAppr{} is not yet feasible since (1) generated \imps{} are too simple and thus, create to many \acp{fp}, (2) produces a computational overhead and unreliable results ranging from denials of the \pgenerator to fulfil its task to exceeding API rate limits.
+
+% Explanations
+% – Why do you think you obtained these results?
+The poor quality of the extended \impAppr{} may be due to the insufficient quality of the generated \imps{}.
+The heavy dependence on correct prompts adhering to each model's preferences for favourable results embodies a central limit of working with \acp{llm}.
+This is a dilemma, since prompt engineering is not science but essential for high quality results and refinement of prompts requires shifting the focus from building a robust framework to rewording instructions.
+The amount of constraining a prompt in order to obtain good results is up for debate since larger \acp{llm} can use their extensive intrinsic knowledge more freely with less constrained prompts~\citep{schmidt_llm_av_latin_24}.
+
+% – What mechanisms, conditions, or limitations may explain them?
+Besides these shortcomings, we have to mention that the extension of the \impAppr{} could ideally improve precision but should reduce recall and F1 score since the \imps{} should be hard negatives leading to fewer positive, i.e. same author, predictions.
+
+% Critical reflection
+% – Strengths and weaknesses of your approach.
+% – Methodological challenges or biases.
+We must also add that this approach fails to abstain from a prediction.
+This mechanism should be implemented in a sensible way.
+
+% Implications
+% – What do the findings suggest for theory, practice, or methodology in your field?
+Based on these findings, we feel that \ac{llm} based \imp{} generation is not yet optimal due to the lack of understanding on how to instruct an \ac{llm}.
+In practice, such an extension can only be applied to specific cases due to the computational overhead.
+
+% Limitations
+% – Constraints of your study (data, generalizability, assumptions).
+This approach is limited by the assumption that the traditional approach was implemented correctly, and different results are due to different input text pairs rather than flaws in the code.
+Moreover, the experiments were carried out on texts of at least 700 words.
+Although the approach implements upsampling, the quality of short text scenarios has not been evaluated in this work.
+ 
