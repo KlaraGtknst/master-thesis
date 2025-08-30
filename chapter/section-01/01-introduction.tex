@@ -38,9 +38,10 @@ To guide this objective, we formulate the following research questions:
     \item \textbf{How does the \ac{llm}-based \impAppr{} perform compared to established \ac{av} methods?} \label{enum:rq3} \hfill \\
     We use Unmasking and PPMD as baselines to evaluate our \ac{llm}-based \impAppr{}.
     Although computationally intensive, our method is designed as a solution tailored to specific detection tasks  rather than a general-purpose \ac{llm} detection tool.
-    Performance is assessed across three scenarios: (a) human-\ac{llm} input pairs,
-    (b) \ac{llm}-\ac{llm} pairs using the same model, and (c) \ac{llm}-\ac{llm} pairs with different models.
-    Comparisons are conducted on the \dataStudent{}, \dataBlog{}, \dataGutenberg{}, and \dataPan{} datasets using standard classification metrics.
+    Performance is assessed across three scenarios: (a) human-human input pairs,
+    (b) pairs using at least one \ac{llm}, and (c) \ac{llm}-\ac{llm} pairs.
+    We test \ac{av} and \ac{llm} detection scenario.
+    Comparisons are conducted on the \dataStudent{} dataset using standard classification metrics.
     
 \end{questions}
 
