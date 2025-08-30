@@ -45,11 +45,11 @@ For reference vectors $r$ and candidate vectors $c$, precision and recall are de
 BERTScore correlates with human judgment at the semantic level \citep{kurt_pehlivanoglu_comparative_2024}, although it may struggle when lexically overlapping but semantically incorrect candidates are present \citep{hanna_fine_grained_2021}.
 
 \paragraph{SBERT cosine similarity}
-The cosine similarity between dense vector representations $\mathcal{v_a}, \mathcal{v_b}$ of two documents $a,b$ is computed in \autoref{eq:cosine_sim}~\citep{thongtan_cosine_sim_19}.
+The cosine similarity between dense vector representations $v_a, v_b$ of two documents $a,b$ is computed in \autoref{eq:cosine_sim}~\citep{thongtan_cosine_sim_19}.
 The vector representations are computed using a SBERT model~\citep{gohsen_captions_2023}.
 
 \begin{equation}
-    cos(\theta_{a,b})=sim(\mathcal{v_a},\mathcal{v_b})=\frac{\mathcal{v_a}^T\mathcal{v_b}}{\left\| \mathcal{v_a} \right\|\left\| \mathcal{v_b} \right\|}
+    cos(\theta_{a,b})=sim(v_a,v_b)=\frac{v_a^Tv_b}{\left\| v_a \right\|\left\| v_b \right\|}
     \label{eq:cosine_sim}
 \end{equation}
 
