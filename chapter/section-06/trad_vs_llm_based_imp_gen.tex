@@ -1,10 +1,11 @@
 \section{Exp. 5: Comparing \acs{av} methods in traditional Human-Human scenario}
+\label{sec:results_trad_av}
 
 We want to answer the question of how our \ac{llm}-based \imp{} generation performs compared to (a) traditional \imp{} generation in the \impAppr{} and compared to (b) \acl{sota} \ac{av} methods in the traditional \ac{av} scenario.
 We thus, create \textcolor{orange}{10} same- and \textcolor{orange}{10} different-author pairs from the \dataStudent{} dataset and evaluate the performance of the approaches for different thresholds.
 It is noteworthy, that the dataset contains equally many naive same- and different-author pairs and hence, an approach predicting only one output will obtain an accuracy of $0.5$.
 
-% \begin{figure}[htbp]
+% \begin{figure}[h]
 % \centering
 %     \includesvg[width=\linewidth]{images/AV_comparison/detection_scenarios/accuracy/student_essays_Human-Human_threshold_accs_curves_all_incl_baselines.svg}
 %   \caption{Accuracy curves for the class same-author across different threshold on \dataStudent{} dataset without \ac{llm} candidates. We find that \ac{llm} based approaches perform slightly above chance and better than the rest. For high thresholds, recall is not as high and thus, this approach seems not to be as bad as in other scenarios. 
@@ -12,7 +13,7 @@ It is noteworthy, that the dataset contains equally many naive same- and differe
 %   \label{fig:human-human_acc}
 % \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[h]
 \centering
     \includesvg[width=\linewidth]{images/AV_comparison/detection_scenarios/f1/student_essays_Human-Human_threshold_f1s_curves_all_incl_baselines.svg}
   \caption{F1 scores for the class same-author across different threshold on \dataStudent{} dataset without \ac{llm} candidates. 
@@ -43,7 +44,7 @@ This indicates, that the generated \imps{} are still too easy and produce \acp{f
 
 
 
-% \begin{figure}[htbp]
+% \begin{figure}[h]
 %   \centering
 %     \includesvg[width=\linewidth]{images/dataset/AV_comparison/student_essays_threshold_accs_curves_all_incl_baselines.svg}
 %   \caption{Accuracy curves for the class same-author for different \ac{av} approaches.}
@@ -51,7 +52,7 @@ This indicates, that the generated \imps{} are still too easy and produce \acp{f
 % \end{figure}
 
 
-% \begin{figure}[htbp]
+% \begin{figure}[h]
 %   \centering
 %     \includesvg[width=\linewidth]{images/dataset/AV_comparison/student_essays_threshold_precisions_curves_all_incl_baselines.svg}
 %   \caption{Precision curves for the class same-author for different \ac{av} approaches.}

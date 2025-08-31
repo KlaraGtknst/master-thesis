@@ -48,6 +48,11 @@ Except for the modified sampling strategy and the adjusted number of features re
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/unmasking/generalized_unmasking.svg}
-    \caption{Workflow of generalized unmasking~\citep{bevendorff_generalizing_2019}: (1) Generate chunks by oversampling words from the disputed text $A$ and the candidate text $B$. (2) Represent the chunks using the most frequent words as features. (3) Train a linear \ac{svm} and record the 10-fold cross-validation accuracy. (4) Remove the six most discriminative features. (5) Repeat steps (3)–(4) until no features remain. \textcolor{red}{TODO: add axes labels}}
+    \caption{Workflow of generalized unmasking~\citep{bevendorff_generalizing_2019}: 
+    (1) Generate chunks by oversampling words from the disputed text $A$ and the candidate text $B$. 
+    (2) Represent the chunks using the most frequent words as features. 
+    (3) Train a linear \ac{svm} and record the 10-fold cross-validation accuracy. 
+    (4) Remove the six most discriminative features. 
+    (5) Repeat steps (3)–(4) until no features remain.}
     \label{fig:generalized_unmasking}
 \end{figure}

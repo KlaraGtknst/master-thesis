@@ -48,9 +48,8 @@ Effective prompting proved essential.
 We observed that specification of what to avoid was vital to obtain valid results. 
 Moreover, task instructions placed at the end of the prompt reduced cases where models ignored them in long-context settings, such as the \dataGutenberg{} corpus.
 
-After iterative refinement, the following two prompts yielded \textcolor{orange}{consistent results}.
-The first explicitly decomposes the sentence into subject, verb, and object before reconstruction, encouraging lexical diversity. 
-The second instructs the model to preserve meaning while varying wording and structure. 
+The first prompt explicitly decomposes the sentence into subject, verb, and object before reconstruction, encouraging lexical diversity. 
+The second prompt instructs the model to preserve meaning while varying wording and structure. 
 Both emphasize concise outputs restricted to the paraphrase itself.
 
 \begin{quote}

@@ -60,18 +60,21 @@ To guide this objective, we formulate the following research questions:
 The main contributions of this thesis are as follows:
 \begin{itemize}
     \item We reimplemented the traditional \imp{} method~\citep{koppel_determining_2014} (cf. \autoref{sec:impostor_method_theory}).
-    \item Our work includes developing an implementation of \ac{llm}-based \imp{} generation (cf. \autoref{chap:llm_impostor_method}). 
-    \item To evaluate the use of \acp{llm} for generating hard negative \imps{}, we conducted an empirical assessment focusing on (a) the influence of syntactic similarity between the reference candidate and the paraphrase, and (b) performance relative to traditional \imp{} generation techniques proposed by \citet{koppel_determining_2014} (cf. \autoref{chap:experimental_results}/ \ref{enum:rq1})
-    \item We compared paraphrasing approaches quantitatively using standard summarization and translation-based techniques (cf. \autoref{chap:experimental_results}/ \ref{enum:rq2})
-    \item The proposed \ac{llm}-based \imp{} method was evaluated against established \ac{av} techniques, namely Unmasking and PPMD (cf. \autoref{chap:experimental_results}/ \ref{enum:rq3})
-    \item We analysed how chunked paraphrases affect detector scores by varying the number of chunks and assessing detection performance (cf. \autoref{chap:experimental_results}).
+    \item Our work includes developing an implementation of \ac{llm}-based \imp{} generation (cf. \autoref{sec:impostor_generation}). 
+    \item To evaluate the use of \acp{llm} for generating hard negative \imps{}, we conducted an empirical assessment focusing on (a) the \textcolor{red}{influence of syntactic similarity between the reference candidate and the paraphrase}, and (b) performance relative to traditional \imp{} generation techniques proposed by \citet{koppel_determining_2014} (cf. \autoref{sec:res_syn_sim_impact} and \autoref{sec:results_trad_av}/ \ref{enum:rq1})
+    \item We compared paraphrasing approaches quantitatively using standard summarization and translation-based techniques (cf. \autoref{sec:comp_paraphrases}/ \ref{enum:rq2})
+    \item The proposed \ac{llm}-based \imp{} method was evaluated against established \ac{av} techniques, namely Unmasking and PPMD across different scenarios (cf. \autoref{sec:results_trad_av} and \autoref{sec:results_llm_av}/ \ref{enum:rq3})
+    \item We analysed how chunked paraphrases affect detector scores by varying the number of chunks and assessing detection performance (cf. \autoref{sec:results_chunks}).
     \item We collected and preprocessed the original datasets, including a deliberate candidate-pair selection procedure aligned with the methodology of the original study by \citet{koppel_determining_2014}, informed through direct consultation with the original authors (cf. \autoref{sec:dataset}).
 \end{itemize}
 
-\textcolor{red}{correct chapter refernces}
 
 
 \section{Thesis Structure}
 \label{sec:thesis_structure}
-The thesis is structured as follows:
-\textcolor{red}{TODO}
+The remainder of this thesis is organized as follows. 
+In \autoref{chap:authorship_identification}, we provide background on \ac{av}, covering early approaches, \acl{sota} methods, stylometry, and practical applications. 
+\autoref{chap:related_work} reviews related research in greater detail. 
+Building on this foundation, \autoref{chap:llm_impostor_method} introduces our extension to the \impAppr{}. 
+The experimental setup is described in \autoref{chap:experimental_setup}, and the results are presented in \autoref{chap:experimental_results}. 
+Finally, \autoref{chap:discussion} discusses the findings, while \autoref{chap:conclusion} concludes the thesis and outlines directions for future work.

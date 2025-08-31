@@ -4,16 +4,13 @@ In this section we outline the main tasks of authorship analysis.
 We begin with the foundational problems of \ac{aa} and \ac{av}, before turning to derivative tasks such as author profiling,  author obfuscation, and plagiarism detection.
 
 \subsection{\Acl{aa}}
-\ac{aa} is the classical multiclass, single-label text classification task in which, given a set of candidate authors with known writings, the goal is to determine which author wrote a disputed text % \citep{stein_intrinsic_2011,koppel_authorship_2004,stamatatos_survey_2009,tyo_state_2022,bischoff_importance_2020,barlas_cross_domain_2020,altakrori_topic_2021,bevendorff_divergence_based_2020,elmanarelbouanani_authorship_2014,abbasi_writeprints_2008,llm_detection_av_2025,neal_surveying_2018,sapkota_cross_topic_2014sapkota_cross_topic_2014}
-    \textcolor{red}{TODO: too many references}. 
+\ac{aa} is the classical multiclass, single-label text classification task in which, given a set of candidate authors with known writings, the goal is to determine which author wrote a disputed text~\citep{koppel_authorship_2004}. 
 Formally, let $A$ be the set of authors, $K=\bigcup_{a\in A} K_a$ the set of known texts, and $U$ the set of unknown texts. 
 In the closed-set setting, each $d \in U$ must be attributed to exactly one $a \in A$. 
 Variants such as cross-topic or cross-genre \ac{aa} introduce distributional shifts between training and test data, complicating the task~\citep{barlas_cross_domain_2020}.
 
 \subsection{\Acl{av}}
-\ac{av} addresses the problem of establishing whether a given text $t$ was written by a candidate author $a$, using a set of the author’s known writings $K_a$ as reference. 
-\textcolor{red}{TODO: too many references}
-    % ~\citep{stein_intrinsic_2011,stamatatos_survey_2009,koppel_authorship_2011,tyo_state_2022,kocher_unine_2015,koppel_authorship_2004}.
+\ac{av} addresses the problem of establishing whether a given text $t$ was written by a candidate author $a$, using a set of the author’s known writings $K_a$ as reference~\citep{koppel_authorship_2004}.
 Disputed-candidate pair denotes the input of the text of unknown authorship and the candidate author's text in the following.
 In contrast to \ac{aa}, \ac{av} does not have reliable negative examples, since assembling a representative sample of all texts not authored by 
 $a$ is impossible. 
