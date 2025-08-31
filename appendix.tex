@@ -137,7 +137,6 @@ generator_prompt = "Write a text of about {l} words with a {title} title, {tone}
 \section{Preprocessing Regular Expressions}
 \label{app:regex_preproc}
 
-TODO
 % \begin{table}[]
 % \centering
 % \caption{Regular Expressions used for preprocessing}
@@ -147,16 +146,39 @@ TODO
 %     \toprule
 % \textbf{Description} & \textbf{Regular Expression}      
 % \midrule                                                                                                        \\
-% html tags            & r"\textless{}{\[}\textasciicircum{}\textgreater{}{\]}+\textgreater{}"                                                                      \\
-% play artifacts       & r"\textasciicircum{}{\[}A-Z\textbackslash{}s{\]}+{\[}.:{\]}?\$"                                                                              \\
-% chapter artifacts    & r"\textasciicircum{}\textbackslash{}s*Chapter\textbackslash{}s+\textbackslash{}w+.*\textbackslash{}n\textbackslash{}s*\textbackslash{}n" \\
-% play artifacts &
-%   \begin{tabular}[c]{@{}l@{}}r"\textbackslash{}s*ACT\textbackslash{}s+\textbackslash{}w+\textbackslash{}b\textbackslash{}.?"\\ r"\textbackslash{}s*SCENE\textbackslash{}s+\textbackslash{}w+\textbackslash{}b\textbackslash{}.?"\\ r"\[(.*?)\]" -\textgreater r"\textbackslash{}1"\\ r"\_+"r"\textbackslash{}s+\textbackslash{}d+\textbackslash{}s*\$"\end{tabular} \\
-% whitespace           & r"\textbackslash{}s+"  \\
+% html tags            & rr %r"\textless{}{\[}\textasciicircum{}\textgreater{}{\]}+\textgreater{}"                                                                      \\
+% % play artifacts       & r"\textasciicircum{}{\[}A-Z\textbackslash{}s{\]}+{\[}.:{\]}?\$"                                                                              \\
+% % chapter artifacts    & r"\textasciicircum{}\textbackslash{}s*Chapter\textbackslash{}s+\textbackslash{}w+.*\textbackslash{}n\textbackslash{}s*\textbackslash{}n" \\
+% % play artifacts &
+% %   \begin{tabular}[c]{@{}l@{}}r"\textbackslash{}s*ACT\textbackslash{}s+\textbackslash{}w+\textbackslash{}b\textbackslash{}.?"\\ r"\textbackslash{}s*SCENE\textbackslash{}s+\textbackslash{}w+\textbackslash{}b\textbackslash{}.?"\\ r"\[(.*?)\]" -\textgreater r"\textbackslash{}1"\\ r"\_+"r"\textbackslash{}s+\textbackslash{}d+\textbackslash{}s*\$"\end{tabular} \\
+% % whitespace           & r"\textbackslash{}s+"  \\
 % \bottomrule                                                                                                                 
 % \end{tabular}%
 % }
 % \end{table}
+
+\textcolor{red}{FIXME}
+\begin{table}[H]% extra page (usually for large figures/tables)
+  \caption{Tables have their captions above, figures below.}
+  \label{table-with-numbers}%
+  \centering\small
+  \begin{tabular}{@{}ll@{}} % use @{} to remove spacing; numbers should be right aligned
+    \toprule
+    \textbf{Description} & \textbf{Regular Expression}  \\
+    \midrule
+            html tags            & <[\^>]+> \\
+            play artifacts       & \^[A-Z$\backslash$s]+[.:]?\$ \\
+            % chapter artifacts    & \^$\backslash$s\*Chapter$\backslash$s+$\backslash$w+.*$\backslash$n$\backslash$s*$\backslash$n \\
+             play artifacts & $\backslash$s*ACT$\backslash$s+$\backslash$w+$\backslash$b$\backslash$.? \\
+& $\backslash$s*SCENE$\backslash$s+$\backslash$w+$\backslash$b$\backslash$.? \\
+% & $\backslash$[(.*?)$\backslash$]" $\rightarrow$ $\backslash$1 \\
+% & _+"r"$\backslash$s+$\backslash$d+$\backslash$s*\$ \\
+whitespace           & $\backslash$s+ \\
+
+
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 
 
