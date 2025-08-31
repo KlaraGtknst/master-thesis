@@ -193,8 +193,17 @@ whitespace           & $\backslash$s+ \\
 \section{Libraries used}
 \label{app:libraries}
 
-\ac{rouge} is a wrapper for Google Research\footnote{https://huggingface.co/spaces/evaluate-metric/rouge}.
-
-
-\textcolor{red}{TODO}
-e.g. sentence tokens: \texttt{nltk}'s \texttt{sent\_tokenize}
+\begin{table}[]
+\centering
+\caption{Libraries used}
+\label{tab:libs}
+\begin{tabular}{ll}
+    \toprule
+\textbf{Functionality} & \textbf{Library} \\
+\midrule
+Sentence tokenizer & \texttt{nltk}'s \texttt{sent\_tokenize}             \\
+\ac{rouge}              & Google Research\footnote{https://huggingface.co/spaces/evaluate-metric/rouge} \\
+TODO               & TODO             \\
+\bottomrule
+\end{tabular}%
+\end{table}
