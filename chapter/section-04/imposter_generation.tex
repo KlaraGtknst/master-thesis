@@ -6,6 +6,7 @@ Following the notion introduced by \citet{koppel_determining_2014}, ideal \imp{}
 The quality of \imps{} directly affects model performance.
 If they are too different from the candidate text, models are trained on trivial contrasts, yielding \acp{fp}. 
 Conversely, if \imps{} are too similar to the candidate, the risk of \acp{fn} increases.
+This behaviour reflects in increasing recall and precision, respectively.
 
 % obstacles for \imp{} generation in the past
 Traditional \imp{} generation techniques struggled to control \imp{} similarity. 
@@ -21,18 +22,21 @@ By conditioning generation on the candidate text itself, external factors such a
 In particular, paraphrasing offers a heuristic for simulating the text generation process. 
 The model produces stylistic variants of the candidate's writing while maintaining semantic alignment.
 
-\begin{figure}[htbp]
+
+\subsection{Paraphrasing as a Basis for \Imp{} Generation}
+
+The lack of a universally accepted definition of paraphrases complicates their generation and evaluation~\citep{gohsen_task_oriented_2024}. 
+In this work, paraphrases are considered suitable \imps{} when they preserve the topic, genre, and tone of the original text, introduce sufficient lexical and syntactic variation to prevent near-duplication, and allow limited semantic divergence including mild hallucinations.
+We propose two approaches to paraphrasing as displayed in \autoref{fig:paraphrasing_approaches}.
+We expect decreasing \impAppr{} recall and accuracy while increasing \impAppr{} precision, i.e. higher confidence in positive labelled text pairs, due to harder negatives leading to fewer positive predictions.
+
+\begin{figure}[h]
     \centering
     \includesvg{images/paraphrasing/idea/Paraphraser_architectures.svg}
     \caption{Different paraphrasing approaches.}
     \label{fig:paraphrasing_approaches}
 \end{figure}
 
-
-\subsection{Paraphrasing as a Basis for \Imp{} Generation}
-
-The lack of a universally accepted definition of paraphrases complicates their generation and evaluation~\citep{gohsen_task_oriented_2024}. 
-In this work, paraphrases are considered suitable \imps{} when they preserve the topic, genre, and tone of the original text, introduce sufficient lexical and syntactic variation to prevent near-duplication, and allow limited semantic divergence including mild hallucinations.
 
 Paraphrasing is often analysed along two main dimensions. 
 At the lexical level, it involves word-level substitutions such as synonym replacement, typically achieved through rule-based or thesaurus-driven methods. 
