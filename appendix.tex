@@ -6,34 +6,94 @@
 \section{Extractor prompts used for Two-Step Paraphrasing}
 \label{app:extractor_prompts}
 % bullet point
+\paragraph{Bullet point approach}
 \begin{quote}
-    \textit{Summarize the text above in five to six short bullet points. Respond ONLY with a JSON object in the following format: $\{$"bullet\_points":"<list of bullet points>","tone":"<tone>","time\_period":<time\_period>,"language\_register":<register>,"target\_audience":"<target\_audience>","genre":"<genre>"$\}$. Do not use direct quotes.}
+\textit{
+Summarize the text above in five to six short bullet points. 
+Respond ONLY with a JSON object in the following format: \\
+$\{$ \\
+\hspace{1em}"bullet\_points": "<list of bullet points>", \\
+\hspace{1em}"tone": "<tone>", \\
+\hspace{1em}"time\_period": "<time\_period>", \\
+\hspace{1em}"language\_register": "<register>", \\
+\hspace{1em}"target\_audience": "<target\_audience>", \\
+\hspace{1em}"genre": "<genre>" \\
+$\}$. 
+Do not use direct quotes.
+}
 \end{quote}
+
 
 % task
+\paragraph{Task approach}
 \begin{quote}
-    \textit{Act as the author of the text above. From that perspective, infer your role or identity, the topic being addressed, and the purpose or instruction behind writing the text. Combine these elements into a concise task prompt that you would give to an LLM to reproduce the text. Respond ONLY with a JSON object in the following format: \{"task":"<task>","tone":"<tone>","time\_period":<time\_period>,"language\_register":<register>,"target\_audience":"<target\_audience>","genre":"<genre>"$\}$. Do not use direct quotes.}
+\textit{
+Act as the author of the text above. From that perspective, infer your role or identity, the topic being addressed, and the purpose or instruction behind writing the text. 
+Combine these elements into a concise task prompt that you would give to an LLM to reproduce the text. 
+Respond ONLY with a JSON object in the following format: \\
+$\{$ \\
+\hspace{1em}"task": "<task>", \\
+\hspace{1em}"tone": "<tone>", \\
+\hspace{1em}"time\_period": "<time\_period>", \\
+\hspace{1em}"language\_register": "<register>", \\
+\hspace{1em}"target\_audience": "<target\_audience>", \\
+\hspace{1em}"genre": "<genre>" \\
+$\}$. 
+Do not use direct quotes.
+}
 \end{quote}
+
 
 % topic
+\paragraph{Topic approach}
 \begin{quote}
-    \textit{Extract the topic, tone, time period, register, target audience, and genre from the text above. Respond ONLY with a JSON object in the following format: \{"topic":"<topic>","tone":"<tone>","time\_period":<time\_period>,"language\_register":<register>,"target\_audience":"<target\_audience>","genre":"<genre>"$\}$. Do not use direct quotes.}
+\textit{
+Extract the topic, tone, time period, register, target audience, and genre from the text above. 
+Respond ONLY with a JSON object in the following format: \\
+$\{$ \\
+\hspace{1em}"topic": "<topic>", \\
+\hspace{1em}"tone": "<tone>", \\
+\hspace{1em}"time\_period": "<time\_period>", \\
+\hspace{1em}"language\_register": "<register>", \\
+\hspace{1em}"target\_audience": "<target\_audience>", \\
+\hspace{1em}"genre": "<genre>" \\
+$\}$. 
+Do not use direct quotes.
+}
 \end{quote}
 
+
 % title
+\paragraph{Title approach}
 \begin{quote}
-    \textit{Find a concise title for the text, extract the tone, time period, register, target audience and genre from the text above. Respond ONLY with a JSON object in the following format: \{"title":"<title>","tone":"<tone>","time\_period":<time\_period>,"language\_register":<register>,"target\_audience":"<target\_audience>","genre":"<genre>"$\}$. Do not use direct quotes.}
+\textit{
+Find a concise title for the text and extract the tone, time period, register, target audience, and genre from the text above. 
+Respond ONLY with a JSON object in the following format: \\
+$\{$ \\
+\hspace{1em}"title": "<title>", \\
+\hspace{1em}"tone": "<tone>", \\
+\hspace{1em}"time\_period": "<time\_period>", \\
+\hspace{1em}"language\_register": "<register>", \\
+\hspace{1em}"target\_audience": "<target\_audience>", \\
+\hspace{1em}"genre": "<genre>" \\
+$\}$. 
+Do not use direct quotes.
+}
 \end{quote}
+
 
 \section{Generator prompts used for Two-Step Paraphrasing}
 \label{app:generator_prompts}
+
 % bullet point
+\paragraph{Bullet point approach}
 \begin{minted}{python}
 prompt = "Write a text which covers the following items:\n" 
     + "\n".join(f"- {bp}" for bp in bullet_points)
 \end{minted}
 
 % task
+\paragraph{Task approach}
 \begin{minted}[breaklines]{python}
 generator_prompt = "Write a text of about {l} words with a {tone} tone, a {genre} genre, in the {register} register for the target audience of {target_audience} and in the {time_period} time period, covering the following task:\n{task}. Do not use asterisks. Only output the text without any additional commentary.".format(
             l=len(text.split()),
@@ -47,6 +107,7 @@ generator_prompt = "Write a text of about {l} words with a {tone} tone, a {genre
 \end{minted}
 
 % topic
+\paragraph{Topic approach}
 \begin{minted}[breaklines]{python}
 generator_prompt = "Write a text of about {l} words with a {topic} topic, {tone} tone, a {genre} genre, in the {register} register for the target audience of {target_audience} and in the {time_period} time period. Do not use asterisks. Only output the text without any additional commentary.".format(
             l=len(text.split()),
@@ -60,6 +121,7 @@ generator_prompt = "Write a text of about {l} words with a {topic} topic, {tone}
 \end{minted}
 
 % title
+\paragraph{Title approach}
 \begin{minted}[breaklines]{python}
 generator_prompt = "Write a text of about {l} words with a {title} title, {tone} tone, a {genre} genre, in the {register} register for the target audience of {target_audience} and in the {time_period} time period. Do not use asterisks. Only output the text without any additional commentary.".format(
             l=len(text.split()),
@@ -75,7 +137,28 @@ generator_prompt = "Write a text of about {l} words with a {title} title, {tone}
 \section{Preprocessing Regular Expressions}
 \label{app:regex_preproc}
 
-\textcolor{red}{TODO}
+TODO
+% \begin{table}[]
+% \centering
+% \caption{Regular Expressions used for preprocessing}
+% \label{tab:preproc_regex}
+% \resizebox{\textwidth}{!}{%
+% \begin{tabular}{ll}
+%     \toprule
+% \textbf{Description} & \textbf{Regular Expression}      
+% \midrule                                                                                                        \\
+% html tags            & r"\textless{}{\[}\textasciicircum{}\textgreater{}{\]}+\textgreater{}"                                                                      \\
+% play artifacts       & r"\textasciicircum{}{\[}A-Z\textbackslash{}s{\]}+{\[}.:{\]}?\$"                                                                              \\
+% chapter artifacts    & r"\textasciicircum{}\textbackslash{}s*Chapter\textbackslash{}s+\textbackslash{}w+.*\textbackslash{}n\textbackslash{}s*\textbackslash{}n" \\
+% play artifacts &
+%   \begin{tabular}[c]{@{}l@{}}r"\textbackslash{}s*ACT\textbackslash{}s+\textbackslash{}w+\textbackslash{}b\textbackslash{}.?"\\ r"\textbackslash{}s*SCENE\textbackslash{}s+\textbackslash{}w+\textbackslash{}b\textbackslash{}.?"\\ r"\[(.*?)\]" -\textgreater r"\textbackslash{}1"\\ r"\_+"r"\textbackslash{}s+\textbackslash{}d+\textbackslash{}s*\$"\end{tabular} \\
+% whitespace           & r"\textbackslash{}s+"  \\
+% \bottomrule                                                                                                                 
+% \end{tabular}%
+% }
+% \end{table}
+
+
 
 \input{chapter/appendix/reproduction_diff_imp_gen_student_essays.tex}
 
