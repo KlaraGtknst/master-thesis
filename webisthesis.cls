@@ -381,8 +381,13 @@
   \global\thesisfrontpagesupervisor{Referee}
   \global\thesisfrontpagedateofsubmission{Submission date}
   \global\thesisdeclarationtitle{Declaration}
-  \global\thesisdeclarationtext{Unless otherwise indicated in the text or %
-    references, this thesis is entirely the product of my own scholarly work.}
+  \global\thesisdeclarationtext{
+    I acknowledge the use of \href{https://www.deepl.com/de/translator}{DeepL} for language refinement and \href{https://chat.openai.com/}{ChatGPT} for assistance with text improvement as well as coding support, including guidance on implementation and debugging.
+    Unless otherwise indicated in the text or %
+    references, this thesis is entirely the product of my own scholarly work.
+    }
+  % \global\thesisdeclarationtext{Unless otherwise indicated in the text or %
+  %   references, this thesis is entirely the product of my own scholarly work.}
   \global\thesisfrontmatterkeywords{Keywords}
 }{}
 \ifthenelse{\equal{\documentlanguage}{ngerman}}{%
