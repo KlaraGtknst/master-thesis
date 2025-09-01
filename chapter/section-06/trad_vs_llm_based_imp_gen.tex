@@ -5,9 +5,9 @@
 This experiment investigates how our \ac{llm}-based \imp{} generation performs relative to (a) traditional \imp{} generation within the \impAppr{}, and (b) \acl{sota} \ac{av} methods in a conventional human-human \ac{av} scenario. 
 To this end, we construct \textcolor{orange}{10} same-author and \textcolor{orange}{10} different-author pairs from the \dataStudent{} dataset and evaluate the approaches across varying thresholds.
 
-The mirror minds approach assigns nearly every input pair to the same-author class, yielding a precision of approximately $0.5$. 
+The \mirrorMinds{} approach assigns nearly every input pair to the same-author class, yielding a precision of approximately $0.5$. 
 This behaviour is due to the nature of its paraphrases, which consist of single words. 
-The discriminator interprets any candidate text as stylistically more similar than mirror minds' minimal \imps{}, leading to a bias toward same-author predictions. 
+The discriminator interprets any candidate text as stylistically more similar than \mirrorMinds{}' minimal \imps{}, leading to a bias toward same-author predictions. 
 In contrast, naive \ac{llm}-based \imp{} generation achieves the highest $F_1$ scores, although its precision remains between $0.6$ and $0.7$. 
 This suggests that the generated \imps{} are still relatively easy, producing \acp{fp} in some cases.
 

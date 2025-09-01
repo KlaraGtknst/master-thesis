@@ -73,7 +73,7 @@ Therefore, our approach extends this idea by aiming to extract a more complete a
 
 Other detection methods also make use of rewriting. 
 Paraphrases can be generated through rule-based or thesaurus-driven substitutions, by means of monolingual machine translation~\citep{zhou_paraphrase_2021}, or by explicitly prompting generative T5 or GPT models~\citep{kurt_pehlivanoglu_comparative_2024}.
-RAIDAR, for instance, generates perturbed versions of a text using paraphrasing and compares edit distances for predictions~\citep{mao_raidar_2024}, while Mirror Minds employs paraphrasing combined with syntactic similarity metrics such as BLEU and METEOR~\citep{baradia_mirror_2025}. 
+RAIDAR, for instance, generates perturbed versions of a text using paraphrasing and compares edit distances for predictions~\citep{mao_raidar_2024}, while \mirrorMinds{} employs paraphrasing combined with syntactic similarity metrics such as BLEU and METEOR~\citep{baradia_mirror_2025}. 
 Based on RAIDAR, \citet{li_learning_2025} propose fine-tuning an \ac{llm} to rewrite human authored texts more than machine generated text.
 %%% compared to our work: 
 All of these approaches are similar to ours in that they leverage \acp{llm} to generate texts at inference time. 

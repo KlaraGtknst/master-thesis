@@ -35,12 +35,12 @@ For reference vectors $r$ and candidate vectors $c$, precision $P_{\text{BERT}}$
 The $F_1$ score from \autoref{eq:bert_f1} is computed based on precision and recall.
 
 \begin{equation}
-    P_{\text{BERT}} = \frac{1}{|c|} \sum_{c_i \in c} \max_{z_j \in r} \mathbf{r}_j^\top \mathbf{c}_i
+    P_{\text{BERT}} = \frac{1}{|c|} \sum_{c_i \in c} \max_{z_j \in r} r_j^\top c_i
 \label{eq:bert_p}
 \end{equation}
 
 \begin{equation}
-    R_{\text{BERT}} = \frac{1}{|r|} \sum_{r_i \in r} \max_{c_j \in c} \mathbf{r}_i^\top \mathbf{c}_j
+    R_{\text{BERT}} = \frac{1}{|r|} \sum_{r_i \in r} \max_{c_j \in c} r_i^\top c_j
 \label{eq:bert_r}
 \end{equation}
 
