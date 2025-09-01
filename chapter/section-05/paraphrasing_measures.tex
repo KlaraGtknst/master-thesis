@@ -1,5 +1,5 @@
 
-\subsection{Paraphrase evaluation}
+\subsection{Paraphrase Evaluation}
 \label{subsec:paraphrase_evaluation}
 
 There is no universal definition of what constitutes a paraphrase. 
@@ -10,25 +10,16 @@ Because of this, paraphrase evaluation must account both for syntactic diversity
 Existing approaches can broadly be grouped into automatic and human-based methods. 
 Automatic measures attempt to quantify the similarity between a candidate and a reference paraphrase using algorithmic techniques. 
 These methods can be further distinguished by the linguistic level at which they operate. 
-Some focus on syntactic structure, while others evaluate meaning preservation~\citep{gohsen_captions_2023}. 
+Some focus on syntactic structure, while others evaluate semantic preservation~\citep{gohsen_captions_2023}. 
 Human evaluation, in contrast, remains the gold standard, as it naturally incorporates all of these dimensions.
-
-% Syntactic (\ac{bleu}, \ac{rouge}-1, \ac{rouge}-L), semantic (BERTScore, cosine similarity of SBERT vectors, WMS), human evaluation (TODO)
-
-% There is manual (by humans) evaluation and automatic evaluation for paraphrase generation \citep{fu_learning_2024,zhou_paraphrase_2021}.
-% According to \citet{zhou_paraphrase_2021}, automatic evaluation metrics mainly focus on the n-gram overlaps instead of meaning, 
-% and hence, human evaluation is more accurate and has a higher quality.
-% In the following, we focus on automatic evaluation.
-
-In the following, we examine both automatic and human evaluation strategies. 
-The automatic measures are divided into syntactic and semantic approaches.
+In the following, we focus on both automatic evaluation strategies. 
 
 \input{chapter/section-05/quantitative_evaluation_metrics.tex}
 
 
-\subsubsection{Qualitative Evaluation}
-\label{subsec:qualitative_evaluation}
+% \subsubsection{Qualitative Evaluation}
+% \label{subsec:qualitative_evaluation}
 
-Human qualitative evaluation can combine syntactic and semantic dimensions more reliable than any automatic metric proposed.
-Naturally, when being asked to evaluate the quality of a paraphrase, individuals will score syntactic difference from the reference text, the readability from the paraphrase and semantic similarity to the reference text.
-Evaluation is usually formalized via a Likert scale~\citep{gohsen_captions_2023}.
+% Human qualitative evaluation can combine syntactic and semantic dimensions more reliable than any automatic metric proposed.
+% Naturally, when being asked to evaluate the quality of a paraphrase, individuals will score syntactic difference from the reference text, the readability from the paraphrase and semantic similarity to the reference text.
+% Evaluation is usually formalized via a Likert scale~\citep{gohsen_captions_2023}.

@@ -10,15 +10,15 @@ The practical challenge, therefore, lies in identifying markers that are more st
 
 Stylometric features are commonly grouped into several broad categories outlined in \autoref{tab:stylometric_features}. 
 They range from low-level lexical and character-based statistics to high-level semantic and application-specific indicators.
-High-level features tend to be prone to noise since they rely on processing tools.
+High-level features tend to be prone to noise since they rely on processing tools~\citep{stamatatos_survey_2009}.
 
 % Static features, such as function words, word-length distributions, vocabulary richness measures, are context-free.
 % Dynamic features are context-dependent attributes and include $n$-grams and misspelled words~\citep{abbasi_writeprints_2008}.
 
 
-\begin{table}[]
+\begin{table}[h]
     \centering
-    \caption{Incomplete taxonomy of style markers from \citep{stamatatos_survey_2009}.}
+    \caption{Incomplete taxonomy of style markers from~\citep{stamatatos_survey_2009}.}
     \label{tab:stylometric_features}
  
     \begin{tabular}{@{}ll@{}} % numbers should be right aligned, text left aligned
@@ -66,15 +66,16 @@ Syntactic features exploit structural information such as \ac{pos} $n$-grams, fu
 They are generally more reliable than lexical features but require robust \ac{nlp} pipelines, making them computationally more expensive and inherently language-dependent~\citep{neal_surveying_2018,stamatatos_survey_2009}.
 
 \paragraph{Semantic features.}
-Semantic features, such as synonym or hyponym relations, or semantic dependencies, can complement lexical and syntactic features. 
-For example, a semantic dependency between a person and a location may provide additional discriminatory power~\citep{stamatatos_survey_2009,neal_surveying_2018}. 
-However, semantic features depend on external resources (e.g., WordNet, a lexical database of semantic relations~\citep{zhou_paraphrase_2025}).
+Semantic features include synonym or hyponym relations, or semantic dependencies. 
+They usually complement lexical and syntactic features. 
+Semantic features depend on external resources (e.g., WordNet, a lexical database of semantic relations~\citep{zhou_paraphrase_2025}).
 
 
 \paragraph{Application-specific features.} % (structural + content)
-General structural features include layout, file extensions, font, sizes, and colours~\citep{abbasi_writeprints_2008,neal_surveying_2018}.
-Certain features are only meaningful in specific domains. 
-For instance, e-mails often contain characteristic salutations and signatures, while source code contains structural conventions specific to the programming language. 
+
+Application-specific features can include structural or content-related aspects. 
+Structural features capture general characteristics, such as layout, file extensions, font choices, sizes, and colours~\citep{abbasi_writeprints_2008,neal_surveying_2018}. 
+Certain features, in contrast, refer to elements that are only meaningful within a particular domain, for instance, the use of salutations and signatures in e-mails or programming constructs in source code. 
 Content-specific frequent words may be useful within a single genre, but they should not be used across topics or genres since they conflate authorial idiosyncrasies with semantic information~\citep{abbasi_writeprints_2008}.
 % Domain-specific features include ratios of quoted words and external links, number of paragraphs, and paragraphs average length for the news article domain~\citep{potthast_stylometric_2018}
 

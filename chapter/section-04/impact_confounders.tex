@@ -2,7 +2,7 @@
 \label{sec:contextual_factors}
 
 \Acl{sota} models for authorship analysis exhibit strong sensitivity to domain shifts. 
-Performance often deteriorates sharply when models are applied in \ac{ood} scenarios, i.e. outside their training distribution, a phenomenon largely attributable to the influence of confounders such as topic, genre, and register~\citep{Sundararajan_style_18,bischoff_importance_2020}
+Performance often deteriorates sharply when models are applied in \ac{ood} scenarios, i.e. in cross-domain settings, a phenomenon largely attributable to the influence of confounders such as topic, genre, and register~\citep{Sundararajan_style_18,bischoff_importance_2020}
 
 Confounders are problematic because they influence the very features used to characterize authorial style. 
 Topical vocabulary, for example, can dominate lexical distributions, while genre-specific conventions shape syntax. 
@@ -12,29 +12,10 @@ If topics can be represented by characteristic word distributions, authors choos
 Consequently, texts from the same author across different topics may appear unrelated, while texts from different authors on the same topic may appear deceptively similar.
 
 Empirical evidence confirms the severity of this problem.
-Both \ac{llm} detection approaches, such as DetectGPT~\citep{mitchell_detectgpt_2023,Wu_ODD_challenges_2025}, and contemporary \acp{av} methods~\citep{Thomas_cross_topic_24} suffer significant performance degradation in \ac{ood} scenarios.
+Both contemporary \acp{av} methods~\citep{Thomas_cross_topic_24}, and \ac{llm} detection approaches, such as DetectGPT~\citep{mitchell_detectgpt_2023,Wu_ODD_challenges_2025} suffer significant performance degradation in \ac{ood} scenarios.
 
-As a result, authorship research has split into two directions. 
-One line seeks domain-invariant features, a goal that remains unresolved~\citep{bischoff_importance_2020}. 
-The other has converged on \ac{id} scenarios, where confounders are deliberately controlled. 
-Restricting tasks to a single topic or genre does not eliminate the underlying entanglement, but it reduces its impact sufficiently to produce stable and interpretable performance.
-There are studies that suggest that the usage of domain or topic labels is not sufficient to control topic similarity in data corpora since semantic relationships of topics are disregarded when treating all topic labels as different~\citep{sawatphol_cross_topic_av_24}.
-A consequence of inaccurate topic identification can be misleading results, such as \ac{pan} 2021 \ac{av} task whose \ac{ood} results resembled the \ac{id} results due to topic leakage.
-
-
-% Some promising steps towards mitigating this issue is the analysis of feature categories' suitability for different scenarios.
-% Findings include that lexical features can be applied to boost performance of lexical features, and that proper nouns are heavily influenced by topic which make them less attractive for cross-domain tasks~\citep{Sundararajan_style_18}.
-% Training predictive models on all topics apart the one in question improves the performance opposed to only using one negative class~\citep{Menon_cross_domain_2011}. 
-% However, since the non-target class is not exhaustive, this is not easy.
-% % char 3-gram: unclear if belong to lexical, syntactic (affix-like n-grams), style (puntuation base ngrams), thematic content (word-like ngrams) cf. Sapkota_ngrams_2015
-% \citet{bischoff_importance_2020} analyse the robustness of character trigrams as a feature for \ac{aa}.
-% They find that the character trigrams feature set is not robust in a cross-topic setting, but across two genres.
-% \citet{Menon_cross_domain_2011} find that they are not robust against domain changes.
-% % features
-% % stylometric features
-% Based on empirical evidence (one paper, one dataset), stylometric features are rather topic-invariant \citep{altakrori_topic_2021}.
-% % POS
-% According to \citet{altakrori_topic_2021}, \ac{pos} tags capture stylistic variations in language grammar between authors.
-% % n-grams
-% Character-level n-grams are favourable over word-level n-grams in terms of cross-group error.
-% Hence, character-level n-grams are more topic-invariant than word-level n-grams.
+As a result, authorship research has diverged into two main directions. 
+One line of work aims to identify domain-invariant features, a challenge that remains largely unresolved~\citep{bischoff_importance_2020}. 
+The other focuses on \ac{id} scenarios, in which confounding factors are deliberately controlled. 
+While restricting tasks to a single topic or genre does not fully eliminate the entanglement between content and style, it reduces its impact sufficiently to produce stable and interpretable results. 
+Moreover, some studies indicate that simply using domain or topic labels is insufficient to control for topic similarity in corpora, as this approach ignores semantic relationships between topics~\citep{sawatphol_cross-topic_av_24}.

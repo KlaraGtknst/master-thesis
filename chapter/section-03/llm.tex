@@ -1,6 +1,6 @@
 \section{Impact of \acs{llm} on Authorship Verification}
 
-With the advances in generative \ac{ai} come risks and opportunity.
+With the advances in \ac{gai} come risks and opportunities.
 Similarly, we can frame \acp{llm} as authors weakening our trust in the authencity of digital texts, but also see them as valuable tools to enhance our regulatory methods.
 
 \subsection{\acsp{llm} as authors}
@@ -11,16 +11,14 @@ If \acp{llm} are used for grammar checking, polishing, and editing suggestion th
 One could denote these texts "\ac{ai}-revised Human-Written Text"~\citep{wang_stumbling_2024}.
 
 With advances of generative models with regard to mimicking human writing, we have to face the fact that \acp{llm} will play a crucial role in any authorship analysis related tasks from now on.
-Since there is not \textit{the one} \ac{llm}, but a great variety of \acp{llm}, one may find denoting \acp{llm} an author deceptive.
-This implicates individual authorships for different \acp{llm}.
 \citet{llm_detection_av_2025} claim that \ac{llm} detection is not an \ac{aa} task, i.e., a closed-set binary classification where both classes are sufficiently discriminative, but an \ac{av} task, i.e., an open-set one-class classification problem. 
 
 % differences: also more in ~\citep{wang_stumbling_2024}
 Despite the advances, there are still some statistical differences on \ac{llm} generated and human authored texts.
-\ac{llm} generated text lacks lexical diversity, overuses certain adjectives ("commendable", "innovative", "meticulous", etc.) and produces longer, more complex sentences.
+\ac{llm} generated texts lack lexical diversity, overuses certain adjectives (e.g. "innovative") and produces longer, more complex sentences.
 Moreover, \acp{llm} possess stylistic fingerprints and memorize patterns from the training data.
 % lengths
-Word length averages and distributions across genre differ for \acp{llm} and humans~\citep{llm_detection_av_2025}.
+Furthermore, word length averages and distributions across genre differ for \acp{llm} and humans~\citep{llm_detection_av_2025}.
 
 % future of LLMs
 However, as \acp{llm} progress, basic heuristics applied by human detectors no longer suffice.
@@ -30,8 +28,8 @@ However, as \acp{llm} progress, basic heuristics applied by human detectors no l
 \subsection{\acsp{llm} as Discriminator}
 \label{sec:llm_discriminator}
 
-While \acp{llm} can generate coherent text, their utility as direct discriminators in \ac{aa} tasks may be limited. 
-\citet{altakrori_topic_2021} note that \acp{lm} map words with similar meaning, such as "color" and "colour" to similar vector representations.
+While \acp{llm} can generate coherent text, their performance as direct discriminators in \ac{aa} tasks varies. 
+Words with similar meaning, such as "color" and "colour", are mapped to similar vector representations~\citep{altakrori_topic_2021}.
 This reduces sensitivity to subtle language system differences, which are often critical for identifying an author. 
 Consequently, relying on \acp{llm} as the primary discriminator in \ac{aa} or \ac{av} tasks may be suboptimal.
 

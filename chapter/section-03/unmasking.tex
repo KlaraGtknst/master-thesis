@@ -2,10 +2,6 @@
 \label{subsec:unmasking}
 
 The Unmasking algorithm was first introduced by \citet{koppel_authorship_2004} as a meta-classification approach to \ac{av}. 
-The central idea is that two texts by the same author should become increasingly indistinguishable once the most discriminative stylistic features are removed. 
-In contrast, if texts are from different authors, their differences persist even when top-ranked features are discarded. 
-This behaviour is captured through the performance degradation of a classifier trained to distinguish between the texts.
-
 First, both the disputed text and the candidate text are split into non-overlapping chunks, which serve as samples from the unknown author and the candidate author respectively. 
 Second, the chunks are represented using word-frequency features of the $n=250$ most frequent words across the combined texts.
 Third, a linear \ac{svm} is trained to discriminate between the two sets of chunks and the 10-fold cross-validation accuracy is recorded.
@@ -48,7 +44,7 @@ Except for the modified sampling strategy and the adjusted number of features re
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/unmasking/generalized_unmasking.svg}
-    \caption{Workflow of generalized unmasking~\citep{bevendorff_generalizing_2019}: 
+    \caption{Workflow of generalized \unmasking{}~\citep{bevendorff_generalizing_2019}: 
     (1) Generate chunks by oversampling words from the disputed text $A$ and the candidate text $B$. 
     (2) Represent the chunks using the most frequent words as features. 
     (3) Train a linear \ac{svm} and record the 10-fold cross-validation accuracy. 

@@ -1,9 +1,9 @@
 \section{Technical Background}
 
-This section outlines the \ac{ml} principles and paradigms that underpin modern authorship analysis. 
+This section outlines the \acl{ml} principles and paradigms that underpin modern authorship analysis. 
 We first introduce the main classification concepts relevant to \ac{av}. 
 We then discuss training and evaluation practices, including domain shift scenarios. 
-Finally, we present the principal categories of authorship analysis methods.
+Finally, we present the principal categories of authorship analysis.
 
 \subsection{\acl{ml} Principles}
 
@@ -11,8 +11,8 @@ Finally, we present the principal categories of authorship analysis methods.
 Unlike regression, which estimates a continuous value, classification yields a discrete label corresponding to the author’s identity.
 
 \paragraph{Closed- vs. open-set classification.} 
-In a closed-set scenario, the true author is guaranteed to be among the candidate set~\citep{stamatatos_survey_2009,koppel_authorship_2011,barlas_cross_domain_2020,boenninghoff_o2d2_2021,neal_surveying_2018}. 
-In contrast, open-set classification acknowledges that the author of a disputed document may not belong to the candidate set~\citep{stamatatos_survey_2009,barlas_cross_domain_2020,neal_surveying_2018}. 
+In a closed-set scenario, the true author is guaranteed to be among the candidate set~\citep{koppel_authorship_2011}. 
+In contrast, open-set classification acknowledges that the author of a disputed document may not belong to the candidate set~\citep{stamatatos_survey_2009}. 
 
 \paragraph{One-class classification.} 
 In some cases, training data is available for only a single class, and the task is to decide whether a new sample belongs to this class.
@@ -20,8 +20,8 @@ If counterexamples, i.e. so-called outliers, are available, they are usually not
 This is formalized as one-class classification, where the model learns the characteristics of the target class without reliable counterexamples~\citep{stein_intrinsic_2011,koppel_authorship_2004}.
 
 \paragraph{Multi-class classification.} 
-The standard formulation involves multiple authors, each represented by several training texts. 
-Here, the challenge is to discriminate among a large and often imbalanced set of classes~\citep{stamatatos_survey_2009,koppel_authorship_2004,elmanarelbouanani_authorship_2014} .
+In the context of \ac{aa}, multi-class classification refers to the task of discriminating among a large number of candidate authors. 
+This setting is particularly challenging because the class distribution is often highly imbalanced, with some authors being represented by many texts while others are represented by only a few~\citep{stamatatos_survey_2009,koppel_authorship_2004,elmanarelbouanani_authorship_2014}. 
 
 
 \subsection{Training and Testing}
@@ -31,14 +31,13 @@ Any overlap between these partitions constitutes data leakage and invalidates th
 
 A major challenge in stylometry is covariate shift, i.e., a mismatch between the distribution of training and test data. 
 This often arises from topic variability~\citep{boenninghoff_o2d2_2021}. 
-Two common evaluation settings are:
-\begin{itemize}
-    \item \textbf{Cross-topic attribution}, where models trained on one set of topics are tested on previously unseen topics~\citep{altakrori_topic_2021}.  
-    \item \textbf{Cross-domain attribution}, where training and test texts differ in topic or genre~\citep{barlas_cross_domain_2020}.  
-\end{itemize}
+A common evaluation setting is cross-domain attribution, where training and test texts differ in topic or genre.
+Variants include cross-topic and cross-genre settings~\citep{barlas_cross_domain_2020}.  
+
 
 \paragraph{Supervised vs. unsupervised learning.}  
-Supervised methods require labelled training data and include classifiers such as \acp{svm}, decision trees, \acp{nn}, and linear discriminant analysis. 
+Supervised methods require labelled training data. 
+Examples include classifiers such as \acp{svm}, decision trees, \acp{nn}, and linear discriminant analysis. 
 \acp{svm} are particularly common in authorship analysis due to their robustness. 
 Unsupervised methods do not rely on labels.
 Clustering techniques or \ac{pca} have been used to uncover latent stylistic patterns or to reduce feature dimensionality~\citep{abbasi_writeprints_2008}.

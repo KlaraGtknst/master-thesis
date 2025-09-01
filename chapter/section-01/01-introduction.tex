@@ -30,17 +30,16 @@ To guide this objective, we formulate the following research questions:
     Contrary to initial assumptions, high syntactic similarity is not always desirable, as it may indicate minimal modification of the original text.
     Our emphasis is on achieving high semantic similarity while preserving syntactic diversity to ensure genuine rephrasing.
     Moreover, relatively low scores can be acceptable if qualitative human assessments confirm paraphrase adequacy.
-    We construct an experiment to compare both our prompts and paraphrasers in terms of state-of-the-art paraphrasing measures. 
+    We construct an experiment to evaluate our paraphrases in terms of \acl{sota} paraphrasing measures. 
 
     % \item \textbf{Which features are used for the \ac{av} problem?} \label{enum:rq3} \hfill \\
     % Traditional features include character tri-gram features, while newer research has proposed using \ac{llm} such as BERT.
 
-    \item \textbf{How does the \ac{llm}-based \impAppr{} perform compared to established \ac{av} methods?} \label{enum:rq3} \hfill \\
-    We use Unmasking and PPMD as baselines to evaluate our \ac{llm}-based \impAppr{}.
-    Although computationally intensive, our method is designed as a solution tailored to specific detection tasks  rather than a general-purpose \ac{llm} detection tool.
+    \item \textbf{How does the \ac{llm}-based \impAppr{} perform compared to \acl{sota} \ac{av} methods?} \label{enum:rq3} \hfill \\
+    We use \unmasking{} and PPMD as baselines to evaluate our \ac{llm}-based \impAppr{}.
     Performance is assessed across three scenarios: (a) human-human input pairs,
-    (b) pairs using at least one \ac{llm}, and (c) \ac{llm}-\ac{llm} pairs.
-    We test \ac{av} and \ac{llm} detection scenario.
+    (b) pairs containing at least one \ac{llm}, and (c) \ac{llm}-\ac{llm} pairs.
+    We test \ac{av} and \ac{llm} detection scenarios.
     Comparisons are conducted on the \dataStudent{} dataset using standard classification metrics.
     
 \end{questions}
@@ -50,7 +49,7 @@ To guide this objective, we formulate the following research questions:
 
 % Given a text of unknown authorship (i.e., human or \ac{llm}), 
 % construct a set of \imp{} texts using state-of-the-art \acp{llm} based on the original text.
-% Obtain the author by \ac{aa}/ \ac{av} methods, such as unmasking, to \textit{confidently}, i.e. high precision, identify \ac{llm} generated texts
+% Obtain the author by \ac{aa}/ \ac{av} methods, such as \unmasking{}, to \textit{confidently}, i.e. high precision, identify \ac{llm} generated texts
 % (and possibly which \ac{llm}).
 
 
@@ -59,12 +58,12 @@ To guide this objective, we formulate the following research questions:
 \label{sec:contributions}
 The main contributions of this thesis are as follows:
 \begin{itemize}
-    \item We reimplemented the traditional \imp{} method~\citep{koppel_determining_2014} (cf. \autoref{sec:impostor_method_theory}).
+    \item We reimplemented the traditional \impAppr{}~\citep{koppel_determining_2014} (cf. \autoref{sec:impostor_method_theory}).
     \item Our work includes developing an implementation of \ac{llm}-based \imp{} generation (cf. \autoref{sec:impostor_generation}). 
     \item To evaluate the use of \acp{llm} for generating hard negative \imps{}, we conducted an empirical assessment focusing on (a) the \textcolor{red}{influence of syntactic similarity between the reference candidate and the paraphrase}, and (b) performance relative to traditional \imp{} generation techniques proposed by \citet{koppel_determining_2014} (cf. \autoref{sec:res_syn_sim_impact} and \autoref{sec:results_trad_av}/ \ref{enum:rq1})
     \item We compared paraphrasing approaches quantitatively using standard summarization and translation-based techniques (cf. \autoref{sec:comp_paraphrases}/ \ref{enum:rq2})
-    \item The proposed \ac{llm}-based \imp{} method was evaluated against established \ac{av} techniques, namely Unmasking and PPMD across different scenarios (cf. \autoref{sec:results_trad_av} and \autoref{sec:results_llm_av}/ \ref{enum:rq3})
-    \item We analysed how chunked paraphrases affect detector scores by varying the number of chunks and assessing detection performance (cf. \autoref{sec:results_chunks}).
+    \item The proposed \ac{llm}-based \impAppr{} was evaluated against established \ac{av} techniques, namely \unmasking{} and PPMD across different scenarios (cf. \autoref{sec:results_trad_av} and \autoref{sec:results_llm_av}/ \ref{enum:rq3})
+    \item We analysed how different number of chunks affect paraphrasing scores (cf. \autoref{sec:results_chunks}).
     \item We collected and preprocessed the original datasets, including a deliberate candidate-pair selection procedure aligned with the methodology of the original study by \citet{koppel_determining_2014}, informed through direct consultation with the original authors (cf. \autoref{sec:dataset}).
 \end{itemize}
 
@@ -73,7 +72,7 @@ The main contributions of this thesis are as follows:
 \section{Thesis Structure}
 \label{sec:thesis_structure}
 The remainder of this thesis is organized as follows. 
-In \autoref{chap:authorship_identification}, we provide background on \ac{av}, covering early approaches, \acl{sota} methods, stylometry, and practical applications. 
+In \autoref{chap:authorship_identification}, we provide background on \acf{av}, covering early approaches, \acl{sota} methods, stylometry, and practical applications. 
 \autoref{chap:related_work} reviews related research in greater detail. 
 Building on this foundation, \autoref{chap:llm_impostor_method} introduces our extension to the \impAppr{}. 
 The experimental setup is described in \autoref{chap:experimental_setup}, and the results are presented in \autoref{chap:experimental_results}. 

@@ -2,14 +2,14 @@
 \label{subsec:paraphrasing_chunks}
 
 We designed this experiment to evaluate whether chunk-to-chunk paraphrases exhibit better control than text-to-text paraphrases, since chunks contain fewer topic changes than whole texts in theory.
-We use five texts from the \dataBlog{}, \dataGutenberg{}, and the \dataStudent{} dataset, respectively.
+We use one text from the \dataBlog{}, \dataGutenberg{}, and the \dataStudent{} dataset, respectively.
 
 
 \begin{figure}[htbp]
   \centering
   \includesvg[width=\linewidth]{images/paraphrasing/experiments/chunks/setup/chunk_api_calls.svg}
   \caption{Breakdown of individual hyperparameters in the paraphrase configuration.
-  We use one document per dataset, chunked into one to five sections and paraphrased with all nine paraphrasers in two variance inducing settings (i.e. prompt for one-step, temperature for two-step) versions.
+  We use one document per dataset, chunked into one to five sections and paraphrased with all nine paraphrasers in two variance inducing settings (i.e. prompt for one-step, temperature for two-step).
   This amounts to a total of 936 API calls. 
   }
   \label{fig:chunks_api_calls}
@@ -17,14 +17,14 @@ We use five texts from the \dataBlog{}, \dataGutenberg{}, and the \dataStudent{}
 
 
 First, texts are chunked preserving sentences.
-Chunks are filled with sentences in sentence order that each chunk roughly contains the same number of words.
+Chunks are filled with sentences in sentence order such that each chunk roughly contains the same number of words.
 Second, paraphrase configurations are defined.
 Each one-step paraphraser is paired with two prompts, while each two-step paraphraser is paired with two temperatures.
 Third, each chunk is paraphrased with all configurations.
 These steps account for a minimum of 936 API calls for paraphrasing.
 Each component of the configuration is displayed in \autoref{fig:chunks_api_calls}.
 Finally, for each paraphrase, we compute BLEU, ROUGE1, ROUGE2, ROUGEL, ROUGELsum, METEOR, BERTScore Precision, BERTScore Recall, BERTScore F1, SBERT \ac{wms}, SBERT cosine similarity.
-Scores for chunks of a text are averaged per configuration to obtain the final score for a text configuration pair.
+Scores for chunks of a text are averaged per configuration to obtain the final score for a text, number of chunks, configuration triple.
 The adequat formula is given in \autoref{eq:avg_chunks} and an example is illustrated in \autoref{fig:mean-bleu}.
 
 \begin{equation}
@@ -68,6 +68,6 @@ The adequat formula is given in \autoref{eq:avg_chunks} and an example is illust
 
 \end{tikzpicture}
 }
-  \caption{Computation of the mean \ac{bleu} score over 3 text chunks.}
+  \caption{Computation of the mean \ac{bleu} score over three text chunks of a text.}
   \label{fig:mean-bleu}
 \end{figure}

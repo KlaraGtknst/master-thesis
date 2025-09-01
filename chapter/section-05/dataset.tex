@@ -14,7 +14,7 @@ Following the general description of all datasets, we outline our preprocessing 
 The \dataBlog{} corpus~\citep{blog_dataset_2006} consists of blog posts collected from \textit{blogger.com} on or before August 2004, with each blog authored by a single user.
 According to the Kaggle repository~\footnote{\href{https://www.kaggle.com/datasets/rtatman/blog-authorship-corpus?resource=download}{Kaggle dataset \texttt{rtatman/blog-authorship-corpus}} (26.07.2025)}, the dataset contains \num{681288} posts from \num{19320} bloggers, averaging approximately 35 posts and \num{7250} words per author.
 Each record includes the following metadata: \texttt{id}, \texttt{gender}, \texttt{age}, \texttt{topic}, 
-\texttt{sign} (referring to the author's astrological/zodiac sign), \texttt{date}, and \texttt{text}.
+\texttt{sign} (referring to the author's zodiac sign), \texttt{date}, and \texttt{text}.
 
 % student essays
 The \dataStudent{} dataset is not publicly available due to the presence of sensitive student information. 
@@ -29,16 +29,14 @@ Following \citet{koppel_determining_2014}, our dataset is built from the first f
 
 \subsection{Additional Data}
 \label{subsec:additional_data}
-To broaden the evaluation scope of the \impAppr{}, we incorporated additional datasets selected according to two criteria:
-(1) control over confounding factors such as genre and topic, and 
-(2) verified, undisputed authorship.
-Both the \dataPan{} and \dataGutenberg{} datasets satisfy these conditions.
+To broaden the evaluation scope of the \impAppr{}, we incorporated additional datasets that both control for confounding factors such as genre and topic and consist of texts with verified, undisputed authorship. 
+Both the \dataPan{} and \dataGutenberg{} datasets meet these criteria.
 
 % PAN20: Fanfiction
 The \dataPan{} corpus~\citep{bischoff_importance_2020} comprises fanfiction texts sourced from \textit{fanfiction.net}.
 Each text belongs exclusively to one fandom (i.e. thematic category), with no crossovers between fandoms.
 According to \href{https://pan.webis.de/clef20/pan20-web/author-identification.html}{the official \ac{pan} website}, 
-train and test set originate from two different fanfictions and approximate the (long-tail) distribution of the fandoms in the original dataset.
+train and test set originate from two different fanfictions.
 Dataset features include \texttt{id}, \texttt{fandoms}, and \texttt{pair}, where the latter contains the paired texts.
 An additional \texttt{jsonl} file provides the ground truth for each pair, specifying \texttt{id}, \texttt{same} (ground truth label for \ac{av}), and \texttt{authors}.
 
@@ -66,6 +64,11 @@ Metadata for these works was manually extracted from the Project Gutenberg websi
 % % }
 % \end{table}
 
+We augment the \dataStudent{} dataset with artificial generated texts and denote dataset \dataArtificialStudent{}.
+It contains pairs of student essays written in response to different academic assignments. 
+The dataset includes both human-written essays and artificially generated paraphrases created by \acp{llm} to simulate student writing. 
+Each pair is labelled as same-author or different-author, and identifies whether the text was generated artificially. 
+Artificially generated essays are produced using \acp{llm} prompted to emulate an 18-year-old college freshman's voice, taking into account demographic features like sex, ethnicity, and political orientation.
 
 \subsection{Dataset Preprocessing}
 \label{subsec:dataset_preprocessing}
@@ -88,9 +91,9 @@ Since both the \dataBlog{} and the \dataPan{} dataset originate from the Interne
 Upon inspection of the \dataGutenberg{} dataset, we found that certain patterns reappear due to the presences of many plays.
 Based on these findings, we collected eight preprocessing steps we deemed potentially useful. 
 Notably, we do not consider actor instructions (e.g., character cues) or structural elements (e.g., chapter headings) as part of authorial style.
-Hence, we intend to remove these patterns using regular expressions.
-You may find the regular expression attached in the \autoref{ch:appendix}.
-Note that the preceived uitility of these steps should reevaluted for other datasets.
+Hence, we remove these patterns using regular expressions.
+You may find the regular expression attached in \autoref{app:regex_preproc} of \autoref{ch:appendix}.
+Note that the perceived utility of these steps should reevaluated for other datasets.
 Next, we analysed the effect of individual preprocessing steps on vocabulary size.  
 We define the vocabulary of a dataset as unique tokens across all texts (regardless of their text length or split) of that dataset.
 In line with \citep{koppel_determining_2014}, tokens are space-free character 4-grams.
@@ -98,12 +101,12 @@ We leave the capitalization of tokens unchanged.
 The results displayed in \autoref{fig:preprocesing_impact_vocab_size}.
 
 We found that HTML-specific preprocessing steps had minimal impact on the size of vocabularies.
-Similary, removing play artefacts hardly changed the vocabulary size.
+Similarly, removing play artefacts hardly changed the vocabulary size.
 The results aligned with expectations, as the vocabularies are defined over space-free 4-gram units that, due to their limited length, exhibit a high likelihood of redundancy.
 Consequently, repetitive patterns are mapped on the same vocabulary item.
 Once the repetitive patterns are filtered out, the vocabulary lacks their respective items, which are not many.
 
-Based on these sonsiderations, our preprocessing steps include removing HTML artefacts, play artefacts, newlines, converting UTF-8 to ASCII, and stripping leading and trailing whitespace.
+Based on these considerations, our preprocessing steps include removing HTML artefacts, play artefacts, newlines, converting UTF-8 to ASCII, and stripping leading and trailing whitespace.
 We opted to forgo lowercasing the texts, as our preliminary analysis indicated that lowercasing had no meaningful effect on any dataset while potentially discarding deliberate authorial capitalization choices.
 Due to preprocessing, our \dataPan{} version differs from those applied elsewhere.
 
@@ -122,7 +125,7 @@ Due to preprocessing, our \dataPan{} version differs from those applied elsewher
 
 For the \dataBlog{}, \dataStudent{}, and \dataGutenberg{} datasets, we selected pairs of texts according to specific criteria to control potential confounding factors.
 Only texts with a minimum length of \num{700} words were considered eligible. 
-For the \dataPan{} dataset, we retained the existing pairs in the Arrow dataset, but filtered out texts with less than 700 words. 
+For the \dataPan{} dataset, we retained the existing pairs in the arrow dataset, but filtered out texts with less than 700 words. 
 All datasets include both same-author and different-author pairs. 
 
 For \dataBlog{}, pairs were constructed such that the two texts share the same topic, year, gender, and age (the latter referencing the author). 
@@ -130,50 +133,7 @@ The training set comprises 80\% of the data and the test set 20\%, with differen
 
 For \dataStudent{}, as per \citep{koppel_determining_2014}, all text pairs are drawn from the different tasks, such that authors share the same sex, ethnicity, and political orientation. 
 Pairs were assigned to either the training (70\%) or test (30\%) set. 
-The test set is larger because each author typically contributes only one essay per task and if only a single task were included in the test set, no same-author pairs could be formed. 
-
-% % Please add the following required packages to your document preamble:
-% % \usepackage{graphicx}
-% \begin{table}[tbp]
-%     \centering
-%     \caption{\ac{aa} scenarios with author $i$ is shortened with $A_i$ \citep{altakrori_topic_2021}.}
-%     \label{tab:aa_same_topic}
-%     \begin{tabular}{|l|l|l|}
-%     \hline
-%     \textbf{} & \textbf{Train} & \textbf{Test} \\ \hline
-%     \textbf{Topic $T_1$} & $A_1, A_2$ & $A_1, A_2$ \\ \hline
-%     \textbf{Topic $T_2$} & $A_1, A_2$ & $A_1, A_2$ \\ \hline
-%     \end{tabular}%
-% \end{table}
-
-% % Please add the following required packages to your document preamble:
-% % \usepackage{graphicx}
-% \begin{table}[tbp]
-%     \centering
-%     \caption{\ac{aa} scenarios with author $i$ is shortened with $A_i$ \citep{altakrori_topic_2021}.}
-%     \label{tab:aa_cross_topic}
-%     \begin{tabular}{|l|l|l|}
-%     \hline
-%     \textbf{} & \textbf{Train} & \textbf{Test} \\ \hline
-%     \textbf{Topic $T_1$} & $A_1, A_2$ &  \\ \hline
-%     \textbf{Topic $T_2$} &  & $A_1, A_2$ \\ \hline
-%     \end{tabular}%
-% \end{table}
-
-% % Please add the following required packages to your document preamble:
-% % \usepackage{graphicx}
-% \begin{table}[tbp]
-%     \centering
-%     \caption{\ac{aa} scenarios with author $i$ is shortened with $A_i$ \citep{altakrori_topic_2021}.}
-%     \label{tab:aa_topic_confusion}
-%     \begin{tabular}{|l|l|l|}
-%     \hline
-%     \textbf{} & \textbf{Train} & \textbf{Test} \\ \hline
-%     \textbf{Topic $T_1$} & $A_1$ & $A_2$ \\ \hline
-%     \textbf{Topic $T_2$} & $A_2$ & $A_1$ \\ \hline
-%     \end{tabular}%
-% \end{table}
-
+The test portion for \dataStudent{} is larger than that for \dataBlog{} because each author typically contributes only one essay per task and if only a single task were included in the test set, no same-author pairs could be formed. 
 
 For the \dataGutenberg{} dataset, pairs were selected such that texts share the same genre and century. 
 Authors were split into training (80\%) and test (20\%) sets.
@@ -181,30 +141,39 @@ Authors were split into training (80\%) and test (20\%) sets.
 Regardless of the selection criteria, the final datasets contain only three columns: \texttt{authors}, \texttt{pair}, and \texttt{same}.
 The \texttt{pair} column contains the texts of the pair as a list of strings,
 the \texttt{authors} column contains the authors of the texts as a list of strings,
-and the \texttt{same} column indicates whether the texts are from the same author (\texttt{True}) or from different authors (\texttt{False}).
+and the \texttt{same} column indicates whether the texts originate from the same author (\texttt{True}) or from different authors (\texttt{False}).
+
+The \dataArtificialStudent{} dataset is split into training and test sets using a stratified approach, ensuring that all combinations of author type (human vs. \ac{llm}), pair type (same- vs. different-author), and artificial generation (True vs. False) are proportionally represented in both splits. 
+Since the \dataArtificialStudent{} dataset is artificially created, its feature differ from the other datasets. 
+Each record contains the assignment names and descriptions, the paired texts, the authors, and metadata flags indicating author sameness and artificial generation.
+
 Descriptive statistics for all preprocessed datasets are provided in Table~\ref{tab:data_stats}.
+The presence of short artefacts in the \dataArtificialStudent{} dataset cannot be attributed to human-authored texts, as these have been filtered to meet a minimum length.
+Hence, the artificially generated texts exhibit shorter average lengths compared to other datasets.
 
 % minimum length necessesary for AV/ AA
 The choice of minimum text length was informed by literature research.
 \citet{bevendorff_generalizing_2019} used text chunks of at least 700 words for an unmasking approach, while \citet{koppel_authorship_2004} set the minimum to 500 words.
 Recent work~\citep{llm_detection_av_2025} identifies \num{2500}-\num{4000} characters to be sufficient for effective \ac{llm} detection framed as \ac{av}.
 
-\begin{table}[h]
+\begin{table}[H]
 % \begin{sidewaystable}
 \centering\small
-\caption{Statistics of preprocessed datasets \dataPan{}, \dataBlog{}, \dataGutenberg{}, and \dataStudent{}.
+\caption{Statistics of preprocessed datasets \dataBlog{}, \dataGutenberg{}, \dataPan{}, \dataStudent{}, and \dataArtificialStudent{}.
+$p_s$, $p_{\neg s}$ denote same-author and different-authors pairs, respectively.
 $l_w$, $l_c$ denotes text length in words and characters, respectively.
-$p_s$, $p_{\neg s}$ denote same-author and different-authors pairs, respectively.}
+}
 \label{tab:data_stats}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lrrrrrrrrr@{}}   % numbers should be right aligned, text left aligned
 \toprule
 dataset & \# pairs & \# authors & \# $p_s$ & \# $p_{\neg s}$ & \diameter $l_w$ ($l_c$) & max $l_w$ & $\sigma_{l_w}$ & median $l_w$ \\
 \midrule
-\dataPan{}           & 66905 & 52771 & 35616 & 31289 & 21418.76 (3914.76)   & 55413 & 512.19 & 3889 \\
 \dataBlog{}            & 11565 & 5997  & 6204 & 5361  & 6249.94 (1154.25)     & 115365 & 1493.97 & 913 \\
 \dataGutenberg{}       & 12    & 7     & 6     & 6     & 437870.75 (78698.79) & 297704 & 68329.91 & 60282 \\
+\dataPan{}           & 66905 & 52771 & 35616 & 31289 & 21418.76 (3914.76)   & 55413 & 512.19 & 3889 \\
 \dataStudent{} & 224  & 163   & 112   & 112  & 4403.73 (851.45)     & 1520 & 138.15 & 807  \\
+\dataArtificialStudent{} & 110 & 32 & 50 & 60 & 661.39 (3581.46) & 1769 & 267.08 & 703 \\
 \bottomrule
 \end{tabular}%
 }

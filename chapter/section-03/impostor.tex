@@ -1,11 +1,11 @@
 \subsection{\impApprTitle{}}
 \label{sec:impostor_method_theory}
 
-\citet{koppel_determining_2014} propose reducing open-set \ac{av} to open-set \ac{aa}, or the so-called many-candidates, which determines which (if any) candidate author from a pool of candidates authored a given anonymous text. 
+\citet{koppel_determining_2014} propose reducing open-set \ac{av} to open-set \ac{aa}, or the so-called many-candidates problem, which determines which (if any) candidate author from a pool of candidates authored a given anonymous text. 
 They outline the problem hierarchy as displayed in \autoref{fig:problem_hierarchy}.
 The candidates of the open-set \ac{aa} problem are retrieved via hard negative mining. 
 In the \ac{aa} context, hard negatives are defined as text pairs from different authors that are nonetheless highly similar. 
-To ensure difficulty, impostor texts must be drawn from the same domain as the candidate, where “domain” encompasses factors such as topic, genre, register, or time period~\citep{bischoff_importance_2020}. 
+To ensure difficulty, impostor texts must be drawn from the same domain as the candidate, where domain encompasses factors such as topic, genre, register, or time period~\citep{bischoff_importance_2020}. 
 
 \begin{figure}[htbp]
     \centering
@@ -14,20 +14,70 @@ To ensure difficulty, impostor texts must be drawn from the same domain as the c
     \label{fig:problem_hierarchy}
 \end{figure}
 
-The disputed text and all candidates are represented via \ac{tfidf} vectors of the \num{100000} most frequent space-free character 4-grams.
-Space free n-grams are strings of $n$ characters that do not include spaces, or strings of less than $n$ characters that are surrounded by spaces~\citep{koppel_authorship_2011,neal_surveying_2018}.
+
+% \begin{figure}[ht]
+% \centering
+% \begin{tikzpicture}[node distance=1.5cm, every node/.style={font=\sffamily}]
+
+% % Easy-difficult arrow (shortened)
+% \draw[<->, thick] (-3,0.3) -- (-3,-3.3) node[midway,left]{\rotatebox{90}{easy $\;\;$ difficult}};
+
+% % Nodes
+% \node[draw, rounded corners, fill=green!30, minimum width=5cm, minimum height=1cm, align=center] (closed) {closed-set AA};
+% \node[draw, rounded corners, fill=orange!30, minimum width=5cm, minimum height=1cm, below=of closed, align=center] (openAA) {open-set AA / many-candidates problem};
+% \node[draw, rounded corners, fill=orange!30, minimum width=5cm, minimum height=1cm, right=3.5cm of openAA, align=center] (openAV) {open-set AV};
+
+% % Arrows (shortened)
+% \draw[-{Latex}, thick] (closed.south) -- ++(0,-0.2) |- (openAA.north);
+% \draw[<->, thick] (openAA.east) -- ++(0.2,0) -- ++(3.1,0) -- ++(0,0) coordinate (tmp) -- (openAV.west);
+
+% \end{tikzpicture}
+% \caption{Comparison of closed-set and open-set attack/verification scenarios.}
+% \label{fig:aa_open_av}
+% \end{figure}
+
+
+
+
+The disputed text and all candidate texts are represented as \ac{tfidf} vectors constructed from the \num{100000} most frequent space-free character 4-grams. 
+Space-free $n$-grams are defined as sequences of $n$ consecutive characters that exclude spaces, or, in cases where fewer than $n$ characters occur at a word boundary, sequences padded by surrounding spaces~\citep{koppel_authorship_2011,neal_surveying_2018}. 
+Illustrative examples are provided in \autoref{fig:spacefree_4gram}.
+
+\begin{figure}[ht]
+    \centering
+    \begin{tikzpicture}[node distance=3.5cm, every node/.style={font=\sffamily}]
+
+    % Word nodes
+    \node[draw, rounded corners, minimum width=2.4cm, minimum height=1cm, align=center] (word1) {face};
+    \node[draw, rounded corners, minimum width=2.4cm, minimum height=1cm, right of=word1, align=center] (word2) {ial };
+    \node[draw, rounded corners, minimum width=2.4cm, minimum height=1cm, right of=word2, align=center] (word3) {ed t};
+
+    % Marks
+    \node[right=-0.7cm of word1, text=green!70!black, scale=2] {\faCheck};
+    \node[right=-0.7cm of word2, text=green!70!black, scale=2] {\faCheck};
+    \node[right=-0.7cm of word3, text=red, scale=2] {\faTimes};
+
+    % Labels
+    \node[below=0.2cm of word1] {space-free 4-gram};
+    \node[below=0.2cm of word2] {space-free 4-gram};
+    \node[below=0.2cm of word3] {$\neg$ space-free 4-gram};
+
+    \end{tikzpicture}
+    \caption{Examples of space-free character 4-grams.}
+    \label{fig:spacefree_4gram}
+\end{figure}
+
 While the optimal $n$ is language dependent~\citep{neal_surveying_2018}, tri-grams are commonly used in stylistic analysis, due to their ability to capture inflections, % Flexion/ Beugung in Deutsch
 morphemes, %  smallest meaningful constituents within a linguistic expression and particularly within a word
 and other syntactic structures for Germanic languages.
-Explorative study on character n-gram proposed that character n-grams are successful in \ac{av} tasks, due to their ability to capture different stylometry feature categories.
-Affix n-grams capture morphology, and n-grams containing punctuation marks capture style information valuable for cross-domain settings.
-Word n-grams capture topic information which is not necessary to obtain valid performance~\citep{Sapkota_ngrams_2015}.
+Authorship analysis typically opts against using word n-grams due to the capture of topic information being unnecessary to obtain valid performance~\citep{Sapkota_ngrams_2015}.
 
-The \impAppr{} builds on unmasking's repeated feature subsampling~\citep{koppel_authorship_2004}. 
-However, unlike unmasking, the \impAppr{} uses random projections to transform features into lower-dimensional spaces.
-After each projection step, the method records how often a candidate author is predicted as the source of the text. 
+
+The \impAppr{} builds on \unmasking{}'s repeated feature subsampling~\citep{koppel_authorship_2004}. 
+However, unlike \unmasking{}, the \impAppr{} uses random projections to transform features into lower-dimensional spaces.
+After each projection step, the method records whether the candidate author is predicted as the source of the disputed text. 
 This score is aggregated across all elimination steps~\citep{tyo_state_2022}.
-The workflow described above is illustrated in \autoref{fig:impostor}.
+The workflow is illustrated in \autoref{fig:impostor}.
 
 The process is carried out twice for each pair of texts, swapping the roles of the disputed text and the candidate text. 
 In this way, each text serves once as the disputed text and once as the reference for impostor generation. 
@@ -75,7 +125,7 @@ The final prediction is obtained by averaging the aggregated scores and applying
 \subsubsection{Traditional \Imp{} Generation}
 \label{subsubsec:traditional_impostor_generation}
 
-\citet{koppel_determining_2014} introduce three approaches to generating \imps{}. 
+\citet{koppel_determining_2014} introduce three \imp{} generation approaches. 
 In the fixed approach, \imps{} are drawn at random from a predetermined pool of documents that bear no particular relation to the input pair.
 In their study, this pool consisted of texts collected from random English Google queries. 
 The on-the-fly approach, by contrast, derives impostors based on the candidate text. 
@@ -84,6 +134,8 @@ The retrieved documents serve as \imps{} that are, at least in theory, on-topic.
 Finally, in the blog approach, impostors are selected at random from the \dataBlog{} dataset. 
 This method, according to the authors, ensures that impostor texts share the same genre as the input pair.
 
+For simplicity, we denote our fixed implementation as the random selection of \imps{} from the same dataset as the candidate text. 
+Consequently, the concept of fixed \imp{} generation in our work differs from that in the original method.
 
 First the $m$ most similar impostor documents in terms of min-max similarity are selected.
 Then, $n < m$ random impostor documents are selected.

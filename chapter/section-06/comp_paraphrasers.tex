@@ -1,66 +1,53 @@
 \section{Exp. 2: Comparison of different Paraphrasers}
 \label{sec:comp_paraphrases}
 
-To evaluate the quality of the generated paraphrases, we not only compute quantitative paraphrase measurements in Exp. 2(a), but also compare the extracted information and text lengths of the generated paraphrases to the ground truth metadata and original text in Exp. 2(b), respectively.
+To evaluate the quality of generated paraphrases, we conducted two experiments. 
+In Exp. 2(a), we assessed paraphrasing using standard quantitative metrics, while in Exp. 2(b), we compared the extracted information and text lengths of the generated paraphrases to the ground truth metadata and original texts, respectively.
 
 \paragraph{Exp. 2(a): Quantitative evaluation.}
 
-We evaluated paraphrasing scores on the \dataBlog{}, \dataGutenberg{}, and the \dataStudent{} dataset separably.
-In \autoref{fig:sem_syn_blog}, as per \citet{gohsen_captions_2023}, we aggregate semantic and syntactic measurement scores of the \dataBlog{} dataset for better interpretability.
-\dataGutenberg{} results are attached in the Appendix in \autoref{sec:app_paraphrases}.
+Paraphrasing scores were computed separately for the \dataBlog{}, \dataGutenberg{}, and \dataStudent{} datasets. 
+\autoref{fig:sem_syn_blog} presents aggregated semantic and syntactic measurement scores for the \dataBlog{} dataset, while results for \dataGutenberg{} are provided in the Appendix in \autoref{sec:app_paraphrases}.
 
-For syntactic measures, we average \ac{rouge}-1, \ac{rouge}-L, and BLEU.
-For semantic measure, we average BERTScore, cosine similarity based on BERT-based embeddings, and \ac{wmd}.
-Generally high scores in BLEU, \ac{rouge}, METEOR mean nearly identical paraphrases due to high n-gram overlap.
-In this case, we want syntactic diversity, rendering these measures unintuitive 
-for high values do not necessarily correspond to syntactically diverse paraphrases.
-Semantic similarity measurements compare the content of the paraphrase to the original text, 
-often under application of the cosine of a vector.
-It should be noted that it is unclear what these metrics actually measure.
+Syntactic similarity was quantified by averaging \ac{rouge}-1, \ac{rouge}-L, and BLEU scores. 
+Semantic similarity was assessed using BERTScore, cosine similarity of BERT-based embeddings, and SBERT \ac{wmd}. 
+It is important to note that for our purposes, syntactic diversity is desirable.
+High syntactic similarity values may reflect near-identical paraphrases due to n-gram overlap. 
+Semantic similarity measures the content overlap between the paraphrase and the original text, often via vector-based cosine similarity. 
+The precise interpretation of these metrics remains somewhat unclear.
 
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/paraphrasing/experiments/sem_syn_scatter/Blog_sem_syn_scatter_grouped_by_Paraphraser.svg}
-    \caption{Average semantic and syntactic similarity for different paraphraser on the \dataBlog{}.}
+    \caption{Average semantic $\diameter_{sem}$ and syntactic similarity $\diameter_{syn}$ for different paraphraser on the \dataBlog{}.}
     \label{fig:sem_syn_blog}
 \end{figure}
 
 
-% findings
-There are two clusters of one-step and two-step paraphrasers, respectively.
-The majority of one-step paraphrasers achieves lower syntactic and semantic scores than two-step paraphrasers.
-The one-step paraphraser based on \texttt{qwen3-32b}, however, obtains higher syntactic similarity scores than most of the two-step paraphrasers.
-The only outlier in terms of both syntactic and semantic similarity is the translation-based approach to paraphrasing.
-We find that the different prompts used for paraphrasing do not have a big impact on syntactic or semantic similarity (cf. \autoref{sec:app_paraphrases}).
-Generally, almost all paraphrases are in the quadrant we consider optimal, i.e. high semantic similarity while keeping low syntactic similarity.
-
-
-% shortcomings of paraphrasing metrics and need for human evaluation
-% While high n-gram overlap might not be the indicator of a good paraphrase in the sense of high syntactic diversity, it is not clear if high cosine similarity between the embedding of two texts is a good indicator of a good paraphrase.
-% Moreover, for all metrics, threshold values for good paraphrases are not well-defined.
-% It remains to be found whether the worst performing paraphrases are still good enough in terms of human evaluation.
-% We therefore also employed qualitative evaluation of the paraphrases.
-
+Analysis reveals two distinct clusters corresponding to one-step and two-step paraphrasers. 
+Most one-step paraphrasers achieve lower syntactic and semantic similarity than two-step paraphrasers. 
+The exception is the one-step paraphraser using \texttt{qwen3-32b}, which exhibits higher syntactic similarity than most two-step paraphrasers. 
+The translation-based approach emerges as an outlier in terms of both syntactic and semantic similarity. 
+Different prompt formulations appear to have minimal impact on these similarity scores (cf. \autoref{sec:app_paraphrases}). 
+Overall, most paraphrases fall within the desired quadrant of high semantic similarity with low syntactic similarity.
 
 
 \paragraph{Exp. 2(b): Evaluation of prompt adherence.}
-% Since we developed our paraphrasing approaches with the goal of creating hard negatives for the \impAppr{} by \citet{koppel_determining_2014} in mind, we have specific criteria for good paraphrases.
-Our two-step paraphrasing approach builds on the extraction of valid information.
-Extracted information is the basis for subsequent generation of paraphrases.
-In order to evaluate the quality of the information extracted by the \pextractor{}, we decided to compare the topic, genre, and the century to the ground truth available for the \dataBlog{}, \dataGutenberg{} and the \dataStudent{} dataset.
-The first two are compared in terms of semantic similarity, while century is evaluated in terms of percental deviation from the ground truth century.
 
-We found that the instructions for the \pextractor{} have to be positioned after the input text since \acp{llm} seem to focus their attention on the end of an input text.
-We found that \pextractor{} were unable to return the requested JSON format for long texts from the \dataGutenberg{} dataset.
-The results across the datasets are displayed in \autoref{tab:extraction_eval_stats}.
-$\diameter, \sigma$ denotes the average scores and standard deviation across scores of the five selected text samples, respectively.
-For genre and topic extraction, the \dataBlog{} seems to be most difficult for the \pextractor{}.
-Apart from length difference between reference and paraphrase, the \pextractor{} performs best on the \dataGutenberg{}.
+Our two-step paraphrasing approach relies on extracting valid information from the source text. 
+To evaluate the quality of extraction by the \pextractor{}, we compared the topic, genre, and century to the ground truth metadata for the \dataBlog{}, \dataGutenberg{}, and \dataStudent{} datasets. 
+Genre and topic were evaluated in terms of semantic similarity, while century was assessed via the percentage deviation from the ground truth.
+
+We observed that instructions for the \pextractor{} must follow the input text, as \acp{llm} tend to focus attention toward the end of the input. 
+Otherwise, the \pextractor{} failed to produce the requested JSON format for long texts from the \dataGutenberg{} dataset. 
+Results across datasets are summarized in \autoref{tab:extraction_eval_stats}, with $\diameter$ and $\sigma$ denoting the mean and standard deviation across the five selected samples. 
+The \dataBlog{} dataset proved most challenging for genre and topic extraction. 
+While differences in text length between reference and paraphrase were maximal among all datasets, the \pextractor{} performed best on the \dataGutenberg{} dataset.
+
 
 \begin{table}[h]
 \centering
-\caption{Degree of adherence to prompt for different datasets.
-We selected five documents per dataset and used a \pextractor{} to obtain genre, century and topic of the texts.}
+\caption{Extraction performance and length matching for different datasets. Five documents per dataset were processed using the \pextractor{} to obtain genre, century, and topic.}
 \label{tab:extraction_eval_stats}
 \begin{tabular}{lllllllll}
 \toprule
@@ -69,6 +56,7 @@ We selected five documents per dataset and used a \pextractor{} to obtain genre,
   \multicolumn{2}{l}{\textbf{Century}} &
   \multicolumn{2}{l}{\textbf{Topic}} &
   \multicolumn{2}{l}{\textbf{Length}} \\
+  \textbf{Dataset}
  &
   \textbf{\diameter} &
   \textbf{$\sigma$} &
@@ -79,20 +67,12 @@ We selected five documents per dataset and used a \pextractor{} to obtain genre,
   \textbf{\diameter} &
   \textbf{$\sigma$} \\
   \midrule
-\textbf{\dataBlog{}}            & 0.38 & 0.06  & 0.99 & 0.02 & 0.04  & 0.05  & -0.10 & 0.73 \\
-\textbf{\dataGutenberg{}}       & 0.58 & 0.14  & 1.00 & 0.04 & 0.3 & 0.15 & -1.00 & 0.00  \\
-\textbf{\dataStudent{}} & 0.53 & 0.26 & 0.60 & 0.55 & 0.25 & 0.05  & 0.34 & 0.20 \\
+\dataBlog{}            & 0.38 & 0.06  & 0.99 & 0.02 & 0.04  & 0.05  & -0.10 & 0.73 \\
+\dataGutenberg{}       & 0.58 & 0.14  & 1.00 & 0.04 & 0.3 & 0.15 & -1.00 & 0.00  \\
+\dataStudent{} & 0.53 & 0.26 & 0.60 & 0.55 & 0.25 & 0.05  & 0.34 & 0.20 \\
   \bottomrule
 \end{tabular}%
 \end{table}
 
-It is noteworthy, that opposed to these results, paraphrases from other experiments tended to be way shorter than the reference text.
-In multiple cases, the \pgenerator{} returned something along the line of \texttt{I’m sorry, but I can’t help with that}.
-
-
-% \begin{figure}[htbp]
-%     \centering
-%     \includesvg[width=\textwidth]{images/paraphrasing/experiments/extraction/radar_extraction_quality_per_dataset.svg}
-%     \caption{.}
-%     \label{fig:extraction_eval}
-% \end{figure}
+Notably, paraphrases generated in other experiments were often substantially shorter than the reference texts. 
+In multiple cases, the \pgenerator{} returned placeholders such as \texttt{I’m sorry, but I can’t help with that}.

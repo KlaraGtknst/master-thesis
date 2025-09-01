@@ -9,7 +9,7 @@ Conversely, if \imps{} are too similar to the candidate, the risk of \acp{fn} in
 This behaviour reflects in increasing recall and precision, respectively.
 
 % obstacles for \imp{} generation in the past
-Traditional \imp{} generation techniques struggled to control \imp{} similarity. 
+Traditional \imp{} generation techniques struggled to control the compounder influencing \imp{} generation. 
 The fixed approach samples from a fixed pool of unrelated texts, while the on-the-fly approach fails to align genre with the candidate text~\citep{koppel_determining_2014}. 
 Since authorial style is tightly entangled with contextual factors, \imps{} produced by these methods differ systematically from the candidate text, weakening their utility. 
 Ideally, \imp{} generation should replicate the conditions of original text production, including task, topic, register, target audience and century. 
@@ -23,12 +23,12 @@ In particular, paraphrasing offers a heuristic for simulating the text generatio
 The model produces stylistic variants of the candidate's writing while maintaining semantic alignment.
 
 
-\subsection{Paraphrasing as a Basis for \Imp{} Generation}
+\subsection{Hard Negative Mining via Paraphrasing}
 
 The lack of a universally accepted definition of paraphrases complicates their generation and evaluation~\citep{gohsen_task_oriented_2024}. 
 In this work, paraphrases are considered suitable \imps{} when they preserve the topic, genre, and tone of the original text, introduce sufficient lexical and syntactic variation to prevent near-duplication, and allow limited semantic divergence including mild hallucinations.
 We propose two approaches to paraphrasing as displayed in \autoref{fig:paraphrasing_approaches}.
-We expect decreasing \impAppr{} recall and accuracy while increasing \impAppr{} precision, i.e. higher confidence in positive labelled text pairs, due to harder negatives leading to fewer positive predictions.
+We expect decreasing \impAppr{} recall and accuracy scores while increasing \impAppr{} precision scores, i.e. higher confidence in positive labelled text pairs, due to harder negatives leading to fewer positive predictions.
 
 \begin{figure}[h]
     \centering
@@ -65,9 +65,9 @@ Both emphasize concise outputs restricted to the paraphrase itself.
 \end{quote}
 
 We initially experimented with T5-based models from HuggingFace, but these demonstrated poor instruction following and often produced malformed outputs. 
-Our final experiments used the models listed in \autoref{tab:base_llms}, all accessed through the GWDG/SAIA infrastructure.
+Our final experiments used the models listed in \autoref{tab:base_llms}, all accessed through the \ac{gwdg}/\ac{saia} infrastructure\footnote{\url{https://docs.hpc.gwdg.de/} (31.08.2025)}.
 
-\begin{table}[]
+\begin{table}[h]
 \centering
 \caption{Base \acp{llm} used for paraphrasing.}
 \label{tab:base_llms}
@@ -76,10 +76,10 @@ Our final experiments used the models listed in \autoref{tab:base_llms}, all acc
 \toprule
 \textbf{Model ID}                    & \textbf{Host} \\
 \midrule
-qwen3-32b                            & GWDG/ SAIA    \\
-mistral-large-instruct               & GWDG/ SAIA    \\
-openai-gpt-oss-120b                  & GWDG/ SAIA    \\
-meta-llama-3.1-8b-instruct           & GWDG/ SAIA    \\
+qwen3-32b                            & \ac{gwdg}/ \ac{saia}    \\
+mistral-large-instruct               & \ac{gwdg}/ \ac{saia}    \\
+openai-gpt-oss-120b                  & \ac{gwdg}/ \ac{saia}    \\
+meta-llama-3.1-8b-instruct           & \ac{gwdg}/ \ac{saia}    \\
 \bottomrule   
 \end{tabular}%
 % }
@@ -92,7 +92,7 @@ The two-step approaches are inspired by prior literature~\citep{bevendorff_overv
 The two steps enforce a clearer disentanglement of content and style at the cost of increased computational overhead.
 
 As displayed in \autoref{fig:two_step_paraphraser}, the two-step paraphrasing decomposes the task into information extraction and text generation. 
-In the first stage, the model identifies contextual features of the input text.
+In the first stage, the model identifies contextual features of the input text via a \pextractor{}.
 These feature include tone, register, time period, target audience, and genre.
 Different approaches extract an additional feature specific to their approach.
 The additional features are a bullet point summary, the authorial task, topic, or title. 

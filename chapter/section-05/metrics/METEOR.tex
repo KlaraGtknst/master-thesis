@@ -1,18 +1,54 @@
 
 \paragraph{METEOR}
-METEOR was proposed to address \ac{bleu}'s deficiencies. 
-Unlike \ac{bleu}, which is precision-oriented, METEOR explicitly incorporates recall.
-We consider METEOR a syntactic metric due to its conceptual similarity to \ac{bleu}, but it also captures semantic characteristics on account of inclusion of stemming and synonym matching modules~\citep{kurt_pehlivanoglu_comparative_2024}. 
-Candidate and reference unigrams are first aligned based on modules (exact match, Porter stemmed match, synonymy), after which the best subset of unigram mappings is selected according to cardinality and minimal crossing. 
-From this alignment, METEOR computes the weighted $F$-score from \autoref{eq:meteor}~\citep{banerjee_METEOR_2005}.
+% Its values range from 0 to 1 \citep{kurt_pehlivanoglu_comparative_2024}.
+METEOR was proposed to address the limitations of \ac{bleu}. 
+Unlike \ac{bleu}, METEOR explicitly incorporates recall. 
+We consider METEOR primarily a syntactic metric due to its conceptual similarity to \ac{bleu}, but it also captures semantic aspects through stemming and synonym matching modules~\citep{kurt_pehlivanoglu_comparative_2024}. 
+
+The order of modules reflects their priority in the alignment process. 
+When the first module is exact matching, all possible mappings of candidate word unigrams to exact matches in the reference text are considered. 
+Although valid alignments may restrict each unigram to a single mapping, multiple mappings are allowed in this initial stage. 
+In the second stage, the best subset of unigram mappings is selected according to cardinality and minimal crossing. 
+Unigrams that have not yet been mapped are then eligible for alignment using the next module in order, such as Porter-stemmed matching or synonym matching, producing multiple sets of mappings between candidate and reference. 
+From the resulting alignments, METEOR computes the weighted $F$-score as defined in \autoref{eq:meteor}, where unigram precision $P$ and unigram recall $R$ correspond to the fractions of candidate unigrams mapped to reference unigrams relative to the total number of candidate and reference unigrams, respectively~\citep{banerjee_METEOR_2005}.
 
 \begin{equation}
     METEOR = F_{mean} = \frac{10 \cdot P \cdot R}{R + 9P} \cdot (1 - Penalty)
 \label{eq:meteor}
 \end{equation}
 
-The penalty function discourages fragmented matches and reduces the score to $50\%$ bigram or longer matches are absent~\citep{banerjee_METEOR_2005}. 
-METEOR has been shown to correlate more strongly with human judgments than \ac{bleu}, particularly at the sentence or segment level, due to its sensitivity to lexical and semantic variation \citep{zhou_paraphrase_2021,kurt_pehlivanoglu_comparative_2024}.
-% Its values range from 0 to 1 \citep{kurt_pehlivanoglu_comparative_2024}.
-$P$ and $R$ denote unigram-precision and unigram-recall, respectively~\citep{kurt_pehlivanoglu_comparative_2024,banerjee_METEOR_2005}.
+The penalty function discourages fragmented alignments and reduces the score by up to $50\%$ if bigram or longer matches are absent~\citep{banerjee_METEOR_2005}. 
+METEOR has been shown to correlate more strongly with human judgments than \ac{bleu}, particularly at the sentence or segment level, due to its sensitivity to both lexical and semantic variation~\citep{zhou_paraphrase_2021,kurt_pehlivanoglu_comparative_2024}.
+
+
+% \tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
+% \tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!20]
+% \tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+% \tikzstyle{arrow} = [thick,->,>=stealth]
+
+
+% \begin{figure}[h!]
+% \centering
+% % \resizebox{\textwidth}{!}{%
+% \begin{tikzpicture}[node distance=2.5cm, every node/.style={minimum width=3cm, minimum height=1cm, text centered, draw, fill=blue!20}]
+
+% % Nodes in a circular layout
+% \node (start) [rectangle, rounded corners, fill=red!30] at (90:4cm) {Candidate \& Reference Sentences};
+% \node (matching) at (30:4cm) {Matching};
+% \node (bestsubset) at (150:4cm) {Select Subset of Mappings};
+% \node (fscore) at (180:4cm) {Compute F-Score};
+% \node (end) [rectangle, rounded corners, fill=red!30] at (200:4cm) {METEOR Score};
+
+% % Arrows
+% \draw[->, thick] (start) -- (matching);
+% \draw[<->, thick] (matching) -- (bestsubset);
+% \draw[->, thick] (bestsubset) -- (fscore);
+% \draw[->, thick] (fscore) -- (end);
+
+% \end{tikzpicture}%
+% % }
+% \caption{Circular visualization of METEOR score computation steps, from candidate and reference sentences to the final weighted F-score with penalty.}
+% \label{fig:meteor_circular}
+% \end{figure}
+
 

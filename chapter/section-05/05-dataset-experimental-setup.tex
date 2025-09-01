@@ -2,7 +2,7 @@
 \label{chap:experimental_setup}
 
 In the following, we will outline the experimental setup for the experiments we ran.
-This includes not only allocation, preprocessing and pair selection of each dataset, but also a description and motivation of the experiments carried out.
+This includes not only allocation, preprocessing and pair selection of each dataset, but also a description and motivation for the experiments carried out.
 
 
 \input{chapter/section-05/dataset.tex}
@@ -17,11 +17,11 @@ This includes not only allocation, preprocessing and pair selection of each data
 The following experiments are designed to systematically evaluate the extension of the \impAppr{}~\citep{koppel_determining_2014} with \ac{llm} generated impostors. 
 
 We begin by reproducing the original experiments by \citet{koppel_determining_2014} to ensure comparability between our implementation and previously reported results. 
-Next, we investigate the quality of paraphrases used in \imp{} generation. 
+Next, we investigate the quality of paraphrases used for \imp{} generation. 
 In particular, we compare our one-step paraphrasing strategy with our two-step approach based on the paraphrasing measures from \autoref{subsec:traditional_quantitative_evaluation_measures}. 
 Then, we evaluate paraphrase quality across different numbers of text chunks.
-We then analyse the effect of syntactic similarity between paraphrases and original texts on \imp{} scores. 
-Then, we compare different \ac{av} methods including the \impAppr{} with several strategies for \imp{} generation for varying sources of input text pairs. 
+We then analyse the effect of \textcolor{red}{syntactic similarity between paraphrases and the input texts on the \impAppr{} performance}. 
+Then, we compare different \acl{sota} \ac{av} methods with the \impAppr{} applying several strategies across \imp{} generation for varying sources of input text pairs. 
 This allows us to examine the relative strengths of different \ac{av} approaches for specific \ac{av} tasks.
 
 

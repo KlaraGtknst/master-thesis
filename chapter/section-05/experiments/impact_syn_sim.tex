@@ -1,4 +1,4 @@
-\subsection{Exp. 4: Impact of syntactic similarity on \impAppr{} scores}
+\subsection{Exp. 4: Impact of Syntactic Similarity on \impAppr{} Scores}
 \label{sec:syn_sim_impact_}
 
 We designed this experiment in order to assess whether the syntactic similarity of generated paraphrases, i.e. the difficultiy of hard negatives, influences the performance of the \impAppr{}.
@@ -18,17 +18,15 @@ The detector was configured according to Table~\ref{tab:imp_syn_sim_config}.
 \end{tabular}%
 \end{table}
 
-For generation, we loop through all paraphrasers until we successfully created 50 \imps{}.
+For generation, we loop through all \ac{llm}-based paraphrasers until we successfully created 50 \imps{}.
 One-step paraphrasers are used with both prompts.
-The optimal decision threshold was determined using Youden’s J statistic on the training set. 
-Predictions on the test set were obtained by thresholding the detector’s scores with this value.
+Predictions on the test set were obtained by thresholding the detector’s scores with a decision threshold was determined using Youden’s J statistic on the training set.
 We computed the average syntactic similarity on the test set. 
-Following \citet{gohsen_captions_2023}, we define average syntactic similarity as the mean of the  \ac{bleu}, ROUGE-1, and ROUGE-L scores. 
+Following \citet{gohsen_captions_2023}, we define average syntactic similarity $\diameter_{syn}$ as the mean of the \ac{bleu}, ROUGE-1, and ROUGE-L scores. 
 For each input pair in the test set, we calculated
-(1) the syntactic similarity between the two texts in the pair, (2) the average syntactic similarity between the candidate reference text and its paraphrases, and (3) the average syntactic similarity between the disputed text and the paraphrases.
+(1) the average syntactic similarity between the two texts in the pair, (2) the mean average syntactic similarity between the candidate reference text and its paraphrases, and (3) the mean average syntactic similarity between the disputed text and the paraphrases.
 
 We further grouped samples based on (1), (2), (3) and the difference (2)–(1). 
-For each group, we computed accuracy, precision, recall, F1, c@1, and $F_{0.5}$ score of the detector’s predictions. 
+For each group, we computed accuracy, precision, recall, and F1 score of the detector’s predictions. 
 The average values for each metric in a bin are presented in a bar chart.
 
-\textcolor{red}{TODO:line plots for different thresholds}
