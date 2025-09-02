@@ -6,7 +6,7 @@ We computed several paraphrasing metrics for each chunk and averaged the results
 
 \begin{table}[h]
 \centering
-\caption{Impact of the number of chunks on syntactic and semantic paraphrase measures. 
+\caption[Impact of the number of chunks on paraphrase measures.]{Impact of the number of chunks on syntactic and semantic paraphrase measures. 
 Impact is reported as the absolute change between a single-chunk paraphrase and the maximum number of chunks. 
 Bold values indicate the largest observed changes. 
 Ideally, syntactic measures should be minimized, while semantic measures are maximized.}
@@ -45,7 +45,7 @@ Given that processing $n$ chunks with a two-step approach requires $2n$ API call
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Blog/Translation_metrics_plot_category_Blog.svg}
-    \caption{
+    \caption[Impact of the number of chunks on \dataBlog{} dataset.]{
     Average syntactic and semantic measures (shaded areas indicate standard deviation) for the translation-based paraphraser on the \dataBlog{} dataset. 
     Increasing the number of chunks reduces syntactic similarity.    
     }
@@ -55,7 +55,7 @@ Given that processing $n$ chunks with a two-step approach requires $2n$ API call
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Student_Essays/meta-llama-3.1-8b-instruct_metrics_plot_category_Student Essays.svg}
-    \caption{Average paraphrasing measures (shaded areas indicate standard deviation) for a LLAMA-based paraphraser on the \dataStudent{} dataset. 
+    \caption[Impact of the number of chunks on \dataStudent{} dataset.]{Average paraphrasing measures (shaded areas indicate standard deviation) for a LLAMA-based paraphraser on the \dataStudent{} dataset. 
     One-step paraphrasing is unaffected by the number of chunks.
     }
     \label{fig:abl_chunks_student_essays_llama}
