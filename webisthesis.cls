@@ -426,7 +426,7 @@
     \if\thesisweb0 \the\thesisfrontpageborn\fi\\[3em]
     \newcounter{supervisors}\makeatletter%
     \@for \name:=\the\thesissupervisors\do{%
-      \addtocounter{supervisors}{1}\arabic{supervisors}. %
+      \addtocounter{supervisors}{1}\nth{\value{supervisors}} %
       \the\thesisfrontpagesupervisor: \name \\%
     }%
     \makeatother\\[3em]%
