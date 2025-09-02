@@ -1,0 +1,131 @@
+\chapter{Two-Step Paraphrasing}
+\section{Extractor Prompts}
+\label{app:extractor_prompts}
+% bullet point
+\paragraph{Bullet point approach}
+\begin{quote}
+\textit{
+Summarize the text above in five to six short bullet points. 
+Respond ONLY with a JSON object in the following format: \\
+$\{$ \\
+\hspace{1em}"bullet\_points": "<list of bullet points>", \\
+\hspace{1em}"tone": "<tone>", \\
+\hspace{1em}"time\_period": "<time\_period>", \\
+\hspace{1em}"language\_register": "<register>", \\
+\hspace{1em}"target\_audience": "<target\_audience>", \\
+\hspace{1em}"genre": "<genre>" \\
+$\}$. 
+Do not use direct quotes.
+}
+\end{quote}
+
+
+% task
+\paragraph{Task approach}
+\begin{quote}
+\textit{
+Act as the author of the text above. From that perspective, infer your role or identity, the topic being addressed, and the purpose or instruction behind writing the text. 
+Combine these elements into a concise task prompt that you would give to an LLM to reproduce the text. 
+Respond ONLY with a JSON object in the following format: \\
+$\{$ \\
+\hspace{1em}"task": "<task>", \\
+\hspace{1em}"tone": "<tone>", \\
+\hspace{1em}"time\_period": "<time\_period>", \\
+\hspace{1em}"language\_register": "<register>", \\
+\hspace{1em}"target\_audience": "<target\_audience>", \\
+\hspace{1em}"genre": "<genre>" \\
+$\}$. 
+Do not use direct quotes.
+}
+\end{quote}
+
+
+% topic
+\paragraph{Topic approach}
+\begin{quote}
+\textit{
+Extract the topic, tone, time period, register, target audience, and genre from the text above. 
+Respond ONLY with a JSON object in the following format: \\
+$\{$ \\
+\hspace{1em}"topic": "<topic>", \\
+\hspace{1em}"tone": "<tone>", \\
+\hspace{1em}"time\_period": "<time\_period>", \\
+\hspace{1em}"language\_register": "<register>", \\
+\hspace{1em}"target\_audience": "<target\_audience>", \\
+\hspace{1em}"genre": "<genre>" \\
+$\}$. 
+Do not use direct quotes.
+}
+\end{quote}
+
+
+% title
+\paragraph{Title approach}
+\begin{quote}
+\textit{
+Find a concise title for the text and extract the tone, time period, register, target audience, and genre from the text above. 
+Respond ONLY with a JSON object in the following format: \\
+$\{$ \\
+\hspace{1em}"title": "<title>", \\
+\hspace{1em}"tone": "<tone>", \\
+\hspace{1em}"time\_period": "<time\_period>", \\
+\hspace{1em}"language\_register": "<register>", \\
+\hspace{1em}"target\_audience": "<target\_audience>", \\
+\hspace{1em}"genre": "<genre>" \\
+$\}$. 
+Do not use direct quotes.
+}
+\end{quote}
+
+
+\section{Generator Prompts}
+\label{app:generator_prompts}
+
+% bullet point
+\paragraph{Bullet point approach}
+\begin{minted}{python}
+prompt = "Write a text which covers the following items:\n" 
+    + "\n".join(f"- {bp}" for bp in bullet_points)
+\end{minted}
+
+% task
+\paragraph{Task approach}
+\begin{minted}[breaklines]{python}
+generator_prompt = "Write a text of about {l} words with a {tone} tone, a {genre} genre, in the {register} register for the target audience of {target_audience} and in the {time_period} time period, covering the following task:\n{task}. Do not use asterisks. Only output the text without any additional commentary.".format(
+            l=len(text.split()),
+            tone=tone,
+            genre=genre,
+            task=task,
+            time_period=time_period,
+            register=register,
+            target_audience=target_audience,
+        )
+\end{minted}
+
+% topic
+\paragraph{Topic approach}
+\begin{minted}[breaklines]{python}
+generator_prompt = "Write a text of about {l} words with a {topic} topic, {tone} tone, a {genre} genre, in the {register} register for the target audience of {target_audience} and in the {time_period} time period. Do not use asterisks. Only output the text without any additional commentary.".format(
+            l=len(text.split()),
+            tone=tone,
+            genre=genre,
+            topic=topic,
+            time_period=time_period,
+            register=register,
+            target_audience=target_audience,
+        )
+\end{minted}
+
+% title
+\paragraph{Title approach}
+\begin{minted}[breaklines]{python}
+generator_prompt = "Write a text of about {l} words with a {title} title, {tone} tone, a {genre} genre, in the {register} register for the target audience of {target_audience} and in the {time_period} time period. Do not use asterisks. Only output the text without any additional commentary.".format(
+            l=len(text.split()),
+            tone=tone,
+            genre=genre,
+            title=title,
+            time_period=time_period,
+            register=register,
+            target_audience=target_audience,
+        )
+\end{minted}

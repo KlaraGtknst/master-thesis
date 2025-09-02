@@ -1,0 +1,26 @@
+
+\chapter{Preprocessing Regular Expressions}
+\label{app:regex_preproc}
+
+\begin{table}[H]% extra page (usually for large figures/tables)
+  \caption{Overview of the regular expressions applied during text preprocessing. 
+            Each rule targets specific artefacts.}
+  \label{tab:regex}%
+  \centering\small
+  \begin{tabular}{@{}ll@{}} % use @{} to remove spacing; numbers should be right aligned
+    \toprule
+    \textbf{Description} & \textbf{Regular Expression}  \\
+    \midrule
+            html tags             & \verb|<[^>]+>| \\
+            play artifacts        & \verb|^[A-Z\s]+[.:]?$| \\
+            chapter artifacts     & \verb|^\s*Chapter\s+\w+.*\n\s*\n| \\
+            play artifacts        & \verb|\s*ACT\s+\w+\b\.?| \\
+                                  & \verb|^\s*SCENE\s+\w+\b\.?| \\
+                                  & \verb|\[(.*?)\]| $\rightarrow$ \verb|\1| \\
+                                  & \verb|_+"| \\
+            whitespace           & \verb|\s+| \\
+
+
+    \bottomrule
+  \end{tabular}
+\end{table}
