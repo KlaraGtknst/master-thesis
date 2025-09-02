@@ -11,6 +11,7 @@
 *.lot
 *.fdb_latexmk
 *.fls
+*.loa
 .DS_Store
 _minted-main/
 Exposé/
