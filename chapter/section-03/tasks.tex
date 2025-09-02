@@ -4,7 +4,7 @@ In this section we outline the main tasks of authorship analysis.
 We begin with the foundational problems of \ac{aa} and \ac{av}, before turning to derivative tasks such as \ac{llm} detection.
 
 \subsection{Authorship Attribution}
-\ac{aa} is the classical multi-class, single-label text classification task in which, given a set of candidate authors $A$ with known texts $K=\bigcup_{a\in A} K_a$, the goal is to determine which author wrote a disputed text $d \in U$~\citep{koppel_authorship_2004}. 
+\ac{aa} is the classical multi-class, single-label text classification task in which, given a set of candidate authors $A$ with known texts $K=\bigcup_{a\in A} K_a$, the goal is to determine which author wrote a disputed text $d \in U$, where $U$ is the set of texts of unknown authorship~\citep{koppel_authorship_2004,barlas_cross_domain_2020}. 
 In the closed-set setting, each $d \in U$ must be attributed to exactly one $a \in A$. 
 Variants such as cross-topic or cross-genre \ac{aa} introduce distributional shifts between training and test data, complicating the task~\citep{barlas_cross_domain_2020}.
 
