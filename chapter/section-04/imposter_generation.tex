@@ -2,7 +2,7 @@
 \label{sec:impostor_generation}
 
 % good \imps{}: hard negatives
-Following the notion introduced by \citet{koppel_determining_2014}, ideal \imp{} texts can be understood as hard negatives, i.e. documents not written by the candidate author, yet sufficiently similar in style to be difficult to distinguish from the candidate's own writing. 
+Following the notion introduced by \citet{koppel_determining_2014}, ideal \imp{} texts can be understood as hard negatives, i.e.\ documents not written by the candidate author, yet sufficiently similar in style to be difficult to distinguish from the candidate's own writing. 
 The quality of \imps{} directly affects model performance.
 If they are too different from the candidate text, models are trained on trivial contrasts, yielding \acp{fp}. 
 Conversely, if \imps{} are too similar to the candidate, the risk of \acp{fn} increases.
@@ -28,7 +28,7 @@ The model produces stylistic variants of the candidate's writing while maintaini
 The lack of a universally accepted definition of paraphrases complicates their generation and evaluation~\citep{gohsen_task_oriented_2024}. 
 In this work, paraphrases are considered suitable \imps{} when they preserve the topic, genre, and tone of the original text, introduce sufficient lexical and syntactic variation to prevent near-duplication, and allow limited semantic divergence including mild hallucinations.
 We propose two approaches to paraphrasing as displayed in \autoref{fig:paraphrasing_approaches}.
-We expect the \impAppr{} recall and accuracy scores to decrease while the precision scores increase, i.e. higher confidence in positive labelled text pairs, due to harder negatives leading to fewer positive predictions.
+We expect the \impAppr{} recall and accuracy scores to decrease while the precision scores increase, i.e.\ higher confidence in positive labelled text pairs, due to harder negatives leading to fewer positive predictions.
 
 \begin{figure}[h]
     \centering

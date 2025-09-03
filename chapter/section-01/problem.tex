@@ -13,12 +13,12 @@ Thus, instead of treating \ac{llm} detection as an isolated task, it is more con
 % specificity rather than generality
 Despite significant advances in \ac{av}, many existing approaches pursue generalized solutions, training a model once and applying it across domains. 
 Evidence shows that such models struggle in \ac{ood} settings, where topic or genre diverges from the training data. 
-This shortcoming motivates a shift toward scenario-specific solutions, i.e. models are trained anew for narrowly defined cases. 
+This shortcoming motivates a shift toward scenario-specific solutions, i.e.\ models are trained anew for narrowly defined cases. 
 Such single-case approaches enable more precise control over contextual factors and place greater emphasis on stylistic idiosyncrasies rather than domain-level variation.
 
 % AV
 Among the techniques developed for \ac{av}, the \impAppr{} by \citet{koppel_determining_2014} represents a particularly influential approach. 
-It introduces the idea of generating \imp{} texts, i.e. hard negatives used to sharpen the discrimination between genuine and false authorship matches. 
+It introduces the idea of generating \imp{} texts, i.e.\ hard negatives used to sharpen the discrimination between genuine and false authorship matches. 
 However, the method's effectiveness is limited by the quality and contextual adequacy of these \imp{} texts. 
 Previous work did not fully address how to construct challenging \imps{} via controlled contextual variables.
 

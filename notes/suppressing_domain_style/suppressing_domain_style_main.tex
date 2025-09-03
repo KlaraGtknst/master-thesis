@@ -19,7 +19,7 @@ They find that the character trigrams feature set is not robust in a cross-topic
 \citet{bischoff_importance_2020} propose an approach where they train with respect to the author labels, 
 and adversarially train on the texts with respect to their domain labels.
 They claim that this results in discriminative features for the task of \ac{aa} and in 
-indiscriminative for the text domain differences (i.e. domain-invariant author style features).
+indiscriminative for the text domain differences (i.e.\ domain-invariant author style features).
 In other words, their goal is to find a writing style encoder $w: \textbf{X} \to \textbf{W}$, 
 where $X$ is the input space of the text and $W$ is the output space of the style representations, 
 such that the author classifier $c_a: \textbf{W} \to Y_a$ is successful and 

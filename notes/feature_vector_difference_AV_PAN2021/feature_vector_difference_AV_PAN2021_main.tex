@@ -11,7 +11,7 @@ Hence, they model the problem as a binary classification task.
 \subsection{\ac{nltk} Library usage}
 They use \ac{nltk}'s \texttt{casual\_tokenize} method, which uses their \texttt{TweetTokenizer} to tokenize the documents.
 For \ac{pos} tagging, the use \ac{nltk}'s Perceptron Tagger.
-In order to generate a \todo{partial parse tree} (i.e. \ac{pos} chunks), they train a Maxent (Maximum Entropy) classifier.
+In order to generate a \todo{partial parse tree} (i.e.\ \ac{pos} chunks), they train a Maxent (Maximum Entropy) classifier.
 The parse trees are used to extract so-called syntactic dependency-based n-grams of \ac{pos} tags, i.e, stylometric features.
 
 \subsection{Sklearn Library usage}

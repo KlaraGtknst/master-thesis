@@ -22,7 +22,7 @@
 \end{definition}
 
 \begin{definition}
-    [Multi-author (i.e. Collaborative) publication]
+    [Multi-author (i.e.\ Collaborative) publication]
     Document with multiple authors \citep{bevendorff_smauc_2023}.
 \end{definition}
 
@@ -101,8 +101,8 @@
 \begin{definition}
     [Lexical features]
     Lexical features are common features used in stylometry.
-    They are character- (i.e. character (n-gram) frequency, ...) 
-    or word-based (i.e. average word~\citep{stein_intrinsic_2011}, sentence length~\citep{stein_intrinsic_2011,abbasi_writeprints_2008}, 
+    They are character- (i.e.\ character (n-gram) frequency, ...) 
+    or word-based (i.e.\ average word~\citep{stein_intrinsic_2011}, sentence length~\citep{stein_intrinsic_2011,abbasi_writeprints_2008}, 
     line length~\citep{abbasi_writeprints_2008}, word length distribution~\citep{abbasi_writeprints_2008}, 
     vocabulary richness~\citep{abbasi_writeprints_2008,neal_surveying_2018} ...) features. 
     These features consider text as a mere sequence of word-tokens or characters, respectively \citep{stamatatos_survey_2009}.
@@ -203,7 +203,7 @@
 
 \begin{definition}
     [Plagiarism detection]
-    The task of identifying plagiarized text \citep{stein_intrinsic_2011}, i.e. finding similarities between two texts \citep{stamatatos_survey_2009}.
+    The task of identifying plagiarized text \citep{stein_intrinsic_2011}, i.e.\ finding similarities between two texts \citep{stamatatos_survey_2009}.
     Plagiarism detection uses similarity detection, determining whether multiple pieces of work were produced by a single author 
     without necessarly identifying the author \citep{elmanarelbouanani_authorship_2014}.
 \end{definition}
@@ -219,13 +219,13 @@
 
 \begin{definition}
     [Authorship analysing]
-    This problem devises into two \textcolor{orange}{(i.e. first two acc. to \citep{stein_intrinsic_2011}, all acc. to \citep{stamatatos_survey_2009})} subtasks \citep{stein_intrinsic_2011}:
+    This problem devises into two \textcolor{orange}{(i.e.\ first two acc. to \citep{stein_intrinsic_2011}, all acc. to \citep{stamatatos_survey_2009})} subtasks \citep{stein_intrinsic_2011}:
     \begin{itemize}
         \item \ac{aa} \citep{stein_intrinsic_2011}
         \item \ac{av} \citep{stein_intrinsic_2011,stamatatos_survey_2009}
         \item Plagiarism detection \citep{stamatatos_survey_2009}
         \item Author profiling \citep{stamatatos_survey_2009}
-        \item Detection of stylistic inconsistencies (i.e. in collaborative writing) \citep{stamatatos_survey_2009}
+        \item Detection of stylistic inconsistencies (i.e.\ in collaborative writing) \citep{stamatatos_survey_2009}
     \end{itemize}
 \end{definition}
 
@@ -249,7 +249,7 @@
     where each author has training samples of at least 1000 words \citep{neal_surveying_2018}.
     Many candidate authors impede the \ac{aa} problem.
     Models that abstain in uncertain many candidates scenarios still achieve good results \citep{llm_detection_av_2025}.
-    $k$-attribution/ ranking (i.e. relaxed \ac{aa}, where the classifier output the top $k$ authors ranked by their probability of being the author of the text), 
+    $k$-attribution/ ranking (i.e.\ relaxed \ac{aa}, where the classifier output the top $k$ authors ranked by their probability of being the author of the text), 
     cross-domain/ cross-genre \ac{aa} (i.e., identify author $M$ of document written in domain $A$, while only having documents from $m$ in domain $B$ and thus, 
     features of domain $B$ must be applicable to domain $A$), 
     and source code \ac{aa} 
@@ -277,7 +277,7 @@ Common classifiers include \ac{svm}, decision trees, and \acp{nn} \citep{elmanar
     \begin{itemize}
         \item stylometry
         \item outlier analysis and meta learning
-        \item symbolic knowledge representation, i.e. \todo{knownledge representation, deduction, heuristic inference}
+        \item symbolic knowledge representation, i.e.\ \todo{knownledge representation, deduction, heuristic inference}
     \end{itemize}
     \citet{tyo_state_2022} state that \ac{av} is the fundamental problem of \ac{aa} \citep{tyo_state_2022}, 
     where there is only one candidate author \citep{barlas_cross_domain_2020}.
@@ -288,7 +288,7 @@ Common classifiers include \ac{svm}, decision trees, and \acp{nn} \citep{elmanar
     It is impossible to assemble an exhaustive, or even representative samples of the non-target class \citep{koppel_authorship_2004}.
     \ac{av} is different from usual one-class classification problems, in which there is a lack of negative examples (opposed to non-representative ones), 
     and in which the text to attribute is not necessarily long (opposed to \citet{koppel_authorship_2004}'s paper).
-    \citet{neal_surveying_2018} consider \ac{av} a binary classification problem (i.e. \textit{same-author} or \textit{different-author}), 
+    \citet{neal_surveying_2018} consider \ac{av} a binary classification problem (i.e.\ \textit{same-author} or \textit{different-author}), 
     where \textit{different-author} renders \ac{av} as an open-set problem.
     However, \citet{neal_surveying_2018} consider framing \ac{av} as a one-class classification problem as a common approach (cf. \citep{llm_detection_av_2025}).
     \citet{elmanarelbouanani_authorship_2014} consider \ac{av} a similarity detection task.
@@ -371,7 +371,7 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     Provided that the unseen text is very large, this method can handle small open candidate sets \citep{koppel_authorship_2011}.
     % koppel_determining_2014, pg. 1 + bevendorff_generalizing_2019 chap. 3.1 incl. algo: based on text chunks of length >= 500 words each
     \citet{koppel_determining_2014,bevendorff_generalizing_2019} claim that effective unmasking requires input documents to be large 
-    (i.e. > 10000 words~\citep{koppel_determining_2014}, book-length~\citep{bevendorff_generalizing_2019}, 
+    (i.e.\ > 10000 words~\citep{koppel_determining_2014}, book-length~\citep{bevendorff_generalizing_2019}, 
     $\geq$ 5000 words (500 words per chunk) \citep{bevendorff_divergence_based_2020}).
     Otherwise the training set becomes too sparse and no descriptive curves can be generated 
     \citep{bevendorff_generalizing_2019,bevendorff_divergence_based_2020}.
@@ -392,7 +392,7 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 \begin{definition}
     [One-class classification]
     A classification problem where the classifier is trained on samples of a single class.
-    If counterexamples, i.e. so-called outliers, are available, they are usually not considered to be representative of \textit{non-target class}.
+    If counterexamples, i.e.\ so-called outliers, are available, they are usually not considered to be representative of \textit{non-target class}.
     Hence, the classifier has to learn the concept of the target class in the absence of discriminating features 
     \citep{stein_intrinsic_2011,koppel_authorship_2004}.
     Examples of one-class classification are intrinsic plagiarism analysis and \ac{av}.
@@ -475,7 +475,7 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     [Topic-confusion]
     In this setting, all topics appear in both training and test set. 
     However, the topics of the texts for each author changes in the test set, 
-    i.e. author-topic configuration is switched between training and testing.
+    i.e.\ author-topic configuration is switched between training and testing.
     For example, in the training set, the author $A_1$ writes about topic $T_1$, author $A_2$ writes about topic $T_2$ 
     and in the test set, 
     the author $A_1$ writes about topic $T_2$ while author $A_2$ writes about topic $T_1$ \citep{tyo_state_2022,altakrori_topic_2021}.
@@ -498,7 +498,7 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 
 \begin{definition}
     [\impAppr{}]
-    This method extends the ngram-unmasking method, i.e. iteratively omitting most influencely features (repeated feature subsampling \citep{koppel_determining_2014})
+    This method extends the ngram-unmasking method, i.e.\ iteratively omitting most influencely features (repeated feature subsampling \citep{koppel_determining_2014})
     from a trained classifier and classifying the accuracy drop.
     It takes score of how often an author is predicted after each feature-elimination step.
     The final prediction is made based on this score \citep{tyo_state_2022}.
@@ -530,7 +530,7 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     [Style transfer]
     Translation or rather paraphrasing a text from a source style to a desired target style \citep{bischoff_importance_2020} without altering its semantics \citep{gohsen_task_oriented_2024}.
     Two major problems include the lack of large-scale parallel training data (i.e., texts written in both styles), 
-    and the lack of reliable evaluation metric (i.e. assessment by humans) \citep{bischoff_importance_2020}.
+    and the lack of reliable evaluation metric (i.e.\ assessment by humans) \citep{bischoff_importance_2020}.
 \end{definition}
 
 \begin{definition}
@@ -588,11 +588,11 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 
 \begin{definition}
     [train-test-validation split]
-    \citet{bischoff_importance_2020,altakrori_topic_2021,boenninghoff_o2d2_2021} train their model on a selection of the dataset (i.e. training set), 
-    optimize the model's hyperparameters on a second disjoint selection of the dataset (i.e. validation set),
-    and evaluate the model on a third disjoint selection of the dataset (i.e. test set).
+    \citet{bischoff_importance_2020,altakrori_topic_2021,boenninghoff_o2d2_2021} train their model on a selection of the dataset (i.e.\ training set), 
+    optimize the model's hyperparameters on a second disjoint selection of the dataset (i.e.\ validation set),
+    and evaluate the model on a third disjoint selection of the dataset (i.e.\ test set).
     \citet{bischoff_importance_2020} ensure that there is no data leakage between the training, validation and test sets 
-    (i.e. prevent parts of one fanfiction being in more than one of the data splits).
+    (i.e.\ prevent parts of one fanfiction being in more than one of the data splits).
     \citet{altakrori_topic_2021} ensure the classifier to be trained has no access to any information about the setup 
     (topic confusion: group configuration or topic labels).
 \end{definition}
@@ -600,7 +600,7 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 \begin{definition}
     [Cross-domain]
     Texts of known authorship (training set) differ from texts of disputed authorship (test set) 
-    in topic (i.e. cross-topic) or genre (i.e. cross-genre) 
+    in topic (i.e.\ cross-topic) or genre (i.e.\ cross-genre) 
     \citep{barlas_cross_domain_2020}.
 \end{definition}
 
@@ -701,14 +701,14 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     Texts that convey identical meanings/semantic information while using different words (wording) or (sentence) structures 
     \citep{fu_learning_2024,zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024,gohsen_captions_2023,gohsen_task_oriented_2024,bevendorff_divergence_based_2020}.
     There is no universal definition of paraphrases, rather two categories of definitions: 
-    Semantically equivalent (i.e. exactly the same meaning) and 
-    semantically similar paraphrases (i.e. not strictly semantically equivalent) \citep{gohsen_task_oriented_2024}.
+    Semantically equivalent (i.e.\ exactly the same meaning) and 
+    semantically similar paraphrases (i.e.\ not strictly semantically equivalent) \citep{gohsen_task_oriented_2024}.
     \citet{bevendorff_divergence_based_2020} explicitly states that the goal is to maximize the paraphrases' style difference to the refernce text.
 \end{definition}
 
 \begin{definition}
     [Quasi-Paraphrases]
-    Texts that have similar meanings using different words, i.e. approximate equivalents \citep{zhou_paraphrase_2025}.
+    Texts that have similar meanings using different words, i.e.\ approximate equivalents \citep{zhou_paraphrase_2025}.
 \end{definition}
 
 \begin{definition}
@@ -719,7 +719,7 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 \begin{definition}
     [Attention mechanism]
     Attention allows the model to focus on particular words/phrases in the input sequence when generating the output sequence.
-    First, a weight (i.e. importance) for each token in the source sequence in each timestep is computed.
+    First, a weight (i.e.\ importance) for each token in the source sequence in each timestep is computed.
     Then, both the text input and the context vector with weights is provided to the decoder \citep{zhou_paraphrase_2021}.
 \end{definition}
 
@@ -788,7 +788,7 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
 \begin{definition}
     [Transfer learning]
     Transfer learning is a machine learning technique where a model trained on a data-rich task is 
-    reused as the starting point (i.e. finetuning) for a model on a second task (i.e. downstream task) \citep{palivela_optimization_2021}.
+    reused as the starting point (i.e.\ finetuning) for a model on a second task (i.e.\ downstream task) \citep{palivela_optimization_2021}.
 \end{definition}
 
 \begin{definition}
@@ -888,5 +888,5 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     %     PPL(x) = \exp\left(-\frac{1}{N}\sum_{i=1}^{N}\log p(x_i | x_{<i})\right)
     % \end{equation}
     The likelihood is the probability of generating the next word, given all previous words in the sequence, 
-    i.e. $p(x_i | x_{<i})$~\citep{zhang_llmdet_2023}.
+    i.e.\ $p(x_i | x_{<i})$~\citep{zhang_llmdet_2023}.
 \end{definition}

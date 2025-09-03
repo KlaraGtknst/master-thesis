@@ -68,7 +68,7 @@ and for a score $>0.5$, the model predicts the right text to be human.
 A score of exactly 0.5 means the model abstains from the sample \citep{bevendorff_overview_2024,kocher_unine_2015}.
 
 % model metrics
-They defined the effectiveness of the systems, i.e. models, as the arithmetic mean of the metrics defined in \autoref{sec:pan_evaluation}, 
+They defined the effectiveness of the systems, i.e.\ models, as the arithmetic mean of the metrics defined in \autoref{sec:pan_evaluation}, 
 where each metric is $\in [0, 1]$.
 They correct all metrics by discounting half a standard deviation, estimated on each dataset individually, 
 from the system's scores \todo{with $n-1$ degrees of freedom}.
@@ -76,7 +76,7 @@ This penalizes unstable systems with widely varying scores on the individual dat
 and promotes systems more robust to the dataset variants' alterations, including text obfuscation and modification.
 Finally, they computed the macro-averaged scores across all datasets since they consider all datasets evenly important 
 (even those with fewer number of examples).
-With regard to the leader board, i.e. ranking of the approaches, they computed a \todo{mean score correlation coefficient (Kendall's $\tau$)}.
+With regard to the leader board, i.e.\ ranking of the approaches, they computed a \todo{mean score correlation coefficient (Kendall's $\tau$)}.
 
 % dataset metrics
 They defined the difficulty of the datasets as the inverse mean effectiveness score of the detection systems.

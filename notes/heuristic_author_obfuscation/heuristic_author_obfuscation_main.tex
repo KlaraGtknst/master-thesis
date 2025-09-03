@@ -34,7 +34,7 @@ $$KLD(P\mid \mid Q) = \sum_{i}^{}P[i] log\frac{P[i]}{Q[i]}$$
 where $P,Q$ are the discrete probability distribution corresponding to the relative frequencies of character 3-grams in the 
 to-be-obfuscated text and the known texts respectively.
 For true probability distributions, the \ac{kld} is always non-negative.
-However, the \ac{kld} is not symmetric, i.e. $KLD(P\mid \mid Q) \neq KLD(Q\mid \mid P)$.
+However, the \ac{kld} is not symmetric, i.e.\ $KLD(P\mid \mid Q) \neq KLD(Q\mid \mid P)$.
 Moreover, it is only defined for distributions $P,Q$ where $Q[i] = 0$ implies $P[i] = 0$ (which yields zero summands).
 % Jensen-Shannon divergence
 To overcome \ac{kld}'s shortcomings, 
@@ -75,7 +75,7 @@ The problem is defined as potentially infinite space with possible (text) states
 in which each state is reachable from one or multiple nodes in a graph spanned over the entire space by operators.
 Edges are labelled with the cost of the operator.
 The task is to find a minimum-cost path from a starting node to a node that satisfies a pre-determined goal condition 
-(i.e. sufficient obfuscation).
+(i.e.\ sufficient obfuscation).
 Applying an operator has highly non-linear effects on the text quality and may restrict the set of applicable operators in the same text.
 They define the informed heuristic search A*.
 

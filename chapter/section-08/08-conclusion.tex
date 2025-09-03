@@ -46,7 +46,7 @@ By pursuing these directions, future research can address the weaknesses identif
 % With the recent advances of \ac{nlg} come new challenges in text authorship.
 % The new technologies may be misused for fraudulent activities to scam naive or inexperienced users~\citep{uchendu_authorship_2020,bhattacharjee_fighting_2024}.
 % \citet{uchendu_authorship_2020} identified three authorship tasks essential for fighting fraudulent activities:
-% (1) Given two texts $t_1$ and $t_2$, determine whether they were produced by the same method (i.e. human author or a specific \ac{nlg} method).
+% (1) Given two texts $t_1$ and $t_2$, determine whether they were produced by the same method (i.e.\ human author or a specific \ac{nlg} method).
 % (2) Given a text $t$, determine whether it was human authored or machine generated (Turing Test).
 % (3) Given a text $t$, find its author among $k+1$ candidates, which consists of one human and $k$ machines.
 % They compare classical \ac{ml} models, neural models and state-of-the-art \ac{aa} models as classifiers 
@@ -55,7 +55,7 @@ By pursuing these directions, future research can address the weaknesses identif
 % but some \acp{llm} proved difficult to detect.
 % %%% compared to our work
 % In the following, we consider (1) \ac{av}, (2) classical \ac{llm} detection, and (3) closed-set \ac{aa}.
-% Our approach differs from the work of \citet{uchendu_authorship_2020} in that our candidates (i.e. \imps{}) do not include a human author (3), 
+% Our approach differs from the work of \citet{uchendu_authorship_2020} in that our candidates (i.e.\ \imps{}) do not include a human author (3), 
 % but only \acp{llm}.
 % Moreover, we use different classifiers originally designed for \ac{av}, rather than \ac{aa}.
 
@@ -79,7 +79,7 @@ By pursuing these directions, future research can address the weaknesses identif
 % %% DetectGPT: Perturb (Mask), score, compare (unsupervised)
 % \citet{mitchell_detectgpt_2023} propose DetectGPT, a method that is threefold:
 % (1) They perturb the input text by (1.1) masking out random 2-word spans until 15 \% of the text is masked. 
-% Masked spans are replaced (1.2) with words from an off-the-shelf (i.e. not finetuned to target domain) \ac{llm} (e.g. T5-3B). 
+% Masked spans are replaced (1.2) with words from an off-the-shelf (i.e.\ not finetuned to target domain) \ac{llm} (e.g. T5-3B). 
 % These perturbations are semantically similar paraphrases of the original text.
 % (2) They score (in terms of log probability) each perturbed text using a scoring \ac{llm} 
 % (ideally their candidate \ac{llm}, but it works also with any \ac{llm}, though scores deteriorate). 
@@ -88,16 +88,16 @@ By pursuing these directions, future research can address the weaknesses identif
 % (5) Based on a threshold $\epsilon=0.1$, classify the original text as human authored or machine generated 
 % (formally Local Perturbation Discrepancy Gap hypothesis).
 % If $d$ is positive, the original text is likely machine generated.
-% If $d$ is near zero, i.e. $d < \epsilon$, the original text is likely human authored.
+% If $d$ is near zero, i.e.\ $d < \epsilon$, the original text is likely human authored.
 % \citet{mitchell_detectgpt_2023} motivate their method by the observation that generated texts tend to occupy 
-% negative curvature regions of the model's log probability function (i.e. they lie on the local maximum of the manifold).
+% negative curvature regions of the model's log probability function (i.e.\ they lie on the local maximum of the manifold).
 % When the text is machine generated, it lies on a local maximum, 
 % and perturbing it will lead to lower log probabilities of perturbed texts.
 % When the text is human authored, it does not lie on a local maximum to begin with, 
 % rendering log probabilities of perturbed texts similar either bigger or smaller than the original text.
 % Averaging the log probabilities of perturbed human texts leads to a value that is 
-% close to the original text's log probability (i.e. a perturbation discrepancy $d$ near zero).
-% Even though, DetectGPT works best when the source (i.e. generating) \ac{llm} and the scoring \ac{llm} are the same 
+% close to the original text's log probability (i.e.\ a perturbation discrepancy $d$ near zero).
+% Even though, DetectGPT works best when the source (i.e.\ generating) \ac{llm} and the scoring \ac{llm} are the same 
 % (requires white-box access to the \ac{llm}), 
 % it works also with different \acp{llm} as surrogate for the source model when scoring (in a black-box case).
 % %%% compared to our work
@@ -109,7 +109,7 @@ By pursuing these directions, future research can address the weaknesses identif
 % Both approaches try to sample from the probability distribution of the source model either 
 % by using \imps{} (via prompting an \ac{llm}) or by perturbing the original text (using an \ac{llm}).
 % %%%% input
-% While the \impAppr{} is an \ac{av} task (i.e. input is a disputed and a candidate text), 
+% While the \impAppr{} is an \ac{av} task (i.e.\ input is a disputed and a candidate text), 
 % DetectGPT receives a disputed text and a candidate \ac{llm} as input.
 % %%%% similarity measure
 % While we use a similarity measure on traditional n-gram frequency vectors, 
@@ -125,13 +125,13 @@ By pursuing these directions, future research can address the weaknesses identif
 % Change is measured by the edit distance between the original text and the rewritten text. 
 % \citet{mao_raidar_2024} propose using an edit distance based on the Levenshtein distance or \ac{bow} representations.
 % RAIDAR operates on character level rather than using deep neural network features, and it does not require the original generating model for classification. 
-% RAIDAR fails to detect \ac{llm} generated texts in out-of-distribution scenarios (i.e. different domains than training), 
+% RAIDAR fails to detect \ac{llm} generated texts in out-of-distribution scenarios (i.e.\ different domains than training), 
 % or when \ac{llm} were explicitly instructed to produce text prone to heavy \ac{llm} modification when being asked to rewrite the text \citep{li_learning_2025}.
 % Based on RAIDAR (\citep{mao_raidar_2024}), \citet{li_learning_2025} propose fine-tuning an \ac{llm} to rewrite human authored texts more than machine generated text.
 % Classification is carried out by comparing the edit distance of the original text and the rewritten text to a threshold.
 % \citet{li_learning_2025} admit that their approach is slow in inference time, 
 % since a candidate text has to be rewritten multiple times (about 200 different prompts) to obtain a reliable score.
-% \citet{mao_raidar_2024} find that the quality of perturbation based models (i.e. rewriting) for \ac{llm} detection correlates with the perturbation model size.
+% \citet{mao_raidar_2024} find that the quality of perturbation based models (i.e.\ rewriting) for \ac{llm} detection correlates with the perturbation model size.
 % \citet{mitchell_detectgpt_2023} find a negative correlation (\textcolor{red}{TODO: chapter 2 vorletzter Absatz}) between the size of the perturbation model and the performance of DetectGPT.
 % %%% compared to our work
 % %%%% generation of texts during inference
@@ -139,7 +139,7 @@ By pursuing these directions, future research can address the weaknesses identif
 % We do not fine-tune an \ac{llm} for paraphrasing but use off-the-shelf models (like RAIDAR).
 % %%%% similarity measure
 % All these approaches compute the similarity of the original text and the generated text.
-% However, we do not use edit distance (i.e. Levenshtein distance) as similarity measure.
+% However, we do not use edit distance (i.e.\ Levenshtein distance) as similarity measure.
 % %%%% limitations
 % This approach is unable to detect which \ac{llm} generated the text.
 
@@ -148,7 +148,7 @@ By pursuing these directions, future research can address the weaknesses identif
 % Unfortunately, perplexity requires access to \acp{llm}' parameters (i.e., white-box detection).
 % \citet{wu_llmdet_2023} propose LLMDet, a method that uses a proxy to perplexity, 
 % where a dictionary of frequent n-gram (frequent among $n$ randomly prompted generated texts per \ac{llm}) 
-% next token probabilities is pre-computed (i.e. requiring access to the \ac{llm}), 
+% next token probabilities is pre-computed (i.e.\ requiring access to the \ac{llm}), 
 % and is subsequently used during inference to approximate perplexity by replacing $x_{<i}$ in $p(x_i | x_{<i})$ with an n-gram.
 % Since the construction of the dictionary requires access to the \ac{llm}, LLMDet requires contribution of the closed-source model owners.
 % The disputed text is tokenized and the proxy perplexity is calculated for each model and thus, constructing a proxy perplexity vector.
@@ -168,9 +168,9 @@ By pursuing these directions, future research can address the weaknesses identif
 % This approach is similar to our approach in that it uses \acp{llm} to generate paraphrases of the original text.
 % Moreover, it compares the original text to the generated paraphrases as in a \ac{aa} problem. % rather AI detection?????
 % %%%% similarity measure
-% We do not use BLEU or METEOR as similarity measure, nor do we compare directly on paraphrase-level (i.e. BLEU calculates n-gram overlap) 
+% We do not use BLEU or METEOR as similarity measure, nor do we compare directly on paraphrase-level (i.e.\ BLEU calculates n-gram overlap) 
 % but construct our own frequency based n-gram vectors input vector similarity metrics.
 % %%%% they discard information, solve another problem
 % However, this approach discards the information which \ac{llm} produced the most similar paraphrase. 
-% While our goal is to solve an \ac{aa} problem (i.e. multiclass classification), 
-% \citet{baradia_mirror_2025} solve a binary classification problem (i.e. human vs. \ac{ai} generated text).
+% While our goal is to solve an \ac{aa} problem (i.e.\ multiclass classification), 
+% \citet{baradia_mirror_2025} solve a binary classification problem (i.e.\ human vs. \ac{ai} generated text).
