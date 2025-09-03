@@ -20,14 +20,14 @@ $$ author(x) = argmax_{a \in A} \frac{P(x|a)}{P(x|\overline{a})} $$
 where the conditional probabilities are estimated by $x_a$ for author $a$ and the rest of the texts, respectively \citep{stamatatos_survey_2009}.
 Naive Bayes is a variant of this probabilistic  classifier \citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.
 \citet{elmanarelbouanani_authorship_2014} describe a Naive Bayes classifier that takes a feature vector of 365 normalized function word frequencies.
-% compression models, e.g. RAR or GZIP (more info Paper)
+% compression models, e.g. \ac{rar} or GZIP (more info Paper)
 Compression models are based on the idea that the text of one author can be compressed more efficiently than the text of multiple authors.
 The new text is concatenated with the author profile and then compressed.
 The differences between the compressed concatenation with the unseen text and compressed author profiles without the unseen text are computed 
 \citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.
 The author profile with the lowest difference is selected as the predicted author \citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
-Tested compression algorithms include RAR, LZW, GZIP, BZIP2 and 7ZIP. 
-RAR is the most accurate one \citep{elmanarelbouanani_authorship_2014}.
+Tested compression algorithms include \ac{rar}, LZW, GZIP, BZIP2 and 7ZIP. 
+\ac{rar} is the most accurate one \citep{elmanarelbouanani_authorship_2014}.
 \citet{elmanarelbouanani_authorship_2014} include the Normalized Compressor Distance (NCD) as a distance measure for compression-based methods. % Chap. 4.2
 \citet{stamatatos_survey_2009} claim that probabilistic approaches are faster in comparison to compression models.
 \citet{neal_surveying_2018} state that LZ77 is a lossless data compression algorithm that is used to compress data by detecting duplicates.
