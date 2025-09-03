@@ -4,50 +4,31 @@ To assess the validity of our extension to the traditional \impAppr{}, we first 
 For this purpose, we designed two experiments, which we ran on a subset of 100 pairs from the training and test sets of the \dataBlog{} and \dataStudent{} dataset respectively. 
 Half of the selected samples belong to the same-author class.
 
+\begin{table}[h]
+\centering\small
+\caption{Exp.\ 1: \impAppr{} configuration.}
+\label{tab:config_exp1}
+\begin{tabular}{@{}rrlrrl@{}}   % numbers should be right aligned, text left aligned
+\toprule
+Experiment & \# Impostors & Generation & Rounds & Top $n$ & Upsample \\
+\midrule
+1(a) & \textit{Variable} & Fixed & 100 & \num{100000} & False \\
+1(b) & 50 & \textit{Variable} & 100 & \num{100000} & False \\
+\bottomrule
+\end{tabular}%
+\end{table}
+
 \paragraph{Exp.\ 1(a): Varying number of \imps{}.}
 The first experiment evaluates the effect of varying the number of \imps{} while setting the \imp{} generation method to \texttt{fixed}.
-All other hyperparameter values are set to the default values reported by \citet{koppel_determining_2014} (cf. Table~\ref{tab:repr_exp1}). 
+All other hyperparameter values are set to the default values reported by \citet{koppel_determining_2014} (cf. Table~\ref{tab:config_exp1}). 
 Adhering \citet{koppel_determining_2014}, we compute precision and recall scores across different thresholds.
 \textcolor{orange}{For comparison, reference precision-recall points reported by \citet{koppel_determining_2014} are included in our visualization.} 
 Based on their description, we deduced that their reported scores were obtained using the \dataBlog{} dataset.
 
-
-\begin{table}[h]
-\centering\small
-\caption{Exp.\ 1(a): \impAppr{} configuration.}
-\label{tab:repr_exp1}
-\begin{tabular}{@{}llrrl@{}}   % numbers should be right aligned, text left aligned
-\toprule
-\# Impostors & Generation & Rounds & Top $n$ & Upsample \\
-\midrule
-\textit{Variable} & Fixed & 100 & \num{100000} & False \\
-\bottomrule
-\end{tabular}%
-\end{table}
-
-% Exp 1c: find best threshold via different metrics
-% A detector instance was trained on each training set, and the optimal decision threshold was determined using Youden's J statistic. 
-% This threshold was then applied to the 15 test set pairs to generate final predictions, which were summarized in a confusion matrix.
-
-% We also considered using thresholds that maximized alternative metrics, such as the F1 score, but rejected this approach because it produced imbalanced detector classifications. 
-
 \paragraph{Exp.\ 1(b): Varying \imp{} generation.}
 The second experiment evaluates different \imp{} generation methods while keeping the number of \imps{} fixed.
-Again, all other hyperparameter values are set to the default values reported by \citet{koppel_determining_2014} (cf. Table~\ref{tab:repr_exp2}). 
+Again, all other hyperparameter values are set to the default values reported by \citet{koppel_determining_2014} (cf. Table~\ref{tab:config_exp1}). 
 Following \citet{koppel_determining_2014}, we compare the \texttt{fixed} and \texttt{on-the-fly} \imp{} generation methods with the baseline approaches unsupervised min-max similarity, unsupervised cosine similarity, and supervised linear \ac{svm}.
-
-\begin{table}[h]
-\centering\small
-\caption{Exp.\ 1(b): \impAppr{} configuration.}
-\label{tab:repr_exp2}
-\begin{tabular}{@{}rlrrl@{}}   % numbers should be right aligned, text left aligned
-\toprule
-\# Impostors & Generation & Rounds & Top $n$ & Upsample \\
-\midrule
-50 & \textit{Variable} & 100 & \num{100000} & False \\
-\bottomrule
-\end{tabular}%
-\end{table}
 
 As in the first experiment, precision and recall are used as the primary evaluation metrics. 
 Consistent with \citet{koppel_determining_2014}, we calculate precision and recall with respect to both the same-author and different-author class, alternately treating each as the reference class.
