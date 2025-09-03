@@ -48,7 +48,7 @@ The $F_1$ score from \autoref{eq:bert_f1} is computed based on precision and rec
     F_1 = \frac{2 P_{BERT} R_{BERT}}{P_{BERT} + R_{BERT}} 
 \label{eq:bert_f1}
 \end{equation}
-Since $F_1 \in \left[-1,1\right]$ it can be rescaled to $[0,1]$ to improve score readability by modifying the precision and recall calculation 
+Since $F_1 \in \left[\text{-}1,1\right]$ it can be rescaled to $[0,1]$ to improve score readability by modifying the precision and recall calculation 
 to $\hat{P}_{BERT} = \frac{P_{BERT} - a}{1 - a}$ ($R_{BERT}$ analogous), where $a$ is the empirical lower bound on the BERTScore \citep{zhang_bertscore_2020,hanna_fine_grained_2021}.
 
 % BERTScore correlates with human judgment at the semantic level \citep{kurt_pehlivanoglu_comparative_2024}, although it may struggle when lexically overlapping but semantically incorrect candidates are present \citep{hanna_fine_grained_2021}.
@@ -71,7 +71,7 @@ To transform document $d$ to document $d'$, (1) the outgoing flow from word $i$ 
 The distance between document $d$ and document $d'$ is the minimum cumulative cost required to move all words from $d$ to $d'$, i.e. $\sum_{i,j}T_{i,j}c(i,j)$, where $c(i,j)$ is the cost of travelling from word $i$ to word $j$~\citep{kusner_wmd_15}.
 
 
-\subsubsection{Gohsen $\Delta_{sem,syn}$}
+\subsubsection{Semantic–Syntactic Measure}
 
 \citet{gohsen_captions_2023} introduce $\Delta_{sem,syn}$ to facilitate the interpretation of paraphrasing scores.
 First, all syntactic and semantic measures are normalized to a scale from zero to one.

@@ -94,15 +94,15 @@ Based on these findings, we collected eight preprocessing steps we deemed potent
 Notably, we do not consider actor instructions (e.g., character cues) or structural elements (e.g., chapter headings) as part of authorial style.
 Hence, we remove these patterns using regular expressions.
 You may find the regular expression attached in \autoref{app:regex_preproc} of \autoref{ch:appendix}.
-Note that the perceived utility of these steps should reevaluated for other datasets.
+Note that the perceived utility of these steps should be reevaluated for other datasets.
 Next, we analysed the effect of individual preprocessing steps on vocabulary size.  
 We define the vocabulary of a dataset as unique tokens across all texts (regardless of their text length or split) of that dataset.
 In line with \citep{koppel_determining_2014}, tokens are space-free character 4-grams.
 We leave the capitalization of tokens unchanged. 
-The results displayed in \autoref{fig:preprocesing_impact_vocab_size}.
+The results are displayed in \autoref{fig:preprocesing_impact_vocab_size}.
 
 We found that HTML-specific preprocessing steps had minimal impact on the size of vocabularies.
-Similarly, removing play artefacts hardly changed the vocabulary size.
+Similarly, the removal of artefacts specific to theatre plays had little effect on the overall vocabulary size.
 The results aligned with expectations, as the vocabularies are defined over space-free 4-gram units that, due to their limited length, exhibit a high likelihood of redundancy.
 Consequently, repetitive patterns are mapped on the same vocabulary item.
 Once the repetitive patterns are filtered out, the vocabulary lacks their respective items, which are not many.
@@ -132,7 +132,7 @@ All datasets include both same-author and different-author pairs.
 For \dataBlog{}, pairs were constructed such that the two texts share the same topic, year, gender, and age (the latter referencing the author). 
 The training set comprises 80\% of the data and the test set 20\%, with different topics assigned to each split.
 
-For \dataStudent{}, as per \citep{koppel_determining_2014}, all text pairs are drawn from the different tasks, such that authors share the same sex, ethnicity, and political orientation. 
+For \dataStudent{}, as per \citet{koppel_determining_2014}, all text pairs are drawn from the different tasks, such that authors share the same sex, ethnicity, and political orientation. 
 Pairs were assigned to either the training (70\%) or test (30\%) set. 
 The test portion for \dataStudent{} is larger than that for \dataBlog{} because each author typically contributes only one essay per task and if only a single task were included in the test set, no same-author pairs could be formed. 
 

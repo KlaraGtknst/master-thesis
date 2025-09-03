@@ -1,4 +1,4 @@
-\subsection{Exp. 2: Comparison of Different Paraphrasers}
+\subsection{Exp.\ 2: Comparison of Different Paraphrasers}
 \label{subsec:comp_paraphrasers_setup}
 
 Next, we wanted to assess our paraphrasing approaches.
@@ -6,10 +6,10 @@ We hence designed two experiments.
 The first experiment computes state-of-the-art paraphrasing measures for all paraphrasers on different datasets.
 The second experiments aim to evaluate the ability of our two-step models to adhere to instructions.
 We tested their proficiency extracting metadata and generating paraphrases of similar length as the reference text.
-While the \dataBlog{} ground truth metadata comes with its csv dataset, the \dataStudent{} metadata is derived from existing information about and in the dataset, and the \dataGutenberg{} metadata is manually curated.
+While the \dataBlog{} ground truth metadata comes with its CSV dataset, the \dataStudent{} metadata is derived from existing information about and in the dataset, and the \dataGutenberg{} metadata is manually curated.
 We decide to exclude the \dataPan{} dataset from this experiment because manually curating metadata for \dataPan{} sample is not feasible.
 
-\paragraph{Exp. 2(a): Quantitative evaluation.}
+\paragraph{Exp.\ 2(a): Quantitative evaluation.}
 
 We select one text from the \dataBlog{}, the \dataGutenberg{} and the \dataStudent{} dataset, respectively.
 For the \dataGutenberg{} dataset, we load ground truth metadata. % Student Essay: not used, even though existent
@@ -17,10 +17,10 @@ The paraphraser configurations contain two different temperatures for two-step p
 We create one paraphrase for each text configuration pair.
 Evaluation measures include BLEU, ROUGE1, ROUGE2, ROUGEL, ROUGELsum, METEOR, BERTScore Precision, BERTScore Recall, BERTScore F1, SBERT \ac{wms}, SBERT cosine similarity.
 Based on these we also compute average syntactic and average semantic similarity, as well as Gohsen Delta $\Delta_{sem,syn}$~\citep{gohsen_captions_2023}.
-We save the extremest (min, max) paraphrases per metric.
+We save the most extrem (min, max) paraphrases per metric.
 The scores are subsequently visualized via syntactic-semantic scatters, score distributions, and radar plots per paraphraser and per prompt. 
 
-\paragraph{Exp. 2(b): Evaluation of prompt adherence.}
+\paragraph{Exp.\ 2(b): Evaluation of prompt adherence.}
 For the second experiment, we selected five samples each from the \dataBlog{}, \dataGutenberg{}, and \dataStudent{} datasets. 
 Our \pextractor{} identifies the genre, topic, and century of each input text. 
 Both extracted and ground truth values are lowercased and stripped of leading and trailing whitespace. 

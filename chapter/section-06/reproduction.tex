@@ -1,5 +1,5 @@
 
-\section{Exp. 1: Reproduction of Original Work}
+\section{Exp.\ 1: Reproduction of Original Work}
 
 Our first experiment covers the reproduction of the original results attached in \citet{koppel_determining_2014}'s paper.
 It is noteworthy, that we do not expect exact replication since we could only reimplement the approach to our best knowledge.
@@ -8,9 +8,9 @@ Unfortunately, the code was no longer traceable and neither author could recall 
 After consultation with Mr. Winter, he assured that our preprocessing steps seem reasonable.
 This, however, certainly is one of the reasons why our implementation diverges from the original work.
 
-\paragraph{Exp. 1(a): Varying number of \imps{}.}
+\paragraph{Exp.\ 1(a): Varying number of \imps{}.}
 
-For this experiment, we set the \imp{} generation method to \texttt{fix} and vary only the number of \imps{}.
+For this experiment, we generate \imps{} using the fix method, while varying only the number of \imps{}.
 \citet{koppel_determining_2014} only report results of this experiment on the \dataBlog{} dataset.
 Unlike the original curves, our \impAppr{} recall-precision curves intersect.
 This suggests that \citet{koppel_determining_2014}'s results were better separated.
@@ -37,14 +37,15 @@ Although the form of the original precision-recall plot differs, we find that 50
 \end{figure}
 
 
-\paragraph{Exp. 1(b): Varying \imp{} generation.}
+\paragraph{Exp.\ 1(b): Varying \imp{} generation.}
 
-Adhereing to \citet{koppel_determining_2014}, we compare the \impAppr{} for \texttt{fixed}, and \texttt{on-the-fly} \imp{} generation with \ac{svm}, and similarity based baselines.
-They consider both the same-author and the different-authors class the reference class once.
+Adhering to \citet{koppel_determining_2014}, we compare the \impAppr{} for fixed, and on-the-fly \imp{} generation with \ac{svm}, and similarity based baselines.
+Each class is treated as the positive (reference) class once, with the other class serving as the negative class. 
+This choice affects how the evaluation scores are computed.
 The original work reports the results for the \dataBlog{} dataset only.
 % original results
 \citet{koppel_determining_2014}'s recall-precision curves suggest that fixed \imp{} generation is superior to on-the-fly \imp{} generation.
-In the original work, minimal \imp{} generation recall value were higher for the different-author reference class than for the same-author reference class counterpart.
+In the original work, minimal \imp{} generation recall value were higher for the different-author reference class (around $0.625$ for fixed and $0.58$ for on-the-fly) than for the same-author reference class counterpart (around $0.38$ for fixed and $0.22$ for on-the-fly).
 \Imp{} generation precision values behaved oppositional, since all approaches perform better in the same-author reference setting than in the different-author reference scenario.
 These findings are due to the facts that \ac{av} is an open-set one-class problem.
 Hence, the different-author class is ill-defined due to the lack of representatives.
@@ -55,7 +56,7 @@ Both \citet{koppel_determining_2014} and us find that fixed \imp{} generation ou
 Other than that, our recall-precision curves differ from the original.
 In the different-author reference scenario, all but on-the-fly generation have low precision values with fixed \imps{} performing the worst. 
 Low precision means many \acp{fp}, or in this case, many same author pairs which were predicted as different authors.
-This suggests, that different-author reference scenario is difficult and that most \imps{} are too hard. 
+This suggests that different-author reference scenario is difficult and that most \imps{} are too hard. 
 
 Opposed to the original work of \citet{koppel_determining_2014}, our on-the-fly \imps{} lack difficulty explaining the low precision in the same-author and the high precision in the different-author scenario.
 Since we had to reduce the number of test samples for on-the-fly \imp{} generation due to API call limits, we suggest analysing this approaches' results with a grain of salt.

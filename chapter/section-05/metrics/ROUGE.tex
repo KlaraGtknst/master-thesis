@@ -8,7 +8,7 @@ Several variants exist, including \ac{rouge}-N, which computes n-gram recall, an
 \ac{rouge}-N is an n-gram recall between the candidate text $c$ and the reference text $r$~\citep{lin_rouge_2004}.
 Since we only consider single reference scenarios we use the simpler version for one reference in \autoref{eq:rouge_n}.
 \begin{equation}
-    ROUGE-N = \sum_{s \in r}\sum_{n-gram \in s} \frac{Count_{match}(n-gram)}{Count(n-gram)}
+    \text{ROUGE-N} = \sum_{s \in r}\sum_{n-gram \in s} \frac{Count_{match}(n-gram)}{Count(n-gram)}
 \label{eq:rouge_n}
 \end{equation}
 Both the nominator and the denominator iterate over all n-grams in all sentences of the reference, i.e. ground truth, text.
@@ -36,7 +36,7 @@ R_{lcs} = \frac{LCS(r,c)}{m},
 \end{equation}
 
 \begin{equation}
-ROUGE-L = \frac{(1 + \beta^2)R_{lcs}P_{lcs}}{R_{lcs} + \beta^2 P_{lcs}},
+\text{ROUGE-L} = \frac{(1 + \beta^2)R_{lcs}P_{lcs}}{R_{lcs} + \beta^2 P_{lcs}},
 \label{eq:rouge_l}
 \end{equation}
 

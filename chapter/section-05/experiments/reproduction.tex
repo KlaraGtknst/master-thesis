@@ -1,10 +1,10 @@
-\subsection{Exp. 1: Reproduction of Original Work}
+\subsection{Exp.\ 1: Reproduction of Original Work}
 
 To assess the validity of our extension to the traditional \impAppr{}, we first verified the correctness of our implementation. 
 For this purpose, we designed two experiments, which we ran on a subset of 100 pairs from the training and test sets of the \dataBlog{} and \dataStudent{} dataset respectively. 
 Half of the selected samples belong to the same-author class.
 
-\paragraph{Exp. 1(a): Varying number of \imps{}.}
+\paragraph{Exp.\ 1(a): Varying number of \imps{}.}
 The first experiment evaluates the effect of varying the number of \imps{} while setting the \imp{} generation method to \texttt{fixed}.
 All other hyperparameter values are set to the default values reported by \citet{koppel_determining_2014} (cf. Table~\ref{tab:repr_exp1}). 
 Adhering \citet{koppel_determining_2014}, we compute precision and recall scores across different thresholds.
@@ -14,7 +14,7 @@ Based on their description, we deduced that their reported scores were obtained 
 
 \begin{table}[h]
 \centering\small
-\caption{Exp. 1(a): \impAppr{} configuration.}
+\caption{Exp.\ 1(a): \impAppr{} configuration.}
 \label{tab:repr_exp1}
 \begin{tabular}{@{}llrrl@{}}   % numbers should be right aligned, text left aligned
 \toprule
@@ -31,14 +31,14 @@ Based on their description, we deduced that their reported scores were obtained 
 
 % We also considered using thresholds that maximized alternative metrics, such as the F1 score, but rejected this approach because it produced imbalanced detector classifications. 
 
-\paragraph{Exp. 1(b): Varying \imp{} generation.}
+\paragraph{Exp.\ 1(b): Varying \imp{} generation.}
 The second experiment evaluates different \imp{} generation methods while keeping the number of \imps{} fixed.
 Again, all other hyperparameter values are set to the default values reported by \citet{koppel_determining_2014} (cf. Table~\ref{tab:repr_exp2}). 
 Following \citet{koppel_determining_2014}, we compare the \texttt{fixed} and \texttt{on-the-fly} \imp{} generation methods with the baseline approaches unsupervised min-max similarity, unsupervised cosine similarity, and supervised linear \ac{svm}.
 
 \begin{table}[h]
 \centering\small
-\caption{Exp. 1(b): \impAppr{} configuration.}
+\caption{Exp.\ 1(b): \impAppr{} configuration.}
 \label{tab:repr_exp2}
 \begin{tabular}{@{}rlrrl@{}}   % numbers should be right aligned, text left aligned
 \toprule
@@ -51,4 +51,4 @@ Following \citet{koppel_determining_2014}, we compare the \texttt{fixed} and \te
 
 As in the first experiment, precision and recall are used as the primary evaluation metrics. 
 Consistent with \citet{koppel_determining_2014}, we calculate precision and recall with respect to both the same-author and different-author class, alternately treating each as the reference class.
-We note that the different-author class if ill-defined as \ac{av} is a one-class classification problem.
+We note that the different-author class is ill-defined, as \ac{av} constitutes a one-class classification scenario in which covering representative instances of this class is infeasible.

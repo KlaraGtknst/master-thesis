@@ -10,7 +10,9 @@ When the first module is exact matching, all possible mappings of candidate word
 Although valid alignments may restrict each unigram to a single mapping, multiple mappings are allowed in this initial stage. 
 In the second stage, the best subset of unigram mappings is selected according to cardinality and minimal crossing. 
 Unigrams that have not yet been mapped are then eligible for alignment using the next module in order, such as Porter-stemmed matching or synonym matching, producing multiple sets of mappings between candidate and reference. 
-From the resulting alignments, METEOR computes the weighted $F$-score as defined in \autoref{eq:meteor}, where unigram precision $P$ and unigram recall $R$ correspond to the fractions of candidate unigrams mapped to reference unigrams relative to the total number of candidate and reference unigrams, respectively~\citep{banerjee_METEOR_2005}.
+From the resulting alignments, METEOR computes a weighted $F$-score, as defined in \autoref{eq:meteor}. 
+In this formulation, unigram precision $P$ is the fraction of candidate unigrams that are mapped to reference unigrams relative to the total number of candidate unigrams. 
+Conversely, unigram recall $R$ is the fraction of candidate unigrams that are mapped to reference unigrams relative to the total number of reference unigrams~\citep{banerjee_METEOR_2005}.
 
 \begin{equation}
     METEOR = F_{mean} = \frac{10 \cdot P \cdot R}{R + 9P} \cdot (1 - Penalty)

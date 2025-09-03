@@ -1,4 +1,4 @@
-\subsection{Exp. 3: Paraphrasing Chunks}
+\subsection{Exp.\ 3: Paraphrasing Chunks}
 \label{subsec:paraphrasing_chunks}
 
 We designed this experiment to evaluate whether chunk-to-chunk paraphrases exhibit better control than text-to-text paraphrases, since chunks contain fewer topic changes than whole texts in theory.
@@ -25,7 +25,7 @@ These steps account for a minimum of 936 API calls for paraphrasing.
 Each component of the configuration is displayed in \autoref{fig:chunks_api_calls}.
 Finally, for each paraphrase, we compute BLEU, ROUGE1, ROUGE2, ROUGEL, ROUGELsum, METEOR, BERTScore Precision, BERTScore Recall, BERTScore F1, SBERT \ac{wms}, SBERT cosine similarity.
 Scores for chunks of a text are averaged per configuration to obtain the final score for a text, number of chunks, configuration triple.
-The adequat formula is given in \autoref{eq:avg_chunks} and an example is illustrated in \autoref{fig:mean-bleu}.
+The adequate formula is given in \autoref{eq:avg_chunks} and an example is illustrated in \autoref{fig:mean-bleu}.
 
 \begin{equation}
     score(t) = \frac{1}{\#\text{ chunks}}\sum_{i=1}^{\#\text{ chunks}}score(c_i)\text{, for chunk }c_i \in \text{text }t

@@ -1,12 +1,12 @@
 \paragraph{\ac{bleu}}
 \ac{bleu}~\citep{papineni_bleu_2001} was originally developed for machine translation~\citep{zhou_paraphrase_2021,anantha_pearson_metrics_2021}. 
 \ac{bleu}'s basic unit of evaluation is a sentence. 
-\ac{bleu} is based on precision, i.e. computing the fraction of generated n-grams $n-gram \in \mathcal{C}$ that appear in any reference text~\citep{kurt_pehlivanoglu_comparative_2024,palivela_optimization_2021,papineni_bleu_2001,anantha_pearson_metrics_2021}. 
+\ac{bleu} is based on precision, i.e. computing the fraction of generated n-grams $n\text{-}gram \in \mathcal{C}$ that appear in any reference text~\citep{kurt_pehlivanoglu_comparative_2024,palivela_optimization_2021,papineni_bleu_2001,anantha_pearson_metrics_2021}. 
 To prevent inflated precision scores $p_n$ due to repetition of frequent tokens (e.g. "the"), \ac{bleu} introduces a clipping mechanism $Count_{match}(.)$ that caps the count of n-grams at their maximum reference frequency~\citep{papineni_bleu_2001}. 
 Precision $p_n$ for $n \in \mathbb{N}_{>0}$ is given by \autoref{eq:bleu}.
 
 \begin{equation}
-    p_n = \sum_{\mathcal{C} \in \left\{ Candidates \right\}}\sum_{n-gram \in\mathcal{C}} \frac{Count_{match}(n-gram)}{Count(n-gram)}
+    p_n = \sum_{\mathcal{C} \in \left\{ Candidates \right\}}\sum_{n\text{-}gram \in\mathcal{C}} \frac{Count_{match}(n\text{-}gram)}{Count(n\text{-}gram)}
 \label{eq:bleu}
 \end{equation}
 
