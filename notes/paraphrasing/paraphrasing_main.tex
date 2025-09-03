@@ -168,7 +168,7 @@ It can take values from 0 to 1 \citep{papineni_bleu_2001}.
 BLEU is a precision measure \citep{kurt_pehlivanoglu_comparative_2024,papineni_bleu_2001}.
 It counts the matching n-grams (unigrams) in the generated/candidate text that appear in any of the gold/ reference texts \citep{palivela_optimization_2021,papineni_bleu_2001}, 
 and then divides them by the total number of n-grams (unigrams) in the candidate text \citep{papineni_bleu_2001}.
-Since candidates consisting only of high-probability n-grams (e.g. "the") would receive a high score without deserving it, 
+Since candidates consisting only of high-probability n-grams (e.g.\ "the") would receive a high score without deserving it, 
 \citet{papineni_bleu_2001} introduced a clipping mechanism to limit the count of n-grams in the candidate text to the maximum count of that n-gram in any of the reference texts.
 The clipped n-grams occurences are added up and divided by the total number of unclipped n-grams in the candidate text \citep{papineni_bleu_2001}.
 \citet{papineni_bleu_2001} state that unigrams are used to test adequacy, while longer n-grams are used to test fluency.
@@ -355,9 +355,9 @@ Popular paraphrase categories include \citep{fu_learning_2024}:
 \end{itemize}
 \citet{zhou_paraphrase_2025} (pg. 3, tab.1, and examples afterwards) define a topology of paraphrase types:
 \begin{itemize}
-    \item Morphology based: inflection changes (e.g. singular to plural), derivation changes (e.g. adjective to verb), functional word substitution (e.g. this to that).
-    \item Lexicon based: Same polarity substitution (e.g. synonym), opposite polarity substitution (e.g. antonym), converse substitution (e.g. opposite view point), spelling changes, synthetic/ analytic substitution, relational substitution
-    \item Syntax based: Negation switching (i.e.\ other negation), diathesis alternation (e.g. change position of verb), etc.
+    \item Morphology based: inflection changes (e.g.\ singular to plural), derivation changes (e.g.\ adjective to verb), functional word substitution (e.g.\ this to that).
+    \item Lexicon based: Same polarity substitution (e.g.\ synonym), opposite polarity substitution (e.g.\ antonym), converse substitution (e.g.\ opposite view point), spelling changes, synthetic/ analytic substitution, relational substitution
+    \item Syntax based: Negation switching (i.e.\ other negation), diathesis alternation (e.g.\ change position of verb), etc.
     \item Discourse based: Indirect/direct substitutions, sentence modality changes, punctuation changes, etc.
     \item Other changes: Change of order, change of format, etc.
 \end{itemize}

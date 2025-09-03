@@ -1,33 +1,24 @@
 % appendix
 \section{Exp.\ 6: Comparing \acs{av} Methods in Different Scenarios}
 \label{sec:app_detection_scenarios}
-
-% \begin{figure}[htbp]
-% \centering
-%     \includesvg[width=\linewidth]{}
-%   \caption{Accuracy curves for the class same-author across different threshold on artificially augmented \dataStudent{} dataset. 
-%   }
-%   \label{fig:human-human_acc}
-% \end{figure}
-
-
-\begin{figure}[htbp]
+\FloatBarrier
+\begin{figure}[H]
   \centering
-  \begin{subfigure}[b]{0.52\textwidth}
+  \begin{subfigure}[b]{0.82\textwidth}
     \centering
     \includesvg[width=\linewidth]{images/AV_comparison/detection_scenarios/recall/student_essays_Human-Human_threshold_recalls_curves_all_incl_baselines.svg}
     \caption{Human-Human}
     \label{fig:detec_scen_human-human_recall}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[b]{0.52\textwidth}
+  \begin{subfigure}[b]{0.82\textwidth}
     \centering
     \includesvg[width=\linewidth]{images/AV_comparison/detection_scenarios/recall/student_essays_Human-LLM_threshold_recalls_curves_all_incl_baselines.svg}
     \caption{Human-\ac{llm}}
     \label{fig:detec_scen_human-llm_recall}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[b]{0.52\textwidth}
+  \begin{subfigure}[b]{0.82\textwidth}
     \centering
     \includesvg[width=\linewidth]{images/AV_comparison/detection_scenarios/recall/student_essays_LLM-LLM_same_threshold_recalls_curves_all_incl_baselines.svg}
     \caption{\ac{llm}-\ac{llm}}
