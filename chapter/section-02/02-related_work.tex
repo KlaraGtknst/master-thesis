@@ -15,7 +15,7 @@ The \impAppr{} utilizes hard negative texts to distinguish same- and different a
 % CLEF
 Reacting to advances in \ac{gai}, more advanced methods emerge from Voight-Kampff, a shared task combining \acs{pan} or \ac{eloquent} at \ac{clef} into an adversarial \ac{gai} \ac{av} task.
 \acs{pan} participants built a detector, while \ac{eloquent} built systems that should fool the detectors into believing the machine generated texts were human authored.
-\acs{pan} 2024 baselines included estimating text perplexities (for perturbated texts), and self-similarity assessments via \unmasking{} or \ac{ppmd} approaches for chunks of the text.
+\acs{pan} 2024 baselines included estimating text perplexities (for perturbated texts) and self-similarity assessments via \unmasking{} or \ac{ppmd} approaches for chunks of the text.
 \acs{pan} 2024 submissions included BERT based models with classifiers or generation probability prediction (similar to the baseline), as well as direct discriminators or LoRA \acp{llm}.
 Most approaches proved unable to generalize across domains indicating that their approaches encoded domain-specific information~\citep{bevendorff_overview_2024}.
 
@@ -52,7 +52,7 @@ Since text distortion has previously proven effective in cross-domain scenarios~
 
 % BERT: uitility for AV?
 Neural \ac{av} models often employ transformer-based architectures such as BERT. 
-Although BERT is known to strongly encode topical information~\citep{sawatphol_cross-topic_av_24}, it can still be effective in specific applications. 
+Although BERT is known to strongly encode topical information~\citep{sawatphol_cross_topic_av_24}, it can still be effective in specific applications. 
 For example, transformer-based models have successfully distinguished the direct speech of different characters in novels~\citep{michel_fictional_2024}. 
 In this setting, the characters inherently reflect the style of the novel’s author, meaning that the primary distinguishing factor between texts is semantic rather than stylistic.
 
@@ -82,7 +82,7 @@ However, unlike \citet{li_learning_2025}, we do not fine-tune an \ac{llm} for pa
 These methods also generally compute the similarity between the original and generated texts. 
 Unlike them, we do not use conventional metrics such as edit distance, BLEU, or METEOR, nor do we perform comparisons at the paraphrase level (e.g., BLEU measures n-gram overlap). 
 Instead, we construct frequency-based n-gram vectors and apply similarity metrics.
-Finally, a limitation of these approaches is that they cannot distinguish \ac{llm} produced a given text.
+Finally, a limitation of these approaches is their inability to identify which \ac{llm} generated a given text.
 
 % Paraphrasing 
 Paraphrasing undermines detectors while also offering methodological utility. 

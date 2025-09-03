@@ -8,8 +8,8 @@ Confounders are problematic because they influence the very features used to cha
 Topical vocabulary, for example, can dominate lexical distributions, while genre-specific conventions shape syntax. 
 As these factors cannot be cleanly separated from genuine stylistic markers~\citep{bischoff_importance_2020}, they obscure the style markers.
 
-If topics can be represented by characteristic word distributions, authors choose a subset of words, i.e. document, according to their idiosyncratic preferences in synonym choice~\citep{altakrori_topic_2021}. 
-Consequently, texts from the same author across different topics may appear unrelated, while texts from different authors on the same topic may appear deceptively similar.
+If topics can be represented by characteristic word distributions, then a document can be seen as a subset of words selected by the author, reflecting individual preferences in synonym choice~\citep{altakrori_topic_2021}. 
+Consequently, texts by the same author on different topics may appear unrelated, whereas texts by different authors on the same topic may seem deceptively similar.
 
 Empirical evidence confirms the severity of this problem.
 Both contemporary \acp{av} methods~\citep{Thomas_cross_topic_24}, and \ac{llm} detection approaches, such as DetectGPT~\citep{mitchell_detectgpt_2023,Wu_ODD_challenges_2025} suffer significant performance degradation in \ac{ood} scenarios.
@@ -18,4 +18,4 @@ As a result, authorship research has diverged into two main directions.
 One line of work aims to identify domain-invariant features, a challenge that remains largely unresolved~\citep{bischoff_importance_2020}. 
 The other focuses on \ac{id} scenarios, in which confounding factors are deliberately controlled. 
 While restricting tasks to a single topic or genre does not fully eliminate the entanglement between content and style, it reduces its impact sufficiently to produce stable and interpretable results. 
-Moreover, some studies indicate that simply using domain or topic labels is insufficient to control for topic similarity in corpora, as this approach ignores semantic relationships between topics~\citep{sawatphol_cross-topic_av_24}.
+Moreover, some studies indicate that simply using domain or topic labels is insufficient to control for topic similarity in corpora, as this approach ignores semantic relationships between topics~\citep{sawatphol_cross_topic_av_24}.

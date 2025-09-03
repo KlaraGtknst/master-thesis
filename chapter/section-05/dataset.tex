@@ -23,8 +23,10 @@ Researchers seeking access to the \dataStudent{} dataset should contact J. W. Pe
 The dataset comprises \num{7052} student essays written for five assignments by a cohort of 950 university students in 2006~\citep{koppel_determining_2014}.
 
 The assignments include (1) a stream-of-consciousness task, (2) a reflections on childhood, (3) a self-assessment of personality, (4) a thematic apperception test, and (5) four examples of four different theories.
-Most files are named solely by the author ID, whereas those from the first assignment follow the format \texttt{2006\_authorID}.
+% Most files are named solely by the author ID, whereas those from the first assignment follow the format \texttt{2006\_authorID}.
 Following \citet{koppel_determining_2014}, our dataset is built from the first four assignments. 
+The dataset provides metadata both collected from structured columns in the \texttt{.dat} files and derived from file names, which we combined into a unified resource. 
+Metadata includes year, author ID, author name, political orientation, task, sex, ethnicity, and teacher.
 
 
 \subsection{Additional Data}
@@ -64,7 +66,7 @@ Metadata for these works was manually extracted from the Project Gutenberg websi
 % % }
 % \end{table}
 
-We augment the \dataStudent{} dataset with artificial generated texts and denote dataset \dataArtificialStudent{}.
+We augment the \dataStudent{} dataset with artificial generated texts and denote this dataset \dataArtificialStudent{}.
 It contains pairs of student essays written in response to different academic assignments. 
 The dataset includes both human-written essays and artificially generated paraphrases created by \acp{llm} to simulate student writing. 
 Each pair is labelled as same-author or different-author, and identifies whether the text was generated artificially. 
@@ -75,7 +77,7 @@ Artificially generated essays are produced using \acp{llm} prompted to emulate a
 
 To control confounding factors that influence authorial style, we preprocess each dataset twice:
 (1) Prior to generating arrow dataset file and (2) before using the \impAppr{}.
-This two-stage approach addresses both experimental scenarios, where all material is prepared in advance, and inference scenarios in which the \impAppr{} model is applied directly to texts.
+This two-stage approach addresses both experimental scenarios, where all material is prepared in advance, and inference scenarios in which the \impAppr{} is applied directly to texts.
 The preprocessing process was designed to meet the following requirements:
 \begin{enumerate}
     \item Removal of all formatting and layout information to produce plain text
@@ -84,10 +86,9 @@ The preprocessing process was designed to meet the following requirements:
 \end{enumerate}
 For a controlled evaluation environment in our \impAppr{}, we opted to work with relatively small, curated datasets rather than scaling to larger collections.  
 Consequently, text-length filter are essential to create optimal testbeds for \ac{av}.
-
 To determine the necessary preprocessing steps, we examined our datasets and analysed their respective artefacts.
 
-Since both the \dataBlog{} and the \dataPan{} dataset originate from the Internet, some of their documents contain HTML fragments such as \texttt{< >} enclosed texts.
+Since both the \dataBlog{} and the \dataPan{} dataset originate from the Internet, some of their documents contain HTML fragments such as \texttt{< >} enclosed tags.
 Upon inspection of the \dataGutenberg{} dataset, we found that certain patterns reappear due to the presences of many plays.
 Based on these findings, we collected eight preprocessing steps we deemed potentially useful. 
 Notably, we do not consider actor instructions (e.g., character cues) or structural elements (e.g., chapter headings) as part of authorial style.
