@@ -40,6 +40,6 @@ R_{lcs} = \frac{LCS(r,c)}{m},
 \label{eq:rouge_l}
 \end{equation}
 
-There is also a summary-level \ac{lcs} \ac{rouge} variant which computes \ac{rouge}-Lsum via summing over the union \ac{lcs} matches $LCS_\cup(r_i,C)$ between the reference summary sentences $r_i, i \in [1,u]$ and every candidate sentence $c_j, j \in [1,v]$.
+\ac{rouge}-Lsum is a summary-level \ac{lcs} \ac{rouge} variant summing over the union \ac{lcs} matches $LCS_\cup(r_i,C)$ between the reference summary sentences $r_i, i \in [1,u]$ and every candidate sentence $c_j, j \in [1,v]$.
 The total number of words in the references and candidates is $m$ and $n$, respectively.
 While the formula for the final score $F_{lcs}$ from \autoref{eq:rouge_l} remains the same, the computation of precision and recall replace $LCS(r,c)$ by $\sum_{i=1}^{u}LCS_\cup(r_i,C)$.

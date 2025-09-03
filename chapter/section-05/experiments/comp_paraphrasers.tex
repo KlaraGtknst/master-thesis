@@ -1,4 +1,4 @@
-\subsection{Exp.\ 2: Comparison of Different Paraphrasers}
+\subsection{Exp.\ 2: Comparison of Paraphrasers}
 \label{subsec:comp_paraphrasers_setup}
 
 Next, we wanted to assess our paraphrasing approaches.
@@ -15,7 +15,7 @@ We select one text from the \dataBlog{}, the \dataGutenberg{} and the \dataStude
 For the \dataGutenberg{} dataset, we load ground truth metadata. % Student Essay: not used, even though existent
 The paraphraser configurations contain two different temperatures for two-step paraphrasers, and two different prompts for one-step paraphrasers.
 We create one paraphrase for each text configuration pair.
-Evaluation measures include BLEU, ROUGE1, ROUGE2, ROUGEL, ROUGELsum, METEOR, BERTScore Precision, BERTScore Recall, BERTScore F1, SBERT \ac{wms}, SBERT cosine similarity.
+Evaluation measures include BLEU, ROUGE1, ROUGE2, ROUGEL, ROUGE\-Lsum, METEOR, BERT\-Score Precision, BERT\-Score Recall, BERT\-Score F1, SBERT \ac{wms}, SBERT cosine similarity.
 Based on these we also compute average syntactic and average semantic similarity, as well as Gohsen Delta $\Delta_{sem,syn}$~\citep{gohsen_captions_2023}.
 We save the most extrem (min, max) paraphrases per metric.
 The scores are subsequently visualized via syntactic-semantic scatters, score distributions, and radar plots per paraphraser and per prompt. 

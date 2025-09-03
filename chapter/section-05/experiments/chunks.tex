@@ -23,7 +23,7 @@ Each one-step paraphraser is paired with two prompts, while each two-step paraph
 Third, each chunk is paraphrased with all configurations.
 These steps account for a minimum of 936 API calls for paraphrasing.
 Each component of the configuration is displayed in \autoref{fig:chunks_api_calls}.
-Finally, for each paraphrase, we compute BLEU, ROUGE1, ROUGE2, ROUGEL, ROUGELsum, METEOR, BERTScore Precision, BERTScore Recall, BERTScore F1, SBERT \ac{wms}, SBERT cosine similarity.
+Finally, for each paraphrase, we compute BLEU, \ac{rouge}-1, \ac{rouge}-2, \ac{rouge}-L, \ac{rouge}-Lsum, METEOR, BERT\-Score Precision, BERT\-Score Recall, BERT\-Score F1, SBERT \ac{wms}, SBERT cosine similarity.
 Scores for chunks of a text are averaged per configuration to obtain the final score for a text, number of chunks, configuration triple.
 The adequate formula is given in \autoref{eq:avg_chunks} and an example is illustrated in \autoref{fig:mean-bleu}.
 

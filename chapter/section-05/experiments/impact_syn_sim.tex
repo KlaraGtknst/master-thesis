@@ -22,7 +22,7 @@ For generation, we loop through all \ac{llm}-based paraphrasers until we success
 One-step paraphrasers are used with both prompts.
 Predictions on the test set were obtained by thresholding the detector’s scores with a decision threshold was determined using Youden’s J statistic on the training set.
 We computed the average syntactic similarity on the test set. 
-Following \citet{gohsen_captions_2023}, we define average syntactic similarity $\diameter_{syn}$ as the mean of the \ac{bleu}, ROUGE-1, and ROUGE-L scores. 
+Following \citet{gohsen_captions_2023}, we define average syntactic similarity $\diameter_{syn}$ as the mean of the \ac{bleu}, \ac{rouge}-1, and \ac{rouge}-L scores. 
 For each input pair in the test set, we calculated
 (1) the average syntactic similarity between the two texts in the pair, (2) the mean average syntactic similarity between the candidate reference text and its paraphrases, and (3) the mean average syntactic similarity between the disputed text and the paraphrases.
 
