@@ -65,11 +65,12 @@ Similarly, \citet{ramnath_cave_xai_llm_2025} report hallucinations and issues of
 Due to the lack of human written explanations for \ac{av} decisions, they created a silver dataset with GPT-4-Turbo as an oracle and subsequently using it to train their CAVE model on.
 All biases present in GPT-4-Turbo therefore propagate to CAVE.
 
-\citet{nogueira_doc2query_2019} propose Doc2query, a document expansion strategy designed to mitigate the effects of missing relevant documents in keyword-based information retrieval caused by term mismatch. 
-Their method employs a sequence-to-sequence transformer model that predicts a query given an input document. 
-Although their approach targets information retrieval rather than our application, the use of a pre-trained model to extract the query a human might ask based on a document is conceptually similar to our \pextractor{} in the two-step paraphrasing framework. 
-However, Doc2query focuses only on generating a few relevant points rather than capturing a comprehensive representation of the document. 
-Therefore, our approach extends this idea by aiming to extract a more complete and informative representation suitable for paraphrase generation.
+\citet{nogueira_doc2query_2019} introduce Doc2query, a document expansion method addressing term mismatch in keyword-based information retrieval by predicting queries from documents using a sequence-to-sequence transformer. 
+Instead of producing a full document representation, Doc2query generates a single query that captures only a few salient points. 
+In a related direction, \citet{lee_gecko_2024} propose Gecko, a transformer-based \ac{lm} distilled from \acp{llm}, which uses query and task generation for finetuning. 
+Unlike our approach, their generated queries are not constrained to the input text but are designed to retrieve documents that better answer the query than the original text itself. 
+While both methods focus on information retrieval, they share with our framework the idea of extracting plausible human queries from documents. 
+Our two-step paraphrase generation component \pextractor{} extends this idea by aiming for a more complete and document-specific representation.
 
 Other detection methods also make use of rewriting. 
 Paraphrases can be generated through rule-based or thesaurus-driven substitutions, by means of monolingual machine translation~\citep{zhou_paraphrase_2021}, or by explicitly prompting generative T5 or GPT models~\citep{kurt_pehlivanoglu_comparative_2024}.
