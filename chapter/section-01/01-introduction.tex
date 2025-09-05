@@ -14,7 +14,7 @@ To guide this objective, we formulate the following research questions:
     By generating paraphrases with \acp{llm} that control genre, topic, and other contextual factors, similarity measures in the \imp{} method primarily emphasize differences in authorial style rather than content.
     However, the threshold of syntactic similarity at which paraphrases are attributed to the candidate author remains unclear, potentially reducing detection accuracy.
     We design an experiment comparing simple one-step and advanced two-step \ac{llm} paraphrasing techniques against traditional baselines using standard classification metrics.
-    Additionally, we analyse how syntactic similarity between the candidate reference and \ac{llm}-generated paraphrases affects detection performance.
+    Additionally, we analyse how syntactic similarity between the candidate reference and \ac{llm}-generated paraphrases affects detection effectiveness.
     % We obtain this controlled environment by utilizing \acp{llm} to paraphrase the original text.
     % There are different approaches to paraphrasing text using \acp{llm}.
     % They include (a) directly asking the \ac{llm} to paraphrase the text, 
@@ -60,7 +60,7 @@ The main contributions of this thesis are as follows:
 \begin{itemize}
     \item We reimplemented the traditional \impAppr{}~\citep{koppel_determining_2014} (cf. \autoref{sec:impostor_method_theory}).
     \item We developed an implementation of \ac{llm}-based \imp{} generation (cf. \autoref{sec:impostor_generation}). 
-    \item To evaluate the use of \acp{llm} for generating hard negative \imps{}, we conducted an empirical assessment focusing on (a) the \textcolor{red}{influence of syntactic similarity between the reference candidate and the paraphrase}, and (b) performance relative to traditional \imp{} generation techniques proposed by \citet{koppel_determining_2014} (cf. \autoref{sec:res_syn_sim_impact} and \autoref{sec:results_trad_av}/ \ref{enum:rq1})
+    \item To evaluate the use of \acp{llm} for generating hard negative \imps{}, we conducted an empirical assessment focusing on (a) the \textcolor{red}{influence of syntactic similarity between the reference candidate and the paraphrase}, and (b) effectiveness relative to traditional \imp{} generation techniques proposed by \citet{koppel_determining_2014} (cf. \autoref{sec:res_syn_sim_impact} and \autoref{sec:results_trad_av}/ \ref{enum:rq1})
     \item We compared paraphrasing approaches quantitatively using standard summarization and translation-based techniques (cf. \autoref{sec:comp_paraphrases}/ \ref{enum:rq2})
     \item The proposed \ac{llm}-based \impAppr{} was evaluated against established \ac{av} techniques, namely \unmasking{} and \ac{ppmd} across different scenarios (cf. \autoref{sec:results_trad_av} and \autoref{sec:results_llm_av}/ \ref{enum:rq3})
     \item We analysed how different number of chunks affect paraphrasing scores (cf. \autoref{sec:results_chunks}).

@@ -28,11 +28,11 @@ While powerful, DetectGPT is limited to white-box scenarios %(access to model pr
 and is vulnerable to paraphrases or detecting unseen models~\citep{Wu_ODD_challenges_2025}.
 \textcolor{red}{There are parallels to our approach.}
 
-\citet{schmidt_llm_av_latin_24} evaluated the zero-shot performance of \acl{sota} \acp{llm} for \ac{av} and \ac{aa} in low-resource languages, using models such as GPT-4o, Gemini-1.5, Mistral-Large, and Claude. 
+\citet{schmidt_llm_av_latin_24} evaluated the zero-shot effectiveness of \acl{sota} \acp{llm} for \ac{av} and \ac{aa} in low-resource languages, using models such as GPT-4o, Gemini-1.5, Mistral-Large, and Claude. 
 They observed that more detailed prompts improved precision and enhanced the identification of syntactic features. 
-However, such prompts also led the models to assume a deterministic relationship between specific features and the final prediction, which degraded overall performance. 
+However, such prompts also led the models to assume a deterministic relationship between specific features and the final prediction, which degraded overall effectiveness. 
 This effect was particularly pronounced for larger models like GPT-4o and Claude, which can leverage their extensive intrinsic knowledge more freely under less constrained prompts. 
-Although overall performance was reasonable, \acp{llm} still struggle to distinguish writing style independently of content~\citep{schmidt_llm_av_latin_24}. 
+Although overall effectiveness was reasonable, \acp{llm} still struggle to distinguish writing style independently of content~\citep{schmidt_llm_av_latin_24}. 
 Similarly, \citet{nguyen_bert_topic_av_2023} found that transformer-based methods often rely on topical information rather than genuine authorship characteristics.
 
 \ac{pan} constructed an evaluation dataset of news articles using a two-step procedure.

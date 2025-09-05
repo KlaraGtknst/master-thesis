@@ -6,7 +6,7 @@ In comparing the extended \impAppr{} with existing \ac{av} methods, our findings
 % Interpretation of results
 % What do the findings mean in relation to your research questions or hypotheses?
 Regarding the first research question (\autoref{enum:rq1}), the results suggest that controlled \ac{llm}-generated \imps{} can, in principle, serve as more effective hard negatives than traditional methods in \ac{av} scenarios restricted to human-authored texts. 
-Our one-step \imp{} generation achieved slightly better results than the baselines, but overall performance remained unsatisfactory. 
+Our one-step \imp{} generation achieved slightly better results than the baselines, but overall effectiveness remained unsatisfactory. 
 We identify three potential reasons for this outcome.
 (1) By design, hard negatives reduce same-author predictions. 
 This can increase precision but imposes an upper limit on recall, accuracy, and $F_1$ scores. 
@@ -31,7 +31,7 @@ In our implementation, \ac{rouge}-Lsum proved redundant, producing results ident
 
 Low syntactic similarity emerged as an unintuitive predictor of paraphrase quality.
 A measure of syntactic dissimilarity would better align with human judgment. 
-Additionally, we introduced metrics for \pextractor{} performance and text length preservation. 
+Additionally, we introduced metrics for \pextractor{} effectiveness and text length preservation. 
 Extraction of metadata such as genre and topic performed poorly, while century extraction was reliable. 
 Paraphrases of long \dataGutenberg{} texts diverged considerably from the original text in length.
 
@@ -53,4 +53,4 @@ Theoretically, extending the \impAppr{} should increase precision at the cost of
 However, this trade-off did not materialize as expected.
 
 This work assumes that the traditional \impAppr{} was implemented correctly, and that observed discrepancies in reproducing original results arise from differences in input pair selection rather than implementation errors. 
-All experiments were conducted on texts exceeding 700 words and performance on shorter texts remains untested, representing an open question for future work.
+All experiments were conducted on texts exceeding 700 words and effectiveness on shorter texts remains untested, representing an open question for future work.

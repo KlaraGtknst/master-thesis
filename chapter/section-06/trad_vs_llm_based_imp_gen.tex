@@ -15,15 +15,15 @@ This suggests that the generated \imps{} are still relatively easy, producing \a
 \centering
     \includesvg[width=\linewidth]{images/AV_comparison/detection_scenarios/f1/student_essays_Human-Human_threshold_f1s_curves_all_incl_baselines.svg}
   \caption[Traditional \ac{av} $F_1$ scores.]{$F_1$ scores for the same-author class across different thresholds on the \dataStudent{} dataset. 
-\ac{llm}-based approaches achieve slightly better performance than baselines across thresholds.}
+\ac{llm}-based approaches achieve slightly better effectiveness than baselines across thresholds.}
   \label{fig:human-human_f1}
 \end{figure}
 
 $F_1$ scores generally decline for most approaches as the threshold increases. 
-\ac{llm}-based methods maintain relatively stable performance across thresholds due to consistently high recall values. 
+\ac{llm}-based methods maintain relatively stable effectiveness across thresholds due to consistently high recall values. 
 
 Among the original baselines, \citet{koppel_determining_2014}'s fixed \imp{} generation performs best, with its text-length-informed variant showing slightly improved results. 
 Both approaches exhibit high precision but low recall. 
 The length-based \imp{} generation consistently achieves higher recall than the fixed variant. 
-Incorporating content similarity into \imp{} selection does not significantly affect performance, as both content-based and fixed \imp{} approaches yield similar outcomes. 
+Incorporating content similarity into \imp{} selection does not significantly affect effectiveness, as both content-based and fixed \imp{} approaches yield similar outcomes. 
 Recall curves across thresholds are provided in the Appendix (cf. \autoref{sec:app_detection_scenarios}).

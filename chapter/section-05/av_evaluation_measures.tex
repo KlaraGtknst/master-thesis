@@ -13,9 +13,9 @@ While intuitive, accuracy can be misleading in scenarios with class imbalance.
 \end{equation}
 
 \paragraph{Precision, Recall \& F\textsubscript{1}}
-Precision and recall address the limitations of accuracy by focusing on the performance for the positive class, that is, the correct identification of same-author pairs. 
+Precision and recall address the limitations of accuracy by focusing on the effectiveness for the positive class, that is, the correct identification of same-author pairs. 
 Precision measures the proportion of positive predictions that are correct, while recall quantifies the proportion of \ac{tp} cases that are successfully detected. 
-Because these metrics often trade off against each other, their harmonic mean, the F\textsubscript{1} score, is commonly used to provide a balanced assessment of performance. 
+Because these metrics often trade off against each other, their harmonic mean, the F\textsubscript{1} score, is commonly used to provide a balanced assessment of effectiveness. 
 \autoref{eq:f1} shows the computation of the F\textsubscript{1} score~\citep{neal_surveying_2018}.
 
 \begin{equation}\label{eq:f1}
@@ -35,5 +35,5 @@ In our setting, the model produces only the binary outcomes "same author" or "do
 Since there is no natural mechanism for producing a calibrated 0.5 score, abstention cannot be meaningfully represented. 
 One could introduce a second threshold to create an artificial abstention region, but this would not align with the open-set nature of \ac{av}. 
 The "different author" class is inherently ill-defined, as the set of possible authors is unbounded and cannot be exhaustively represented. 
-Moreover, we do not report average performance scores across different recall values, since we do not need good results across different thresholds, but only high performance for one threshold.
+Moreover, we do not report average effectiveness scores across different recall values, since we do not need good results across different thresholds, but only high effectiveness for one threshold.
 For this reason, the focus in this thesis remains on precision, recall, and F\textsubscript{1}. 

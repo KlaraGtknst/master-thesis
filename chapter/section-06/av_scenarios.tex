@@ -2,7 +2,7 @@
 \section{Exp.\ 6: Comparing \acs{av} Methods in \acs{llm} Author Scenarios}
 \label{sec:results_llm_av}
 
-This experiment evaluates the performance of the \impAppr{} against established \ac{av} methods on the \dataArtificialStudent{} dataset where each input pair contains at least one \ac{llm}-generated text.  
+This experiment evaluates the effectiveness of the \impAppr{} against established \ac{av} methods on the \dataArtificialStudent{} dataset where each input pair contains at least one \ac{llm}-generated text.  
 The baseline \mirrorMinds{} performs comparatively well due to its consistently high recall.  
 The recall curves across different thresholds and scenarios can be found in the Appendix in \autoref{sec:app_detection_scenarios}.  
 However, \mirrorMinds{}' strength is a misconception due to its oversimplified paraphrases, which consist of single words.  
@@ -15,7 +15,7 @@ As a result, this method produces a large number of \acp{fp}.
 In the \ac{llm} detection setting, the traditional baselines \ac{ppmd}, Unmasking, and the supervised \ac{svm} perform best in terms of precision.  
 Nevertheless, it becomes evident that no method achieves a favourable balance between high precision or high recall since none can attain both simultaneously.  
 
-Among the \imp{}-based approaches, random sampling variants (content, text length, and fixed) outperform naive \ac{llm}-based \imps{}, although their absolute performance remains unsatisfactory.  
+Among the \imp{}-based approaches, random sampling variants (content, text length, and fixed) outperform naive \ac{llm}-based \imps{}, although their absolute effectiveness remains unsatisfactory.  
 \mirrorMinds{} and naive \ac{llm} \imps{} are overly simplistic, leading to consistently low precision and inflated recall, since the majority of input pairs are incorrectly classified as same-author.  
 Consequently, these approaches are particularly ill-suited for detecting \acp{llm}.
 
@@ -31,11 +31,11 @@ In these scenarios, ground truth True corresponds to the disputed text being \ac
 \paragraph{General \ac{llm} \ac{av}}
 
 Contrary to initial intuition, neither \mirrorMinds{} nor naive \ac{llm} approaches are suitable for this task, as their high recall results in excessive \acp{fp} and low precision.  
-Although \ac{ppmd} and Unmasking achieve relatively high precision, their recall is consistently low, yielding poor overall $F_1$ performance.  
+Although \ac{ppmd} and Unmasking achieve relatively high precision, their recall is consistently low, yielding poor overall $F_1$ scores.  
 Both methods predominantly predict different-author, thereby underestimating same-author cases.  
 
 The best-performing baseline is the supervised model, which reaches a maximum precision of approximately $0.7$ for recall $\leq 0.55$.  
-However, overall performance remains unsatisfactory across all methods, particularly in terms of precision, which hovers slightly above $0.2$.
+However, overall effectiveness remains unsatisfactory across all methods, particularly in terms of precision, which hovers slightly above $0.2$.
 
 
 \begin{figure}[h]
