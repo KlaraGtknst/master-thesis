@@ -1,7 +1,7 @@
 
 \section{Exp.\ 1: Reproduction of Original Work}
 
-Our first experiment covers the reproduction of the original results attached in \citet{koppel_determining_2014}'s paper.
+Our first experiment covers the reproduction of the original results~\citep{koppel_determining_2014}.
 It is noteworthy, that we do not expect exact replication since we could only reimplement the approach to our best knowledge.
 Both Mr. Koppel and Mr. Winter were very forthcoming when we contacted them regarding implementation details that could help to improve our implementation.
 Unfortunately, the code was no longer traceable and neither author could recall the preprocessing steps.
@@ -11,9 +11,9 @@ This, however, certainly is one of the reasons why our implementation diverges f
 \paragraph{Exp.\ 1(a): Varying number of \imps{}.}
 
 For this experiment, we generate \imps{} using the fix method, while varying only the number of \imps{}.
-\citet{koppel_determining_2014} only report results of this experiment on the \dataBlog{} dataset.
+\citet{koppel_determining_2014}\ only report results of this experiment on the \dataBlog{} dataset.
 Unlike the original curves, our \impAppr{} recall-precision curves intersect.
-This suggests that \citet{koppel_determining_2014}'s results were better separated.
+This suggests that the original results from \citet{koppel_determining_2014}\ were better separated.
 In our case, the number of \imps{} has little impact on the precision and recall scores.
 Although the form of the original precision-recall plot differs, we find that 50 \imps{} is slightly superior.
 
@@ -44,7 +44,7 @@ Each class is treated as the positive (reference) class once, with the other cla
 This choice affects how the evaluation scores are computed.
 The original work reports the results for the \dataBlog{} dataset only.
 % original results
-\citet{koppel_determining_2014}'s recall-precision curves suggest that fixed \imp{} generation is superior to on-the-fly \imp{} generation.
+The original recall-precision curves by \citet{koppel_determining_2014}\ suggest that fixed \imp{} generation is superior to on-the-fly \imp{} generation.
 In the original work, minimal \imp{} generation recall value were higher for the different-author reference class (around $0.625$ for fixed and $0.58$ for on-the-fly) than for the same-author reference class counterpart (around $0.38$ for fixed and $0.22$ for on-the-fly).
 \Imp{} generation precision values behaved oppositional, since all approaches perform better in the same-author reference setting than in the different-author reference scenario.
 These findings are due to the facts that \ac{av} is an open-set one-class problem.
@@ -52,7 +52,7 @@ Hence, the different-author class is ill-defined due to the lack of representati
 Consequently, both \imp{} generation methods cause more different author predictions than same author predictions resulting in high different-author recall and high same-author precision.
 
 % our results
-Both \citet{koppel_determining_2014} and us find that fixed \imp{} generation outperforms other approaches for the same-author reference scenario.
+Both \citet{koppel_determining_2014}\ and us find that fixed \imp{} generation outperforms other approaches for the same-author reference scenario.
 Other than that, our recall-precision curves differ from the original.
 In the different-author reference scenario, all but on-the-fly generation have low precision values with fixed \imps{} performing the worst. 
 Low precision means many \acp{fp}, or in this case, many same author pairs which were predicted as different authors.
@@ -79,7 +79,7 @@ However, Mr. Winter noted that our on-the-fly \imp{} generation implementation s
     \label{fig:blog_diff_author}
   \end{subfigure}
   \caption[Recall-precision curves for the \dataBlog{} dataset. ]{Recall-precision curves for the \dataBlog{} dataset. 
-  (B) indicates \citet{koppel_determining_2014}'s baseline approaches.
+  (B) indicates the original baseline approaches from~\citep{koppel_determining_2014}.
   Due to API limit restrictions, the test set for on-the-fly was smaller which is visible in the respective curves.}
   \label{fig:diff_imp_gen_blog}
 \end{figure}

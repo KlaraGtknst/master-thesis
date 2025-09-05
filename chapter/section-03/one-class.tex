@@ -14,11 +14,11 @@
 % \end{enumerate}
 
 \subsection{Chunks}
-\citet{koppel_authorship_2004} propose chunking texts such that each chunk is of approximately equal length, 
+\citet{koppel_authorship_2004}\ propose chunking texts such that each chunk is of approximately equal length, 
 and at least 500 words without breaking paragraphs. 
 
 \subsection{Definitions}
-For author $A$ and book $X$, \citet{koppel_authorship_2004} define the following:
+For author $A$ and book $X$, \citet{koppel_authorship_2004}\ define the following:
 If $A$ is not the author of $X$, $A_X$ is the set of all works by author $A$.
 If $A$ is the author of $X$, $A_X$ is the set of all works by author $A$ except $X$.
 A pair of $A_X$ and $X$ is called \emph{same-author} if X was authored by $A$.
@@ -28,7 +28,7 @@ A pair of $A_X$ and $X$ is called \emph{different-author} if $X$ was not authore
 The initial feature set consists of the 250 words with the highest average (over $X$ and $X_A$) frequency \citep{koppel_authorship_2004}.
 
 \subsection{Features for meta-classifier}
-\citet{koppel_authorship_2004} propose the following features for the meta-classifier 
+\citet{koppel_authorship_2004}\ propose the following features for the meta-classifier 
 (where $i$ is the number of elimination steps):
 \begin{itemize}
     \item accuracy after $i$ elimination steps
@@ -42,7 +42,7 @@ The vectors are grouped by \emph{same-author} and \emph{different-author} pairs 
 used to train a meta-learning scheme.
 
 \subsection{Negative examples for Elimination method}
-\citet{koppel_authorship_2004} state that negative examples are neither exhaustive nor representative.
+\citet{koppel_authorship_2004}\ state that negative examples are neither exhaustive nor representative.
 They propose using words of several authors $A_1, ..., A_n$ roughly filling the same profile as candidate $A$ 
 in terms of geography, chronology, culture and genre.
 $A_1, ..., A_n$ are said to collectively represent class not-$A$.
@@ -54,7 +54,7 @@ Hence, it can eliminate \acp{fp}.
 One can frame it as a filter which is applied after or before \unmasking{}.
 
 % training
-\citet{koppel_authorship_2004} learn a model for $A$ and against not-$A$, 
+\citet{koppel_authorship_2004}\ learn a model for $A$ and against not-$A$, 
 and multiple models for $A_i$ and against not-$A_i$.
 % inference
 Then, $X$ is tested against all of these models.

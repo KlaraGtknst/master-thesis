@@ -1,7 +1,7 @@
 \subsection{\impApprTitle{}}
 \label{sec:impostor_method_theory}
 
-\citet{koppel_determining_2014} propose reducing open-set \ac{av} to open-set \ac{aa}, or the so-called many-candidates problem, which determines which (if any) candidate author from a pool of candidates authored a given anonymous text. 
+\citet{koppel_determining_2014}\ propose reducing open-set \ac{av} to open-set \ac{aa}, or the so-called many-candidates problem, which determines which (if any) candidate author from a pool of candidates authored a given anonymous text. 
 They outline the problem hierarchy as displayed in \autoref{fig:problem_hierarchy}.
 The candidates of the open-set \ac{aa} problem are retrieved via hard negative mining. 
 In the \ac{aa} context, hard negatives are defined as text pairs from different authors that are nonetheless highly similar. 
@@ -125,7 +125,7 @@ The final prediction is obtained by averaging the aggregated scores and applying
 \subsubsection{Traditional \Imp{} Generation}
 \label{subsubsec:traditional_impostor_generation}
 
-\citet{koppel_determining_2014} introduce three \imp{} generation approaches. 
+\citet{koppel_determining_2014}\ introduce three \imp{} generation approaches. 
 In the fixed approach, \imps{} are drawn at random from a predetermined pool of documents that bear no particular relation to the input pair.
 In their study, this pool consisted of texts collected from random English Google queries. 
 The on-the-fly approach, by contrast, derives impostors based on the candidate text. 
@@ -139,5 +139,5 @@ Consequently, the concept of fixed \imp{} generation in our work differs from th
 
 First the $m$ most similar impostor documents in terms of min-max similarity are selected.
 Then, $n < m$ random impostor documents are selected.
-\citet{koppel_determining_2014} found that using a selection of $n$ \imps{} rather than all $m$ impostor documents produces better results.
+\citet{koppel_determining_2014}\ found that using a selection of $n$ \imps{} rather than all $m$ impostor documents produces better results.
 The approach is insensitive to $m$ and $n$.
