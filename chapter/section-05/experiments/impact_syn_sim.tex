@@ -2,7 +2,7 @@
 \label{sec:syn_sim_impact_}
 
 We designed this experiment in order to assess whether the syntactic similarity of generated paraphrases, i.e.\ the difficulty of hard negatives, influences the effectiveness of the \impAppr{}.
-We conducted this experiment on both the \dataBlog{} and \dataStudent{} datasets, selecting 15 samples each from the training and test splits. 
+We conducted this experiment on both the \dataBlog{} and \dataStudent{} datasets, selecting 15~samples each from the training and test splits. 
 The detector was configured according to Table~\ref{tab:imp_syn_sim_config}.
 
 \begin{table}[h]
@@ -18,7 +18,7 @@ The detector was configured according to Table~\ref{tab:imp_syn_sim_config}.
 \end{tabular}%
 \end{table}
 
-For generation, we loop through all \ac{llm}-based paraphrasers until we successfully created 50 \imps{}.
+For generation, we loop through all \ac{llm}-based paraphrasers until we successfully created 50~\imps{}.
 One-step paraphrasers are used with both prompts.
 Predictions on the test set were obtained by thresholding the detector’s scores with a decision threshold was determined using Youden’s J statistic on the training set.
 We computed the average syntactic similarity on the test set. 
