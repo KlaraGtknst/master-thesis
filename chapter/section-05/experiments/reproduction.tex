@@ -20,14 +20,14 @@ Experiment & \# Impostors & Generation & Rounds & Top $n$ & Upsample \\
 
 \paragraph{Exp.\ 1(a): Varying number of \imps{}.}
 The first experiment evaluates the effect of varying the number of \imps{} while setting the \imp{} generation method to \texttt{fixed}.
-All other hyperparameter values are set to the default values reported by \citet{koppel_determining_2014} (cf. Table~\ref{tab:config_exp1}). 
+All other hyperparameter values are set to the default values reported by \citet{koppel_determining_2014} (cf.~Table~\ref{tab:config_exp1}). 
 Adhering \citet{koppel_determining_2014}, we compute precision and recall scores across different thresholds.
 \textcolor{orange}{For comparison, reference precision-recall points reported by \citet{koppel_determining_2014} are included in our visualization.} 
 Based on their description, we deduced that their reported scores were obtained using the \dataBlog{} dataset.
 
 \paragraph{Exp.\ 1(b): Varying \imp{} generation.}
 The second experiment evaluates different \imp{} generation methods while keeping the number of \imps{} fixed.
-Again, all other hyperparameter values are set to the default values reported by \citet{koppel_determining_2014} (cf. Table~\ref{tab:config_exp1}). 
+Again, all other hyperparameter values are set to the default values reported by \citet{koppel_determining_2014} (cf.~Table~\ref{tab:config_exp1}). 
 Following \citet{koppel_determining_2014}, we compare the \texttt{fixed} and \texttt{on-the-fly} \imp{} generation methods with the baseline approaches unsupervised min-max similarity, unsupervised cosine similarity, and supervised linear \ac{svm}.
 
 As in the first experiment, precision and recall are used as the primary evaluation metrics. 

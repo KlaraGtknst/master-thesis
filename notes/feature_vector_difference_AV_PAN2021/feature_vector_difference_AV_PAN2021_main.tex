@@ -15,14 +15,14 @@ In order to generate a \todo{partial parse tree} (i.e.\ \ac{pos} chunks), they t
 The parse trees are used to extract so-called syntactic dependency-based n-grams of \ac{pos} tags, i.e, stylometric features.
 
 \subsection{Sklearn Library usage}
-They use \ac{sklearn}'s \texttt{TFIDFVectorizer} to create the \ac{tf-idf} vectors for their features (cf. below).
+They use \ac{sklearn}'s \texttt{TFIDFVectorizer} to create the \ac{tf-idf} vectors for their features (cf.~below).
 They set \texttt{min\_df=0.1} to ignore terms that have less than a 10 \% document frequency.
 
 \citet{weerasinghe_feature_vector_difference_2021} used a Stochastic Gradient descent training algorithm with logarithmic loss function, 
 which results in a logistic regression classifier (by sklearn's  \texttt{SGDClassifier}) since the complete feature matrix cannot be stored in-memory.
 
 \subsection{Features}
-\textcolor{brown}{cf. Table 1, \citep{weerasinghe_feature_vector_difference_2021} Chapter 2.3 for urls}
+\textcolor{brown}{cf.~Table 1, \citep{weerasinghe_feature_vector_difference_2021} Chapter 2.3 for urls}
 \citet{weerasinghe_feature_vector_difference_2021} used some features from Writeprints feature set.
 Character n-grams are \ac{tfidf} values for character n-grams of size 1 to 3.
 They claim $n>3$ is not useful for \ac{av} because it is affected by topic similarities.
@@ -33,7 +33,7 @@ are frequencies for 851 common English words.
 They also computed the average number of characters per word. %, the average number of words per sentence,
 Moreover, they included the distribution of word-lengths (fraction of tokens of length $l \in [1,10]$).
 They employed Python's \texttt{textComplexity} library to compute a variety of vocabulary richness measures 
-(cf. page 4, \citep{weerasinghe_feature_vector_difference_2021}).
+(cf.~page 4, \citep{weerasinghe_feature_vector_difference_2021}).
 The \ac{pos}- tags chunks are the \ac{tfidf} values for the second level \ac{pos}-tag chunks (e.g., 'NP', 'VP', 'IN').
 The \ac{pos}-tag construction are \ac{tfidf} values of each noun phrase, verb phrase, and prepositional phrase expansion.
 They also define the stop-word and \ac{pos}-tag hybrid tri-grams to capture the syntactic information about the word order, 

@@ -28,12 +28,12 @@ The algorithmic approach is displayed in \autoref{alg:impostor_algo}.
 The threshold $\sigma^*$ varies the recall-precision tradeoff.
 \citet{koppel_determining_2014} claim that the imposter method obtains strong results even for documents with no more than 500 words.
 Moreover, they highlight the similarity between the impostor method and an ensemble of classifiers learning different subset of features.
-% TODO: two paragraphs below conflicting? cf. koppel_determining_2014 pg. 181, 182
+% TODO: two paragraphs below conflicting? cf.~koppel_determining_2014 pg. 181, 182
 Furthermore, the performance of the method improves as the number of candidate author diminishes.
 In an open-set scenario, fewer candidate authors makes the problem more difficult for the impostor method 
 since one author being consistently more similar to the text than the others candidates across multiple feature subsets is less likely in large sets of competing candidate authors.
 A greater number of \imps{} reduces the number of \acp{fp} and \acp{fn}.
-% cf. koppel_determining_2014 pg. 182, but conflicting with above:
+% cf.~koppel_determining_2014 pg. 182, but conflicting with above:
 % Small sets of candidate authors are more likely to generate \acp{fp} 
 % while large sets may generate \acp{fn} and thus, creating a tradeoff.
 
