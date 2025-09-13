@@ -1,0 +1,42 @@
+\subsection{Exp.\ 3: Assessing the Impact of the Prompt on Paraphrasing}
+\label{subsec:prompt_impact_res}
+
+\begin{figure}[htbp]
+    \centering
+    \includesvg[width=\textwidth]{images/prompt_impact/paraphraser_length_distribution_post_process_len_perc(qwen)_linear.svg}
+    \caption[Impact of different prompts on paraphrases.]{
+    Impact of different prompts on paraphrases.   
+    }
+    \label{fig:prompt_impact_post_processed}
+\end{figure}
+
+
+\begin{table}[h]
+\centering
+\caption[Impact of the prompts on paraphrase lengths.]{Impact of the prompts on paraphrase lengths. 
+Relative length $\frac{len(paraphrase)}{len(reference)}\times 100\%$ is denoted $r$.}
+\label{tab:impact_prompts_paraphrases_lengths}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrrr}
+\toprule
+Paraphraser & Prompt  & \diameter $r$ & $\sigma r$ & \diameter $r_{pp}$ & $\sigma r_{pp}$ & Count \\
+\midrule
+meta-llama-3.1-8b-instruct & prompt0 & 39.93 & 52.64 & 39.93 & 52.64  & 135   \\
+                            & prompt1 & 40.27  & 24.21 & 40.27  & 24.21 & 124 \\
+                            & prompt2 & 98.24  & 25.65 & 98.24  & 25.65 & 37  \\
+                                        
+mistral-large-instruct & prompt0 & 1.89   & 1.0   & 1.89   & 1.0   & 138 \\
+                        & prompt1 & 13.09  & 17.96 & 13.09  & 17.96 & 129 \\
+                        & prompt2 & 75.28  & 13.15 & 75.28  & 13.15 & 36  \\
+openai-gpt-oss-120b   & prompt0 & 5.53   & 13.47 & 5.53   & 13.47 & 139 \\
+                        & prompt1 & 19.21  & 25.0  & 19.21  & 25.0  & 129 \\
+                        & prompt2 & 150.43 & 55.28 & 150.43 & 55.28 & 38  \\
+qwen3-32b           & prompt0 & 88.36  & 70.02 & 18.68  & 24.09 & 134 \\
+                        & prompt1 & 95.73  & 47.72 & 38.34  & 15.64 & 123 \\
+                        & prompt2 & 77.12  & 19.03 & 77.12  & 19.03 & 39 \\
+                                \bottomrule
+\end{tabular}%
+}
+\end{table}
+
+
