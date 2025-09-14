@@ -1,6 +1,21 @@
 \subsection{Exp.\ 3: Assessing the Impact of the Prompt on Paraphrasing}
 \label{subsec:prompt_impact_res}
 
+
+Post-processing refers to stripping the generated paraphrases from thinking artefacts that arise from thinking models such as \texttt{qwen3-32b}.
+When found by qualitative exploration of the generated paraphrases, that those artefacts do not contribute to the paraphrase in terms of content but rather only contain the repetition of single segments of the prompt given to the \ac{lm}.
+Those artefacts are separated by \texttt{</think>}, which allowed for simple extraction of the relevant part of the \ac{lm} response.
+
+Once the texts were post-processed, we computed the relative length difference between reference and paraphrase for all model prompt pairs.
+The resulting distribution is displayed in \autoref{fig:prompt_impact_post_processed}.
+Since we want to fix confounders during \imp{} generation, we consider similar length of reference and paraphrase a measure of quality.
+Additionally, we assessed quality of content for long and similar length paraphrases manually.
+We found that the relative length difference of the reference and the paraphrase heavily depended on the prompt used for instructing the \ac{lm} for paraphrasing.
+The third prompt, i.e. prompt2, explicitly includes that generated paraphrases should be three times as long as the original reference text.
+While this seems extreme, we find that across different \acp{lm}, this produces the most similar paraphrases in terms of length.
+Details on the statistics can be obtained from \autoref{tab:impact_prompts_paraphrases_lengths}.
+After conducting this experiments, we forgo using the first two prompts, omitted \texttt{</think>} artefacts and post-processed paraphrases with less than $60\%$ length of the original reference text.
+
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/prompt_impact/paraphraser_length_distribution_post_process_len_perc(qwen)_linear.svg}
@@ -14,7 +29,12 @@
 \begin{table}[h]
 \centering
 \caption[Impact of the prompts on paraphrase lengths.]{Impact of the prompts on paraphrase lengths. 
-Relative length $\frac{len(paraphrase)}{len(reference)}\times 100\%$ is denoted $r$.}
+Relative length $\frac{len(paraphrase)}{len(reference)}\times 100\%$ is denoted $r$.
+Optimal paraphrases should be of similar length to their reference, i.e. \diameter $r$ close to $100$.
+Subscript $pp$ denotes the generated paraphrases were post-processed omitting thinking artefacts.
+Count refers to the total number of instances that were considered for these statistics.
+Prompt2 experiments consider only post-processed prompts.
+}
 \label{tab:impact_prompts_paraphrases_lengths}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{llrrrrr}
@@ -23,17 +43,16 @@ Paraphraser & Prompt  & \diameter $r$ & $\sigma r$ & \diameter $r_{pp}$ & $\sigm
 \midrule
 meta-llama-3.1-8b-instruct & prompt0 & 39.93 & 52.64 & 39.93 & 52.64  & 135   \\
                             & prompt1 & 40.27  & 24.21 & 40.27  & 24.21 & 124 \\
-                            & prompt2 & 98.24  & 25.65 & 98.24  & 25.65 & 37  \\
-                                        
+                            & prompt2 & - & - & \textbf{98.24} & 25.65 & 37  \\
 mistral-large-instruct & prompt0 & 1.89   & 1.0   & 1.89   & 1.0   & 138 \\
                         & prompt1 & 13.09  & 17.96 & 13.09  & 17.96 & 129 \\
-                        & prompt2 & 75.28  & 13.15 & 75.28  & 13.15 & 36  \\
+                        & prompt2 & - & - & \textbf{75.28}  & 13.15 & 36  \\
 openai-gpt-oss-120b   & prompt0 & 5.53   & 13.47 & 5.53   & 13.47 & 139 \\
                         & prompt1 & 19.21  & 25.0  & 19.21  & 25.0  & 129 \\
-                        & prompt2 & 150.43 & 55.28 & 150.43 & 55.28 & 38  \\
+                        & prompt2 & - & - & \textbf{150.43} & 55.28 & 38  \\
 qwen3-32b           & prompt0 & 88.36  & 70.02 & 18.68  & 24.09 & 134 \\
                         & prompt1 & 95.73  & 47.72 & 38.34  & 15.64 & 123 \\
-                        & prompt2 & 77.12  & 19.03 & 77.12  & 19.03 & 39 \\
+                        & prompt2 & - & - & \textbf{77.12}  & 19.03 & 39 \\
                                 \bottomrule
 \end{tabular}%
 }
