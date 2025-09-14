@@ -10,8 +10,10 @@ Prompt0 directs the model to paraphrase by substituting the main subject, verb, 
 Prompt1 requests a paraphrase that varies wording and sentence structure while preserving tone, with length similar to the original.  
 Prompt2 instructs the model to produce a paraphrase three times longer than the reference, while preserving meaning and tone. 
 
-These prompts were applied to four \acp{lm}, covering a range of parameter sizes and architectures: \texttt{meta-llama-3.1-8b-instruct}, \texttt{mistral-large-instruct}, \texttt{openai-gpt-oss-120b}, and \texttt{qwen3-32b}.  
-\textcolor{red}{parameter/ architectures}
+We applied these prompts to the four autoregressive \acp{lm}. 
+We opted for causal models since their architecture is beneficial for text generation compared to masked models.
+The models include \texttt{meta-llama\-3.1-8b-instruct}, \texttt{mistral-large-instruct}, \texttt{openai-gpt-\-oss\-120b}, and \texttt{qwen3-32b}.  
+You may find more details about their architecture in the in \autoref{app:language_models}.
 For each model–prompt pair, we generated paraphrases of reference texts drawn from our dataset.  
 
 % During initial exploration, we observed that some models, particularly \texttt{qwen3-32b}, produced reasoning traces, i.e.\ intermediate thought-like text segments separated by \texttt{</think>}.  
