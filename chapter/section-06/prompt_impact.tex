@@ -2,38 +2,38 @@
 \label{subsec:prompt_impact_res}
 
 
-Post-processing refers to stripping the generated paraphrases from thinking artefacts that arise from thinking models such as \texttt{qwen3-32b}.
-When found by qualitative exploration of the generated paraphrases, that those artefacts do not contribute to the paraphrase in terms of content but rather only contain the repetition of single segments of the prompt given to the \ac{lm}.
-Those artefacts are separated by \texttt{</think>}, which allowed for simple extraction of the relevant part of the \ac{lm} response.
+Post-processing was required to remove reasoning traces present in some model outputs, particularly in generations from models such as \texttt{qwen3-32b}. 
+These traces, typically delimited by \texttt{</think>}, consist of repeated fragments of the input prompt and do not contribute to the semantic content of the paraphrase. 
+We therefore excluded them to retain only the task-relevant text produced by the \ac{lm}.
 
-Once the texts were post-processed, we computed the relative length difference between reference and paraphrase for all model prompt pairs.
-The resulting distribution is displayed in \autoref{fig:prompt_impact_post_processed}.
-Since we want to fix confounders during \imp{} generation, we consider similar length of reference and paraphrase a measure of quality.
-Additionally, we assessed quality of content for long and similar length paraphrases manually.
-We found that the relative length difference of the reference and the paraphrase heavily depended on the prompt used for instructing the \ac{lm} for paraphrasing.
-The third prompt, i.e. prompt2, explicitly includes that generated paraphrases should be three times as long as the original reference text.
-While this seems extreme, we find that across different \acp{lm}, this produces the most similar paraphrases in terms of length.
-Details on the statistics can be obtained from \autoref{tab:impact_prompts_paraphrases_lengths}.
-After conducting this experiments, we forgo using the first two prompts, omitted \texttt{</think>} artefacts and post-processed paraphrases with less than $60\%$ length of the original reference text.
+After post-processing, we computed the relative length difference between each reference and its corresponding paraphrase for all model–prompt combinations. 
+The distribution of these differences is presented in \autoref{fig:prompt_impact_post_processed}. 
+Because our objective in \imp{} generation is to control for confounding variables, a paraphrase length close to that of the reference is interpreted as an indicator of higher quality. 
+We additionally performed a manual assessment of content quality that focused on paraphrases both extremely long and length-balanced relative to the reference.
 
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/prompt_impact/paraphraser_length_distribution_post_process_len_perc(qwen)_linear.svg}
     \caption[Impact of different prompts on paraphrases.]{
-    Impact of different prompts on paraphrases.   
+    Distribution of relative paraphrase lengths across different prompts, after post-processing.    
     }
     \label{fig:prompt_impact_post_processed}
 \end{figure}
+
+Our results indicate that the relative length difference depended strongly on the prompt used to instruct the \ac{lm}. 
+In particular, the third prompt (hereafter \texttt{prompt2}) explicitly instructed models to generate paraphrases approximately three times longer than the reference. 
+Although this instruction may appear extreme, it consistently produced paraphrases of more comparable length across different models. 
+Aggregated statistics are provided in \autoref{tab:impact_prompts_paraphrases_lengths}.
 
 
 \begin{table}[h]
 \centering
 \caption[Impact of the prompts on paraphrase lengths.]{Impact of the prompts on paraphrase lengths. 
-Relative length $\frac{len(paraphrase)}{len(reference)}\times 100\%$ is denoted $r$.
-Optimal paraphrases should be of similar length to their reference, i.e. \diameter $r$ close to $100$.
-Subscript $pp$ denotes the generated paraphrases were post-processed omitting thinking artefacts.
-Count refers to the total number of instances that were considered for these statistics.
-Prompt2 experiments consider only post-processed prompts.
+Relative length is defined as $\frac{len(paraphrase)}{len(reference)}\times 100\%$ and denoted $r$. 
+Optimal paraphrases are expected to approximate the reference length, i.e.\ $\diameter r \approx 100$. 
+Subscript $pp$ indicates post-processed outputs (with reasoning traces removed). 
+``Count'' denotes the number of paraphrases considered for each setting. 
+For \texttt{prompt2}, only post-processed results are reported.
 }
 \label{tab:impact_prompts_paraphrases_lengths}
 \resizebox{\textwidth}{!}{%
@@ -58,4 +58,7 @@ qwen3-32b           & prompt0 & 88.36  & 70.02 & 18.68  & 24.09 & 134 \\
 }
 \end{table}
 
-
+Based on these findings, subsequent experiments adopted the following design choices: 
+(i) exclude paraphrases generated with \texttt{prompt0} and \texttt{prompt1}, 
+(ii) remove all \texttt{</think>}–delimited reasoning traces via post-processing, and 
+(iii) discard paraphrases shorter than $60\%$ of the reference length.
