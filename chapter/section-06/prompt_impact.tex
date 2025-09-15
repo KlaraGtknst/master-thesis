@@ -8,7 +8,7 @@ We therefore excluded them to retain only the task-relevant text produced by the
 
 After post-processing, we computed the relative length difference between each reference and its corresponding paraphrase for all model–prompt combinations. 
 The distribution of these differences is presented in \autoref{fig:prompt_impact_post_processed}. 
-Because our objective in \imp{} generation is to control for confounding variables, a paraphrase length close to that of the reference is interpreted as an indicator of higher quality. 
+Because our objective in \imp{} generation is to control for confounding variables, a paraphrase length close to that of the reference is interpreted as an indicator of higher paraphrase quality. 
 We additionally performed a manual assessment of content quality that focused on paraphrases both extremely long and length-balanced relative to the reference.
 
 \begin{figure}[htbp]
@@ -34,6 +34,7 @@ Optimal paraphrases are expected to approximate the reference length, i.e.\ $\di
 Subscript $pp$ indicates post-processed outputs (with reasoning traces removed). 
 ``Count'' denotes the number of paraphrases considered for each setting. 
 For \texttt{prompt2}, only post-processed results are reported.
+Bold \diameter $r_{pp}$ values are those closest to the optimal paraphrase length.
 }
 \label{tab:impact_prompts_paraphrases_lengths}
 \resizebox{\textwidth}{!}{%

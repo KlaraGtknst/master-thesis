@@ -40,7 +40,7 @@ Since \ac{rouge} scores are computed on individual reference-candidate pairs, th
 Consequently, \ac{rouge}-L and \ac{rouge}-Lsum yield identical results in this setting.
 
 In summary, increasing the number of chunks decreases syntactic diversity for two-step approaches, with only minor reductions in semantic similarity for some datasets. 
-Given that processing $n$ chunks with a two-step approach requires $2n$ API calls in the best case, and that chunking has no effect on one-step paraphrases, we decided not to include chunking as a component of our paraphrasing pipeline.
+Given that processing $n$ chunks with a two-step approach requires $2n$ API calls in the best case, and that chunking has no effect on one-step paraphrases, we excluded chunking from our paraphrasing pipeline.
 
 \begin{figure}[htbp]
     \centering

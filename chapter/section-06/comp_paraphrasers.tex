@@ -2,15 +2,15 @@
 \label{sec:comp_paraphrases}
 
 To evaluate the quality of generated paraphrases, we conducted two experiments. 
-In Exp.\ 2(a), we assessed paraphrasing using standard quantitative metrics, while in Exp.\ 2(b), we compared the extracted information and text lengths of the generated paraphrases to the ground truth metadata and original texts, respectively.
+In Exp.\ 2(a), we assessed paraphrasing using standard quantitative metrics, while in Exp.\ 2(b), we compared the extracted information and text lengths of the generated paraphrases to the ground truth metadata and original texts, for different paraphrasers respectively.
 
 \paragraph{Exp.\ 2(a): Quantitative evaluation.}
 
 Paraphrasing scores were computed separately for the \dataBlog{}, \dataGutenberg{}, and \dataStudent{} datasets. 
 \autoref{fig:sem_syn_blog} presents aggregated semantic and syntactic measurement scores for the \dataBlog{} dataset, while results for \dataGutenberg{} are provided in the Appendix in \autoref{sec:app_paraphrases}.
 
-Syntactic similarity was quantified by averaging \ac{rouge}-1, \ac{rouge}-L, and BLEU scores. 
-Semantic similarity was assessed using BERTScore, cosine similarity of BERT-based embeddings, and SBERT \ac{wmd}. 
+Syntactic similarity $\diameter_{syn}$ was quantified by averaging \ac{rouge}-1, \ac{rouge}-L, and BLEU scores. 
+Semantic similarity $\diameter_{sem}$ was assessed using BERTScore, cosine similarity of BERT-based embeddings, and SBERT \ac{wmd}. 
 It is important to note that for our purposes, syntactic diversity is desirable.
 High syntactic similarity values may reflect near-identical paraphrases due to n-gram overlap. 
 Semantic similarity measures the content overlap between the paraphrase and the original text, often via vector-based cosine similarity. 
@@ -42,7 +42,7 @@ We observed that instructions for the \pextractor{} must follow the input text, 
 Otherwise, the \pextractor{} failed to produce the requested JSON format for long texts from the \dataGutenberg{} dataset. 
 Results across datasets are summarized in \autoref{tab:extraction_eval_stats}, with $\diameter$ and $\sigma$ denoting the mean and standard deviation across the five selected samples. 
 The \dataBlog{} dataset proved most challenging for genre and topic extraction. 
-While differences in text length between reference and paraphrase were maximal among all datasets, the \pextractor{} performed best on the \dataGutenberg{} dataset.
+Although the \dataGutenberg{} dataset exhibited the largest differences in text length between reference and paraphrase, the \pextractor{} achieved its best performance on this dataset.
 
 
 \begin{table}[h]
@@ -73,6 +73,3 @@ While differences in text length between reference and paraphrase were maximal a
   \bottomrule
 \end{tabular}%
 \end{table}
-
-Notably, paraphrases generated in other experiments were often substantially shorter than the reference texts. 
-In multiple cases, the \pgenerator{} returned placeholders such as \texttt{I’m sorry, but I can’t help with that}.

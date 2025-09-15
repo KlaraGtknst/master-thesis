@@ -1,8 +1,8 @@
 \subsection{Exp.\ 5: Comparing \acs{av} Methods in Traditional Human-Human Scenario}
 \label{subsec:imp_gen_res}
 
-We evaluate precision–recall values across varying thresholds for the baseline methods as well as for the fixed approach introduced by \citet{koppel_determining_2014}.
-Our results indicate that the supervised baseline and our one-step paraphrasing approach (Naive \ac{llm} in \autoref{fig:sem_syn_blog}) produce identical outcomes.
+We evaluate precision–recall values across different thresholds for both the baseline methods and the fixed approach proposed by \citet{koppel_determining_2014}.
+Our results indicate that the supervised baseline and our one-step paraphrasing approach (\textcolor{red}{Naive \ac{llm}} in \autoref{fig:sem_syn_blog}) produce identical outcomes.
 An examination of the individual values confirms this observation, revealing identical precision–recall pairs where respective thresholds are different.
 We attribute this effect to the relatively small sample size of only \textcolor{red}{10} text pairs.
 
@@ -13,8 +13,11 @@ Although the definition of an optimal balance between precision and recall is ap
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/imposter/our_contribution/roc_prec_recall_curve_r100_top100000_Same_Author_dif_imp_gen.svg}
-    \caption[Recall-precision curves for the \dataStudent{}.]{Recall-precision curves for the \textcolor{red}{10} samples of the \dataStudent{}.}
+    \caption[Recall-precision curves for the \dataStudent{}.]{Recall-precision curves for the \textcolor{red}{10} samples of the \dataStudent{}. 
+    One-step paraphrasers are denoted \textcolor{red}{Naive \ac{llm}}.
+    (B)~indicates the original baseline approaches from~\citep{koppel_determining_2014}.
+    }
     \label{fig:sem_syn_blog}
 \end{figure}
 
-Overall, these findings diverge from our initial expectation that \ac{llm}-based \imp{} generation would yield superior precision.
+These findings contrast with our initial expectation that \ac{llm}-based \imp{} generation would achieve higher precision, but indicate that our approach performs best when precision and recall are considered equally important.
