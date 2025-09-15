@@ -1,9 +1,20 @@
 \subsection{Exp.\ 5: Comparing \acs{av} Methods in Traditional Human-Human Scenario}
 \label{subsec:imp_gen_res}
 
+We compared precision recall values for different thresholds for the baseline approaches and the fixed approach proposed by \citet{koppel_determining_2014}.
+We find that the supervised baseline and our one-step paraphrasing approach (here: Naive \ac{llm}) exhibit the exact same values.
+Further investigation of the actual values supports this perception, proving the same value pairs for different threshold.
+We suppose that this is due to the relatively small sample size of \textcolor{red}{10} text pairs.
+
+We find that in terms of optimization of the precision-recall trade-off, both the supervised baseline and our \ac{llm} extension to the \impAppr{} perform best for a threshold of $0.32$.
+If we aim for high precision while considering the recall of secondary importance, we find that all but the supervised baseline and our \ac{llm} extension to the \impAppr{} perform better because their recall values are higher for the same maximal precision.
+Though the criteria for optimal detection depends on the application at hand, we find that even recall of $0.4$ for precision of $1.0$ generally not to be more important than optimizing both recall and precision at the same time.
+
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/imposter/our_contribution/roc_prec_recall_curve_r100_top100000_Same_Author_dif_imp_gen.svg}
-    \caption[Comparison of \ac{av} models on the \dataStudent{} dataset.]{....}
+    \caption[Recall-precision curves for the \dataStudent{}.]{Recall-precision curves for the \textcolor{red}{10} samples of the \dataStudent{}.}
     \label{fig:sem_syn_blog}
 \end{figure}
+
+It is noteworthy that these findings do not align with our expectation of the \ac{llm} based \imp{} generation producing high precision results.
