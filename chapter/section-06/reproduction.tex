@@ -73,11 +73,11 @@ As a consequence, both \imp{} generation methods tend to yield more different-au
 \end{figure}
 
 % our results
-Both \citet{koppel_determining_2014}\ and us find that fixed \imp{} generation outperforms other approaches for the same-author reference scenario.
-Other than that, our recall-precision curves differ from the original.
-In the different-author reference scenario, all but on-the-fly generation have low precision values with fixed \imps{} performing the worst. 
-Low precision means many \acp{fp}, or in this case, many same author pairs which were predicted as different authors.
-This suggests that either different-author reference scenario is difficult and that most \imps{} are too hard, or that training in a same-author class scenario produces inherently bad results when evaluating for the other class since it was not optimized for it.
+Both \citet{koppel_determining_2014}\ and our results indicate that fixed \imp{} generation performs best in the same-author scenario.
+Beyond this agreement, however, our recall–precision curves deviate from the original findings.
+In the different-author scenario, all methods except on-the-fly generation exhibit low precision, with fixed \imps{} performing worst.
+Low precision corresponds to a high number of \acp{fp}, i.e., many same-author pairs incorrectly classified as different authors.
+This outcome suggests that training on the same-author class produces systematically poor performance in a different-author class test scenario, as the model is not optimized for it.
 
 Opposed to the original work of \citet{koppel_determining_2014}, our on-the-fly \imps{} lack difficulty explaining the low precision in the same-author and the high precision in the different-author scenario.
 Since we had to reduce the number of test samples for on-the-fly \imp{} generation due to API call limits, we suggest analysing this approaches' results with a grain of salt.
