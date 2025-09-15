@@ -56,18 +56,19 @@ Although not explicitly stated, it is likely that \citet{koppel_determining_2014
 The original work reports the results for the \dataBlog{} dataset only.
 
 % original results
-The original recall-precision curves by \citet{koppel_determining_2014}\ suggest that fixed \imp{} generation is superior to on-the-fly \imp{} generation.
-In the original work, minimal \imp{} generation recall value were higher for the different-author reference class (around $0.625$ for fixed and $0.58$ for on-the-fly) than for the same-author reference class counterpart (around $0.38$ for fixed and $0.22$ for on-the-fly).
-\Imp{} generation precision values behaved oppositional, since all approaches perform better in the same-author reference setting than in the different-author reference scenario.
-These findings are likely due to the fact that \ac{av} is an open-set one-class problem.
-Hence, the different-author class is ill-defined due to the lack of representatives.
-Consequently, both \imp{} generation methods cause more different author class predictions than same author class predictions resulting in high different-author class recall and high same-author class precision.
-We visualized our interpretation of the results reported by \citet{koppel_determining_2014} in \autoref{fig:findings_original_work}.
+The recall–precision curves reported by \citet{koppel_determining_2014}\ indicate that fixed \imp{} generation outperforms on-the-fly \imp{} generation.
+In their study, the minimum recall values for the different-author class were consistently higher (approximately $0.625$ for fixed and $0.58$ for on-the-fly) than for the same-author class (approximately $0.38$ for fixed and $0.22$ for on-the-fly).
+In contrast, precision values exhibited the opposite trend where all approaches achieved higher precision in the same-author setting compared to the different-author setting.
+
+Our interpretation of the results reported by \citet{koppel_determining_2014}\ is presented in \autoref{fig:findings_original_work}.
+We argue that these findings are a consequence of the inherent nature of \ac{av} as an open-set, one-class classification problem.
+Because the different-author class lacks representative samples, it remains inherently ill-defined.
+As a consequence, both \imp{} generation methods tend to yield more different-author predictions than same-author predictions, producing higher recall for the different-author class and higher precision for the same-author class.
 
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/imposter/reproduction_koppel_figures/fig2/student_essays/fig2_original_findings.svg}
-    \caption[Results from the original \impAppr{} experiments.]{Findings from the original \impAppr{} experiments by \citet{koppel_determining_2014} suggest that the different-author class is more difficult to model, leading to more different-author class predictions and thus, a higher different-author class recall.}
+    \caption[interpretation of the results from the original \impAppr{} experiments.]{Results reported by \citet{koppel_determining_2014} suggest that the different-author class is more difficult to model, leading to more different-author predictions and consequently higher recall for that class.}
     \label{fig:findings_original_work}
 \end{figure}
 
@@ -76,7 +77,7 @@ Both \citet{koppel_determining_2014}\ and us find that fixed \imp{} generation o
 Other than that, our recall-precision curves differ from the original.
 In the different-author reference scenario, all but on-the-fly generation have low precision values with fixed \imps{} performing the worst. 
 Low precision means many \acp{fp}, or in this case, many same author pairs which were predicted as different authors.
-This suggests that different-author reference scenario is difficult and that most \imps{} are too hard. 
+This suggests that either different-author reference scenario is difficult and that most \imps{} are too hard, or that training in a same-author class scenario produces inherently bad results when evaluating for the other class since it was not optimized for it.
 
 Opposed to the original work of \citet{koppel_determining_2014}, our on-the-fly \imps{} lack difficulty explaining the low precision in the same-author and the high precision in the different-author scenario.
 Since we had to reduce the number of test samples for on-the-fly \imp{} generation due to API call limits, we suggest analysing this approaches' results with a grain of salt.
