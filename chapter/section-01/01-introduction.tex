@@ -7,28 +7,27 @@
 
 \section{Research Questions}
 \label{sec:research_questions}
-To guide this objective, we formulate the following research questions:
+To address the overarching objective of this thesis, we formulate the following research questions:
 \begin{questions}
     \item \textbf{How suitable are \acp{llm} for \imp{} generation?} \label{enum:rq1} \hfill \\
-    Optimal \imps{}, i.e. hard negatives, are generated under the same constraints as the candidate text.
-    We use \ac{llm}-generated paraphrases as a heuristic of the original generation process.
-    By generating paraphrases with \acp{llm} that control genre, topic, and other contextual factors, similarity measures in the \imp{} method primarily emphasize differences in authorial style rather than content.
-    However, the threshold of syntactic similarity at which paraphrases are attributed to the candidate author remains unclear, potentially reducing detection accuracy.
-    We design an experiment comparing one-step against traditional baselines using standard classification metrics.
+    Effective \imps{}, i.e. hard negatives, must be generated under constraints comparable to those of the candidate text. 
+    We employ \ac{llm}-based paraphrasing as a proxy for the original generative process. 
+    By conditioning \acp{llm} on genre, topic, and other contextual parameters, the \imp{} method emphasizes differences in authorial style rather than in content. 
+    However, the precise syntactic similarity threshold at which paraphrases are attributable to the candidate author remains uncertain, potentially limiting detection accuracy. 
+    To investigate the suitability of artificial \imp{} generation, we design an experiment that contrasts one-step \imp{} generation with traditional baselines using standard classification metrics.
 
     \item \textbf{Which metrics are appropriate to evaluate the quality of generated \imps{}?} \label{enum:rq2} \hfill \\
-    Evaluating \imps{} equates to evaluating paraphrases, a task complicated by the lack of a universal definition of paraphrasing.
-    Previous studies often adapt metrics from related \ac{nlp} tasks such as machine translation and summarization.
-    Two primary evaluation dimensions are semantic similarity and syntactic similarity.
-    Contrary to initial assumptions, high syntactic similarity is not always desirable, as it may indicate minimal modification of the original text.
-    Our emphasis is on achieving high semantic similarity while preserving syntactic diversity to ensure genuine rephrasing.
-    Moreover, relatively low scores can be acceptable if qualitative human assessments confirm paraphrase adequacy.
-    We construct an experiment to evaluate our paraphrases in terms of \acl{sota} paraphrasing measures. 
+    Assessing \imps{} requires evaluating paraphrases, a task complicated by the absence of a universally accepted definition of paraphrasing. 
+    Prior work often adopts evaluation metrics from adjacent \ac{nlp} tasks such as machine translation and summarization. 
+    The two central dimensions are semantic similarity and syntactic similarity. 
+    Contrary to naive assumptions, high syntactic similarity is not always desirable, as it may indicate minimal modification of the original text.
+    Instead, the objective is to achieve strong semantic alignment while ensuring sufficient syntactic variation to capture genuine rephrasing. 
+    Furthermore, relatively low automatic scores may still be acceptable if supported by human judgments of adequacy. 
+    We therefore construct an experiment to evaluate paraphrases using \acl{sota} measures for paraphrase quality. 
 
     \item \textbf{How does the \ac{llm}-based \impAppr{} perform compared to \acl{sota} \ac{av} methods?} \label{enum:rq3} \hfill \\
-    We use the baselines introduced in the work of \citet{koppel_determining_2014}, \unmasking{} and compression-based \ac{ppmd} to evaluate our \ac{llm}-based \impAppr{}.
-    We test \ac{av} scenario with human authored text pairs.
-    Comparisons are conducted on the \dataStudent{} dataset using standard classification metrics.
+    To benchmark our approach, we compare it against established baselines introduced by \citet{koppel_determining_2014}, as well as \unmasking{} and compression-based \ac{ppmd}. 
+    The evaluation is conducted on human-authored text pairs from the \dataStudent{} dataset, applying standard classification metrics. 
     
 \end{questions}
 
@@ -38,23 +37,25 @@ To guide this objective, we formulate the following research questions:
 \label{sec:contributions}
 The main contributions of this thesis are as follows:
 \begin{itemize}
-    \item We reimplemented the traditional \impAppr{}~\citep{koppel_determining_2014}\ (cf.~\autoref{sec:impostor_method_theory}).
-    \item We developed an implementation of \ac{llm}-based \imp{} generation (cf.~\autoref{sec:impostor_generation}). 
-    \item To evaluate the use of \acp{llm} for generating hard negative \imps{}, we conducted an empirical assessment focusing on factors that impact the generation of artificial \imps{} (cf.~\autoref{subsec:prompt_impact_res}/ ~\ref{enum:rq1})
-    \item We compared paraphrasing approaches quantitatively using standard summarization and translation-based techniques (cf. and \autoref{sec:comp_paraphrases}/ ~\ref{enum:rq2})
-    \item We analysed how different number of chunks affect paraphrasing scores (cf.~\autoref{sec:results_chunks}/ ~\ref{enum:rq2}).
-    \item We analysed how different prompts affect the confounder variable paraphrase length (cf.~\autoref{subsec:prompt_impact_res}/ ~\ref{enum:rq2}).
-    \item \textcolor{red}{The proposed \ac{llm}-based \impAppr{} was evaluated against established \ac{av} techniques, namely the baselines introduced by \citet{koppel_determining_2014}, \unmasking{} and \ac{ppmd} across different scenarios} (cf.~\autoref{subsec:imp_gen_res}/ ~\ref{enum:rq3})
-    \item We collected and preprocessed the original datasets, including a deliberate candidate-pair selection procedure aligned with the methodology of the original study by \citet{koppel_determining_2014}, informed through direct consultation with the original authors (cf.~\autoref{sec:dataset}).
+    \item Reimplementation of the traditional \impAppr{}~\citep{koppel_determining_2014}\ (cf.~\autoref{sec:impostor_method_theory}).
+    \item Development of an \ac{llm}-based \imp{} generation framework (cf.~\autoref{sec:impostor_generation}). 
+    % \item Empirical evaluation of \ac{llm}-generated hard negatives, with a focus on prompts influencing the control of confounder variables during the artificial \imp{} generation process (cf.~\autoref{subsec:prompt_impact_res}/~\ref{enum:rq1}).
+    \item Analysis of prompt design and its influence on paraphrase length as a confounding variable (cf.~\autoref{subsec:prompt_impact_res}/~\ref{enum:rq1} and \ref{enum:rq2}).
+    \item Quantitative comparison of paraphrasing approaches using metrics adapted from summarization and translation (cf.~\autoref{sec:comp_paraphrases}/~\ref{enum:rq2}).
+    \item Analysis of the effect of text segmentation (i.e. number of chunks) on paraphrasing scores (cf.~\autoref{sec:results_chunks}/~\ref{enum:rq2}).
+    \item Evaluation of the proposed \ac{llm}-based \impAppr{} against established \ac{av} techniques, specifically the baselines introduced by \citet{koppel_determining_2014}, \textcolor{red}{\unmasking{} and \ac{ppmd}}~\citep{koppel_determining_2014} in the traditional \ac{av} scenario with pairs of human authored texts (cf.~\autoref{subsec:imp_gen_res}/~\ref{enum:rq3}).
+    \item Collection and preprocessing of original datasets, including a controlled candidate-pair selection procedure aligned with the methodology of \citet{koppel_determining_2014} and informed by direct consultation with the authors (cf.~\autoref{sec:dataset}).
+
 \end{itemize}
 
 
 
 \section{Thesis Structure}
 \label{sec:thesis_structure}
+
 The remainder of this thesis is organized as follows. 
-In \autoref{chap:authorship_identification}, we provide background on \acf{av}, covering early approaches, \acl{sota} methods, stylometry, and practical applications. 
-\autoref{chap:related_work} reviews related research in greater detail. 
-Building on this foundation, \autoref{chap:llm_impostor_method} introduces our extension to the \impAppr{}. 
-The experimental setup is described in \autoref{chap:experimental_setup}, and the results are presented in \autoref{chap:experimental_results}. 
-Finally, \autoref{chap:discussion} discusses the findings, while \autoref{chap:conclusion} concludes the thesis and outlines directions for future work.
+\autoref{chap:authorship_identification} introduces the background of \acf{av}, including early approaches, \acl{sota} methods, stylometry, and applications. 
+\autoref{chap:related_work} surveys related research in greater detail. 
+\autoref{chap:llm_impostor_method} presents our extension to the \impAppr{}. 
+\autoref{chap:experimental_setup} outlines the experimental design, and \autoref{chap:experimental_results} reports the results. 
+Finally, \autoref{chap:discussion} interprets the findings, and \autoref{chap:conclusion} concludes the thesis while outlining future research directions. 
