@@ -1,56 +1,44 @@
 \chapter{Discussion}
 \label{chap:discussion}
-In comparing the extended \impAppr{} with existing \ac{av} methods, our findings address the research questions and highlight inherent limitations of using \acp{llm} for \imp{} generation. 
-\textcolor{red}{Note: Due to resource constraints, no experiments were conducted for the two-step paraphrase-based \imp{} generation or on the \dataPan{} dataset, which constitutes an important limitation.}
+% In comparing the extended \impAppr{} with existing \ac{av} methods, our findings address the research questions and highlight inherent limitations of using \acp{llm} for \imp{} generation. 
+
+Our baseline and reproduction experiments yielded results inferior to prior reports, limiting our ability to fully validate the original \impAppr{}. 
+While Mr.~Winter deemed our preprocessing strategy reasonable, he noted that our on-the-fly \imp{} generation was insufficient due to (1) bot-prevention mechanisms limiting web scraping, and (2) severe restrictions on API calls. 
+% Thus, differences in code, data selection, or preprocessing likely contributed significantly to reproducibility issues.
+
+This work assumes that the traditional \impAppr{} was implemented correctly, and that observed discrepancies in reproducing original results arise from differences in input pair selection rather than implementation errors. 
 
 % Interpretation of results
 % What do the findings mean in relation to your research questions or hypotheses?
 Regarding the first research question (\autoref{enum:rq1}), the results suggest that controlled \ac{llm}-generated \imps{} can, in principle, serve as more effective hard negatives than traditional methods in \ac{av} scenarios restricted to human-authored texts. 
-Our one-step \imp{} generation achieved slightly better results than the baselines, but overall effectiveness remained unsatisfactory. 
-We identify three potential reasons for this outcome.
-(1) By design, hard negatives reduce same-author predictions. 
-This can increase precision but imposes an upper limit on recall, accuracy, and $F_1$ scores. 
-(2) Low semantic similarity between candidate texts and paraphrases (approximately $0.55$ to $0.65$) reduces stylistic resemblance due to the interdependence of topic and style, making the paraphrases overly simple as negatives. 
-(3) The \impAppr{} relies on \ac{tfidf} vectors of space-free character 4-grams. 
-Low syntactic similarity scores (around $0.2$) indicate minimal n-gram overlap between paraphrase and candidate, resulting in sparse vector representations that fail to capture the intended distinctions.
-Consequently, \imps{} are inherently dissimilar and act as simple negatives. 
+Our one-step \imp{} generation achieved better results than the baselines when considering recall and precision equally important. 
+Unfortunately, using \ac{llm} generated paraphrases as hard negatives for the \impAppr{} requires exhaustive exploration of different prompting strategies.
+We found that the length of paraphrases is heavily dependent on the prompt used to instruct the \ac{llm}.
+Even though, paraphrase scores generally suggest that paraphrases are semantically similar and sufficiently syntactically dissimilar, without proper manual inspection of the results, paraphrases can be overly short (explaining the low syntactic score) and thus, produce poor \impAppr{} results.
+Moreover, the order of prompt and text determines the degree of prompt adherence for longer texts since \acp{llm} primarily attend to the end of their input.
+Furthermore, depending on the \ac{llm} used for paraphrase generation specific artefacts need to be excluded from its output.
 
-\textcolor{red}{TODO: Discuss the precise impact of syntactic similarity.}
+Although computationally demanding, our method was intended as a task-specific solution rather than a general-purpose detector. 
 
-Interestingly, \ac{av} experiments in exclusive \ac{llm}-\ac{llm} scenarios outperforms \ac{av} experiments in scenarios including human candidates, suggesting that human-written text complicates the task. 
-One explanation is that \acp{llm} paraphrase human-authored candidates more aggressively than machine-gen\-erated candidates, producing \imps{} that are easier to distinguish from the candidate. 
-Overall, our findings indicate that \acp{llm}-based \imp{} generation may not justify the computational overhead unless paraphrase quality can be substantially improved.
-
-Our baseline and reproduction experiments yielded results inferior to prior reports, limiting our ability to fully validate the original \impAppr{}. 
-While Mr.~Winter deemed our preprocessing strategy reasonable, he noted that our on-the-fly \imp{} generation was insufficient due to (1) bot-prevention mechanisms limiting web scraping, and (2) severe restrictions on API calls. 
-Thus, differences in code, data selection, or preprocessing likely contributed significantly to reproducibility issues.
 
 Concerning the second research question (\autoref{enum:rq2}), we observed that the multitude of syntactic and semantic paraphrase metrics commonly applied in literature complicates interpretation. 
-Following \citet{gohsen_captions_2023}, we adopt aggregated syntactic and semantic scores for clearer two-dimensional comparison. 
-In our implementation, \ac{rouge}-Lsum proved redundant, producing results identical to \ac{rouge}-L.
-
+Following \citet{gohsen_captions_2023}, we adopt aggregated syntactic and semantic scores for clearer two-dimensional comparison.
 Low syntactic similarity emerged as an unintuitive predictor of paraphrase quality.
 A measure of syntactic dissimilarity would better align with human judgment. 
+We found that even though syntactic scores suggest good paraphrases due to syntactic diversity, they can be due to overly short paraphrases which we consider to be of poor quality since paraphrase length is one of the confounder variables we aim to control during hard negative mining of \imps{}.
+In our implementation, \ac{rouge}-Lsum proved redundant, producing results identical to \ac{rouge}-L.
+
 Additionally, we introduced metrics for \pextractor{} effectiveness and text length preservation. 
 Extraction of metadata such as genre and topic performed poorly, while century extraction was reliable. 
 Paraphrases of long \dataGutenberg{} texts diverged considerably from the original text in length.
 
-Addressing the third research question (\autoref{enum:rq3}), we compared \ac{av} methods across human-human, mixed human-\ac{llm}, and \ac{llm}-\ac{llm} scenarios, as well as for \ac{llm} detection. 
-\unmasking{} and \ac{ppmd} served as baselines for evaluating the extended \impAppr{}. 
-Although computationally demanding, our method was intended as a task-specific solution rather than a general-purpose detector. 
+Addressing the third research question (\autoref{enum:rq3}), we compared \ac{av} methods in the traditional \ac{av} scenario where both texts are authored by humans. 
+\textcolor{red}{\unmasking{} and \ac{ppmd} served as baselines for evaluating the extended \impAppr{}.} 
 
-Performance was generally poor across all methods, indicating inherently difficult text pairs. 
-Most models failed to achieve acceptable precision–recall trade-offs, leading to low $F_1$ scores. 
-While the extended \impAppr{} outperformed baselines in some cases, it is not yet practical due to three main issues. 
-(1) Generated \imps{} are often too simplistic, resulting in excessive \acp{fp}, (2) substantial computational overhead, and (3) reliability problems due to \pgenerator{} failures or API rate limits.
-
-We think that the limited quality of the extended \impAppr{} largely stems from insufficiently robust \imps{}. 
 Performance was highly sensitive to prompt design, underscoring a central challenge of working with \acp{llm}. 
 Prompt engineering remains ad-hoc, diverting focus from framework development toward instruction crafting. 
 While larger \acp{llm} can leverage intrinsic knowledge under looser prompts, smaller models often require carefully tailored instructions~\citep{schmidt_llm_av_latin_24}. 
+Once we found a prompt that generated sufficiently long paraphrases, our approach produced competitive results to the baselines proposed by \citet{koppel_determining_2014}. 
 
-Theoretically, extending the \impAppr{} should increase precision at the cost of recall and $F_1$, as harder negatives reduce same-author predictions. 
+Theoretically, extending the \impAppr{} should increase precision at the cost of recall, as harder negatives reduce same-author predictions. 
 However, this trade-off did not materialize as expected.
-
-This work assumes that the traditional \impAppr{} was implemented correctly, and that observed discrepancies in reproducing original results arise from differences in input pair selection rather than implementation errors. 
-All experiments were conducted on texts exceeding 700 words and effectiveness on shorter texts remains untested, representing an open question for future work.
