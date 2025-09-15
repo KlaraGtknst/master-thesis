@@ -10,46 +10,66 @@ This, however, certainly is one of the reasons why our implementation diverges f
 
 \paragraph{Exp.\ 1(a): Varying number of \imps{}.}
 
-For this experiment, we generate \imps{} using the fix method, while varying only the number of \imps{}.
-\citet{koppel_determining_2014}\ only report results of this experiment on the \dataBlog{} dataset.
-Unlike the original curves, our \impAppr{} recall-precision curves intersect.
-This suggests that the original results from \citet{koppel_determining_2014}\ were better separated.
-In our case, the number of \imps{} has little impact on the precision and recall scores.
-Although the form of the original precision-recall plot differs, we find that 50 \imps{} is slightly superior.
+For this experiment, we generate \imps{} using the fixed method while varying only the number of \imps{}.
+\citet{koppel_determining_2014}\ report results of this experiment exclusively on the \dataBlog{} dataset.
+While we compare their findings with ours, it is important to note that direct comparability is limited due to differences in the underlying datasets, as our results are based on the \dataStudent{} corpus.
+In contrast to the original study, our \impAppr{} recall–precision curves intersect, suggesting that the results reported by \citet{koppel_determining_2014}\ exhibit stronger separation.
+In our experiments, the number of \imps{} exerts minimal influence on precision and recall.
+Nevertheless, similar to the original findings, we observe that using 50 \imps{} yields marginally superior performance.
+
 
 \begin{figure}[htbp]
-  \centering
-  \begin{subfigure}[b]{0.48\textwidth}
     \centering
-    \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig2/student_essays/student_roc_prec_recall_curve_r100_top100000_dif_n_imp.svg}
-    \caption{\dataBlog{} \textcolor{red}{TODO: needs to run (28.08.2025)}}
-    \label{fig:blog_dif_n}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{0.48\textwidth}
-    \centering
-    \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig2/student_essays/student_roc_prec_recall_curve_r100_top100000_dif_n_imp.svg}
-    \caption{\dataStudent{}}
+    \includesvg[width=\textwidth]{images/imposter/reproduction_koppel_figures/fig2/student_essays/student_roc_prec_recall_curve_r100_top100000_dif_n_imp.svg}
+    \caption[Recall-precision curves for the various sized \imp{} set sizes.]{Recall-precision curves for the various sized \imp{} set sizes on the \dataStudent{} dataset.}
     \label{fig:student_essays_dif_n}
-  \end{subfigure}
-  \caption{Recall-precision curves for the various sized \imp{} set sizes.}
-  \label{fig:repr_diff_n_imps_fixed}
 \end{figure}
+
+% \begin{figure}[htbp]
+%   \centering
+%   \begin{subfigure}[b]{0.48\textwidth}
+%     \centering
+%     \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig2/student_essays/student_roc_prec_recall_curve_r100_top100000_dif_n_imp.svg}
+%     \caption{\dataBlog{} \textcolor{red}{TODO: needs to run (15.09.2025)}}
+%     \label{fig:blog_dif_n}
+%   \end{subfigure}
+%   \hfill
+%   \begin{subfigure}[b]{0.48\textwidth}
+%     \centering
+%     \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig2/student_essays/student_roc_prec_recall_curve_r100_top100000_dif_n_imp.svg}
+%     \caption{\dataStudent{}}
+%     \label{fig:student_essays_dif_n}
+%   \end{subfigure}
+%   \caption{Recall-precision curves for the various sized \imp{} set sizes.}
+%   \label{fig:repr_diff_n_imps_fixed}
+% \end{figure}
 
 
 \paragraph{Exp.\ 1(b): Varying \imp{} generation.}
 
-Adhering to \citet{koppel_determining_2014}, we compare the \impAppr{} for fixed, and on-the-fly \imp{} generation with \ac{svm}, and similarity based baselines.
+Adhering to \citet{koppel_determining_2014}, we compare multiple \ac{av} methods with variants of the \impAppr{} that employ different \imp{} generation strategies, evaluating them in the \ac{av} scenario with human-authored text pairs.
+The \imp{} generation strategies include sampling from a fixed set of potential \imp{} candidates, and on-the-fly \imp{} generation. 
+The baselines introduced by \citet{koppel_determining_2014} are \ac{svc}, and unsupervised similarity based approaches.
 Each class is treated as the positive (reference) class once, with the other class serving as the negative class. 
-This choice affects how the evaluation scores are computed.
+This choice affects how the evaluation scores are computed, but not how the thresholds are fit during the training.
+Although not explicitly stated, it is likely that \citet{koppel_determining_2014} have trained each approach for both reference class scenarios once.
 The original work reports the results for the \dataBlog{} dataset only.
+
 % original results
 The original recall-precision curves by \citet{koppel_determining_2014}\ suggest that fixed \imp{} generation is superior to on-the-fly \imp{} generation.
 In the original work, minimal \imp{} generation recall value were higher for the different-author reference class (around $0.625$ for fixed and $0.58$ for on-the-fly) than for the same-author reference class counterpart (around $0.38$ for fixed and $0.22$ for on-the-fly).
 \Imp{} generation precision values behaved oppositional, since all approaches perform better in the same-author reference setting than in the different-author reference scenario.
-These findings are due to the facts that \ac{av} is an open-set one-class problem.
+These findings are likely due to the fact that \ac{av} is an open-set one-class problem.
 Hence, the different-author class is ill-defined due to the lack of representatives.
-Consequently, both \imp{} generation methods cause more different author predictions than same author predictions resulting in high different-author recall and high same-author precision.
+Consequently, both \imp{} generation methods cause more different author class predictions than same author class predictions resulting in high different-author class recall and high same-author class precision.
+We visualized our interpretation of the results reported by \citet{koppel_determining_2014} in \autoref{fig:findings_original_work}.
+
+\begin{figure}[htbp]
+    \centering
+    \includesvg[width=\textwidth]{images/imposter/reproduction_koppel_figures/fig2/student_essays/fig2_original_findings.svg}
+    \caption[Results from the original \impAppr{} experiments.]{Findings from the original \impAppr{} experiments by \citet{koppel_determining_2014} suggest that the different-author class is more difficult to model, leading to more different-author class predictions and thus, a higher different-author class recall.}
+    \label{fig:findings_original_work}
+\end{figure}
 
 % our results
 Both \citet{koppel_determining_2014}\ and us find that fixed \imp{} generation outperforms other approaches for the same-author reference scenario.
