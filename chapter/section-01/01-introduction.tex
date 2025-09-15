@@ -10,11 +10,13 @@
 To guide this objective, we formulate the following research questions:
 \begin{questions}
     \item \textbf{How suitable are \acp{llm} for \imp{} generation?} \label{enum:rq1} \hfill \\
-    Optimal \imps{} function as hard negatives in \ac{av}.
+    Optimal \imps{} are generated under the same constraints as the candidate text.
+    We use \ac{llm}-generated paraphrases serving as hard negatives as a heuristic of the original generation process.
     By generating paraphrases with \acp{llm} that control genre, topic, and other contextual factors, similarity measures in the \imp{} method primarily emphasize differences in authorial style rather than content.
     However, the threshold of syntactic similarity at which paraphrases are attributed to the candidate author remains unclear, potentially reducing detection accuracy.
-    We design an experiment comparing simple one-step and advanced two-step \ac{llm} paraphrasing techniques against traditional baselines using standard classification metrics.
-    Additionally, we analyse how syntactic similarity between the candidate reference and \ac{llm}-generated paraphrases affects detection effectiveness.
+    We design an experiment comparing one-step %and advanced two-step \ac{llm} paraphrasing techniques 
+    against traditional baselines using standard classification metrics.
+    % Additionally, we analyse how syntactic similarity between the candidate reference and \ac{llm}-generated paraphrases affects detection effectiveness.
     % We obtain this controlled environment by utilizing \acp{llm} to paraphrase the original text.
     % There are different approaches to paraphrasing text using \acp{llm}.
     % They include (a) directly asking the \ac{llm} to paraphrase the text, 
@@ -22,9 +24,7 @@ To guide this objective, we formulate the following research questions:
     % This thesis compares both approaches on \dataStudent{}, \dataBlog{}, \dataGutenberg{} and \dataPan{}.
 
     \item \textbf{Which metrics are appropriate to evaluate the quality of generated \imps{}?} \label{enum:rq2} \hfill \\
-    Optimal \imps{} are generated under the same constraints as the candidate text.
-    We use \ac{llm}-generated paraphrases as a heuristic of the original generation process.
-    Thus, evaluating \imps{} equates to evaluating paraphrases, a task complicated by the lack of a universal definition of paraphrasing.
+    Evaluating \imps{} equates to evaluating paraphrases, a task complicated by the lack of a universal definition of paraphrasing.
     Previous studies often adapt metrics from related \ac{nlp} tasks such as machine translation and summarization.
     Two primary evaluation dimensions are semantic similarity and syntactic similarity.
     Contrary to initial assumptions, high syntactic similarity is not always desirable, as it may indicate minimal modification of the original text.
@@ -37,9 +37,9 @@ To guide this objective, we formulate the following research questions:
 
     \item \textbf{How does the \ac{llm}-based \impAppr{} perform compared to \acl{sota} \ac{av} methods?} \label{enum:rq3} \hfill \\
     We use \unmasking{} and compression-based \ac{ppmd} as baselines to evaluate our \ac{llm}-based \impAppr{}.
-    Performance is assessed across three scenarios: (a) human-human input pairs,
-    (b) pairs containing at least one \ac{llm}, and (c) \ac{llm}-\ac{llm} pairs.
-    We test \ac{av} and \ac{llm} detection scenarios.
+    % Performance is assessed across three scenarios: (a) human-human input pairs,
+    % (b) pairs containing at least one \ac{llm}, and (c) \ac{llm}-\ac{llm} pairs.
+    We test \ac{av} scenario with human authored text pairs. % and \ac{llm} detection
     Comparisons are conducted on the \dataStudent{} dataset using standard classification metrics.
     
 \end{questions}
