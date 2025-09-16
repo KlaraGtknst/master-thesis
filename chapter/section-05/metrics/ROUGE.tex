@@ -2,7 +2,7 @@
 \paragraph{\ac{rouge}}
 \ac{rouge} \citep{lin_rouge_2004}, initially developed for summarization, is recall-oriented and emphasizes coverage of reference content in the candidate text. 
 Lower \ac{rouge} scores indicate greater diversity \citep{kurt_pehlivanoglu_comparative_2024}.
-Several variants exist, including \ac{rouge}-N, which computes n-gram recall, and \ac{rouge}-L, which measures the \ac{lcs}~\citep{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}. 
+Several variants exist, including \ac{rouge}-N, which computes word n-gram recall, and \ac{rouge}-L, which measures the \ac{lcs}~\citep{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}. 
 
 % ROUGE-N
 \ac{rouge}-N is an n-gram recall between the candidate text $c$ and the reference text $r$~\citep{lin_rouge_2004}.
@@ -40,6 +40,6 @@ R_{lcs} = \frac{LCS(r,c)}{m},
 \label{eq:rouge_l}
 \end{equation}
 
-\ac{rouge}-Lsum is a summary-level \ac{lcs} \ac{rouge} variant summing over the union \ac{lcs} matches $LCS_\cup(r_i,C)$ between the reference summary sentences $r_i, i \in [1,u]$ and every candidate sentence $c_j, j \in [1,v]$.
+\ac{rouge}-Lsum is a summary-level \ac{lcs} \ac{rouge} variant summing over the union \ac{lcs} matches $LCS_\cup(r_i,C)$ between the $u$ reference summary sentences $r_i, i \in [1,u]$ and each of the $v$ candidate sentence $c_j, j \in [1,v]$.
 The total number of words in the references and candidates is $m$ and $n$, respectively.
 While the formula for the final score $F_{lcs}$ from \autoref{eq:rouge_l} remains the same, the computation of precision and recall replace $LCS(r,c)$ by $\sum_{i=1}^{u}LCS_\cup(r_i,C)$.

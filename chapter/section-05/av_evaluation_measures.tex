@@ -13,7 +13,7 @@ Evaluation relies on standard classification metrics, each with distinct advanta
 % \end{equation}
 
 \paragraph{Precision, Recall \& F\textsubscript{1}}
-Precision and recall address the limitations of accuracy by focusing on the effectiveness for the positive class, that is, the correct identification of same-author pairs. 
+Precision and recall address the limitations of accuracy in class imbalance scenarios by focusing on the effectiveness for the positive class, that is, the correct identification of same-author pairs. 
 Precision measures the proportion of positive predictions that are correct, while recall quantifies the proportion of \ac{tp} cases that are successfully detected. 
 Because these metrics often trade off against each other, their harmonic mean, the F\textsubscript{1} score, is commonly used to provide a balanced assessment of effectiveness. 
 \autoref{eq:f1} shows the computation of the F\textsubscript{1} score~\citep{neal_surveying_2018}.
@@ -31,11 +31,11 @@ Because these metrics often trade off against each other, their harmonic mean, t
 
 % However, in the present work, c@1 and F\textsubscript{0.5u} are not appropriate measures. 
 Although we also used F\textsubscript{1} and accuracy in our work, we opted to exclude them in this thesis to keep results simple and comparable to the original work by \citet{koppel_determining_2014}.
-More advanced metrics, such as F\textsubscript{0.5u} \& c@1, assume that models can explicitly abstain by assigning a score of exactly 0.5, a convention used in \ac{pan} shared tasks~\citep{tyo_state_2022,bevendorff_overview_2024,kocher_unine_2015}. 
+More advanced metrics, such as F\textsubscript{0.5u} and c@1, assume that models can explicitly abstain by assigning a score of exactly 0.5, a convention used in \acs{pan}'s shared tasks~\citep{tyo_state_2022,bevendorff_overview_2024,kocher_unine_2015}. 
 In our setting, the model produces only the binary outcomes "same author" or "don't know". 
 Since there is no natural mechanism for producing a calibrated 0.5 score, abstention cannot be meaningfully represented. 
 One could introduce a second threshold to create an artificial abstention region, but this would not align with the open-set nature of \ac{av}. 
-The "different author" class is inherently ill-defined, as the set of possible authors is unbounded and cannot be exhaustively represented. 
+The different-author class is inherently ill-defined, as the set of possible authors is unbounded and cannot be exhaustively represented. 
 
 % Moreover, we do not report average effectiveness scores across different recall values, since we do not need good results across different thresholds, but only high effectiveness for one threshold.
 % For this reason, the focus in this thesis remains on precision, recall, and F\textsubscript{1}. 

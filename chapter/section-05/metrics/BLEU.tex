@@ -1,8 +1,10 @@
 \paragraph{\ac{bleu}}
 \ac{bleu}~\citep{papineni_bleu_2001} was originally developed for machine translation~\citep{zhou_paraphrase_2021,anantha_pearson_metrics_2021}. 
 \ac{bleu}'s basic unit of evaluation is a sentence. 
-\ac{bleu} is based on precision, i.e.\ computing the fraction of generated n-grams $n\text{-}gram \in \mathcal{C}$ that appear in any reference text~\citep{kurt_pehlivanoglu_comparative_2024,palivela_optimization_2021,papineni_bleu_2001,anantha_pearson_metrics_2021}. 
-To prevent inflated precision scores $p_n$ due to repetition of frequent tokens (e.g.\ "the"), \ac{bleu} introduces a clipping mechanism $Count_{match}(.)$ that caps the count of n-grams at their maximum reference frequency~\citep{papineni_bleu_2001}. 
+\ac{bleu} is based on precision, i.e.\ computing the fraction of generated word n-grams $n\text{-}gram \in \mathcal{C}$ that appear in any reference text $r$~\citep{kurt_pehlivanoglu_comparative_2024,palivela_optimization_2021,papineni_bleu_2001,anantha_pearson_metrics_2021}. 
+In our case, there is only one reference.
+We consider the reference the ground truth text.
+To prevent inflated precision scores $p_n$ due to repetition of frequent tokens (e.g.\ "the"), \ac{bleu} introduces a clipping mechanism $Count_{match}(.)$ that caps n-gram counts at their maximum reference frequency~\citep{papineni_bleu_2001}. 
 Precision $p_n$ for $n \in \mathbb{N}_{>0}$ is given by \autoref{eq:bleu}.
 
 \begin{equation}

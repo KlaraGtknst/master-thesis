@@ -2,7 +2,7 @@
 \label{sec:dataset}
 
 Since our method extends the original \impAppr{} proposed by \citet{koppel_determining_2014}, we first obtained the datasets used in their study to validate our implementation and reproduce their results. 
-The original experiments were conducted on the \dataBlog{} and \dataStudent{} datasets, which are described in detail in \autoref{subsec:original_data}. 
+The original experiments were carried out on the \dataBlog{} and \dataStudent{} datasets, described in detail in \autoref{subsec:original_data}.
 In addition to these, we incorporated two supplementary datasets, \dataPan{} and \dataGutenberg{}, presented in \autoref{subsec:additional_data}. 
 Following the general description of all datasets, we outline our preprocessing pipeline in \autoref{subsec:dataset_preprocessing} and conclude with the text-pair selection procedure in \autoref{subsec:dataset_text_pair_selection}.
 
@@ -37,17 +37,17 @@ Both the \dataPan{} and \dataGutenberg{} datasets meet these criteria.
 % PAN20: Fanfiction
 The \dataPan{} corpus~\citep{bischoff_importance_2020} comprises fanfiction texts sourced from \textit{fanfiction.net}.
 Each text belongs exclusively to one fandom (i.e.\ thematic category), with no crossovers between fandoms.
-According to \href{https://pan.webis.de/clef20/pan20-web/author-identification.html}{the official \ac{pan} website}, 
+According to \href{https://pan.webis.de/clef20/pan20-web/author-identification.html}{the official \acs{pan} website}, 
 train and test set originate from two different fanfictions.
 Dataset features include \texttt{id}, \texttt{fandoms}, and \texttt{pair}, where the latter contains the paired texts.
 An additional \texttt{jsonl} file provides the ground truth for each pair, specifying \texttt{id}, \texttt{same} (ground truth label for \ac{av}), and \texttt{authors}.
 
 % Gutenberg
-The \dataGutenberg{} dataset~\footnote{\href{https://www.gutenberg.org/}{Project Gutenberg} (26.07.2025)} contains a curated selection of literary works from Project Gutenberg, a digital library dedicated primarily to older works whose U.S. copyrights have expired.
+The \dataGutenberg{} dataset~\footnote{\url{https://www.gutenberg.org/} (26.07.2025)} contains a curated selection of literary works from Project Gutenberg, a digital library dedicated primarily to older works whose U.S. copyrights have expired.
 As of this writing, the collection contains over \num{75000}~digitized and proofread e-books contributed by volunteers according to their website.
 % For our experiments, we selected 19 works authored by 7 writers from the 16th to 19th centuries, the distribution of genres is given in \autoref{tab:genre_counts_gutenberg}.
 For our experiments, we selected 19~works authored by 7~writers from the 16th to 19th centuries, covering nine dramas, nine fiction texts and one poetry work.
-Metadata for these works was manually extracted from the Project Gutenberg website and Wikipedia.
+Metadata for these works was manually extracted from the \href{https://www.gutenberg.org/}{Project Gutenberg website} and Wikipedia.
 
 % \begin{table}[]
 % \centering
@@ -66,11 +66,12 @@ Metadata for these works was manually extracted from the Project Gutenberg websi
 % % }
 % \end{table}
 
-We augment the \dataStudent{} dataset with artificial generated texts and denote this dataset \dataArtificialStudent{}.
-It contains pairs of student essays written in response to different academic assignments. 
-The dataset includes both human-written essays and artificially generated paraphrases created by \acp{llm} to simulate student writing. 
-Each pair is labelled as same-author or different-author, and identifies whether the text was generated artificially. 
-Artificially generated essays are produced using \acp{llm} prompted to emulate an 18-year-old college freshman's voice, taking into account demographic features like sex, ethnicity, and political orientation.
+% \textcolor{orange}{We augment the \dataStudent{} dataset with artificial generated texts and denote this dataset \dataArtificialStudent{}.
+% It contains pairs of student essays written in response to different academic assignments. 
+% The dataset includes both human-written essays and artificially generated paraphrases created by \acp{llm} instructed to simulate student writing. 
+% Artificially generated essays are produced using \acp{llm} prompted to emulate an 18-year-old college freshman's voice, taking into account demographic features like sex, ethnicity, and political orientation.
+% Each pair is labelled as same-author or different-author indicating whether the text was generated artificially. 
+% }
 
 \subsection{Dataset Preprocessing}
 \label{subsec:dataset_preprocessing}
@@ -85,7 +86,7 @@ The preprocessing process was designed to meet the following requirements:
     \item Removal of texts with less than 700 words
 \end{enumerate}
 For a controlled evaluation environment in our \impAppr{}, we opted to work with relatively small, curated datasets rather than scaling to larger collections.  
-Consequently, text-length filter are essential to create optimal testbeds for \ac{av}.
+Text-length filtering is essential to the creation of optimal testbeds for \ac{av}.
 To determine the necessary preprocessing steps, we examined our datasets and analysed their respective artefacts.
 
 Since both the \dataBlog{} and the \dataPan{} dataset originate from the Internet, some of their documents contain HTML fragments such as \texttt{< >} enclosed tags.
@@ -93,7 +94,7 @@ Upon inspection of the \dataGutenberg{} dataset, we found that certain patterns 
 Based on these findings, we collected eight preprocessing steps we deemed potentially useful. 
 Notably, we do not consider actor instructions (e.g., character cues) or structural elements (e.g., chapter headings) as part of authorial style.
 Hence, we remove these patterns using regular expressions.
-You may find the regular expression attached in \autoref{app:regex_preproc} of \autoref{ch:appendix}.
+You may find the regular expression attached in \autoref{app:regex_preproc}. % of \autoref{ch:appendix}.
 Note that the perceived utility of these steps should be reevaluated for other datasets.
 Next, we analysed the effect of individual preprocessing steps on vocabulary size.  
 We define the vocabulary of a dataset as unique tokens across all texts (regardless of their text length or split) of that dataset.
@@ -129,28 +130,25 @@ Only texts with a minimum length of \num{700}~words were considered eligible.
 For the \dataPan{} dataset, we retained the existing pairs in the arrow dataset, but filtered out texts with less than \num{700}~words. 
 All datasets include both same-author and different-author pairs. 
 
-For \dataBlog{}, pairs were constructed such that the two texts share the same topic, year, gender, and age (the latter referencing the author). 
-The training set comprises 80\% of the data and the test set 20\%, with different topics assigned to each split.
+For the \dataBlog{} dataset, we matched text pairs on topic, year, gender, and author age. The training set contains 80\% of the data and the test set 20\%, with distinct topics in each split.
 
-For \dataStudent{}, as per \citet{koppel_determining_2014}, all text pairs are drawn from the different tasks, such that authors share the same sex, ethnicity, and political orientation. 
-Pairs were assigned to either the training (70\%) or test (30\%) set. 
-The test portion for \dataStudent{} is larger than that for \dataBlog{} because each author typically contributes only one essay per task and if only a single task were included in the test set, no same-author pairs could be formed. 
+For the \dataStudent{} dataset, following \citet{koppel_determining_2014}, we drew all text pairs from different tasks, with authors matched by sex, ethnicity, and political orientation. Pairs were split into training (70\%) and test (30\%) sets.
+The test portion is larger than in the \dataBlog{} dataset because each author typically contributes only one essay per task, so including only one of four tasks in the test set would prevent pair formation.
 
-For the \dataGutenberg{} dataset, pairs were selected such that texts share the same genre and century. 
-Authors were split into training (80\%) and test (20\%) sets.
+For the \dataGutenberg{} dataset, we selected text pairs that share the same genre and century and split the authors into training (80\%) and test (20\%) sets.
 
 Regardless of the selection criteria, the final datasets contain only three columns: \texttt{authors}, \texttt{pair}, and \texttt{same}.
 The \texttt{pair} column contains the texts of the pair as a list of strings,
 the \texttt{authors} column contains the authors of the texts as a list of strings,
 and the \texttt{same} column indicates whether the texts originate from the same author (\texttt{True}) or from different authors (\texttt{False}).
-
-The \dataArtificialStudent{} dataset is split into training and test sets using a stratified approach, ensuring that all combinations of author type (human vs. \ac{llm}), pair type (same- vs. different-author), and artificial generation (True vs. False) are proportionally represented in both splits. 
-Since the \dataArtificialStudent{} dataset is artificially created, its feature differ from the other datasets. 
-Each record contains the assignment names and descriptions, the paired texts, the authors, and metadata flags indicating author sameness and artificial generation.
-
 Descriptive statistics for all preprocessed datasets are provided in Table~\ref{tab:data_stats}.
-The presence of short artefacts in the \dataArtificialStudent{} dataset cannot be attributed to human-authored texts, as these have been filtered to meet a minimum length.
-Hence, the artificially generated texts exhibit shorter average lengths compared to other datasets.
+
+% The \dataArtificialStudent{} dataset is split into training and test sets using a stratified approach, ensuring that all combinations of author type (human vs. \ac{llm}), pair type (same- vs. different-author), and artificial generation (True vs. False) are proportionally represented in both splits. 
+% Since the \dataArtificialStudent{} dataset is artificially created, its feature differ from the other datasets. 
+% Each record contains the assignment names and descriptions, the paired texts, the authors, and metadata flags indicating author sameness and artificial generation.
+
+% The presence of short artefacts in the \dataArtificialStudent{} dataset cannot be attributed to human-authored texts, as these have been filtered to meet a minimum length.
+% Hence, the artificially generated texts exhibit shorter average lengths compared to other datasets.
 
 % minimum length necessesary for AV/ AA
 The choice of minimum text length was informed by literature research.
@@ -160,9 +158,8 @@ Recent work~\citep{llm_detection_av_2025} identifies \num{2500}-\num{4000}~chara
 \begin{table}[H]
 % \begin{sidewaystable}
 \centering\small
-\caption[Statistics of preprocessed datasets.]{Statistics of preprocessed datasets \dataBlog{}, \dataGutenberg{}, \dataPan{}, \dataStudent{}, and \dataArtificialStudent{}.
-$p_s$, $p_{\neg s}$ denote same-author and different-authors pairs, respectively.
-$l_w$, $l_c$ denotes text length in words and characters, respectively.
+\caption[Statistics of preprocessed datasets.]{Statistics of preprocessed datasets \dataBlog{}, \dataGutenberg{}, \dataPan{}, and \dataStudent{}. %, and \dataArtificialStudent{}.
+$p_s$, $p_{\neg s}$ denote same-author and different-authors pairs, while $l_w$, $l_c$ denote text length in words and characters, respectively.
 }
 \label{tab:data_stats}
 \resizebox{\textwidth}{!}{%
@@ -174,7 +171,7 @@ dataset & \# pairs & \# authors & \# $p_s$ & \# $p_{\neg s}$ & \diameter $l_w$ (
 \dataGutenberg{}       & 12    & 7     & 6     & 6     & 437870.75 (78698.79) & 297704 & 68329.91 & 60282 \\
 \dataPan{}           & 66905 & 52771 & 35616 & 31289 & 21418.76 (3914.76)   & 55413 & 512.19 & 3889 \\
 \dataStudent{} & 224  & 163   & 112   & 112  & 4403.73 (851.45)     & 1520 & 138.15 & 807  \\
-\dataArtificialStudent{} & 110 & 32 & 50 & 60 & 661.39 (3581.46) & 1769 & 267.08 & 703 \\
+% \dataArtificialStudent{} & 110 & 32 & 50 & 60 & 661.39 (3581.46) & 1769 & 267.08 & 703 \\
 \bottomrule
 \end{tabular}%
 }
