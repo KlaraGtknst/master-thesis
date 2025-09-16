@@ -6,10 +6,10 @@ Following the notion introduced by \citet{koppel_determining_2014}, ideal \imp{}
 The quality of \imps{} directly affects model effectiveness.
 If they are too different from the candidate text, models are trained on trivial contrasts, yielding \acp{fp}. 
 Conversely, if \imps{} are too similar to the candidate, the risk of \acp{fn} increases.
-This behaviour reflects in increasing recall and precision, respectively.
+This manifests as increased recall in the former case and increased precision in the latter case.
 
 % obstacles for \imp{} generation in the past
-Traditional \imp{} generation techniques struggled to control the compounder influencing \imp{} generation. 
+Traditional \imp{} generation techniques struggled to control the confounder influencing \imp{} generation. 
 The fixed approach samples from a fixed pool of unrelated texts, while the on-the-fly approach fails to align genre with the candidate text~\citep{koppel_determining_2014}. 
 Since authorial style is tightly entangled with contextual factors, \imps{} produced by these methods differ systematically from the candidate text, weakening their utility. 
 Ideally, \imp{} generation should replicate the conditions of original text production, including task, topic, register, target audience and century. 
@@ -18,7 +18,7 @@ In \ac{av}, the candidate author may be deceased, unavailable, or unwilling to c
 
 % heuristics: paraphrase
 \acp{llm} make it possible to approximate this ideal. 
-By conditioning generation on the candidate text itself, external factors such as topic, genre, and register can be more tightly controlled. 
+By conditioning generation on the candidate text external factors such as topic, genre, and register can be more tightly controlled. 
 In particular, paraphrasing offers a heuristic for simulating the text generation process. 
 The model produces stylistic variants of the candidate's writing while maintaining semantic alignment.
 
@@ -26,9 +26,9 @@ The model produces stylistic variants of the candidate's writing while maintaini
 \subsection{Hard Negative Mining via Paraphrasing}
 
 The lack of a universally accepted definition of paraphrases complicates their generation and evaluation~\citep{gohsen_task_oriented_2024}. 
-In this work, paraphrases are considered suitable \imps{} when they preserve the topic, genre, and tone of the original text, introduce sufficient lexical and syntactic variation to prevent near-duplication, and allow limited semantic divergence including mild hallucinations.
+In this work, paraphrases are considered suitable \imps{} when they preserve the topic, genre, tone and length of the original text, introduce sufficient lexical and syntactic variation to prevent near-duplication, and allow limited semantic divergence including mild hallucinations.
 We propose two approaches to paraphrasing as displayed in \autoref{fig:paraphrasing_approaches}.
-We expect the \impAppr{} recall and accuracy scores to decrease while the precision scores increase, i.e.\ higher confidence in positive labelled text pairs, due to harder negatives leading to fewer positive predictions.
+We expect the \impAppr{} recall scores to decrease while the precision scores increase, i.e.\ higher confidence in positive labelled text pairs, due to harder negatives leading to fewer positive predictions.
 
 \begin{figure}[h]
     \centering
@@ -42,15 +42,15 @@ Paraphrasing is often analysed along two main dimensions.
 At the lexical level, it involves word-level substitutions such as synonym replacement, typically achieved through rule-based or thesaurus-driven methods. 
 At the syntactic level, paraphrasing entails changes to sentence structure, which can be realized through monolingual machine translation~\citep{zhou_paraphrase_2021} or by explicitly prompting \acp{llm}~\citep{kurt_pehlivanoglu_comparative_2024}.
 % While more fine-grained taxonomies exist~\citep{zhou_paraphrase_2025}, they are not central here, as this study does not involve training or constructing paraphrase models directly.
-In this case, paraphrase quality is largely determined by prompt design and model selection~\citep{Wu_ODD_challenges_2025}.
+Paraphrase quality is largely determined by prompt design and model selection~\citep{Wu_ODD_challenges_2025}.
 
 
 \subsection{One-step Paraphrasing}
 
-In our one-step approach, an \imp{} is produced directly through prompting an \ac{llm}. 
-Effective prompting proved essential.
-We observed that specification of what to avoid was vital to obtain valid results. 
-Moreover, task instructions placed at the end of the prompt reduced cases where models ignored them in long-context settings, such as the \dataGutenberg{} corpus.
+In our one-step approach, \imps{} are generated directly via \ac{llm} prompting. 
+Effective prompting proved crucial. 
+We found that specifying constraints was vital for valid outputs, and placing task instructions at the end reduced instruction neglect in long-context settings (e.g., \dataGutenberg{} corpus). 
+We evaluated three prompt variants.
 
 The first prompt explicitly decomposes the sentence into subject, verb, and object before reconstruction, encouraging lexical diversity. 
 \begin{quote}
@@ -63,12 +63,18 @@ Both prompts emphasize concise outputs restricted to the paraphrase itself.
     \textit{Paraphrase the sentence above without changing its meaning. Use different words and vary the sentence structure while keeping the tone consistent. Keep the new sentence similar in length to the original. Output only the paraphrased sentence, with no explanations or extra text.}
 \end{quote}
 
-We initially experimented with T5-based models from HuggingFace, but these demonstrated poor instruction following and often produced malformed outputs. 
-Our final experiments used the models listed in \autoref{tab:base_llms}, all accessed through the \ac{gwdg}/\ac{saia} infrastructure\footnote{\url{https://docs.hpc.gwdg.de/} (31.08.2025)}.
+The third prompt extends the second prompt by explicitly instructing the \ac{llm} to produce paraphrases three times as long as the reference text.
+\begin{quote}
+  \textit{Paraphrase the text above without changing its meaning. Use different words and vary the sentence structure while maintaining a consistent tone. Your paraphrase should be three times as long than the original. Output only the paraphrased sentence, with NO explanations or extra text.}
+\end{quote}
+
+Initial experiments with T5-based HuggingFace models showed poor instruction adherence and frequent malformed outputs. 
+Our final experiments therefore employed the models listed in \autoref{tab:base_llms}, accessed via the \ac{gwdg}/\ac{saia} infrastructure\footnote{\url{https://docs.hpc.gwdg.de/} (31.08.2025)}.
+Further details on these models are provided in \autoref{app:language_models}.
 
 \begin{table}[h]
 \centering
-\caption{Base \acp{llm} used for paraphrasing.}
+\caption{\acp{llm} used for paraphrasing.}
 \label{tab:base_llms}
 % \resizebox{\textwidth}{!}{%
 \begin{tabular}{ll}
@@ -87,7 +93,7 @@ meta-llama-3.1-8b-instruct           & \ac{gwdg}/ \ac{saia}    \\
 
 \subsection{Two-step Paraphrasing}
 
-The two-step approaches are inspired by prior literature~\citep{bevendorff_overview_2024, ayele_overview_2024}, and differ in how they extract and utilize auxiliary information from the source text before generating the paraphrase. 
+The two-step approaches are inspired by prior literature~\citep{bevendorff_overview_2024, ayele_overview_2024}, and differ in how they extract and utilize auxiliary information (i.e. metadata) from the source text before generating the paraphrase. 
 The two steps enforce a clearer disentanglement of content and style at the cost of increased computational overhead.
 
 As displayed in \autoref{fig:two_step_paraphraser}, the two-step paraphrasing decomposes the task into information extraction and text generation. 
@@ -145,12 +151,9 @@ Again, all generator prompts can be found in \autoref{app:generator_prompts}.
 \draw[arrow] (dataset) -- (reference.west);
 \draw[arrow] (dataset) -- node[midway, above] {$\{0,1\}$} (meta);
 \draw[arrow] (reference.east) -- (extractor);
-\draw[arrow] (extractor) -- (generator);
+\draw[dashedarrow] (extractor) -- (generator);
 \draw[arrow] (generator) -- (paraphrase);
-
-% \draw[arrow] (meta.south) .. controls +(0,-0.8) and +(0,0.8) .. (generator.north);
-
-\draw[arrow] (meta) -- (generator);
+\draw[dashedarrow] (meta) -- (generator);
 
 
 \end{tikzpicture}
