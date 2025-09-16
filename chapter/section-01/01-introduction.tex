@@ -23,10 +23,10 @@ To address the overarching objective of this thesis, we formulate the following 
     Contrary to naive assumptions, high syntactic similarity is not always desirable, as it may indicate minimal modification of the original text.
     Instead, the objective is to achieve strong semantic alignment while ensuring sufficient syntactic variation to capture genuine rephrasing. 
     Furthermore, relatively low automatic scores may still be acceptable if supported by human judgments of adequacy. 
-    We therefore construct an experiment to evaluate paraphrases using \acl{sota} measures for paraphrase quality. 
+    We therefore construct experiments to evaluate paraphrases using \acl{sota} measures for paraphrase quality. 
 
     \item \textbf{How does the \ac{llm}-based \impAppr{} perform compared to \acl{sota} \ac{av} methods?} \label{enum:rq3} \hfill \\
-    To benchmark our approach, we compare it against established baselines introduced by \citet{koppel_determining_2014}, as well as \unmasking{} and compression-based \ac{ppmd}. 
+    To benchmark our approach, we compare it against established baselines introduced by \citet{koppel_determining_2014}, \textcolor{red}{as well as \unmasking{} and compression-based \ac{ppmd}}. 
     The evaluation is conducted on human-authored text pairs from the \dataStudent{} dataset, applying standard classification metrics. 
     
 \end{questions}
@@ -37,6 +37,7 @@ To address the overarching objective of this thesis, we formulate the following 
 \label{sec:contributions}
 The main contributions of this thesis are as follows:
 \begin{itemize}
+    \item Collection and preprocessing of original datasets, including a controlled candidate-pair selection procedure aligned with the methodology of \citet{koppel_determining_2014} and informed by direct consultation with the authors (cf.~\autoref{sec:dataset}).
     \item Reimplementation of the traditional \impAppr{}~\citep{koppel_determining_2014}\ (cf.~\autoref{sec:impostor_method_theory}).
     \item Development of an \ac{llm}-based \impAppr{} extending the work by \citet{koppel_determining_2014} (cf.~\autoref{sec:impostor_generation}). 
     % \item Empirical evaluation of \ac{llm}-generated hard negatives, with a focus on prompts influencing the control of confounder variables during the artificial \imp{} generation process (cf.~\autoref{subsec:prompt_impact_res}/~\ref{enum:rq1}).
@@ -44,8 +45,7 @@ The main contributions of this thesis are as follows:
     \item Quantitative comparison of paraphrasing approaches using metrics adapted from summarization and translation tasks (hereafter paraphrasing scores) (cf.~\autoref{sec:comp_paraphrases}/~\ref{enum:rq2}).
     \item Analysis of the effect of text segmentation (i.e. number of chunks) on paraphrasing scores (cf.~\autoref{sec:results_chunks}/~\ref{enum:rq2}).
     \item Evaluation of the proposed \ac{llm}-based \impAppr{} against established \ac{av} techniques, specifically the baselines introduced by \citet{koppel_determining_2014}, \textcolor{red}{\unmasking{} and \ac{ppmd}}, within the traditional \ac{av} setting using pairs of human-authored texts (cf.~\autoref{subsec:imp_gen_res}/~\ref{enum:rq3}).
-    \item Collection and preprocessing of original datasets, including a controlled candidate-pair selection procedure aligned with the methodology of \citet{koppel_determining_2014} and informed by direct consultation with the authors (cf.~\autoref{sec:dataset}).
-
+   
 \end{itemize}
 
 
