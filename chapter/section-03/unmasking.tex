@@ -1,8 +1,8 @@
-\subsection{Unmasking Method}
+\subsection{\unmasking{} Method}
 \label{subsec:unmasking}
 
-The Unmasking algorithm was first introduced by \citet{koppel_authorship_2004}\ as a meta-classification approach to \ac{av}. 
-First, both the disputed text and the candidate text are split into non-overlapping chunks, which serve as samples from the unknown author and the candidate author respectively. 
+The \unmasking{} algorithm was first introduced by \citet{koppel_authorship_2004}\ as a meta-classification approach to \ac{av}. 
+First, both the disputed text $d \in U$ and the candidate text $k_a \in K_a$ are split into non-overlapping chunks, which serve as samples from the unknown author and the candidate author $a \in A$ respectively. 
 Second, the chunks are represented using word-frequency features of the $n=250$ most frequent words across the combined texts.
 Third, a linear \ac{svm} is trained to discriminate between the two sets of chunks and the 10-fold cross-validation accuracy is recorded.
 Fourth, the most discriminative features (e.g., the top three positive and top three negative weights) are removed.  
@@ -12,43 +12,22 @@ Finally, a meta-classifier is trained on the degradation curve (and optionally o
 The intuition is that, for same-author comparisons, the classifier’s accuracy quickly drops to chance level as the most informative features are eliminated. 
 For different-author comparisons, classification remains feasible for longer, resulting in a slower degradation curve~\citep{stein_intrinsic_2011,tyo_state_2022,bevendorff_divergence_based_2020,stamatatos_survey_2009}. 
 
-To address the applicability restricted to long texts, \citet{bevendorff_generalizing_2019,bevendorff_divergence_based_2020}\ proposed generalized unmasking. 
+To address the applicability restricted to long texts, \citet{bevendorff_generalizing_2019,bevendorff_divergence_based_2020}\ proposed generalized \unmasking{}. 
 Instead of splitting texts into contiguous chunks, they construct chunks by randomly sampling words in a bootstrap-aggregated manner. 
 Words are drawn without replacement from a pool until the target chunk size is reached.
 If the pool is exhausted, it is replenished. 
-Because random sampling introduces variance, unmasking is repeated multiple times and the resulting curves are averaged. 
-% The generalized algorithm is summarized in Listing ~\ref{alg:generalized_unmasking}, and its workflow is visualized in \autoref{fig:generalized_unmasking}. 
-The Generalized Unmasking workflow is visualized in \autoref{fig:generalized_unmasking}. 
-Except for the modified sampling strategy and the adjusted number of features removed per iteration (six in the original method~\citep{koppel_authorship_2004}, ten in the generalized variant~\citep{bevendorff_generalizing_2019}), the procedure remains identical to the original unmasking framework.
-
-% \begin{algorithm}
-%     \caption{Generalized Unmasking Algorithm \citep{bevendorff_generalizing_2019,bevendorff_divergence_based_2020}}
-%     \label{alg:generalized_unmasking}
-%     \begin{algorithmic}[1]
-%     \Procedure{Unmasking}{$A$, $B$}
-%         \Comment{$A$, $B$: input documents}
-%         \State $\mathcal{C}_A \gets \text{RandomChunks}(A, 30, 700)$
-%         \State $\mathcal{C}_B \gets \text{RandomChunks}(B, 30, 700)$
-%         \State $\mathcal{F} \gets \text{TopFreqWords}(A, B, 250)$
-%         \State $\mathcal{C} \gets \mathcal{C}_A \cup \mathcal{C}_B$
-        
-%         \While{$|\mathcal{F}| > 0$}
-%             \State $a \gets \text{CVAcc}(\mathcal{C}_A, \mathcal{C}_B, \mathcal{F}, \text{linSVM})$
-%             \State $\mathcal{F} \gets \mathcal{F} \setminus \mathcal{F}_{\text{top}}^{\pm}$
-%         \EndWhile
-%         \State \Return List of accuracies $a$
-%     \EndProcedure
-%     \end{algorithmic}
-% \end{algorithm}
+Because random sampling introduces variance, \unmasking{} is repeated multiple times and the resulting curves are averaged. 
+The generalized \unmasking{} workflow is visualized in \autoref{fig:generalized_unmasking}. 
+Except for the modified sampling strategy and the adjusted number of features removed per iteration (six in the original method~\citep{koppel_authorship_2004}, 10 in the generalized variant~\citep{bevendorff_generalizing_2019}), the procedure remains identical to the original \unmasking{} framework.
 
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/unmasking/generalized_unmasking.svg}
     \caption[Generalized \unmasking{} workflow.]{Workflow of generalized \unmasking{}~\citep{bevendorff_generalizing_2019}: 
-    (1) Generate chunks by oversampling words from the disputed text $A$ and the candidate text $B$. 
+    (1) Generate chunks by oversampling words from the disputed text $d$ and the candidate text $k_a$. 
     (2) Represent the chunks using the most frequent words as features. 
     (3) Train a linear \ac{svm} and record the 10-fold cross-validation accuracy. 
-    (4) Remove the six most discriminative features. 
+    (4) Remove the 10 most discriminative features. 
     (5) Repeat steps (3)–(4) until no features remain.}
     \label{fig:generalized_unmasking}
 \end{figure}

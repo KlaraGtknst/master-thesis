@@ -1,8 +1,8 @@
 \subsection{\impApprTitle{}}
 \label{sec:impostor_method_theory}
 
-\citet{koppel_determining_2014}\ propose reducing open-set \ac{av} to open-set \ac{aa}, or the so-called many-candidates problem, which determines which (if any) candidate author from a pool of candidates authored a given anonymous text. 
-They outline the problem hierarchy as displayed in \autoref{fig:problem_hierarchy}.
+\citet{koppel_determining_2014}\ propose reducing open-set \ac{av} to open-set \ac{aa}, or the so-called many-candidates problem, which determines which (if any) candidate author $a$ from a pool of candidates $A$ authored a given anonymous text $d \in U$. 
+We illustrate the hierarchy of problem complexity in \autoref{fig:problem_hierarchy}, based on their description.
 The candidates of the open-set \ac{aa} problem are retrieved via hard negative mining. 
 In the \ac{aa} context, hard negatives are defined as text pairs from different authors that are nonetheless highly similar. 
 To ensure difficulty, impostor texts must be drawn from the same domain as the candidate, where domain encompasses factors such as topic, genre, register, or time period~\citep{bischoff_importance_2020}. 
@@ -14,34 +14,8 @@ To ensure difficulty, impostor texts must be drawn from the same domain as the c
     \label{fig:problem_hierarchy}
 \end{figure}
 
-
-% \begin{figure}[ht]
-% \centering
-% \begin{tikzpicture}[node distance=1.5cm, every node/.style={font=\sffamily}]
-
-% % Easy-difficult arrow (shortened)
-% \draw[<->, thick] (-3,0.3) -- (-3,-3.3) node[midway,left]{\rotatebox{90}{easy $\;\;$ difficult}};
-
-% % Nodes
-% \node[draw, rounded corners, fill=green!30, minimum width=5cm, minimum height=1cm, align=center] (closed) {closed-set AA};
-% \node[draw, rounded corners, fill=orange!30, minimum width=5cm, minimum height=1cm, below=of closed, align=center] (openAA) {open-set AA / many-candidates problem};
-% \node[draw, rounded corners, fill=orange!30, minimum width=5cm, minimum height=1cm, right=3.5cm of openAA, align=center] (openAV) {open-set AV};
-
-% % Arrows (shortened)
-% \draw[-{Latex}, thick] (closed.south) -- ++(0,-0.2) |- (openAA.north);
-% \draw[<->, thick] (openAA.east) -- ++(0.2,0) -- ++(3.1,0) -- ++(0,0) coordinate (tmp) -- (openAV.west);
-
-% \end{tikzpicture}
-% \caption{Comparison of closed-set and open-set attack/verification scenarios.}
-% \label{fig:aa_open_av}
-% \end{figure}
-
-
-
-
-The disputed and candidate texts are encoded as \ac{tfidf} vectors over the \num{100000}~most frequent space-free character 4-grams.
-Space-free $n$-grams are defined as sequences of $n$ consecutive characters that exclude spaces, or, in cases where fewer than $n$ characters occur at a word boundary, sequences padded by surrounding spaces~\citep{koppel_authorship_2011,neal_surveying_2018}. 
-Illustrative examples are provided in \autoref{fig:spacefree_4gram}.
+The disputed text $d$ and the candidate text $k_a$ are encoded as \ac{tfidf} vectors over the \num{100000} most frequent space-free character 4-grams, defined as sequences of four consecutive characters excluding spaces, or, at word boundaries with fewer than four characters, padded by surrounding spaces~\citep{koppel_authorship_2011,neal_surveying_2018}. 
+Illustrative examples are shown in \autoref{fig:spacefree_4gram}.
 
 \begin{figure}[ht]
     \centering
@@ -67,59 +41,23 @@ Illustrative examples are provided in \autoref{fig:spacefree_4gram}.
     \label{fig:spacefree_4gram}
 \end{figure}
 
-While the optimal $n$ is language dependent~\citep{neal_surveying_2018}, tri-grams are commonly used in stylistic analysis, due to their ability to capture inflections, % Flexion/ Beugung in Deutsch
+\citet{koppel_determining_2014} use character 4-grams based on prior experiments suggesting their effectiveness, though \citet{neal_surveying_2018} note that the optimal $n$ is language-dependent. 
+Tri-grams are common in stylistic analysis of Germanic languages, capturing inflections, % Flexion/ Beugung in Deutsch
 morphemes, %  smallest meaningful constituents within a linguistic expression and particularly within a word
-and other syntactic structures for Germanic languages.
-Authorship analysis typically opts against using word n-grams due to the capture of topic information being unnecessary to obtain valid effectiveness~\citep{Sapkota_ngrams_2015}.
+and other syntactic structures. 
+Word n-grams, which capture topic information, are generally avoided in authorship analysis, as topic information can hinder reliable attribution~\citep{neal_surveying_2018,Sapkota_ngrams_2015}.
 
-
-The \impAppr{} builds on \unmasking{}'s repeated feature subsampling~\citep{koppel_authorship_2004}. 
-However, unlike \unmasking{}, the \impAppr{} uses random projections to transform features into lower-dimensional spaces.
-After each projection step, the method records whether the candidate author is predicted as the source of the disputed text. 
-This score is aggregated across all elimination steps~\citep{tyo_state_2022}.
-The workflow is illustrated in \autoref{fig:impostor}.
-
-The process is carried out twice for each pair of texts, swapping the roles of the disputed text and the candidate text. 
-In this way, each text serves once as the disputed text and once as the reference for impostor generation. 
-The final prediction is obtained by averaging the aggregated scores and applying a threshold.
-
+The \impAppr{} extends \unmasking{}'s repeated feature subsampling \citep{koppel_authorship_2004} by applying random projections to reduce feature dimensionality.
+After each projection, the method records whether the candidate author $a$ is predicted as the source of the disputed text $d$, aggregating this score across all elimination steps~\citep{tyo_state_2022} (illustrated in \autoref{fig:impostor}). 
+The procedure is repeated with the texts' roles swapped, so each serves once as the disputed text and once as the reference. 
+Final predictions are obtained by averaging the aggregated scores and applying a threshold.
 
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/imposter/impostor.svg}
-    \caption[\impAppr{} workflow.]{\impAppr{} workflow: (1) Impostor generation, (2) creation of feature vectors using frequent n-grams, (3) random dimensionality reduction, (4) similarity computation and selection of the most similar candidate.}
+    \caption[\impAppr{} workflow.]{\impAppr{} workflow: (1) Impostor generation, (2) creation of feature vectors using frequent 4-grams, (3) random dimensionality reduction, (4) similarity computation and selection of the most similar candidate.}
     \label{fig:impostor}
 \end{figure}
-
-
-
-% \begin{definition}
-%     [within-domain]
-%     Experiments with P=Q.
-%     Hence, it is necessary to ensure all texts are mutually from the same domain \citep{bischoff_importance_2020}.
-%     \begin{table}[tbp]
-%         \centering
-%         \caption{Typical scheme $S_1$ for \ac{aa} problem instances, where A, B, are authors and P, Q domains and 
-%         the vertical mapping denotes which author has written in which domain. 
-%         For training, texts from A and B take turn; for testing, previously unseen texts from A and B are used \citep{bischoff_importance_2020}.}
-%         \label{tab:within_domain_aa}
-%         \begin{tabular}{|l|ll|ll|}
-%         \hline
-%         \textbf{Scheme $S_1$} & \multicolumn{2}{l|}{\textbf{training}} & \multicolumn{2}{l|}{\textbf{testing}} \\ \hline
-%         \textbf{authors} & \multicolumn{1}{l|}{A} & B & \multicolumn{1}{l|}{A} & B \\ \hline
-%         \textbf{domains} & \multicolumn{1}{l|}{P} & Q & \multicolumn{1}{l|}{P} & Q \\ \hline
-%         \end{tabular}%
-%     \end{table}
-% \end{definition}
-
-
-
-% \begin{figure}[htbp]
-%     \centering
-%     \includesvg{notes/Koppel_imposter_2014/reduction_closed_set_AV_to_open_set_AA}
-%     \caption{Reducing the \ac{av} problem to the many-candidates problem.}
-%     \label{fig:problem_reduction}
-% \end{figure}
 
 
 \subsubsection{Traditional \Imp{} Generation}

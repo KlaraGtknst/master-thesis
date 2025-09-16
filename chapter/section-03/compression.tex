@@ -3,12 +3,11 @@
 This category of approaches relies on general-purpose compression models, such as \ac{rar} or \ac{ppmd}. %(i.e.\ a variant of \ac{ppm}~\citep{tyo_state_2022}), LZW, GZIP, BZIP2 and 7ZIP.
 Such models capture textual characteristics by exploiting repeated character sequences~\citep{stamatatos_survey_2009,neal_surveying_2018}. 
 Because natural language exhibits strong predictability, compression methods that model character sequences can effectively capture author-specific patterns.
-This focus on character-level regularities is the reason compression-based approaches are typically classified as character-based and the reason why they are also sensitive to text obfuscation~\citep{bevendorff_divergence_based_2020}.
+Focusing on character-level patterns, compression-based approaches are typically classified as character-based and are sensitive to text obfuscation~\citep{bevendorff_divergence_based_2020}.
 
-They are further classified as profile-based methods. In this framework, an author profile is first constructed for each candidate author by concatenating all texts attributed to them and then compressing the resulting sequence. 
-The disputed text is subsequently concatenated with each author profile and compressed as well. 
-The compression difference is computed between (i) the profile concatenated with the disputed text and (ii) the profile alone.  
-The author whose profile yields the smallest difference is selected as the most likely author~\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.
+These are further classified as profile-based methods, where an author profile is formed by concatenating and compressing all texts $k_a \in K_a$ attributed to a candidate $a \in A$. 
+The disputed text $d \in U$ is then concatenated with each profile and compressed, and the compression difference between the combined and original profile is computed. 
+The author whose profile yields the smallest compression difference is selected as the most likely author~\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.
 
 The rationale behind this approach is that texts written by the same author can typically be compressed more efficiently than texts produced by different authors~\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014}.
 
