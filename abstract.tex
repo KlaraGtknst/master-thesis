@@ -1,8 +1,16 @@
 \chapter*{Abstract}
 \markboth{Abstract}{Abstract}
 
-In this thesis, we extend an \acl{av} method proposed by \citet{koppel_determining_2014}. 
-The original \impAppr{} compares a disputed text to a candidate text and hard negatives, considering disputed and candidate text to share an author if the candidate is consistently the most similar across random feature projections. 
-A key limitation is the lack of control for confounding factors such as topic or genre, which can lead to decisions based on domain differences rather than authorial style. 
-To address this, we use \acs{llm}-generated paraphrases as proxies for modelling the original generation of the candidate text, aiming to control domain-related confounders during \imp{} generation. 
-Our experimental results indicate that the \acs{llm}-based \impAppr{} outperforms baseline methods in the traditional \acl{av} setting with human-authored text pairs, while simultaneously highlighting the challenges associated with integrating \acsp{llm} into \acl{av} and emphasizing the necessity of further research on paraphrase generation.
+\Acl{av} seeks to determine whether two texts share the same author. 
+Existing approaches often perform poorly in cross-domain scenarios. 
+The influential \impAppr{} of \citet{koppel_determining_2014} introduced hard negative sampling to sharpen predictions, yet it struggles to fix confounding variables during inference. 
+This thesis investigates whether \aclp{llm} can help address these limitations. 
+Specifically, we employ \acs{llm}-generated paraphrases as hard negatives. 
+Since these paraphrases aim to preserve the confounding variables of the original text, they mitigate domain-related biases during inference. 
+Moreover, by constructing a tailored case for each input text pair, the approach eliminates \acl{ood} issues, ensuring that comparisons remain within the distribution defined by the pair itself.
+We evaluate the approach in the traditional human-authored \acl{av} setting and find that the \acs{llm}-based extension outperforms the original baselines. 
+At the same time, our results reveal the practical and conceptual challenges of integrating \acsp{llm} into \acl{av}, including issues of reliability, hallucination, and control over paraphrase quality.
+
+
+
+% The original \impAppr{} compares a disputed text to a candidate text and hard negatives, considering disputed and candidate text to share an author if the candidate is consistently the most similar across random feature projections. 
