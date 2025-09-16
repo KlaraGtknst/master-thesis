@@ -26,7 +26,8 @@ To address the overarching objective of this thesis, we formulate the following 
     We therefore construct experiments to evaluate paraphrases using \acl{sota} measures for paraphrase quality. 
 
     \item \textbf{How does the \ac{llm}-based \impAppr{} perform compared to \acl{sota} \ac{av} methods?} \label{enum:rq3} \hfill \\
-    To benchmark our approach, we compare it against established baselines introduced by \citet{koppel_determining_2014}, \textcolor{red}{as well as \unmasking{} and compression-based \ac{ppmd}}. 
+    To benchmark our approach, we compare it against established baselines introduced by \citet{koppel_determining_2014}.
+    % , \textcolor{red}{as well as \unmasking{} and compression-based \ac{ppmd}}. 
     The evaluation is conducted on human-authored text pairs from the \dataStudent{} dataset, applying standard classification metrics. 
     
 \end{questions}
@@ -44,7 +45,9 @@ The main contributions of this thesis are as follows:
     \item Analysis of prompt design and its influence on paraphrase length as a confounding variable (cf.~\autoref{subsec:prompt_impact_res}/~\ref{enum:rq1} and \ref{enum:rq2}).
     \item Quantitative comparison of paraphrasing approaches using metrics adapted from summarization and translation tasks (hereafter paraphrasing scores) (cf.~\autoref{sec:comp_paraphrases}/~\ref{enum:rq2}).
     \item Analysis of the effect of text segmentation (i.e. number of chunks) on paraphrasing scores (cf.~\autoref{sec:results_chunks}/~\ref{enum:rq2}).
-    \item Evaluation of the proposed \ac{llm}-based \impAppr{} against established \ac{av} techniques, specifically the baselines introduced by \citet{koppel_determining_2014}, \textcolor{red}{\unmasking{} and \ac{ppmd}}, within the traditional \ac{av} setting using pairs of human-authored texts (cf.~\autoref{subsec:imp_gen_res}/~\ref{enum:rq3}).
+    \item Evaluation of the proposed \ac{llm}-based \impAppr{} against established \ac{av} techniques, specifically the baselines introduced by \citet{koppel_determining_2014}
+    % , \textcolor{red}{\unmasking{} and \ac{ppmd}}, 
+    within the traditional \ac{av} setting using pairs of human-authored texts (cf.~\autoref{subsec:imp_gen_res}/~\ref{enum:rq3}).
    
 \end{itemize}
 
