@@ -1,12 +1,11 @@
-\chapter{\Aclp{llm}}
+\chapter{Large Language Models}
 \label{app:language_models}
 
-We used four different autoregressive \acp{llm} for the task of paraphrasing and instruction based information extraction.
+We used four autoregressive \acp{llm} for paraphrasing and instruction-based information extraction, with details in \autoref{tab:llm_paraphrasers} and the subsequent subsections.
 
 \begin{table}[h]
 \centering
 \caption{Collection of multilingual \acp{llm} used for paraphrasing\protect\footnotemark.}
-
 \label{tab:llm_paraphrasers}
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{llrl}
@@ -25,7 +24,7 @@ Alibaba Cloud & Qwen 3 32B             & 32k  & September 2024 \\
 
 \section{Llama 3.1}
 
-\texttt{Meta Llama 3.1} is an autoregressive \ac{llm} that using a transformer architecture.
+\texttt{Meta Llama 3.1} is an autoregressive \ac{llm} with a transformer architecture.
 Its pretrained model components  (8B, 70B, 405B) are optimized using different fine-tuning strategies.
 % They are further listed in \autoref{tab:llama31}.
 The model was released on July 23, 2024 and has a knowledge cut-off of December 2023.
@@ -52,14 +51,14 @@ It supports eight languages including English, French, German, Hindi, Italian, P
 \section{Mistral-Large-Instruct}
 
 We use \texttt{Mistral-Large-Instruct-2407} (also \texttt{Mistral Large Instruct-2}\footnote{\url{https://mistral.ai/news/mistral-large-2407} (14.09.2025)}).
-\texttt{Mistral-Large-Instruct-2407} is a multilingual dense transformer-based \ac{llm}\footnote{\url{https://huggingface.co/mistralai/Mistral-Large-Instruct-2407}, \url{https://dataloop.ai/library/model/alpindale_mistral-large-instruct-2407-fp8/} (14.09.2025)}.
+It is a multilingual dense transformer-based \ac{llm}\footnote{\url{https://huggingface.co/mistralai/Mistral-Large-Instruct-2407}, \url{https://dataloop.ai/library/model/alpindale_mistral-large-instruct-2407-fp8/} (14.09.2025)}.
 Its context window length is 128K.
 
 \section{Openai-gpt-oss-120b}
 
 \texttt{gpt-oss} models are autoregressive mixture-of-experts transformers~\citep{openai2025gptoss120bgptoss20bmodel}.
 The 120b variant consists of 36 layers and 5.1B active parameters per token per forward pass.
-It contains 128 experts and has a context length of around 130K.
+It contains 128 experts and has a context length of around 128K.
 A detailed review of \texttt{gpt-oss} architecture and training is provided in \citep{openai2025gptoss120bgptoss20bmodel}.
 
 
@@ -68,5 +67,5 @@ A detailed review of \texttt{gpt-oss} architecture and training is provided in \
 % causal (=autoregressive, != masked) language model with 32K context length: https://huggingface.co/Qwen/Qwen3-32B
 \texttt{Qwen3:32b} is a dense autoregressive transformer model.
 The model supports more than 100 languages and dialects\footnote{\url{https://qwenlm.github.io/blog/qwen3/} (14.09.2025)}.
-Qwen3 models can operate in non- and thinking mode.
-It has 64 layers and a context length of 128K~\citep{qwen3_technical_report}.
+Qwen3 models can operate in non-thinking and thinking mode~\citep{qwen3_technical_report}.
+% It has 64 layers and a context length of 128K~\citep{qwen3_technical_report}.

@@ -1,14 +1,14 @@
 \subsection{Exp.\ 5: Comparing \acs{av} Methods}% in Traditional Human-Human Scenario}
 \label{subsec:imp_gen}
 
-We want to answer the question of how our \ac{llm}-based \imp{} generation performs compared to \textcolor{orange}{traditional \imp{} generation methods} in the \impAppr{}~\citep{koppel_determining_2014} %, and compared to (b) \acl{sota} \ac{av} methods 
+We want to answer the question of how our \ac{llm}-based \impAppr{} performs compared to the traditional \impAppr{} across different generation methods and compared to standard baselines~\citep{koppel_determining_2014} %, and compared to (b) \acl{sota} \ac{av} methods 
 in the traditional \ac{av} scenario.
-We thus create \textcolor{orange}{5 same- and 5 different-author pairs} from the \dataStudent{}. % (llm_detection_scenarios.py)
-The supervised approach is trained on a subset of the training data avoiding information leakage from training to our test results.
-It is noteworthy, that an approach predicting only one output will obtain an accuracy of $0.5$.
+We thus sample \textcolor{orange}{5 same- and 5 different-author pairs} from the \dataStudent{}. % (llm_detection_scenarios.py)
+The supervised baseline is trained on the training data avoiding information leakage from training to our test results.
 The \impAppr{} 
 %and \unmasking{} 
 detector configuration is shown in \autoref{tab:exp5_imp_config}. %and \autoref{tab:exp5_unmasking_config}, respectively.
+For each \ac{av} method, we computed precision and recall across different thresholds. 
 
 \begin{table}[h]
 \centering\small
@@ -36,4 +36,4 @@ detector configuration is shown in \autoref{tab:exp5_imp_config}. %and \autoref{
 % \end{tabular}%
 % \end{table}
 
-For each impostor generation method, we computed accuracy, precision, recall, and F1 score for different thresholds. 
+

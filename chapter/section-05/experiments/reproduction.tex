@@ -22,8 +22,8 @@ Experiment & \# Impostors & Generation & Rounds & Top $n$ & Upsample \\
 The first experiment evaluates the effect of varying the number of \imps{} while setting the \imp{} generation method to \texttt{fixed}.
 All other hyperparameter values are set to the default values reported by \citet{koppel_determining_2014}\ (cf.~Table~\ref{tab:config_exp1}). 
 Adhering \citet{koppel_determining_2014}, we compute precision and recall scores across different thresholds.
-\textcolor{orange}{For comparison, reference precision-recall points reported by \citet{koppel_determining_2014}\ are included in our visualization.} 
-Based on their description, we deduced that their reported scores were obtained using the \dataBlog{} dataset.
+% \textcolor{orange}{For comparison, reference precision-recall points reported by \citet{koppel_determining_2014}\ are included in our visualization.} 
+Based on the description of the original results, we deduced that their reported scores were obtained using the \dataBlog{} dataset.
 
 \paragraph{Exp.\ 1(b): Varying \imp{} generation.}
 The second experiment evaluates different \imp{} generation methods while keeping the number of \imps{} fixed.
@@ -32,4 +32,4 @@ Following \citet{koppel_determining_2014}, we compare the \texttt{fixed} and \te
 
 As in the first experiment, precision and recall are used as the primary evaluation metrics. 
 Consistent with \citet{koppel_determining_2014}, we calculate precision and recall with respect to both the same-author and different-author class, alternately treating each as the reference class.
-We note that the different-author class is ill-defined, as \ac{av} constitutes a one-class classification scenario in which covering representative instances of this class is infeasible.
+We note that the different-author class is inherently ill-defined, as \ac{av} represents a one-class classification scenario in which it is infeasible to capture a representative set of instances.

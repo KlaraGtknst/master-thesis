@@ -4,7 +4,7 @@
 
 Post-processing was required to remove reasoning traces present in some model outputs, particularly in generations from models such as \texttt{qwen3-32b}. 
 These traces, typically delimited by \texttt{</think>}, consist of repeated fragments of the input prompt and do not contribute to the semantic content of the paraphrase. 
-We therefore excluded them to retain only the task-relevant text produced by the \ac{lm}.
+We excluded them to retain only the task-relevant text produced by the \ac{llm}.
 
 After post-processing, we computed the relative length difference between each reference and its corresponding paraphrase for all model–prompt combinations. 
 The distribution of these differences is presented in \autoref{fig:prompt_impact_post_processed}. 
@@ -20,11 +20,9 @@ We additionally performed a manual assessment of content quality that focused on
     \label{fig:prompt_impact_post_processed}
 \end{figure}
 
-Our results indicate that the relative length difference depended strongly on the prompt used to instruct the \ac{lm}. 
-In particular, the third prompt (hereafter \texttt{prompt2}) explicitly instructed models to generate paraphrases approximately three times longer than the reference. 
-Although this instruction may appear extreme, it consistently produced paraphrases of more comparable length across different models. 
-Aggregated statistics are provided in \autoref{tab:impact_prompts_paraphrases_lengths}.
-
+Our results show that the relative length difference of paraphrases strongly depended on the prompt used to instruct the \ac{llm}. 
+Notably, the third prompt (hereafter \texttt{prompt2}) explicitly instructed models to generate paraphrases roughly three times longer than the reference. 
+While this instruction might seem extreme, it consistently produced paraphrases of more comparable length across different models, as summarized in \autoref{tab:impact_prompts_paraphrases_lengths}.
 
 \begin{table}[h]
 \centering
@@ -58,6 +56,9 @@ qwen3-32b           & prompt0 & 88.36  & 70.02 & 18.68  & 24.09 & 134 \\
 \end{tabular}%
 }
 \end{table}
+
+Paraphrases generated with \texttt{prompt2} exhibited only mild hallucinations and generally remained on topic. 
+Furthermore, manual inspection indicated that these paraphrases outperformed those from other prompts in terms of semantic preservation.
 
 Based on these findings, subsequent experiments adopted the following design choices: 
 (i) exclude paraphrases generated with \texttt{prompt0} and \texttt{prompt1}, 

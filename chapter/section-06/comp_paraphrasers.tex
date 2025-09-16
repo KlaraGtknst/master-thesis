@@ -10,8 +10,8 @@ Paraphrasing scores were computed separately for the \dataBlog{}, \dataGutenberg
 \autoref{fig:sem_syn_blog} presents aggregated semantic and syntactic measurement scores for the \dataBlog{} dataset, while results for \dataGutenberg{} are provided in the Appendix in \autoref{sec:app_paraphrases}.
 
 Syntactic similarity $\diameter_{syn}$ was quantified by averaging \ac{rouge}-1, \ac{rouge}-L, and BLEU scores. 
-Semantic similarity $\diameter_{sem}$ was assessed using BERTScore, cosine similarity of BERT-based embeddings, and SBERT \ac{wmd}. 
-It is important to note that for our purposes, syntactic diversity is desirable.
+Semantic similarity $\diameter_{sem}$ was assessed using \ac{bert}Score, cosine similarity of \ac{bert}-based embeddings, and \acs{glove} \ac{wmd}. 
+It is important to note that for our purpose, syntactic diversity is desirable.
 High syntactic similarity values may reflect near-identical paraphrases due to n-gram overlap. 
 Semantic similarity measures the content overlap between the paraphrase and the original text, often via vector-based cosine similarity. 
 % The precise interpretation of these metrics remains somewhat unclear.
@@ -19,7 +19,7 @@ Semantic similarity measures the content overlap between the paraphrase and the 
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/paraphrasing/experiments/sem_syn_scatter/Blog_sem_syn_scatter_grouped_by_Paraphraser.svg}
-    \caption[Comparison of paraphrasers on the \dataBlog{} dataset.]{Average semantic $\diameter_{sem}$ and syntactic similarity $\diameter_{syn}$ for different paraphraser on the \dataBlog{}.}
+    \caption[Comparison of paraphrasers on the \dataBlog{} dataset.]{Average semantic $\diameter_{sem}$ and syntactic similarity $\diameter_{syn}$ for different prompts grouped by paraphraser on the \dataBlog{}.}
     \label{fig:sem_syn_blog}
 \end{figure}
 
@@ -27,8 +27,7 @@ Semantic similarity measures the content overlap between the paraphrase and the 
 Analysis reveals two distinct clusters corresponding to one-step and two-step paraphrasers. 
 Most one-step paraphrasers achieve lower syntactic and semantic similarity than two-step paraphrasers. 
 The exception is the one-step paraphraser using \texttt{qwen3-32b}, which exhibits higher syntactic similarity than most two-step paraphrasers. 
-The translation-based approach emerges as an outlier in terms of both syntactic and semantic similarity. 
-Different prompt formulations appear to have minimal impact on these similarity scores (cf.~\autoref{sec:app_paraphrases}). 
+The translation-based paraphraser emerges as an outlier in terms of both syntactic and semantic similarity. 
 Overall, most paraphrases fall within the desired quadrant of high semantic similarity with low syntactic similarity.
 
 
@@ -47,7 +46,7 @@ Although the \dataGutenberg{} dataset exhibited the largest differences in text 
 
 \begin{table}[h]
 \centering
-\caption[Extraction effectiveness and length matching for different datasets.]{Extraction effectiveness and length matching for different datasets. Five documents per dataset were processed using the \pextractor{} to obtain genre, century, and topic.}
+\caption[Extraction effectiveness and length deviation for different datasets.]{Extraction effectiveness and length deviation for different datasets. Five documents per dataset were processed using the \pextractor{} to obtain genre, century, and topic.}
 \label{tab:extraction_eval_stats}
 \begin{tabular}{lrrrrrrrr} % numbers should be right aligned, text left aligned
 \toprule

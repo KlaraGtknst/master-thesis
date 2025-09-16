@@ -22,8 +22,8 @@ Syntactic measures are inadequate when the goal is to evaluate paraphrases that 
 To address this limitation, semantic metrics leverage distributed representations of words or sentences.
 As per \citet{gohsen_captions_2023}, we compute semantic similarity between transformer based models.
 
-\paragraph{BERTScore}
-BERTScore computes similarity between contextual \ac{bert} embeddings of candidate and reference texts~\citep{hanna_fine_grained_2021}. 
+\paragraph{\ac{bert}Score}
+\ac{bert}Score computes similarity between contextual \ac{bert} embeddings of candidate and reference texts~\citep{hanna_fine_grained_2021}. 
 Contextual embeddings allow for the same word having different embeddings depending on its context.
 Even though cosine similarity calculation considers tokens in isolation, the contextual embeddings contain information of the rest of the sentence.
 Sentences are tokenized by \ac{bert} and subsequently encoded.

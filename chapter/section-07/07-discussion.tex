@@ -1,12 +1,12 @@
 \chapter{Discussion}
 \label{chap:discussion}
 
-Our baseline and reproduction experiments yielded results lower than previously reported by \citet{koppel_determining_2014}, which limits the extent to which we can fully validate the original \impAppr{}. 
-While Mr.~Winter considered our preprocessing strategy reasonable, he noted that our on-the-fly \imp{} generation was constrained by (1) bot-prevention mechanisms restricting web scraping, and (2) severe limits on API calls.  
+The experiments reproducing original test scenarios yielded results lower than previously reported by \citet{koppel_determining_2014}, which limits the extent to which we can fully validate the original \impAppr{}. 
+While Mr.~Winter considered our preprocessing strategy reasonable, he noted that our \texttt{on-the-fly} \imp{} generation was constrained by (1) bot-prevention mechanisms restricting web scraping, and (2) severe limits on API calls.  
 
 % Interpretation of results
 % What do the findings mean in relation to your research questions or hypotheses?
-The results suggest that controlled \ac{llm}-generated \imps{} can, in principle, serve as more effective hard negatives than traditional methods in \ac{av} scenarios restricted to human-authored texts. 
+As for the first research question (\ref{enum:rq1}), the results suggest that controlled \ac{llm}-generated \imps{} can, in principle, serve as more effective hard negatives than traditional \imp{} generation methods in \ac{av} scenarios restricted to human-authored texts. 
 Our one-step \imp{} generation outperformed the baselines when precision and recall were weighted equally.  
 However, employing \ac{llm}-generated paraphrases as hard negatives requires extensive exploration of prompting strategies.  
 We observed that paraphrase length is highly sensitive to prompt design. 
@@ -18,7 +18,7 @@ As a consequence, this approach is neither off-the-shelf nor general-purpose.
 It requires task-specific solutions and careful management of internal parameters, making it computationally and operationally expensive.
 
 
-Concerning the second research question (\autoref{enum:rq2}), we found that a large variety of syntactic and semantic paraphrase metrics used in the literature complicates interpretation. 
+Concerning the second research question (\ref{enum:rq2}), we found that a large variety of syntactic and semantic paraphrase metrics used in the literature complicates interpretation. 
 Following \citet{gohsen_captions_2023}, we aggregated syntactic and semantic scores to enable a clearer two-dimensional comparison.  
 Interestingly, low syntactic similarity emerged as an unintuitive predictor of paraphrase quality. 
 Measures of syntactic dissimilarity may better align with human judgment.  
@@ -30,13 +30,15 @@ Metadata extraction for genre and topic performed poorly, whereas century extrac
 Paraphrases of long \dataGutenberg{} texts deviated substantially from the original in terms of length.  
 
 
-Addressing the third research question (\autoref{enum:rq3}), we compared \ac{av} methods in the traditional human-authored text scenario, \textcolor{red}{using \unmasking{} and \ac{ppmd} as baselines} to evaluate the extended \impAppr{}.
+Addressing the third research question (\ref{enum:rq3}), we compared different \ac{av} methods in the traditional human-authored text scenario 
+% \textcolor{red}{using \unmasking{} and \ac{ppmd} as baselines} 
+to the \ac{llm}-based \impAppr{}.
 Performance proved highly sensitive to prompt design, highlighting a key challenge when using \acp{llm}. 
 Prompt engineering remains largely ad-hoc, shifting focus from framework development to instruction crafting. 
 Importantly, there is no single prompt that works universally for all \acp{llm}. 
 Effective prompts depend, among other factors, on the size of the model. 
 Larger \acp{llm} can leverage intrinsic knowledge under more permissive prompts, whereas smaller models require carefully tailored instructions~\citep{schmidt_llm_av_latin_24}.
-Once an effective prompt generating sufficiently long paraphrases was identified for the specific \ac{llm}, our approach achieved competitive results relative to the baselines proposed by \citet{koppel_determining_2014}, demonstrating that prompt tuning is a critical factor in practical performance.
+Once an effective prompt generating sufficiently long paraphrases was identified, our approach achieved competitive results relative to the baselines proposed by \citet{koppel_determining_2014}, demonstrating that prompt tuning is a critical factor in practical performance.
 
 Theoretically, extending the \impAppr{} should increase precision at the cost of recall, as harder negatives reduce same-author predictions. 
-Interestingly, this trade-off did not manifest as expected, suggesting that we have not yet comprehended the effect of artificial generated hard negatives for the \impAppr{}.
+Interestingly, this trade-off did not manifest as expected, suggesting that the impact of artificially generated hard negatives on the \impAppr{} is not yet fully understood.
