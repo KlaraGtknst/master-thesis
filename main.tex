@@ -105,15 +105,15 @@
     \include{chapter/section-07/07-discussion}
     \include{chapter/section-08/08-conclusion}
     \include{chapter/section-08/acknowledgement}
-    \include{appendix}
+    \pagenumbering{roman}
+    \addtocounter{page}{6} % Dies ist die Anzahl der Seiten vor der Einleitung, muss möglicherweise angepasst werden, wenn das Inhaltsverzeichnis mehrere Seiten umfasst.
     \listoffigures % optional, usually not needed
-
     \listoftables % optional, usually not needed
+    \include{appendix}
+    
 
     % Die nächsten zwei Zeilen sind optional, sie sorgen dafür dass alles nach dem Inhalt wieder mit römischen Zahlen nummeriert wird.
-    \pagenumbering{roman}
-    \addtocounter{page}{10} % Dies ist die Anzahl der Seiten vor der Einleitung, muss möglicherweise angepasst werden, wenn das Inhaltsverzeichnis mehrere Seiten umfasst.
-
+    
     % \nocite{*} % uncomment to print all references
     \bibliographystyle{plainnat} % requires package natbib. An alternative is apalike
     \bibliography{
