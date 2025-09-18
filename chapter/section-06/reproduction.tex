@@ -11,15 +11,18 @@ This, however, certainly is one of the reasons why our implementation diverges f
 \paragraph{Exp.\ 1(a): Varying number of \imps{}.}
 
 For this experiment, we generate \imps{} using the \texttt{fixed} method while varying only the number of \imps{}.
-\citet{koppel_determining_2014}\ report results of this experiment exclusively on the \dataBlog{} dataset.
+\citet{koppel_determining_2014} report results of this experiment exclusively on the \dataBlog{} dataset.
+Although we draw comparisons between their findings and ours, direct comparability remains limited, since our experiments were constrained to a maximum of \num{1000} \imps{} rather than the \num{5000} examined in their study.
+
+In contrast to the original study, our \impAppr{} recall–precision curves intersect, indicating weaker separation between the approaches. 
+Furthermore, whereas \citet{koppel_determining_2014} reported optimal performance at 50 \imps{}, our experiments on the \dataBlog{} dataset suggest that 500 \imps{} yield the best results. 
+Although we are able to reproduce one recall–precision pair reported for 50 \imps{}, the pair corresponding to 500 \imps{} deviates from the original findings.
+
+By contrast, our experiments on the \dataStudent{} dataset (cf. \autoref{app:exp_student_dif_n}) support the original conclusion that 50 \imps{} achieve superior performance, thereby highlighting a dataset-dependent effect.
+
 % While we compare their findings with ours, it is important to note that direct comparability is limited due to differences in the underlying datasets, as our results are based on the \dataStudent{} corpus.
-While we compare their findings with ours, it is important to note that direct comparability is limited since the maximum number of \imps{} we tested is \num{1000} instead of \num{5000} due to time constraints.
-In contrast to the original study, our \impAppr{} recall–precision curves intersect, suggesting that the results reported by \citet{koppel_determining_2014}\ exhibit stronger separation.
 % In our experiments, the number of \imps{} exerts minimal influence on precision and recall for the \dataStudent{} dataset.
 % Nevertheless, similar to the original findings, we observe that using 50 \imps{} yields marginally superior performance.
-Opposed to the original results, the best results are obtained using 500 \imps{} instead of 50.
-While we match one original recall-precision pair reported for 50 \imps{}, our results for 500 \imps{} differ from the recall-precision pair reported by \citet{koppel_determining_2014}.
-Although on another dataset, our findings on the \dataStudent{} dataset in \autoref{app:exp_student_dif_n} suggest that 50 \imps{} perform best like the original findings.
 
 \begin{figure}[htbp]
     \centering
