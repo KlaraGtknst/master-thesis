@@ -2,7 +2,7 @@
 \label{subsec:imp_gen_res}
 
 We evaluate precision–recall values across different thresholds for the baseline methods, and the fixed approach proposed by \citet{koppel_determining_2014} as well as for the \ac{llm}-based \impAppr{}.
-Our results indicate that the supervised baseline and our one-step paraphrasing approach (Naive \ac{llm} in \autoref{fig:sem_syn_blog}) produce identical outcomes.
+Our results indicate that the supervised baseline and our one-step paraphrasing approach (Naive \ac{llm} in \autoref{fig:comp_naive_student}) produce identical outcomes.
 An examination of the individual values confirms this observation, revealing identical precision–recall pairs for different thresholds.
 We attribute this effect to the relatively small sample size of only 10 text pairs.
 
@@ -17,7 +17,7 @@ Although the definition of an optimal balance between precision and recall is ap
     One-step paraphrasers are denoted Naive \ac{llm}.
     (B)~indicates the original baseline approaches from~\citep{koppel_determining_2014}.
     }
-    \label{fig:sem_syn_blog}
+    \label{fig:comp_naive_student}
 \end{figure}
 
 These findings contrast with our initial expectation that \ac{llm}-based \imp{} generation would achieve higher precision, but indicate that our approach performs best when precision and recall are considered equally important.
