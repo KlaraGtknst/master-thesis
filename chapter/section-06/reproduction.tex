@@ -12,18 +12,24 @@ This, however, certainly is one of the reasons why our implementation diverges f
 
 For this experiment, we generate \imps{} using the \texttt{fixed} method while varying only the number of \imps{}.
 \citet{koppel_determining_2014}\ report results of this experiment exclusively on the \dataBlog{} dataset.
-While we compare their findings with ours, it is important to note that direct comparability is limited due to differences in the underlying datasets, as our results are based on the \dataStudent{} corpus.
+% While we compare their findings with ours, it is important to note that direct comparability is limited due to differences in the underlying datasets, as our results are based on the \dataStudent{} corpus.
+While we compare their findings with ours, it is important to note that direct comparability is limited since the maximum number of \imps{} we tested is \num{1000} instead of \num{5000} due to time constraints.
 In contrast to the original study, our \impAppr{} recall–precision curves intersect, suggesting that the results reported by \citet{koppel_determining_2014}\ exhibit stronger separation.
-In our experiments, the number of \imps{} exerts minimal influence on precision and recall.
-Nevertheless, similar to the original findings, we observe that using 50 \imps{} yields marginally superior performance.
-
+% In our experiments, the number of \imps{} exerts minimal influence on precision and recall for the \dataStudent{} dataset.
+% Nevertheless, similar to the original findings, we observe that using 50 \imps{} yields marginally superior performance.
+Opposed to the original results, the best results are obtained using 500 \imps{} instead of 50.
+While we match one original recall-precision pair reported for 50 \imps{}, our results for 500 \imps{} differ from the recall-precision pair reported by \citet{koppel_determining_2014}.
+Although on another dataset, our findings on the \dataStudent{} dataset in \autoref{app:exp_student_dif_n} suggest that 50 \imps{} perform best like the original findings.
 
 \begin{figure}[htbp]
     \centering
-    \includesvg[width=\textwidth]{images/imposter/reproduction_koppel_figures/fig2/student_essays/student_roc_prec_recall_curve_r100_top100000_dif_n_imp.svg}
-    \caption[Recall-precision curves for the various sized \imp{} set sizes.]{Recall-precision curves for the various sized \texttt{fixed} \imp{} set sizes on the \dataStudent{} dataset.}
-    \label{fig:student_essays_dif_n}
+    \includesvg[width=\textwidth]{images/imposter/reproduction_koppel_figures/fig2/blog/roc_prec_recall_curve_fixed_r100_top100000_dif_n_imp.svg}
+    \caption[Recall-precision curves for the various sized \imp{} set sizes.]{Recall-precision curves for the various sized \texttt{fixed} \imp{} set sizes on the \dataBlog{} dataset.
+    }
+    \label{fig:blog_dif_n}
 \end{figure}
+
+
 
 % \begin{figure}[htbp]
 %   \centering
