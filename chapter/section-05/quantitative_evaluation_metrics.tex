@@ -78,7 +78,7 @@ First, all syntactic and semantic measures are normalized to a scale from zero t
 Then, the average syntactic similarity $\diameter_{syn}$ and the average semantic similarity $\diameter_{sem}$ is calculated.
 Syntactic metrics include \ac{rouge}-1, \ac{rouge}-L, and \ac{bleu}.
 Semantic measures include \ac{wms}, \ac{bert}, and cosine similarity of the \ac{sbert} embeddings.
-\ac{wms} is the .
+\ac{wms} is the inversion of \ac{wmd}.
 Finally, $\Delta_{sem,syn}$ is defined as in \autoref{eq:gohsen_delta}, i.e.\ the difference of semantic and syntactic average distance~\citep{gohsen_captions_2023}.
 \begin{equation}
     \Delta_{sem,syn}=\diameter_{sem}-\diameter_{syn}
