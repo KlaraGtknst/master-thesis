@@ -14,19 +14,19 @@ For this experiment, we generate \imps{} using the \texttt{fixed} method while v
 \citet{koppel_determining_2014} report results of this experiment exclusively on the \dataBlog{} dataset.
 Although we draw comparisons between their findings and ours, direct comparability remains limited, since our experiments were constrained to a maximum of \num{1000} \imps{} rather than the \num{5000} examined in their study.
 
-In contrast to the original study, our \impAppr{} recall–precision curves intersect, indicating weaker separation between the approaches. 
-Furthermore, whereas \citet{koppel_determining_2014} reported optimal performance at 50 \imps{}, our experiments on the \dataBlog{} dataset suggest that 500 \imps{} yield the best results. 
-Although we are able to reproduce one recall–precision pair reported for 50 \imps{}, the pair corresponding to 500 \imps{} deviates from the original findings.
+The original \impAppr{} recall–precision curves demonstrate a clearer distinction between the evaluated approaches.
+However, we were unable to reproduce exactly the values reported in the original work by \citet{koppel_determining_2014}.
+On the \dataBlog{} dataset, as illustrated in \autoref{fig:blog_dif_n}, and on the \dataStudent{} dataset, detailed in \autoref{app:exp_student_dif_n}, increasing the number of \imps{} from 500 to \num{1000} has only a negligible effect on precision and recall.
+In line with the original findings, we observe that employing 50 \imps{} yields marginally superior performance.
+The experiment was repeated multiple times on subsets of 20 samples per class, with the best-performing number of \imps{} varying across runs, thereby underscoring the sample-dependent nature of the effect.
 
-By contrast, our experiments on the \dataStudent{} dataset (cf. \autoref{app:exp_student_dif_n}) support the original conclusion that 50 \imps{} achieve superior performance, thereby highlighting a dataset-dependent effect.
+% By contrast, our experiments on the \dataStudent{} dataset  support the original conclusion that 50 \imps{} achieve superior performance, thereby highlighting a dataset-dependent effect.
 
-% While we compare their findings with ours, it is important to note that direct comparability is limited due to differences in the underlying datasets, as our results are based on the \dataStudent{} corpus.
-% In our experiments, the number of \imps{} exerts minimal influence on precision and recall for the \dataStudent{} dataset.
-% Nevertheless, similar to the original findings, we observe that using 50 \imps{} yields marginally superior performance.
+
 
 \begin{figure}[htbp]
     \centering
-    \includesvg[width=\textwidth]{images/imposter/reproduction_koppel_figures/fig2/blog/roc_prec_recall_curve_fixed_r100_top100000_dif_n_imp.svg}
+    \includesvg[width=0.93\textwidth]{images/imposter/reproduction_koppel_figures/fig2/blog/roc_prec_recall_curve_fixed_r100_top100000_dif_n_imp_cleansed.svg}
     \caption[Recall-precision curves for the various sized \imp{} set sizes.]{Recall-precision curves for the various sized \texttt{fixed} \imp{} set sizes on the \dataBlog{} dataset.
     }
     \label{fig:blog_dif_n}
