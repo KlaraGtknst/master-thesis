@@ -6,9 +6,9 @@ Our results indicate that the supervised baseline and our one-step paraphrasing 
 An examination of the individual values confirms this observation, revealing identical precision–recall pairs for different thresholds.
 We attribute this effect to the relatively small sample size of only 10 text pairs per class.
 
-With respect to optimizing the precision–recall trade-off, the supervised baseline and the \ac{llm}-based \impAppr{} achieve the most favourable performance at a threshold of $0.075$, and $0.32$ respectively.
-When precision is prioritized over recall, however, all remaining methods outperform these two approaches, as they achieve higher recall while maintaining the same maximum precision.
-Although the definition of an optimal balance between precision and recall is application-dependent, we argue that a recall of $0.4$ at perfect precision is generally less informative than jointly optimizing both metrics.
+With respect to optimizing the precision–recall trade-off, the \ac{llm}-based \impAppr{} achieve the most favourable performance with precision of $0.73$ and recall of $0.8$ at a threshold of $0.105$.
+When precision is prioritized over recall, however, most remaining methods outperform these two approaches, as they achieve higher recall while maintaining the same maximum precision.
+Although the definition of an optimal balance between precision and recall is application-dependent, we argue that a recall of at most $0.4$ at perfect precision is generally less informative than jointly optimizing both metrics.
 
 \begin{figure}[htbp]
     \centering
