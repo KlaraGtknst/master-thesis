@@ -2,9 +2,9 @@
 \label{subsec:imp_gen_res}
 
 We evaluate precision–recall values across different thresholds for the baseline methods, and the fixed approach proposed by \citet{koppel_determining_2014} as well as for the \ac{llm}-based \impAppr{}.
-Our results indicate that the supervised baseline and our one-step paraphrasing approach (Naive \ac{llm} in \autoref{fig:comp_naive_student}) produce identical outcomes.
+Our results indicate that the supervised baseline and our one-step paraphrasing approach produce identical outcomes.
 An examination of the individual values confirms this observation, revealing identical precision–recall pairs for different thresholds.
-We attribute this effect to the relatively small sample size of only 10 text pairs.
+We attribute this effect to the relatively small sample size of only 10 text pairs per class.
 
 With respect to optimizing the precision–recall trade-off, the supervised baseline and the \ac{llm}-based \impAppr{} achieve the most favourable performance at a threshold of $0.075$, and $0.32$ respectively.
 When precision is prioritized over recall, however, all remaining methods outperform these two approaches, as they achieve higher recall while maintaining the same maximum precision.
@@ -13,9 +13,9 @@ Although the definition of an optimal balance between precision and recall is ap
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/imposter/our_contribution/roc_prec_recall_curve_r100_top100000_Same_Author_dif_imp_gen.svg}
-    \caption[Recall-precision curves for the \dataStudent{}.]{Recall-precision curves for the 10 samples of the \dataStudent{}. 
-    One-step paraphrasers are denoted Naive \ac{llm}.
+    \caption[Recall-precision curves for the \dataStudent{}.]{Recall-precision curves for 10 samples per class of the \dataStudent{}. 
     (B)~indicates the original baseline approaches from~\citep{koppel_determining_2014}.
+    The one-step paraphraser and the supervised \ac{svc} obtain identical scores.
     }
     \label{fig:comp_naive_student}
 \end{figure}

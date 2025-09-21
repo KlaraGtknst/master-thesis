@@ -137,6 +137,11 @@ The test portion is larger than in the \dataBlog{} dataset because each author t
 
 For the \dataGutenberg{} dataset, we selected text pairs that share the same genre and century and split the authors into training (80\%) and test (20\%) sets.
 
+% minimum length necessesary for AV/ AA
+The choice of minimum text length was informed by literature research.
+\citet{bevendorff_generalizing_2019}\ used text chunks of at least 700 words for an unmasking approach, while \citet{koppel_authorship_2004}\ set the minimum to \num{500}~words.
+Recent work~\citep{llm_detection_av_2025} identifies \num{2500}-\num{4000}~characters to be sufficient for effective \ac{llm} detection framed as \ac{av}.
+
 Regardless of the selection criteria, the final datasets contain only three columns: \texttt{authors}, \texttt{pair}, and \texttt{same}.
 The \texttt{pair} column contains the texts of the pair as a list of strings,
 the \texttt{authors} column contains the authors of the texts as a list of strings,
@@ -149,11 +154,6 @@ Descriptive statistics for all preprocessed datasets are provided in Table~\ref{
 
 % The presence of short artefacts in the \dataArtificialStudent{} dataset cannot be attributed to human-authored texts, as these have been filtered to meet a minimum length.
 % Hence, the artificially generated texts exhibit shorter average lengths compared to other datasets.
-
-% minimum length necessesary for AV/ AA
-The choice of minimum text length was informed by literature research.
-\citet{bevendorff_generalizing_2019}\ used text chunks of at least 700 words for an unmasking approach, while \citet{koppel_authorship_2004}\ set the minimum to \num{500}~words.
-Recent work~\citep{llm_detection_av_2025} identifies \num{2500}-\num{4000}~characters to be sufficient for effective \ac{llm} detection framed as \ac{av}.
 
 \begin{table}[H]
 % \begin{sidewaystable}
