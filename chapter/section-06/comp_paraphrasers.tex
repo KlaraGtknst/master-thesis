@@ -37,7 +37,7 @@ Our two-step paraphrasing approach relies on extracting valid information from t
 To evaluate the quality of extraction by the \pextractor{}, we compared the topic, genre, and century to the ground truth metadata for the \dataBlog{}, \dataGutenberg{}, and \dataStudent{} datasets. 
 Genre and topic were evaluated in terms of semantic similarity, while century was assessed via the percentage deviation from the ground truth.
 
-We observed that instructions for the \pextractor{} must follow the input text, as \acp{llm} tend to focus attention toward the end of the input. 
+We observed that instructions for the \pextractor{} must follow the input text, as \acp{llm} tend to focus attention towards the end of the input. 
 Otherwise, the \pextractor{} failed to produce the requested JSON format for long texts from the \dataGutenberg{} dataset. 
 Results across datasets are summarised in \Cref{tab:extraction_eval_stats}, with $\diameter$ and $\sigma$ denoting the mean and standard deviation across the five selected samples. 
 The \dataBlog{} dataset proved most challenging for genre and topic extraction. 
