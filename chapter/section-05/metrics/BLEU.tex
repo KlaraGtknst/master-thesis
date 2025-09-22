@@ -5,7 +5,7 @@
 In our case, there is only one reference.
 We consider the reference the ground truth text.
 To prevent inflated precision scores $p_n$ due to repetition of frequent tokens (e.g.\ "the"), \ac{bleu} introduces a clipping mechanism $\operatorname{Count_{match}}(.)$ that caps n-gram counts at their maximum reference frequency~\citep{papineni_bleu_2001}. 
-Precision $p_n$ for $n \in \mathbb{N}_{>0}$ is given by \autoref{eq:bleu}.
+Precision $p_n$ for $n \in \mathbb{N}_{>0}$ is given by \Cref{eq:bleu}.
 
 \begin{equation}
     p_n = \sum_{\mathcal{C} \in \left\{ Candidates \right\}}\sum_{n\text{-}gram \in\mathcal{C}} \frac{\operatorname{Count_{match}}(n\text{-}gram)}{\operatorname{Count}(n\text{-}gram)}
@@ -14,7 +14,7 @@ Precision $p_n$ for $n \in \mathbb{N}_{>0}$ is given by \autoref{eq:bleu}.
 
 The choice of $n$ determines what syntactic characteristic is evaluated.
 Uni-grams are used to test adequacy, while longer n-grams are used to test fluency~\citep{papineni_bleu_2001}. 
-The brevity penalty $\operatorname{BP}$ from \autoref{eq:bleu_brevity_penalty} is applied to discourage excessively short candidates $c$~\citep{papineni_bleu_2001}.
+The brevity penalty $\operatorname{BP}$ from \Cref{eq:bleu_brevity_penalty} is applied to discourage excessively short candidates $c$~\citep{papineni_bleu_2001}.
 
 \begin{equation}
     \operatorname{BP} = \begin{cases}
@@ -24,14 +24,14 @@ The brevity penalty $\operatorname{BP}$ from \autoref{eq:bleu_brevity_penalty} i
 \label{eq:bleu_brevity_penalty}
 \end{equation}
 
-In order to compute the \ac{bleu} score from \autoref{eq:bleu} for more than one sentence, 
+In order to compute the \ac{bleu} score from \Cref{eq:bleu} for more than one sentence, 
 one (1) computes the clipped n-gram matches sentence by sentence, 
 then (2) adds them across all sentences, 
 and finally (3) divides the total clipped n-gram matches by 
 the total number of unclipped n-grams in all candidate sentences~\citep{papineni_bleu_2001,cordeiro_bleu_2007}.
 
 Combined scores across different n-gram orders are computed via the geometric mean, weighted uniformly (i.e.\ $w_n$) across different $n$~\citep{papineni_bleu_2001,banerjee_METEOR_2005}.
-Combining precision $p_n$ (\autoref{eq:bleu}) and brevity penalty $\operatorname{BP}$ (\autoref{eq:bleu_brevity_penalty}) leads to the final score in \autoref{eq:bleu_final}.
+Combining precision $p_n$ (\Cref{eq:bleu}) and brevity penalty $\operatorname{BP}$ (\Cref{eq:bleu_brevity_penalty}) leads to the final score in \Cref{eq:bleu_final}.
 
 \begin{equation}
     \operatorname{BLEU} = \operatorname{BP}  \exp\left(\sum_{n=1}^{N} w_n  \log p_n\right)

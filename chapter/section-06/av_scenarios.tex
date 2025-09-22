@@ -4,7 +4,7 @@
 
 This experiment evaluates the effectiveness of the \impAppr{} against established \ac{av} methods on the \dataArtificialStudent{} dataset where each input pair contains at least one \ac{llm}-generated text.  
 The baseline \mirrorMinds{} performs comparatively well due to its consistently high recall.  
-The recall curves across different thresholds and scenarios can be found in the Appendix in \autoref{sec:app_detection_scenarios}.  
+The recall curves across different thresholds and scenarios can be found in the Appendix in \Cref{sec:app_detection_scenarios}.  
 However, \mirrorMinds{}' strength is a misconception due to its oversimplified paraphrases, which consist of single words.  
 This triviality biases the discriminator toward predicting same-author, since any candidate text necessarily contains more stylistic information than the single-word \imps{}.  
 As a result, this method produces a large number of \acp{fp}.

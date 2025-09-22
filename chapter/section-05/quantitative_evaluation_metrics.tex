@@ -30,8 +30,8 @@ Sentences are tokenized by \ac{bert} and subsequently encoded.
 For computing precision, each token embedding $c_i$ in the candidate $c$ is matched to a token embedding $r_j$ in the reference $r$.
 Analogous, for recall calculation, each token embedding $r_i$ in the reference $r$ is matched to a token embedding $c_j$ in the candidate $c$.
 Matching is carried out based on similarity in a greedy fashion~\citep{zhang_bertscore_2020}.
-For reference vectors $r$ and candidate vectors $c$, precision $P_{\text{BERT}}$ and recall $R_{\text{BERT}}$ are defined in \autoref{eq:bert_p} and \autoref{eq:bert_r}, respectively.
-The $F_1$ score from \autoref{eq:bert_f1} is computed based on precision and recall.
+For reference vectors $r$ and candidate vectors $c$, precision $P_{\text{BERT}}$ and recall $R_{\text{BERT}}$ are defined in \Cref{eq:bert_p} and \Cref{eq:bert_r}, respectively.
+The $F_1$ score from \Cref{eq:bert_f1} is computed based on precision and recall.
 
 \begin{equation}
     \operatorname{P_{BERT}} = \frac{1}{|c|} \sum_{c_i \in c} \max_{z_j \in r} r_j^\top c_i
@@ -53,7 +53,7 @@ to $\mathrm{\hat{P}_{BERT}} = \frac{\operatorname{P_{BERT}} - a}{1 - a}$ ($\oper
 % BERTScore correlates with human judgment at the semantic level \citep{kurt_pehlivanoglu_comparative_2024}, although it may struggle when lexically overlapping but semantically incorrect candidates are present \citep{hanna_fine_grained_2021}.
 
 \paragraph{\acs{sbert} cosine similarity}
-The cosine similarity between vector representations $v_a$ and $v_b$ of two documents $a$ and $b$ is defined in \autoref{eq:cosine_sim}. 
+The cosine similarity between vector representations $v_a$ and $v_b$ of two documents $a$ and $b$ is defined in \Cref{eq:cosine_sim}. 
 Cosine similarity values range from $-1$ to $1$~\citep{thongtan_cosine_sim_19,zhang_bertscore_2020}, where $-1$ indicates that $v_a$ and $v_b$ point in opposite directions, $0$ indicates no correlation, and $1$ indicates that they point in the same direction. 
 Following \citet{gohsen_captions_2023}, we compute our document vectors using a \ac{sbert} model.
 
@@ -79,7 +79,7 @@ Then, the average syntactic similarity $\diameter_{syn}$ and the average semanti
 Syntactic metrics include \ac{rouge}-1, \ac{rouge}-L, and \ac{bleu}.
 Semantic measures include \ac{wms}, \ac{bert}, and cosine similarity of the \ac{sbert} embeddings.
 \ac{wms} is the inversion of \ac{wmd}.
-Finally, $\Delta_{sem,syn}$ is defined as in \autoref{eq:gohsen_delta}, i.e.\ the difference of semantic and syntactic average distance~\citep{gohsen_captions_2023}.
+Finally, $\Delta_{sem,syn}$ is defined as in \Cref{eq:gohsen_delta}, i.e.\ the difference of semantic and syntactic average distance~\citep{gohsen_captions_2023}.
 \begin{equation}
     \Delta_{sem,syn}=\diameter_{sem}-\diameter_{syn}
     \label{eq:gohsen_delta}

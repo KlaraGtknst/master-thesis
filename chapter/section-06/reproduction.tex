@@ -16,7 +16,7 @@ Although we draw comparisons between their findings and ours, direct comparabili
 
 The original \impAppr{} recall–precision curves demonstrate a clearer distinction between the evaluated approaches.
 However, we were unable to reproduce exactly the values reported in the original work by \citet{koppel_determining_2014}.
-On the \dataBlog{} dataset, as illustrated in \autoref{fig:blog_dif_n}, and on the \dataStudent{} dataset, detailed in \autoref{app:exp_student_dif_n}, increasing the number of \imps{} from 500 to \num{1000} has only a negligible effect on precision and recall.
+On the \dataBlog{} dataset, as illustrated in \Cref{fig:blog_dif_n}, and on the \dataStudent{} dataset, detailed in \Cref{app:exp_student_dif_n}, increasing the number of \imps{} from 500 to \num{1000} has only a negligible effect on precision and recall.
 In line with the original findings, we observe that employing 50 \imps{} yields marginally superior performance.
 The experiment was repeated multiple times on subsets of 20 samples per class, with the best-performing number of \imps{} varying across runs, thereby underscoring the sample-dependent nature of the effect.
 
@@ -69,7 +69,7 @@ The recall–precision curves reported by \citet{koppel_determining_2014}\ indic
 In their study, the minimum recall values for the different-author class were consistently higher (approximately $0.625$ for \texttt{fixed} and $0.58$ for \texttt{on-the-fly}) than for the same-author class (approximately $0.38$ for \texttt{fixed} and $0.22$ for \texttt{on-the-fly}).
 In contrast, precision values exhibited the opposite trend where all approaches achieved higher precision in the same-author setting compared to the different-author setting.
 
-Our interpretation of the results reported by \citet{koppel_determining_2014}\ is presented in \autoref{fig:findings_original_work}.
+Our interpretation of the results reported by \citet{koppel_determining_2014}\ is presented in \Cref{fig:findings_original_work}.
 We argue that these findings are a consequence of the nature of \ac{av} as an open-set, one-class classification problem.
 Because the different-author class lacks representative samples, it remains inherently ill-defined.
 As a consequence, both \imp{} generation methods tend to yield more different-author predictions than same-author predictions, producing higher recall for the different-author class and higher precision for the same-author class.

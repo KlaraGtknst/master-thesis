@@ -2,7 +2,7 @@
 \label{sec:impostor_method_theory}
 
 \citet{koppel_determining_2014}\ propose reducing open-set \ac{av} to open-set \ac{aa}, or the so-called many-candidates problem, which determines which (if any) candidate author $a$ from a pool of candidates $A$ authored a given anonymous text $d \in U$. 
-We illustrate the hierarchy of problem complexity in \autoref{fig:problem_hierarchy}, based on their description.
+We illustrate the hierarchy of problem complexity in \Cref{fig:problem_hierarchy}, based on their description.
 The candidates of the open-set \ac{aa} problem are retrieved via hard negative mining. 
 In the \ac{aa} context, hard negatives are defined as text pairs from different authors that are nonetheless highly similar. 
 To ensure difficulty, impostor texts must be drawn from the same domain as the candidate, where domain encompasses factors such as topic, genre, register, or time period~\citep{bischoff_importance_2020}. 
@@ -15,7 +15,7 @@ To ensure difficulty, impostor texts must be drawn from the same domain as the c
 \end{figure}
 
 The disputed text $d$ and the candidate text $k_a$ are encoded as \ac{tfidf} vectors over the \num{100000} most frequent space-free character 4-grams, defined as sequences of four consecutive characters excluding spaces, or, at word boundaries with fewer than four characters, padded by surrounding spaces~\citep{koppel_authorship_2011,neal_surveying_2018}. 
-Illustrative examples are shown in \autoref{fig:spacefree_4gram}.
+Illustrative examples are shown in \Cref{fig:spacefree_4gram}.
 
 \begin{figure}[ht]
     \centering
@@ -48,7 +48,7 @@ and other syntactic structures.
 Word n-grams, which capture topic information, are generally avoided in authorship analysis, as topic information can hinder reliable attribution~\citep{neal_surveying_2018,Sapkota_ngrams_2015}.
 
 The \impAppr{} extends \unmasking{}'s repeated feature subsampling \citep{koppel_authorship_2004} by applying random projections to reduce feature dimensionality.
-After each projection, the method records whether the candidate author $a$ is predicted as the source of the disputed text $d$, aggregating this score across all elimination steps~\citep{tyo_state_2022} (illustrated in \autoref{fig:impostor}). 
+After each projection, the method records whether the candidate author $a$ is predicted as the source of the disputed text $d$, aggregating this score across all elimination steps~\citep{tyo_state_2022} (illustrated in \Cref{fig:impostor}). 
 The procedure is repeated with the texts' roles swapped, so each serves once as the disputed text and once as the reference. 
 Final predictions are obtained by averaging the aggregated scores and applying a threshold.
 

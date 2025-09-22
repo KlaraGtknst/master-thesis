@@ -7,7 +7,7 @@ In Exp.\ 2(a), we assessed paraphrasing using standard quantitative metrics, whi
 \paragraph{Exp.\ 2(a): Quantitative evaluation.}
 
 Paraphrasing scores were computed separately for the \dataBlog{}, \dataGutenberg{}, and \dataStudent{} datasets. 
-\autoref{fig:sem_syn_blog} presents aggregated semantic and syntactic measurement scores for the \dataBlog{} dataset, while results for \dataGutenberg{} are provided in the Appendix in \autoref{sec:app_paraphrases}.
+\Cref{fig:sem_syn_blog} presents aggregated semantic and syntactic measurement scores for the \dataBlog{} dataset, while results for \dataGutenberg{} are provided in the Appendix in \Cref{sec:app_paraphrases}.
 
 Syntactic similarity $\diameter_{syn}$ was quantified by averaging \ac{rouge}-1, \ac{rouge}-L, and BLEU scores. 
 Semantic similarity $\diameter_{sem}$ was assessed using \ac{bert}Score, cosine similarity of \ac{bert}-based embeddings, and \acs{glove} \ac{wmd}. 
@@ -39,7 +39,7 @@ Genre and topic were evaluated in terms of semantic similarity, while century wa
 
 We observed that instructions for the \pextractor{} must follow the input text, as \acp{llm} tend to focus attention toward the end of the input. 
 Otherwise, the \pextractor{} failed to produce the requested JSON format for long texts from the \dataGutenberg{} dataset. 
-Results across datasets are summarized in \autoref{tab:extraction_eval_stats}, with $\diameter$ and $\sigma$ denoting the mean and standard deviation across the five selected samples. 
+Results across datasets are summarized in \Cref{tab:extraction_eval_stats}, with $\diameter$ and $\sigma$ denoting the mean and standard deviation across the five selected samples. 
 The \dataBlog{} dataset proved most challenging for genre and topic extraction. 
 Although the \dataGutenberg{} dataset exhibited the largest differences in text length between reference and paraphrase, the \pextractor{} achieved its best performance on this dataset.
 

@@ -22,10 +22,10 @@ Second, paraphrase configurations are defined.
 Each one-step paraphraser is paired with two prompts, while each two-step paraphraser is paired with two temperatures.
 Third, each chunk is paraphrased with all configurations.
 These steps account for a minimum of 936 API calls for paraphrasing.
-Each component of the configuration is displayed in \autoref{fig:chunks_api_calls}.
+Each component of the configuration is displayed in \Cref{fig:chunks_api_calls}.
 Finally, for each paraphrase, we compute \ac{bleu}, \ac{rouge}-1, \ac{rouge}-2, \ac{rouge}-L, \ac{rouge}-Lsum, METEOR, \ac{bert}\-Score Precision, \ac{bert}\-Score Recall, \ac{bert}\-Score F1, \ac{sbert} \ac{wms}, \ac{sbert} cosine similarity.
 Final scores per metric for each text-configuration pair are computed by averaging the scores of its constituent text chunks.
-The adequate formula is given in \autoref{eq:avg_chunks} and an example is illustrated in \autoref{fig:mean-bleu}.
+The adequate formula is given in \Cref{eq:avg_chunks} and an example is illustrated in \Cref{fig:mean-bleu}.
 
 \begin{equation}
     score(t) = \frac{1}{\#\text{ chunks}}\sum_{i=1}^{\#\text{ chunks}}score(c_i)\text{, for chunk }c_i \in \text{text }t

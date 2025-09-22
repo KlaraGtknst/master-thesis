@@ -30,7 +30,7 @@ Similarly, ground truth topics, which often include multiple items separated by 
 Cosine similarities between the \ac{sbert} embeddings of the extracted and ground truth values are computed for each individual genre and topic, and the final score is taken as the maximum similarity among these single values. 
 
 For century matching, we preprocess the \pextractor{} output by mapping terms such as \textit{present}, \textit{current}, and \textit{now} to 21, and, for numbers with three or more digits, dropping the last two digits and adding one. 
-Examples are shown in \autoref{tab:examples_extract_century}. 
+Examples are shown in \Cref{tab:examples_extract_century}. 
 Ground truth century values are cast to dates.
 We compute the ratio $\frac{a}{b}$ where $a$ is the extracted century and $b$ is the ground truth.
 

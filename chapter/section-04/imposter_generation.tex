@@ -27,7 +27,7 @@ The model produces stylistic variants of the candidate's writing while maintaini
 
 The lack of a universally accepted definition of paraphrases complicates their generation and evaluation~\citep{gohsen_task_oriented_2024}. 
 In this work, paraphrases are considered suitable \imps{} when they preserve the topic, genre, tone and length of the original text, introduce sufficient lexical and syntactic variation to prevent near-duplication, and allow limited semantic divergence including \textcolor{orange}{mild} hallucinations.
-We propose two approaches to paraphrasing as displayed in \autoref{fig:paraphrasing_approaches}.
+We propose two approaches to paraphrasing as displayed in \Cref{fig:paraphrasing_approaches}.
 We expect the \impAppr{} recall scores to decrease while the precision scores increase, i.e.\ higher confidence in positive labelled text pairs, due to harder negatives leading to fewer positive predictions.
 
 \begin{figure}[h]
@@ -69,8 +69,8 @@ The third prompt extends the second prompt by explicitly instructing the \ac{llm
 \end{quote}
 
 Initial experiments with T5-based HuggingFace models showed poor instruction adherence and frequent malformed outputs. 
-Our final experiments therefore employed the models listed in \autoref{tab:base_llms}, accessed via the \ac{gwdg}/\ac{saia} infrastructure\footnote{\url{https://docs.hpc.gwdg.de/} (31.08.2025)}.
-Further details on these models are provided in \autoref{app:language_models}.
+Our final experiments therefore employed the models listed in \Cref{tab:base_llms}, accessed via the \ac{gwdg}/\ac{saia} infrastructure\footnote{\url{https://docs.hpc.gwdg.de/} (31.08.2025)}.
+Further details on these models are provided in \Cref{app:language_models}.
 
 \begin{table}[h]
 \centering
@@ -96,16 +96,16 @@ meta-llama-3.1-8b-instruct           & \ac{gwdg}/ \ac{saia}    \\
 The two-step approaches are inspired by prior literature~\citep{bevendorff_overview_2024, ayele_overview_2024}, and differ in how they extract and utilize auxiliary information (i.e. metadata) from the source text before generating the paraphrase. 
 The two steps enforce a clearer disentanglement of content and style at the cost of increased computational overhead.
 
-As displayed in \autoref{fig:two_step_paraphraser}, the two-step paraphrasing decomposes the task into information extraction and text generation. 
+As displayed in \Cref{fig:two_step_paraphraser}, the two-step paraphrasing decomposes the task into information extraction and text generation. 
 In the first stage, the model identifies contextual features of the input text via a \pextractor{}.
 These feature include tone, register, time period, target audience, and genre.
 Different approaches extract an additional feature specific to their approach.
 The additional features are a bullet point summary, the authorial task, topic, or title. 
-The extractor prompts can be derived from \autoref{app:extractor_prompts}.
+The extractor prompts can be derived from \Cref{app:extractor_prompts}.
 In the second stage, a paraphrase is generated based on the extracted metadata information. 
 There are two ways to feed the generator metadata.
 The extractor can either extract it from the reference text, or the user passes ground truth information when calling the paraphraser function.
-Again, all generator prompts can be found in \autoref{app:generator_prompts}.
+Again, all generator prompts can be found in \Cref{app:generator_prompts}.
 
 \begin{figure}[ht]
   \centering
