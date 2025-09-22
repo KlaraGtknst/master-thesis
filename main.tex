@@ -18,25 +18,20 @@
 
 % FIXME: this doesn't work: https://blog.rtwilson.com/how-to-add-simple-new-commands-to-latex-to-help-with-writing-papers/ (11.04.2025)
 \newcommand{\todo}[1] {\textbf{\textcolor{red}{TODO:}} #1}
-% \newcommand{\thesistype}{M A S T E R \space \space T H E S I S}
 \newcommand{\thesistypedesc}{Department of Electrical Engineering and Computer Science \\
     University of Kassel}
 \newcommand{\thesisauthorname}{Klara Maximiliane Gutekunst}
-\newcommand{\thesisauthorhomestreet}{\todo}
 \newcommand{\thesisauthorhometown}{34119 Kassel}
 \newcommand{\thesisauthormatrikelnumber}{35677772}
 \newcommand{\thesisauthoremail}{klara.gutekunst@uni-kassel.de}
 \newcommand{\thesisdepartment}{Chair Deep Semantic Learning}
 \newcommand{\thesisfirstreviewer}{Prof.\ Dr.\ Martin Potthast}
 \newcommand{\thesissecondreviewer}{Prof.\ Dr.\ Gerd Stumme}
-\newcommand{\thesissupervisor}{\todo}
 \newcommand{\thesisdate}{\today}
 
-% \ThesisSetTitle{Towards LLM-Resilient Authorship Verification: Revisiting the Impostors Method}
-% \ThesisSetTitle{Leveraging \acs{llm}-Generated Impostors \\for the \impApprTitle{}}
 \ThesisSetTitle{Leveraging \acs{llm}-Generated Hard Negatives for the \impApprTitle{}}
 % \ThesisSetTitle{Leveraging \acsp{llm} for the \impApprTitle{}}
-\ThesisSetKeywords{These, are, my, Keywords} % only for PDF meta attributes
+\ThesisSetKeywords{\ac{av}, stylometry, hard negatives, \acsp{llm}} % only for PDF meta attributes
 \ThesisSetLocation{\thesisauthorhometown{}} 
 
 \ThesisSetAuthor{\thesisauthorname{}}
@@ -62,19 +57,6 @@
 \newcommand{\dataCustom}{Custom CNN News}
 \newcommand{\bluert}{\href{https://github.com/google-research/bleurt}{BLUERT}}
 
-\usepackage{booktabs}
-%    For tables ``looking the right way''.
-% \usepackage{tabularx}
-%    Enables tables with columns that automatically fill the page width.
-%
-% \usepackage[ruled,algochapter]{algorithm2e}
-%    A package for pseudo code algorithms.
-%
-% \usepackage{amsmath}
-%    For tabular-style formatting of mathematical environments.
-%
-
-\usepackage{fontawesome}
 %    For lots of awesome glyphs: https://mirror.physik.tu-berlin.de/pub/CTAN/fonts/fontawesome/doc/fontawesome.pdf
 % \usepackage[printonlyused]{acronym}
 \pagenumbering{roman} % lowercase roman numerals
