@@ -266,7 +266,7 @@
     \global\thesisfrontpagecourse{Degree Programme }
   }{}
   \ifthenelse{\equal{\thesisuniversity}{ks}}{% 
-    \global\thesisfrontpageuniversity{Kassel University} 
+    \global\thesisfrontpageuniversity{University of Kassel} 
     \global\thesisfrontpagefaculty{Institute of Computer Science}
     \global\thesisfrontpagecourse{Degree Programme }
   }{}
