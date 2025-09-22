@@ -1,14 +1,16 @@
 \chapter*{Abstract}
 \markboth{Abstract}{Abstract}
 
-\Acl{av} seeks to determine whether two texts share the same author. 
-Existing approaches often perform poorly in cross-domain scenarios. 
-The influential \impAppr{} of \citet{koppel_determining_2014} introduced hard negative sampling to sharpen predictions, yet it struggles to fix confounding variables during inference. 
+\Acl{av} seeks to determine whether two texts share the same author, a task critical for ensuring the integrity of academic submissions or online content.
+Existing approaches typically exhibit poor generalisation across domains.
+The \impAppr{} introduced hard negative sampling to create input-pair-specific settings to improve cross-domain generalisation. 
+However, traditional sampling strategies are unable to simultaneously control for multiple confounding variables, such as genre and topic.
+%, highlighting the need for improved sampling strategies.
 This thesis investigates whether \aclp{llm} can help address these limitations. 
 Specifically, we employ \acs{llm}-generated paraphrases as hard negatives. 
-Since these paraphrases aim to preserve the confounding variables of the original text, they mitigate domain-related biases during inference. 
-Moreover, by constructing a tailored case for each input text pair, the approach eliminates \acl{ood} issues, ensuring that comparisons remain within the distribution defined by the pair itself.
-We evaluate the approach in the traditional human-authored \acl{av} setting and find that the \acs{llm}-based extension outperforms the original baselines. 
+% Since these paraphrases aim to preserve the confounding variables of the original text, they mitigate domain-related biases during inference. 
+% Moreover, by constructing a tailored case for each input text pair, the approach eliminates \acl{ood} issues, ensuring that comparisons remain within the distribution defined by the pair itself.
+Evaluation on the \dataStudent{} dataset from the original study shows that the \acs{llm}-based extension surpasses the original baselines by \citet{koppel_determining_2014}, \acs{ppmd}, and \unmasking{} in terms of precision and recall.
 At the same time, our results reveal the practical and conceptual challenges of integrating \acsp{llm} into \acl{av}, including issues of reliability, hallucination, and control over paraphrase quality.
 
 
