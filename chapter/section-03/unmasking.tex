@@ -12,18 +12,18 @@ Finally, a meta-classifier is trained on the degradation curve (and optionally o
 The intuition is that, for same-author comparisons, the classifier’s accuracy quickly drops to chance level as the most informative features are eliminated. 
 For different-author comparisons, classification remains feasible for longer, resulting in a slower degradation curve~\citep{stein_intrinsic_2011,tyo_state_2022,bevendorff_divergence_based_2020,stamatatos_survey_2009}. 
 
-To address the applicability restricted to long texts, \citet{bevendorff_generalizing_2019,bevendorff_divergence_based_2020}\ proposed generalized \unmasking{}. 
+To address the applicability restricted to long texts, \citet{bevendorff_generalizing_2019,bevendorff_divergence_based_2020}\ proposed generalised \unmasking{}. 
 Instead of splitting texts into contiguous chunks, they construct chunks by randomly sampling words in a bootstrap-aggregated manner. 
 Words are drawn without replacement from a pool until the target chunk size is reached.
 If the pool is exhausted, it is replenished. 
 Because random sampling introduces variance, \unmasking{} is repeated multiple times and the resulting curves are averaged. 
-The generalized \unmasking{} workflow is visualized in \Cref{fig:generalized_unmasking}. 
-Except for the modified sampling strategy and the adjusted number of features removed per iteration (six in the original method~\citep{koppel_authorship_2004}, 10 in the generalized variant~\citep{bevendorff_generalizing_2019}), the procedure remains identical to the original \unmasking{} framework.
+The generalised \unmasking{} workflow is visualized in \Cref{fig:generalized_unmasking}. 
+Except for the modified sampling strategy and the adjusted number of features removed per iteration (six in the original method~\citep{koppel_authorship_2004}, 10 in the generalised variant~\citep{bevendorff_generalizing_2019}), the procedure remains identical to the original \unmasking{} framework.
 
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/unmasking/generalized_unmasking.svg}
-    \caption[Generalized \unmasking{} workflow.]{Workflow of generalized \unmasking{}~\citep{bevendorff_generalizing_2019}: 
+    \caption[Generalised \unmasking{} workflow.]{Workflow of generalised \unmasking{}~\citep{bevendorff_generalizing_2019}: 
     (1) Generate chunks by oversampling words from the disputed text $d$ and the candidate text $k_a$. 
     (2) Represent the chunks using the most frequent words as features. 
     (3) Train a linear \ac{svm} and record the 10-fold cross-validation accuracy. 
