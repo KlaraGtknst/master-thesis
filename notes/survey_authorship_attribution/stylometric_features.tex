@@ -71,16 +71,16 @@ According to \citet{stamatatos_survey_2009}, these proposed methods are question
 \citet{elmanarelbouanani_authorship_2014} state that the most frequent words in a text is a lexical feature set.
 % BoW
 Texts can also be represented by vectors of word frequencies, i.e.\ the \ac{bow} model \citep{bevendorff_overview_2024}.
-This representation disregards contextual, i.e., word-order, information.
+This representation disregards contextual, i.e. word-order, information.
 While topic-based classification usually excludes so-called function words, 
 i.e.\ most common words, since they do not carry any semantic information and are topic-independent, 
 style-based text classification includes them.
 In particular, function words are considered among the best features to discriminate between authors 
 since they capture pure stylistic choices of authors across different topics.
-Hence, style-based text classification requires much lower dimensionality (i.e., a few hundred words) 
-in comparison to topic-based text classification (i.e., several thousand words).
-Function words can be closed class words, i.e., articles, prepositions etc., 
-or open-class words, i.e., nouns, adjectives, verbs.
+Hence, style-based text classification requires much lower dimensionality (i.e. a few hundred words) 
+in comparison to topic-based text classification (i.e. several thousand words).
+Function words can be closed class words, i.e. articles, prepositions etc., 
+or open-class words, i.e. nouns, adjectives, verbs.
 Closed class words are the first dozen frequent words and 
 open class words are predominantly present in the next frequent words.
 % n-grams
@@ -90,7 +90,7 @@ However, the classification accuracy does not always increase with the usage of 
 Moreover, the dimensionality of the problem increases, representations become sparse and possibly content-specific information rather than stylistic information is captured.
 % Errors
 Similar to manual human attribution, using error measures can be used to identify the author of a text.
-Spelling (i.e., letter omissions, insertions) and formatting errors (i.e., all caps words) can be used as features 
+Spelling (i.e. letter omissions, insertions) and formatting errors (i.e. all caps words) can be used as features 
 to capture the idiosyncrasies of an author's style \citep{elmanarelbouanani_authorship_2014,bevendorff_overview_2024}.
 Unfortunately, according to \citep{stamatatos_survey_2009}, the availability of accurate spell checkers for many natural languages is problematic.
 
@@ -129,7 +129,7 @@ If spell checkers are available and of sufficient quality, syntactic errors can 
 % etc.
 
 % structural features
-Structural features are based on the structure of the text, i.e., the way it is organized.
+Structural features are based on the structure of the text, i.e. the way it is organized.
 They include the way sentences are organized within paragraphs, and paragraphs are organized within documents \citep{elmanarelbouanani_authorship_2014}.
 
 

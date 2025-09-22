@@ -15,7 +15,7 @@ Via applying Karhunen-Loeve transforms with a sliding window, patterns are creat
 These \writeprints{} patterns project usage variance into a lower-dimension space for each author feature.
 Each lower-dimensional point reflects a single window instance.
 % part 2: pattern disruption
-Features an author never uses are treated as pattern disruptors (i.e., red flags), 
+Features an author never uses are treated as pattern disruptors (i.e. red flags), 
 which means that the occurrence of these features in the disputed text decreases the similarity score 
 between the author and the disputed text.
 
@@ -27,7 +27,7 @@ between the author and the disputed text.
 
         \State \textbf{Step 1: Creation of \writeprints{} Patterns}
         \ForAll{individual-level features with occurrence frequency > 0}    \Comment{Individual per author}
-            \State Extract feature vectors for each sliding window instance \Comment{sliding window size $L=1500$ characters (i.e., roughly 250 words) \& jump interval $J=L$ characters (i.e., no overlap)}
+            \State Extract feature vectors for each sliding window instance \Comment{sliding window size $L=1500$ characters (i.e. roughly 250 words) \& jump interval $J=L$ characters (i.e. no overlap)}
             \State Derive basis matrix (set of eigenvectors) from feature usage covariance matrix using Karhunen-Loeve transforms \Comment{number basis vectors via Kaiser-Guttmann stopping rule}
             \State Compute \writeprints{} patterns (= Coordinates/ Principal Components for each window instance) by multiplying window feature vectors with basis
         \EndFor

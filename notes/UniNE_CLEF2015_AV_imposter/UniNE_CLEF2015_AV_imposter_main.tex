@@ -29,7 +29,7 @@ The probabilities are estimated by dividing the term occurrence frequency $tf_i$
 $P\left[ t_i \right]=\frac{tf_i}{n}$.
 The \spldist{} distance returns a numerical value between 0 and 1 that can be used to determine a degree of certainty \citep{kocher_unine_2015}.
 Since the authors do not apply smoothing, they accept a 0.0 probability.
-$k$ represents the number of terms (i.e., words or punctuation symbols).
+$k$ represents the number of terms (i.e. words or punctuation symbols).
 In order to contextualize the magnitude of the distance $\Delta_0$, a set of impostor distances is calculated.
 They create $m$ impostor profiles resulting in $m$ distances $\Delta_1, \ldots, \Delta_m$.
 Only the minimum distance among the set of impostor distances is kept.
@@ -50,7 +50,7 @@ If the distance $\Delta_0$ is smaller than $\Delta_m$, the system decides that t
 \citet{kocher_unine_2015} claim \ac{aa} is not more difficult than \ac{av} 
 due to the fact that in \ac{av} tasks one has to compare the disputed text with a set of all representative impostor texts.
 The authors claim it is difficult to determine whether one has included all impostors, 
-i.e., other writers having a similar style to the candidate author.
+i.e. other writers having a similar style to the candidate author.
 
 They choose $m=3$ random impostors from the test set of the candidate author 
 where those with similar number of known documents to the candidate author are favoured.
