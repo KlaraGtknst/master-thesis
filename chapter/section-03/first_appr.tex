@@ -1,25 +1,32 @@
 % \section{First Approaches}
 
 % Approaches of the 19th century were limited to the analysis of word lengths.
-In the early 20th century, statistical measures such as Zipf's law (1932) and Yule's characteristic (1944) were introduced. 
-These measures captured word frequency and vocabulary richness, providing a basis for formal analyses of writing style~\citep{neal_surveying_2018,stamatatos_survey_2009}.
+% In the early 20th century, statistical measures such as Zipf's law (1932) and Yule's characteristic (1944) were introduced. 
+% Zipf ordered the words in his texts by decreasing frequency and considered the relationship between rank and frequency.
+% The inverse relationship between $\operatorname{log}$ Zipf rank and $\operatorname{log}$ frequency is known as Zipf's law~\citep{zipf_2001}.
+% These measures captured word frequency and vocabulary richness, providing a basis for formal analyses of writing style~\citep{neal_surveying_2018,stamatatos_survey_2009}.
 
-A decisive milestone came with the work of Mosteller and Wallace (1964), who applied Bayesian statistical analysis to "The Federalist Papers".
-Their computer-assisted approach, based on the frequencies of a subset of common function words (e.g. "and", "to"), demonstrated the potential of rigorous quantitative methods for \ac{aa}. 
+A decisive milestone came with the work of \citet{mosteller_1964}, who applied Bayesian statistical analysis to the Federalist papers.
+The Federalist papers are a collection of essays written in support of the new United States Constitution\footnote{\url{https://lccn.loc.gov/09021562} (22.09.2025)}.
+Disagreements over the authorship of certain essays render the collection an important case study for authorship research.
+The computer-assisted approach by \citet{mosteller_1964}, based on the frequencies of a subset of common function words (e.g. "and," "to"), demonstrated the potential of rigorous quantitative methods for \ac{aa}. 
 This work is often considered the origin of modern stylometry, the systematic study of quantifiable writing features.
 
 Between the 1960s and the late 1990s, stylometric research flourished.
-Around \num{1000}~features were proposed, including sentence and word lengths, character and word frequencies, and vocabulary richness. 
-However, the field faced two major limitations. 
-The lack of benchmark datasets hindered systematic comparison, with evaluations relying on subjective visual inspection rather than standardised metrics~\citep{stamatatos_survey_2009}.
+Around \num{1000}~features were proposed, including sentence and word lengths, character and word frequencies, and number of distinct words. 
+However, the field was limited by the absence of benchmark datasets, which prevented systematic comparison, and by evaluations based on subjective visual inspection rather than standardised metrics~\citep{stamatatos_survey_2009}.
 
 The late 1990s marked the transition into a new era. 
 The growing availability of electronic text collections enabled the construction of benchmark datasets and more thorough evaluation. 
-At the same time, \ac{ml} algorithms facilitated more expressive text representations, moving beyond simple frequency counts towards feature-rich models. 
-As a result, the scope of \ac{av} expanded from resolving historical literary questions to addressing practical, real-world applications such as digital forensics~\citep{stamatatos_survey_2009}. 
-Nevertheless, as \citet{abbasi_writeprints_2008} note, even by 2008 stylometric methods struggled with scalability across large author sets, diverse genres, and open-world scenarios.
+Dataset size and the degree of control over genre and topic varied widely, ranging from fewer than ten controlled texts per topic to more than \num{500000} blog entries in the \dataBlog{} dataset. %~\citep{stamatatos_survey_2009}.
+At the same time, \ac{ml} algorithms made it possible to handle high-dimensional sparse data. 
+Typical feature sets included the most frequent words, often used in combination with \acp{svm}.
+As a result, the scope of \ac{av} expanded from resolving historical literary questions to addressing practical, real-world applications such as digital forensics~\citep{stamatatos_survey_2009}, where reliable attribution is essential for tasks such as plagiarism detection.
+Nevertheless, as \citet{abbasi_writeprints_2008} note, even by 2008 stylometric methods struggled with scalability across large author sets, diverse genres, and open-world scenarios where the true author may not be present in the candidate set.
 
-\acp{nn} began to replace simple classifiers in \ac{av} around 2016. 
-However, their leading role was soon overtaken by transformer-based models such as \acs{bert}, Ro\acs{bert}a, and T5. 
-Despite these advances, traditional stylometric features remained relevant and continued to play an important role, particularly when integrated into ensemble approaches. 
-Since late 2022, the advent of \acp{llm} has further reshaped the field, rapidly establishing them as a popular research tool~\citep{schmidt_llm_av_latin_24}.
+\acp{nn} began to replace simple classifiers in \ac{av} around 2016~\citep{schmidt_llm_av_latin_24}. 
+However, their leading role was soon overtaken by transformer-based models such as \acs{bert}~\citep{bert_2019}, Ro\acs{bert}a~\citep{roberta_2019}, and T5~\citep{t5_2020}. 
+Despite these advances, traditional stylometric features have remained relevant, especially when incorporated into ensemble approaches. 
+For instance, \citet{bertaa_2020} observed that their fine-tuned \acs{bert} model achieved improved performance when its class probability outputs were combined with those of a stylometric classifier.
+
+Since late 2022, the advent of \acp{llm} has further reshaped the field, with models increasingly fine-tuned to solve authorship problems, rapidly establishing them as a popular research tool~\citep{schmidt_llm_av_latin_24}.
