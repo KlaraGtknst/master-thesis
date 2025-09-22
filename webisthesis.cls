@@ -466,8 +466,8 @@
   \cleardoublepage % TODO: Added bc Niklas said there should be a blank page after the title page
   \declaration%
 }{%
-  % \clearpage%
-  % \pagenumbering{arabic}%
+  \clearpage%
+  \pagenumbering{arabic}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
