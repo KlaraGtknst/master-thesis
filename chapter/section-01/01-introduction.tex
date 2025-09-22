@@ -10,7 +10,7 @@ We formulate the following research questions to investigate whether LLM-generat
     \item \textbf{How suitable are \acp{llm} for \imp{} generation?} \label{enum:rq1} \hfill \\
     For \imps{} to be effective, hard negatives need to adhere to constraints similar to the candidate text, including confounding variables such as genre, topic, and target audience.
     We employ \ac{llm}-based paraphrasing model the original confounding variables. 
-    By conditioning \acp{llm} on confounding variables, the \imp{} method emphasises differences in authorial style rather than in content. 
+    By conditioning \acp{llm} on confounding variables, the \impAppr{} emphasises differences in authorial style rather than in content. 
     However, the precise syntactic similarity threshold at which paraphrases are attributable to the candidate author remains uncertain, potentially limiting detection accuracy. 
     % To investigate the suitability of artificial \imp{} generation, we design an experiment that contrasts one-step \imp{} generation with traditional baselines using standard classification metrics.
 
@@ -37,8 +37,7 @@ The main contributions of this thesis are as follows:
 \begin{itemize}
     \item Collection and preprocessing of original datasets, including a controlled candidate-pair selection procedure aligned with the methodology of \citet{koppel_determining_2014} and informed by direct consultation with the authors (cf.~\Cref{sec:dataset}).
     \item Reimplementation of the traditional \impAppr{}~\citep{koppel_determining_2014}\ (cf.~\Cref{sec:impostor_method_theory}).
-    \item Development of an \ac{llm}-based \impAppr{} extending the work of \citet{koppel_determining_2014} (cf.~\Cref{sec:impostor_generation}). 
-    % \item Empirical evaluation of \ac{llm}-generated hard negatives, with a focus on prompts influencing the control of confounder variables during the artificial \imp{} generation process (cf.~\Cref{subsec:prompt_impact_res}/~\ref{enum:rq1}).
+    \item Development of an \ac{llm}-based \impAppr{} extending the work of \citet{koppel_determining_2014} as a scenario-specific solution to \ac{av} problems even in cross-domain settings (cf.~\Cref{sec:impostor_generation}). 
     \item Analysis of prompt design and its influence on paraphrase length as a confounding variable (cf.~\Cref{subsec:prompt_impact_res}/~\ref{enum:rq1} and \ref{enum:rq2}).
     \item Quantitative comparison of paraphrasing approaches using metrics adapted from summarisation and translation tasks (hereafter paraphrasing scores) (cf.~\Cref{sec:comp_paraphrases}/~\ref{enum:rq2}).
     \item Analysis of the effect of text segmentation (i.e. number of chunks) on paraphrasing scores (cf.~\Cref{sec:results_chunks}/~\ref{enum:rq2}).

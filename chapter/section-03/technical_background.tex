@@ -22,7 +22,7 @@ This is formalised as one-class classification, where the model learns the targe
 
 \paragraph{Multi-class classification.} 
 In the context of \ac{aa}, multi-class classification refers to the task of discriminating among a large number of candidate authors. 
-This setting is particularly challenging because the class distribution is often highly imbalanced, with some authors being represented by many texts while others are represented by only a few~\citep{stamatatos_survey_2009,koppel_authorship_2004,elmanarelbouanani_authorship_2014}. 
+This setting is particularly challenging because the class distribution is often highly imbalanced, with some authors being represented by many texts while others are represented by only a few~\citep{stamatatos_survey_2009,koppel_authorship_2004}. 
 
 
 \subsection{Training and Testing}
@@ -51,7 +51,8 @@ Approaches to authorship analysis can be grouped into three families~\citep{stam
 \paragraph{Profile-based methods.} 
 All training texts of an author are concatenated into a single profile, from which a cumulative feature representation is extracted. 
 This approach is effective when only short texts are available.
-Profile-based methods ignore intra-author variation~\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}, capturing only general properties of an author, which may be imprecise if their style changes over time or across topics.
+Profile-based methods ignore intra-author variation~\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.
+Hence, only general properties of an author are captured while differences between texts of that author are discarded~\citep{elmanarelbouanani_authorship_2014}, leading to the loss of style changes over time or across topics.
 
 \paragraph{Instance-based methods.} 
 Here, each training text is treated as a separate instance of the author's style. 

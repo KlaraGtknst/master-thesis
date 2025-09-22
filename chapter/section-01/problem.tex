@@ -2,7 +2,8 @@
 Historically, authorship analysis focused on literary disputes~\citep{neal_surveying_2018,stamatatos_survey_2009}, but contemporary concerns have shifted towards practical applications.
 In an era where large amounts of text can be copied, paraphrased, or fabricated with ease, determining the true author of a text is crucial for maintaining trust in communication. 
 Scenarios include detecting plagiarised passages of texts~\citep{stein_intrinsic_2011}, and verifying the authenticity of online content or student submissions. 
-Formally, we refer to these problems as \acf{av} or \acf{aa}, where every \ac{aa} task can be formulated as a sequence of \ac{av} problems~\citep{tyo_state_2022,barlas_cross_domain_2020}.
+These problems can be framed as \acf{av} or \acf{aa}, where every \ac{aa} task can be formulated as a sequence of \ac{av} problems~\citep{tyo_state_2022,barlas_cross_domain_2020}.
+\ac{av} denotes the task of determining whether two texts were written by the same author~\citep{koppel_authorship_2004}.
 
 The emergence of \acp{llm} adds an additional layer of complexity. 
 While these models are widely embraced for beneficial applications such as summarisation, information seeking, and assistive writing~\citep{wang_stumbling_2024}, their ability to convincingly imitate human writing creates new risks. 
@@ -17,10 +18,10 @@ This shortcoming motivates a shift towards scenario-specific solutions, i.e.\ mo
 Such single-case approaches enable more precise control over contextual factors and place greater emphasis on stylistic idiosyncrasies rather than domain-level variation.
 
 % AV
-The \impAppr{} by \citet{koppel_determining_2014}\ introduces the idea of generating \imp{} texts, i.e.\ hard negatives, used to sharpen the discrimination between genuine and false authorship matches. 
+The \impAppr{} by \citet{koppel_determining_2014}\ introduces the idea of sampling \imp{} texts, i.e.\ hard negatives, intended to sharpen the discrimination between genuine and false authorship matches. 
 However, the method's effectiveness is limited by the quality and contextual adequacy of these \imp{} texts. 
-Previous work did not fully address how to construct challenging \imps{} via controlled contextual variables.
+Traditional strategies cannot simultaneously control multiple confounding factors such as genre, topic, and target audience, limiting the discriminatory power of the hard negatives.
 
-The thesis extends the \impAppr{} by leveraging \acl{sota} \acp{llm} to generate paraphrases as \imps{}, enabling simultaneous control over multiple confounding factors such as genre, topic, and target audience. 
+The thesis extends the \impAppr{} by leveraging \acl{sota} \acp{llm} to generate paraphrases as \imps{} rather than relying on existing texts, allowing simultaneous control over multiple confounding factors.
 Collection and preprocessing of the original datasets, including a controlled candidate-pair selection procedure aligned with the methodology of \citet{koppel_determining_2014} and informed by direct consultation with the authors, ensures a robust evaluation setup. 
 The extended \impAppr{} achieves improved precision–recall on the \dataStudent{} dataset compared with the original sampling strategies, \unmasking{} and \acs{ppmd}.
