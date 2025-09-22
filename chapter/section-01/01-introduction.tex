@@ -16,7 +16,7 @@ To address the overarching objective of this thesis, we formulate the following 
 
     \item \textbf{Which metrics are appropriate to evaluate the quality of generated \imps{}?} \label{enum:rq2} \hfill \\
     Assessing \imps{} requires evaluating paraphrases, a task complicated by the absence of a universally accepted definition of paraphrasing. 
-    Prior work often adopts evaluation metrics from adjacent \ac{nlp} tasks such as machine translation and summarization. 
+    Prior work often adopts evaluation metrics from adjacent \ac{nlp} tasks such as machine translation and summarisation. 
     The two central dimensions are semantic similarity and syntactic similarity. 
     Contrary to naive assumptions, high syntactic similarity is not always desirable, as it may indicate minimal modification of the original text.
     Instead, the objective is to achieve strong semantic alignment while ensuring sufficient syntactic variation to capture genuine rephrasing. 
@@ -41,7 +41,7 @@ The main contributions of this thesis are as follows:
     \item Development of an \ac{llm}-based \impAppr{} extending the work of \citet{koppel_determining_2014} (cf.~\Cref{sec:impostor_generation}). 
     % \item Empirical evaluation of \ac{llm}-generated hard negatives, with a focus on prompts influencing the control of confounder variables during the artificial \imp{} generation process (cf.~\Cref{subsec:prompt_impact_res}/~\ref{enum:rq1}).
     \item Analysis of prompt design and its influence on paraphrase length as a confounding variable (cf.~\Cref{subsec:prompt_impact_res}/~\ref{enum:rq1} and \ref{enum:rq2}).
-    \item Quantitative comparison of paraphrasing approaches using metrics adapted from summarization and translation tasks (hereafter paraphrasing scores) (cf.~\Cref{sec:comp_paraphrases}/~\ref{enum:rq2}).
+    \item Quantitative comparison of paraphrasing approaches using metrics adapted from summarisation and translation tasks (hereafter paraphrasing scores) (cf.~\Cref{sec:comp_paraphrases}/~\ref{enum:rq2}).
     \item Analysis of the effect of text segmentation (i.e. number of chunks) on paraphrasing scores (cf.~\Cref{sec:results_chunks}/~\ref{enum:rq2}).
     \item Evaluation of the proposed \ac{llm}-based \impAppr{} against established \ac{av} techniques, specifically the baselines introduced by \citet{koppel_determining_2014}
     % , \textcolor{red}{\unmasking{} and \ac{ppmd}}, 
