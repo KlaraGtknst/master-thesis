@@ -86,7 +86,7 @@ Both \citet{koppel_determining_2014}\ and our results indicate that \texttt{fixe
 Beyond this agreement, however, our recall–precision curves deviate from the original findings.
 In the different-author scenario, all methods except \texttt{on-the-fly} generation exhibit low precision, with \texttt{fixed} \imps{} performing worst.
 Low precision corresponds to a high number of \acp{fp}, i.e. many same-author pairs incorrectly classified as different authors.
-This outcome suggests that training on the same-author class produces systematically poor performance in a different-author class test scenario, as the model is not optimized for it.
+This outcome suggests that training on the same-author class produces systematically poor performance in a different-author class test scenario, as the model is not optimised for it.
 
 Opposed to the original work of \citet{koppel_determining_2014}, our \texttt{on-the-fly} \imps{} lack difficulty explaining the low precision in the same-author and the high precision in the different-author scenario.
 Since we had to reduce the number of test samples for \texttt{on-the-fly} \imp{} generation due to API call limits, we suggest analysing this approaches' results with a grain of salt.

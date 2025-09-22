@@ -24,8 +24,8 @@ In other words, their goal is to find a writing style encoder $w: \textbf{X} \to
 where $X$ is the input space of the text and $W$ is the output space of the style representations, 
 such that the author classifier $c_a: \textbf{W} \to Y_a$ is successful and 
 the domain classifier $f_d: \textbf{W} \to \textbf{Y}_d$ is unsuccessful.
-The prediction performance for author labels $Y_a$ is maximized while the 
-prediction performance for domain labels $\textbf{Y}_d$ is minimized.
+The prediction performance for author labels $Y_a$ is maximised while the 
+prediction performance for domain labels $\textbf{Y}_d$ is minimised.
 Hence, the encoder learns to encode (retain) the author style while ignoring (suppressing) the domain style.
 To achieve this, they reverse (negate) the gradient of the domain classifier $f_d$ during backpropagation 
 which equals the gradient ascent of the original gradient.

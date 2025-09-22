@@ -1,6 +1,6 @@
 
 \paragraph{\ac{rouge}}
-\ac{rouge} \citep{lin_rouge_2004}, initially developed for summarisation, is recall-oriented and emphasizes coverage of reference content in the candidate text. 
+\ac{rouge} \citep{lin_rouge_2004}, initially developed for summarisation, is recall-oriented and emphasises coverage of reference content in the candidate text. 
 Lower \ac{rouge} scores indicate greater diversity \citep{kurt_pehlivanoglu_comparative_2024}.
 Several variants exist, including \ac{rouge}-N, which computes word n-gram recall, and \ac{rouge}-L, which measures the \ac{lcs}~\citep{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}. 
 
@@ -14,7 +14,7 @@ Since we only consider single reference scenarios we use the simpler version for
 Both the nominator and the denominator iterate over all n-grams in all sentences of the reference, i.e.\ ground truth, text.
 The nominator sums up $\operatorname{Count_{match}}(n \text{-} gram)$, i.e.\ the maximum number of occurrences of this reference sentence n-gram in any of the candidate texts.
 Since this sum measures the number of co-occurrences of that n-gram in both candidate and reference text, it is naturally capped to the number of occurrences in the reference.
-This ensures that after normalizing with the denominator, the \ac{rouge}-N values range from 0 to 1~\citep{kurt_pehlivanoglu_comparative_2024}.
+This ensures that after normalising with the denominator, the \ac{rouge}-N values range from 0 to 1~\citep{kurt_pehlivanoglu_comparative_2024}.
 % The nominator sums over all references and thus, gives more weight to matching n-grams that occur in multiple references (i.e.\ a consensus between references) \citep{lin_rouge_2004}.    % do not use, bc we have only one reference
 The denominator does not consider matches but only sums up the number of times an n-gram appears in the reference sentences~\citep{lin_rouge_2004}.
 If every n-gram from the reference sentences would appear equally often in the candidate, the \ac{rouge}-N would be one since it measures the n-gram overlap between reference and candidate from a reference or recall perspective.

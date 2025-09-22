@@ -18,7 +18,7 @@ Evaluating the Pearson correlation to human judgement on \num{10000}~samples fro
 
 
 \subsubsection{Semantic Measures}
-Syntactic measures are inadequate when the goal is to evaluate paraphrases that prioritize semantic preservation over lexical similarity. 
+Syntactic measures are inadequate when the goal is to evaluate paraphrases that prioritise semantic preservation over lexical similarity. 
 To address this limitation, semantic metrics leverage distributed representations of words or sentences.
 As per \citet{gohsen_captions_2023}, we compute semantic similarity between transformer based models.
 
@@ -66,7 +66,7 @@ Following \citet{gohsen_captions_2023}, we compute our document vectors using a 
 \paragraph{\ac{wmd}}
 \ac{wmd} measures the minimal transport cost of aligning word embeddings from one text to another~\citep{gohsen_captions_2023}. 
 By default, word embeddings are derived using \acs{glove}~\citep{glove_wmd_2014}.
-\citet{kusner_wmd_15}\ formalize this via a flow matrix $T \in \mathcal{R}^{n \times n}$ where $T_{ij} \geq 0$ denotes how much of word $i$ in a document $d$ must travel to a word $j$ in a document $d'$.
+\citet{kusner_wmd_15}\ formalise this via a flow matrix $T \in \mathcal{R}^{n \times n}$ where $T_{ij} \geq 0$ denotes how much of word $i$ in a document $d$ must travel to a word $j$ in a document $d'$.
 To transform document $d$ to document $d'$, (1) the outgoing flow from word $i$ equals $d_i$, i.e.\ $\sum_{j}T_{ij}=d_i$, and (2) the incoming flow to word $j$ must match $d'_j$, i.e.\ $\sum_{i}T_{ij}=d'_j$.
 The distance between document $d$ and document $d'$ is the minimum cumulative cost required to move all words from $d$ to $d'$, i.e.\ $\sum_{i,j}T_{i,j}c(i,j)$, where $c(i,j)$ is the cost of travelling from word $i$ to word $j$~\citep{kusner_wmd_15}.
 
@@ -74,7 +74,7 @@ The distance between document $d$ and document $d'$ is the minimum cumulative co
 \subsubsection{Semantic–Syntactic Metric}
 
 \citet{gohsen_captions_2023}\ introduce the metric $\Delta_{sem,syn}$ as a means to improve the interpretability of paraphrasing scores by jointly considering syntactic and semantic similarity.
-First, all syntactic and semantic measures are normalized to a scale from zero to one.
+First, all syntactic and semantic measures are normalised to a scale from zero to one.
 Then, the average syntactic similarity $\diameter_{syn}$ and the average semantic similarity $\diameter_{sem}$ is calculated.
 Syntactic metrics include \ac{rouge}-1, \ac{rouge}-L, and \ac{bleu}.
 Semantic measures include \ac{wms}, \ac{bert}, and cosine similarity of the \ac{sbert} embeddings.

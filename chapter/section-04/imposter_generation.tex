@@ -40,7 +40,7 @@ We expect the \impAppr{} recall scores to decrease while the precision scores in
 
 Paraphrasing is often analysed along two main dimensions. 
 At the lexical level, it involves word-level substitutions such as synonym replacement, typically achieved through rule-based or thesaurus-driven methods. 
-At the syntactic level, paraphrasing entails changes to sentence structure, which can be realized through monolingual machine translation~\citep{zhou_paraphrase_2021} or by explicitly prompting \acp{llm}~\citep{kurt_pehlivanoglu_comparative_2024}.
+At the syntactic level, paraphrasing entails changes to sentence structure, which can be realised through monolingual machine translation~\citep{zhou_paraphrase_2021} or by explicitly prompting \acp{llm}~\citep{kurt_pehlivanoglu_comparative_2024}.
 % While more fine-grained taxonomies exist~\citep{zhou_paraphrase_2025}, they are not central here, as this study does not involve training or constructing paraphrase models directly.
 Paraphrase quality is largely determined by prompt design and model selection~\citep{Wu_ODD_challenges_2025}.
 
@@ -58,7 +58,7 @@ The first prompt explicitly decomposes the sentence into subject, verb, and obje
 \end{quote}
 
 The second prompt instructs the model to preserve meaning while varying wording and structure. 
-Both prompts emphasize concise outputs restricted to the paraphrase itself.
+Both prompts emphasise concise outputs restricted to the paraphrase itself.
 \begin{quote}
     \textit{Paraphrase the sentence above without changing its meaning. Use different words and vary the sentence structure while keeping the tone consistent. Keep the new sentence similar in length to the original. Output only the paraphrased sentence, with no explanations or extra text.}
 \end{quote}

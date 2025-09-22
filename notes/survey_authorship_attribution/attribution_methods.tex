@@ -14,8 +14,8 @@ where $x$ is the text to be classified, $A$ is the set of authors, and $d(x, x_a
 between the text and the author file $x_a$ \citep{stamatatos_survey_2009}.
 % probabilistic models
 Probabilistic models are a special case of profile-based methods.
-They attempt to maximize the probability $P(x|a)$ of the text $x$ belonging to candidate author $a$ \citep{stamatatos_survey_2009,neal_surveying_2018}.
-The attribution model seeks the author that maximizes the similarity metric: 
+They attempt to maximise the probability $P(x|a)$ of the text $x$ belonging to candidate author $a$ \citep{stamatatos_survey_2009,neal_surveying_2018}.
+The attribution model seeks the author that maximises the similarity metric: 
 $$ author(x) = argmax_{a \in A} \frac{P(x|a)}{P(x|\overline{a})} $$
 where the conditional probabilities are estimated by $x_a$ for author $a$ and the rest of the texts, respectively \citep{stamatatos_survey_2009}.
 Naive Bayes is a variant of this probabilistic  classifier \citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.

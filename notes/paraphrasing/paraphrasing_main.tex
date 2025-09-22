@@ -37,15 +37,15 @@ along with a list of vector representations capturing the semantics of each word
 The decoder will generate paraphrases based on the vectors given by the encoder.
 There is greedy decoding, where the words with the highest probability across the vocabulary are selected, 
 and there is beam search, where the top $k$ paths are identified.
-Since both greedy decoding and beam search are not specialized on paraphrase generation, but rather generic text generation, 
+Since both greedy decoding and beam search are not specialised on paraphrase generation, but rather generic text generation, 
 there exist methods to improve the quality of paraphrases.
 One such method is to use blocking the words from the source text.
 Other improvements based on encoder-decoder architectures include
 \begin{itemize}
     \item \textbf{Copy mechanism}: The model can copy words from the source text to the target text (to counter the effect of rare and out-of-vocabulary words).
     \item \textbf{Attention mechanism}: The model can focus on different parts of the source text when generating each word in the target text.
-    \item \textbf{\ac{rl}}: The model is trained to maximize a reward function that measures the quality of the generated paraphrases 
-    (rather than minimize a loss that might not be aligned with metric used to evaluate paraphrase generation quality). 
+    \item \textbf{\ac{rl}}: The model is trained to maximise a reward function that measures the quality of the generated paraphrases 
+    (rather than minimise a loss that might not be aligned with metric used to evaluate paraphrase generation quality). 
     Discriminators of Generative Adversarial Networks (GANs) with policy gradient act like reward function in \ac{rl}.
 \end{itemize}
 

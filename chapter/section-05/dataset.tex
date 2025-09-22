@@ -99,7 +99,7 @@ Note that the perceived utility of these steps should be reevaluated for other d
 Next, we analysed the effect of individual preprocessing steps on vocabulary size.  
 We define the vocabulary of a dataset as unique tokens across all texts (regardless of their text length or split) of that dataset.
 In line with \citep{koppel_determining_2014}, tokens are space-free character 4-grams.
-We leave the capitalization of tokens unchanged. 
+We leave the capitalisation of tokens unchanged. 
 The results are displayed in \Cref{fig:preprocesing_impact_vocab_size}.
 
 We found that HTML-specific preprocessing steps had minimal impact on the size of vocabularies.
@@ -109,7 +109,7 @@ Consequently, repetitive patterns are mapped on the same vocabulary item.
 Once the repetitive patterns are filtered out, the vocabulary lacks their respective items, which are not many.
 
 Based on these considerations, our preprocessing steps include removing HTML artefacts, play artefacts, newlines, converting UTF-8 to ASCII, and stripping leading and trailing whitespace.
-We opted to forgo lowercasing the texts, as our preliminary analysis indicated that lowercasing had no meaningful effect on any dataset while potentially discarding deliberate authorial capitalization choices.
+We opted to forgo lowercasing the texts, as our preliminary analysis indicated that lowercasing had no meaningful effect on any dataset while potentially discarding deliberate authorial capitalisation choices.
 Due to preprocessing, our \dataPan{} version differs from those applied elsewhere.
 
 \begin{figure}[htbp]
