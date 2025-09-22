@@ -382,10 +382,11 @@
   \global\thesisfrontpagedateofsubmission{Submission date}
   \global\thesisdeclarationtitle{Declaration}
   \global\thesisdeclarationtext{
-    I acknowledge the use of \href{https://www.deepl.com/de/translator}{DeepL} for language refinement and \href{https://chat.openai.com/}{ChatGPT} for assistance with text improvement as well as coding support, including guidance on implementation and debugging.
-    Unless otherwise indicated in the text or %
-    references, this thesis is entirely the product of my own scholarly work.
-    }
+  I hereby declare that I have independently authored this thesis, 
+  and that I have used only the sources and assistance explicitly indicated. All passages that are quoted verbatim or paraphrased from published or unpublished works, including digital sources, have been appropriately cited.  
+  I further acknowledge the use of \href{https://www.deepl.com/de/translator}{DeepL} for language refinement and \href{https://chat.openai.com/}{ChatGPT} for support with text improvement and coding, including guidance on implementation and debugging. Unless otherwise specified, this thesis represents entirely my own scholarly work.%
+  }
+
   % \global\thesisdeclarationtext{Unless otherwise indicated in the text or %
   %   references, this thesis is entirely the product of my own scholarly work.}
   \global\thesisfrontmatterkeywords{Keywords}
@@ -417,6 +418,7 @@
 		\begin{center}
 			\vspace{3cm}\Huge
       {\bf\the\thesistitle}
+      % \parbox{0.9\paperwidth}{\centering\bfseries\the\thesistitle}
 
       \vspace{3cm}\Huge
       {\bf\thesistype\the\thesisfrontpagetypename}
