@@ -22,8 +22,8 @@ Syntactic measures are inadequate when the goal is to evaluate paraphrases that 
 To address this limitation, semantic metrics leverage distributed representations of words or sentences.
 As per \citet{gohsen_captions_2023}, we compute semantic similarity between transformer based models.
 
-\paragraph{\ac{bert}Score}
-\ac{bert}Score computes similarity between contextual \ac{bert} embeddings of candidate and reference texts~\citep{hanna_fine_grained_2021}. 
+\paragraph{\acs{bert}Score}
+\acs{bert}Score computes similarity between contextual \ac{bert} embeddings of candidate and reference texts~\citep{hanna_fine_grained_2021}. 
 Contextual embeddings allow for the same word having different embeddings depending on its context.
 Even though cosine similarity calculation considers tokens in isolation, the contextual embeddings contain information of the rest of the sentence.
 Sentences are tokenized by \ac{bert} and subsequently encoded.
@@ -34,21 +34,21 @@ For reference vectors $r$ and candidate vectors $c$, precision $P_{\text{BERT}}$
 The $F_1$ score from \autoref{eq:bert_f1} is computed based on precision and recall.
 
 \begin{equation}
-    P_{\text{BERT}} = \frac{1}{|c|} \sum_{c_i \in c} \max_{z_j \in r} r_j^\top c_i
+    \operatorname{P_{BERT}} = \frac{1}{|c|} \sum_{c_i \in c} \max_{z_j \in r} r_j^\top c_i
 \label{eq:bert_p}
 \end{equation}
 
 \begin{equation}
-    R_{\text{BERT}} = \frac{1}{|r|} \sum_{r_i \in r} \max_{c_j \in c} r_i^\top c_j
+    \operatorname{R_{BERT}} = \frac{1}{|r|} \sum_{r_i \in r} \max_{c_j \in c} r_i^\top c_j
 \label{eq:bert_r}
 \end{equation}
 
 \begin{equation}
-    F_1 = \frac{2 P_{BERT} R_{BERT}}{P_{BERT} + R_{BERT}} 
+    \operatorname{F_1} = \frac{2  \operatorname{P_{BERT}}  \operatorname{R_{BERT}}}{\operatorname{P_{BERT}} + \operatorname{R_{BERT}}} 
 \label{eq:bert_f1}
 \end{equation}
-Since $F_1 \in \left[\text{-}1,1\right]$, it can be rescaled to $[0,1]$ to improve score readability by modifying the precision and recall calculation 
-to $\hat{P}_{BERT} = \frac{P_{BERT} - a}{1 - a}$ ($R_{BERT}$ analogous), where $a$ is the empirical lower bound on the BERTScore \citep{zhang_bertscore_2020,hanna_fine_grained_2021}.
+Since $\operatorname{F_1} \in \left[\text{-}1,1\right]$, it can be rescaled to $[0,1]$ to improve score readability by modifying the precision and recall calculation 
+to $\mathrm{\hat{P}_{BERT}} = \frac{\operatorname{P_{BERT}} - a}{1 - a}$ ($\operatorname{R_{BERT}}$ analogous), where $a$ is the empirical lower bound on the BERTScore \citep{zhang_bertscore_2020,hanna_fine_grained_2021}.
 
 % BERTScore correlates with human judgment at the semantic level \citep{kurt_pehlivanoglu_comparative_2024}, although it may struggle when lexically overlapping but semantically incorrect candidates are present \citep{hanna_fine_grained_2021}.
 
@@ -58,7 +58,7 @@ Cosine similarity values range from $-1$ to $1$~\citep{thongtan_cosine_sim_19,zh
 Following \citet{gohsen_captions_2023}, we compute our document vectors using a \ac{sbert} model.
 
 \begin{equation}
-    cos(\theta_{a,b})=sim(v_a,v_b)=\frac{v_a^Tv_b}{\left\| v_a \right\|\left\| v_b \right\|}
+    \cos(\theta_{a,b})=\mathrm{sim}(v_a,v_b)=\frac{v_a^Tv_b}{\left\| v_a \right\|\left\| v_b \right\|}
     \label{eq:cosine_sim}
 \end{equation}
 

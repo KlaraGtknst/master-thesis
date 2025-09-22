@@ -12,30 +12,30 @@ Evaluation relies on standard classification metrics, each with distinct advanta
 %     \text{Accuracy} = \frac{\text{\acs{tp}} + \acs{tn}}{\acs{tp} + \acs{tn} + \acs{fp} + \acs{fn}}
 % \end{equation}
 
-% \paragraph{Precision, Recall \& F\textsubscript{1}}
-Precision and recall address the limitations of accuracy in class imbalance scenarios by focusing on the effectiveness for the positive class, that is, the correct identification of same-author pairs. 
+% \paragraph{Precision, Recall \& $\operatorname{F_{1}}$}
+Precision $\operatorname{P}$ and recall $\operatorname{R}$ address the limitations of accuracy in class imbalance scenarios by focusing on the effectiveness for the positive class, that is, the correct identification of same-author pairs. 
 Precision measures the proportion of positive predictions that are correct, while recall quantifies the proportion of \ac{tp} cases that are successfully detected. 
-Because these metrics often trade off against each other, their harmonic mean, the F\textsubscript{1} score, is commonly used to provide a balanced assessment of effectiveness. 
-\autoref{eq:f1} shows the computation of the F\textsubscript{1} score~\citep{neal_surveying_2018}.
+Because these metrics often trade off against each other, their harmonic mean, the $\operatorname{F_{1}}$ score, is commonly used to provide a balanced assessment of effectiveness. 
+\autoref{eq:f1} shows the computation of the $\operatorname{F_{1}}$ score~\citep{neal_surveying_2018}.
 
 \begin{equation}\label{eq:f1}
-     \text{F\textsubscript{1}} = 2 \cdot \frac{precision \cdot recall}{precision + recall}
+     \operatorname{F_{1}} = \frac{2\mathrm{P}  \mathrm{R}}{\mathrm{P} + \mathrm{R}}
 \end{equation}
 
-% \paragraph{F\textsubscript{0.5u} \& c@1}
+% \paragraph{$\operatorname{F_{0.5u}}$ \& $\operatorname{c@1}$}
 % Beyond these basic measures, \ac{av} research has introduced metrics that explicitly account for difficult borderline cases. 
-% The modified F\textsubscript{0.5u} score penalizes non-answers by treating them as \acp{fn}~\citep{bevendorff_overview_2024}. 
+% The modified $\operatorname{F_{0.5u}}$ score penalizes non-answers by treating them as \acp{fn}~\citep{bevendorff_overview_2024}. 
 % This places additional weight on correctly deciding same-author cases~\citep{weerasinghe_feature_vector_difference_2021}, thereby evaluating the ability of \ac{av} methods to abstain from hard samples~\citep{tyo_state_2022}. 
-% The c@1 metric, by contrast, was designed to reward abstention from particularly ambiguous cases. 
+% The $\operatorname{c@1}$ metric, by contrast, was designed to reward abstention from particularly ambiguous cases. 
 % It does so by granting unanswered problems partial credit, equal to the average accuracy on the remaining cases~\citep{bevendorff_overview_2024}, thus encouraging systems to remain silent when uncertain.
 
-% However, in the present work, c@1 and F\textsubscript{0.5u} are not appropriate measures. 
-Although we also used F\textsubscript{1} and accuracy in our work, we opted to exclude them in this thesis to keep results simple and comparable to the original work by \citet{koppel_determining_2014}.
-More advanced metrics, such as F\textsubscript{0.5u} and c@1, assume that models can explicitly abstain by assigning a score of exactly 0.5, a convention used in \acs{pan}'s shared tasks~\citep{tyo_state_2022,bevendorff_overview_2024,kocher_unine_2015}. 
+% However, in the present work, $\operatorname{c@1}$ and $\operatorname{F_{0.5u}}$ are not appropriate measures. 
+Although we also used $\operatorname{F_{1}}$ and accuracy in our work, we opted to exclude them in this thesis to keep results simple and comparable to the original work by \citet{koppel_determining_2014}.
+More advanced metrics, such as $\operatorname{F_{0.5u}}$ and $\operatorname{c@1}$, assume that models can explicitly abstain by assigning a score of exactly 0.5, a convention used in \acs{pan}'s shared tasks~\citep{tyo_state_2022,bevendorff_overview_2024,kocher_unine_2015}. 
 In our setting, the model produces only the binary outcomes "same author" or "don't know". 
 Since there is no natural mechanism for producing a calibrated 0.5 score, abstention cannot be meaningfully represented. 
 One could introduce a second threshold to create an artificial abstention region, but this would not align with the open-set nature of \ac{av}. 
 The different-author class is inherently ill-defined, as the set of possible authors is unbounded and cannot be exhaustively represented. 
 
 % Moreover, we do not report average effectiveness scores across different recall values, since we do not need good results across different thresholds, but only high effectiveness for one threshold.
-% For this reason, the focus in this thesis remains on precision, recall, and F\textsubscript{1}. 
+% For this reason, the focus in this thesis remains on precision, recall, and $\operatorname{F_{1}}$. 

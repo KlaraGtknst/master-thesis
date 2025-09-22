@@ -8,38 +8,38 @@ Several variants exist, including \ac{rouge}-N, which computes word n-gram recal
 \ac{rouge}-N is an n-gram recall between the candidate text $c$ and the reference text $r$~\citep{lin_rouge_2004}.
 Since we only consider single reference scenarios we use the simpler version for one reference in \autoref{eq:rouge_n}.
 \begin{equation}
-    \text{ROUGE-N} = \sum_{s \in r}\sum_{n-gram \in s} \frac{Count_{match}(n-gram)}{Count(n-gram)}
+    \operatorname{ROUGE-N} = \sum_{s \in r}\sum_{n \text{-} gram \in s} \frac{\operatorname{Count_{match}}(n \text{-} gram)}{\operatorname{Count}(n \text{-} gram)}
 \label{eq:rouge_n}
 \end{equation}
 Both the nominator and the denominator iterate over all n-grams in all sentences of the reference, i.e.\ ground truth, text.
-The nominator sums up $Count_{match}(n-gram)$, i.e.\ the maximum number of occurrences of this reference sentence n-gram in any of the candidate texts.
+The nominator sums up $\operatorname{Count_{match}}(n \text{-} gram)$, i.e.\ the maximum number of occurrences of this reference sentence n-gram in any of the candidate texts.
 Since this sum measures the number of co-occurrences of that n-gram in both candidate and reference text, it is naturally capped to the number of occurrences in the reference.
 This ensures that after normalizing with the denominator, the \ac{rouge}-N values range from 0 to 1~\citep{kurt_pehlivanoglu_comparative_2024}.
 % The nominator sums over all references and thus, gives more weight to matching n-grams that occur in multiple references (i.e.\ a consensus between references) \citep{lin_rouge_2004}.    % do not use, bc we have only one reference
-The denominator does not consider matches but only sums up the number of times a n-grams appears in the reference sentences~\citep{lin_rouge_2004}.
+The denominator does not consider matches but only sums up the number of times an n-gram appears in the reference sentences~\citep{lin_rouge_2004}.
 If every n-gram from the reference sentences would appear equally often in the candidate, the \ac{rouge}-N would be one since it measures the n-gram overlap between reference and candidate from a reference or recall perspective.
 
 \ac{rouge}-L for a candidate $c$ of length $n$ and a reference $r$ of length $m$ is defined in \autoref{eq:rouge_l}.
 The length is measured in number of words.
 The intuition is that the length of the \ac{lcs} between the candidate and reference texts correlates with their similarity.
-\ac{rouge}-L does not include shorter sequences or alternative \acp{lcs} in the final score~\citep{lin_rouge_2004}.
-$\beta$ is defined as $\frac{P_{lcs}}{R_{lcs}}$.
+\ac{rouge}-L does not include shorter sequences or alternative \ac{lcs} in the final score~\citep{lin_rouge_2004}.
+$\beta$ is defined as $\frac{\mathrm{P_{lcs}}}{\mathrm{R_{lcs}}}$.
 
 \begin{equation}
-P_{lcs} = \frac{LCS(r,c)}{n},
+\mathrm{P_{lcs}} = \frac{\operatorname{LCS}(r,c)}{n},
 \label{eq:rouge_l_precision}
 \end{equation}
 
 \begin{equation}
-R_{lcs} = \frac{LCS(r,c)}{m},
+\mathrm{R_{lcs}} = \frac{\operatorname{LCS}(r,c)}{m},
 \label{eq:rouge_l_recall}
 \end{equation}
 
 \begin{equation}
-\text{ROUGE-L} = \frac{(1 + \beta^2)R_{lcs}P_{lcs}}{R_{lcs} + \beta^2 P_{lcs}},
+\operatorname{ROUGE-L} = \frac{(1 + \beta^2)  \mathrm{R_{lcs}}  \mathrm{P_{lcs}}}{\mathrm{R_{lcs}} + \beta^2  \mathrm{P_{lcs}}},
 \label{eq:rouge_l}
 \end{equation}
 
-\ac{rouge}-Lsum is a summary-level \ac{lcs} \ac{rouge} variant summing over the union \ac{lcs} matches $LCS_\cup(r_i,C)$ between the $u$ reference summary sentences $r_i, i \in [1,u]$ and each of the $v$ candidate sentence $c_j, j \in [1,v]$.
+\ac{rouge}-Lsum is a summary-level \ac{lcs} \ac{rouge} variant summing over the union \ac{lcs} matches $\operatorname{LCS}_\cup(r_i,C)$ between the $u$ reference summary sentences $r_i, i \in [1,u]$ and each of the $v$ candidate sentence $c_j, j \in [1,v]$.
 The total number of words in the references and candidates is $m$ and $n$, respectively.
-While the formula for the final score $F_{lcs}$ from \autoref{eq:rouge_l} remains the same, the computation of precision and recall replace $LCS(r,c)$ by $\sum_{i=1}^{u}LCS_\cup(r_i,C)$.
+While the formula for the final score $F_{lcs}$ from \autoref{eq:rouge_l} remains the same, the computation of precision and recall replace $\operatorname{LCS}(r,c)$ by $\sum_{i=1}^{u}\operatorname{LCS}_\cup(r_i,C)$.
