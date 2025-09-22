@@ -5,19 +5,29 @@ In this section we outline the main tasks of authorship analysis.
 We begin with the foundational problems of \ac{aa} and \ac{av}, before turning to derivative tasks such as \ac{llm} detection.
 
 \subsection{Authorship Attribution}
-\ac{aa} is the classical multi-class, single-label text classification task in which, given a set of candidate authors $A$ with known texts $K=\bigcup_{a\in A} k_a$, the goal is to determine which author wrote a disputed text $d \in U$, where $U$ is the set of texts of unknown authorship~\citep{koppel_authorship_2004,barlas_cross_domain_2020}. 
+\ac{aa} is the classical multi-class, single-label text classification task in which, given a set of candidate authors $A$ with known texts $K=\bigcup_{a\in A} K_a$, where $K_a$ denotes the set of texts known to be authored by author $a$, the goal is to determine which author wrote a disputed text $d \in U$, where $U$ is the set of texts of unknown authorship~\citep{koppel_authorship_2004,barlas_cross_domain_2020}. 
+Here, $k_a$ denotes a single text known to be authored by $a$.
 In the closed-set setting, each $d \in U$ must be attributed to exactly one $a \in A$. 
 Cross-topic and cross-genre \ac{aa} introduce distributional shifts between training and test data, complicating the task~\citep{barlas_cross_domain_2020}.
+Formally, \ac{aa} aims to learn the function $f_{AA}: U \to A, d \mapsto a \text{, where } a \in A$.
+
 
 \subsection{Authorship Verification}
 \ac{av} addresses the problem of establishing whether a given text $d \in U$ was written by a candidate author $a \in A$, using a set of the author’s known writings $K_a$ as reference~\citep{koppel_authorship_2004}.
-We denote disputed-candidate pair the input of the text of unknown authorship $d$ and the candidate author's text $k_a$ in the following.
+We denote disputed-candidate pair the input of the text of unknown authorship $d$ and the candidate author's text $k_a \in K_a$ in the following.
 In contrast to \ac{aa}, \ac{av} does not have reliable negative examples, since assembling a representative sample of all texts not authored by 
 $a$ is impossible. 
 This limitation makes \ac{av} a more challenging classification problem than \ac{aa}~\citep{llm_detection_av_2025,neal_surveying_2018,koppel_authorship_2004}.
 \ac{av} is framed as a one-class, a binary, or a similarity detection task depending on the methodological perspective~\citep{neal_surveying_2018,koppel_authorship_2004}.  
 We consider \ac{av} a one-class classification task.
 \ac{aa} can be reduced to a series of \ac{av} problems, where the other direction is typically not true~\citep{barlas_cross_domain_2020,tyo_state_2022}.
+We formalize \ac{av} as $f_{\text{AV}} : U \times K \to \{0,1\}, \quad
+(d, k_a) \mapsto 
+\begin{cases} 
+1, & \text{if } d \text{ was authored by } a,\\
+0, & \text{otherwise.}
+\end{cases}
+$
 % Gespräch Martin Potthast 19.05.2025: problem formulation 2 is less common and in the context of very sparse (metadata) information:
 % This task can also be formulated as whether two texts $t_1$ and $t_2$ are written by the same author 
 % \citep{bevendorff_generalizing_2019,bevendorff_divergence_based_2020,embarcadero_ruiz_graph_based_2022,rivera_soto_learning_2021,ordonez_will_2020,futrzynski_pairwise_2021,weerasinghe_feature_vector_difference_2021,llm_detection_av_2025}.

@@ -1,13 +1,12 @@
 \section{Stylometry}
 \label{sec:stylometry}
 
-% \begin{definition}
-%     [Stylometry]
 Stylometry is the quantitative analysis of linguistic style through measurable textual features, with the aim of distinguishing between authors.
-% \end{definition}
 The central assumption of stylometry is that authors unconsciously leave behind consistent idiosyncratic syntactic traces, so-called style markers, that can be exploited for authorship analysis tasks~\citep{neal_surveying_2018,bischoff_importance_2020}. 
-These traces are presumed to reflect relatively stable personal traits, and stylistic habits rather than superficial properties imposed by domain (e.g. genre, register, or topic). 
-The principal challenge, therefore, is to identify markers that are more reliably attributable to authorial characteristics than to domain-specific conventions.
+These markers are thought to reflect relatively stable personal traits and habitual stylistic choices, rather than superficial properties imposed by domain factors such as genre, register, or topic.
+Register refers to systematic variations in language arising from situational context, including lexical and grammatical characteristics.
+For example, a register can be characterised by the situation and purpose of the text~\citep{register_2025,register_2019}. 
+The principal challenge in stylometry is to identify markers that reliably reflect authorial characteristics rather than domain-specific conventions.
 
 Stylometric features, organised into broad categories in \Cref{tab:stylometric_features}, span from lexical and character statistics to semantic and application-specific indicators, with the latter often being noisier due to reliance on processing tools~\citep{stamatatos_survey_2009}.
 
@@ -55,25 +54,25 @@ Stylometric features, organised into broad categories in \Cref{tab:stylometric_f
 
 \paragraph{Lexical features.} 
 Lexical features treat text as a sequence of tokens, such as characters, words, or sentences~\citep{stamatatos_survey_2009}. 
-Distributions over character n-grams (i.e. sequences of $n$ consecutive characters) counts, word-length~\citep{stein_intrinsic_2011}, and sentence-length~\citep{stein_intrinsic_2011,abbasi_writeprints_2008} are classic for character, word, and sentence unit-based lexical features that disregard token order in the \ac{bow} fashion~\citep{neal_surveying_2018}, respectively. 
+Distributions over character n-grams (i.e. sequences of $n$ consecutive characters) counts, word-length~\citep{stein_intrinsic_2011}, and sentence-length~\citep{stein_intrinsic_2011,abbasi_writeprints_2008} are typical for character, word, and sentence unit-based lexical features that disregard token order in the \ac{bow} fashion~\citep{neal_surveying_2018}, respectively. 
 Character-level features are computationally inexpensive, language-independent, and relatively robust to noise, whereas word-level features require tokenization, are language-dependent, and more sensitive to noise~\citep{stamatatos_survey_2009}.
 Idiosyncratic spelling or grammatical mistakes are also considered discriminative lexical features~\citep{abbasi_writeprints_2008,neal_surveying_2018}. 
 
 \paragraph{Syntactic features.}
 Syntactic features exploit structural information such as \ac{pos} n-grams, function words, or recurrent syntactic errors~\citep{stamatatos_survey_2009,abbasi_writeprints_2008}.
-They require a robust \ac{nlp} pipelines, making them computationally more expensive and inherently language-dependent~\citep{neal_surveying_2018,stamatatos_survey_2009}.
+They require robust \ac{nlp} pipelines, making them computationally more expensive than lexical features and inherently language-dependent~\citep{neal_surveying_2018,stamatatos_survey_2009}.
 
 \paragraph{Semantic features.}
 Semantic features include synonym or hyponym relations, or semantic dependencies. 
 They usually complement lexical and syntactic features. 
-Semantic features depend on external resources (e.g. WordNet, a lexical database of semantic relations~\citep{zhou_paraphrase_2025}).
+Semantic features depend on external resources (e.g. WordNet, a lexical database of semantic relations~\citep{wordnet_1995}).
 
 
 \paragraph{Application-specific features.} % (structural + content)
 
 Application-specific features can include structural or content-related aspects. 
 Structural features capture general characteristics, such as layout, file extensions, font choices, sizes, and colours~\citep{abbasi_writeprints_2008,neal_surveying_2018}. 
-Certain features, in contrast, refer to elements that are only meaningful within a particular domain, for instance, the use of salutations and signatures in e-mails or programming constructs in source code. 
+Certain features, in contrast, refer to elements that are only meaningful within a particular domain, for instance, the use of salutations and signatures in emails or programming constructs in source code. 
 Content-specific frequent words may be useful within a single genre, but they should not be used across topics or genres since they conflate authorial idiosyncrasies with semantic information~\citep{abbasi_writeprints_2008}.
 % Domain-specific features include ratios of quoted words and external links, number of paragraphs, and paragraphs average length for the news article domain~\citep{potthast_stylometric_2018}
 

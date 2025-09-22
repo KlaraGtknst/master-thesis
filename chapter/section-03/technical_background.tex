@@ -1,7 +1,7 @@
 \section{Technical Background}
 \label{sec:technical_background}
 
-This section outlines the \ac{ml} principles and paradigms that underpin modern authorship analysis. 
+This section outlines the \ac{ml} principles and paradigms that underpin modern \ac{av}. 
 We first introduce the main classification concepts relevant to \ac{av}. 
 We then discuss training and evaluation practices, including domain shift scenarios. 
 Finally, we present the principal categories of authorship analysis.
@@ -27,11 +27,13 @@ This setting is particularly challenging because the class distribution is often
 
 \subsection{Training and Testing}
 
-Models are typically trained on one portion of the data (training set), tuned on another (validation set), and evaluated on a disjoint partition (test set). 
+Models are typically trained on one portion of the data (training set), tuned on a separate portion (validation set), and evaluated on an independent partition (test set). 
 Any overlap between these partitions constitutes data leakage and invalidates the results~\citep{bischoff_importance_2020,altakrori_topic_2021,boenninghoff_o2d2_2021}. 
 
-\paragraph{Covariate shift.}
-A major challenge in stylometry is covariate shift, i.e. mismatched data distributions often caused by topic variability across datasets~\citep{boenninghoff_o2d2_2021}. A common evaluation is cross-domain attribution, where training and test texts differ in topic or genre, including cross-topic and cross-genre variants~\citep{barlas_cross_domain_2020}.
+\paragraph{Covariate shift.} % epistemic/ model uncertainty -> reduce by more training data cf. O2O2 paper
+A major challenge in stylometry is covariate shift, i.e. mismatched data distributions often caused by topic variability across datasets~\citep{boenninghoff_o2d2_2021}. 
+For instance, a model trained on the word-length distribution of a sports newspaper corpus may perform poorly when applied to a scientific newspaper corpus, as scientific vocabulary tends to comprise longer words, rendering thresholds learned on the original corpus ineffective. 
+To assess robustness under such conditions, cross-domain attribution is performed using training and test texts that differ in topic or genre~\citep{barlas_cross_domain_2020}.
 
 \paragraph{Supervised vs. unsupervised learning.}  
 Supervised methods require labelled training data. 
@@ -49,11 +51,11 @@ Approaches to authorship analysis can be grouped into three families~\citep{stam
 \paragraph{Profile-based methods.} 
 All training texts of an author are concatenated into a single profile, from which a cumulative feature representation is extracted. 
 This approach is effective when only short texts are available.
-Profile-based methods ignore intra-author variation~\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}.  
+Profile-based methods ignore intra-author variation~\citep{stamatatos_survey_2009,elmanarelbouanani_authorship_2014,neal_surveying_2018}, capturing only general properties of an author, which may be imprecise if their style changes over time or across topics.
 
 \paragraph{Instance-based methods.} 
 Here, each training text is treated as a separate instance of the author's style. 
-This allows models to capture intra-author variability~\citep{stamatatos_survey_2009,altakrori_topic_2021,elmanarelbouanani_authorship_2014,neal_surveying_2018}.  
+This allows models to capture intra-author variation~\citep{stamatatos_survey_2009,altakrori_topic_2021,elmanarelbouanani_authorship_2014,neal_surveying_2018}.  
 
 \paragraph{Hybrid methods.} 
 Hybrid approaches combine both paradigms by representing texts individually while aggregating author profiles through feature-wise averages computed over an author’s texts~\citep{stamatatos_survey_2009}. 
