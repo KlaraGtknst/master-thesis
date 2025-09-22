@@ -1,26 +1,25 @@
 % motivation
-\Acf{av} denotes the task of determining whether two texts were written by the same author. 
-It forms the foundation of broader authorship-related problems such as authorship attribution. 
-Historically, \ac{av} has been applied to literary disputes, but contemporary concerns have shifted. 
-In an era where large amounts of text can be copied, paraphrased, or fabricated with ease, \ac{av} has gained renewed importance in practical contexts such as intrinsic plagiarism detection in digital communication.
+Historically, authorship analysis focused on literary disputes~\citep{neal_surveying_2018,stamatatos_survey_2009}, but contemporary concerns have shifted towards practical applications.
+In an era where large amounts of text can be copied, paraphrased, or fabricated with ease, determining the true author of a text is crucial for maintaining trust in communication. 
+Scenarios include detecting plagiarised passages of texts~\citep{stein_intrinsic_2011}, and verifying the authenticity of online content or student submissions. 
+Formally, we refer to these problems as \acf{av} or \acf{aa}, where every \ac{aa} task can be formulated as a sequence of \ac{av} problems~\citep{tyo_state_2022,barlas_cross_domain_2020}.
 
 The emergence of \acp{llm} adds an additional layer of complexity. 
-While these models are widely embraced for beneficial applications such as summarisation, code generation, and customer service automation, their ability to convincingly imitate human writing creates new risks. 
-\acp{llm} can be exploited to generate misinformation, engender academic submissions, or impersonate individuals, thereby inflict harm on individuals who fall victim to these schemes. 
+While these models are widely embraced for beneficial applications such as summarisation, information seeking, and assistive writing~\citep{wang_stumbling_2024}, their ability to convincingly imitate human writing creates new risks. 
+\acp{llm} can be used to generate misinformation, impair academic honesty, or impersonate individuals, thereby inflicting harm on individuals who fall victim to these schemes~\citep{mitchell_detectgpt_2023,li_learning_2025,wang_stumbling_2024,bhattacharjee_fighting_2024}. 
 Since \acp{llm} can be conceptualised as authors, their detection naturally falls within the scope of \ac{av}. 
-Thus, instead of treating \ac{llm} detection as an isolated task, it is more consistent to frame it as a specialised case of~\ac{av}.
+Thus, instead of treating \ac{llm} detection as an isolated task, it is more consistent to frame it as a specialised case of \ac{av}~\citep{llm_detection_av_2025}.
 
 % specificity rather than generality
-Despite significant advances in \ac{av}, many existing approaches pursue generalised solutions, training a model once and applying it across domains. 
-Evidence shows that such models struggle in \ac{ood} settings, where topic or genre diverges from the training data. 
-This shortcoming motivates a shift toward scenario-specific solutions, i.e.\ models are trained anew for narrowly defined cases. 
+Existing approaches to generalisation typically train a single model and apply it across domains.
+Despite significant advances in \ac{av}, prior work finds that such models struggle in \ac{ood} settings, where the topic or genre diverges from the training data~\citep{Sundararajan_style_18,bischoff_importance_2020,li_learning_2025}. 
+This shortcoming motivates a shift towards scenario-specific solutions, i.e.\ models are trained anew for narrowly defined cases. 
 Such single-case approaches enable more precise control over contextual factors and place greater emphasis on stylistic idiosyncrasies rather than domain-level variation.
 
 % AV
-Among the techniques developed for \ac{av}, the \impAppr{} by \citet{koppel_determining_2014}\ represents a particularly influential approach. 
-It introduces the idea of generating \imp{} texts, i.e.\ hard negatives used to sharpen the discrimination between genuine and false authorship matches. 
+The \impAppr{} by \citet{koppel_determining_2014}\ introduces the idea of generating \imp{} texts, i.e.\ hard negatives, used to sharpen the discrimination between genuine and false authorship matches. 
 However, the method's effectiveness is limited by the quality and contextual adequacy of these \imp{} texts. 
 Previous work did not fully address how to construct challenging \imps{} via controlled contextual variables.
 
-This thesis extends the \impAppr{} by leveraging \acl{sota} \acp{llm} to generate hard negative examples in a controlled scenario as \imps{}. 
-
+The thesis extends the \impAppr{} by leveraging \acl{sota} \acp{llm} to generate paraphrases as \imps{}, enabling control over multiple confounding factors such as genre, topic, and target audience. 
+In doing so, the approach shifts the focus towards authorial style rather than domain differences, yielding improved precision–recall on the \dataStudent{} dataset compared with the original sampling strategies, \unmasking{} and \acs{ppmd}.
