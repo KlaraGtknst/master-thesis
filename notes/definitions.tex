@@ -85,7 +85,7 @@
     [Online stylometric analysis]
     The analysis of authors style in online texts \citep{abbasi_writeprints_2008}.
     \citet{abbasi_writeprints_2008} define online texts as any textual documents that may be found in an online setting, 
-    including computer-mediated communication, non-literary electronic documents (e.g., student essays, mews, articles, etc.), and program code.
+    including computer-mediated communication, non-literary electronic documents (e.g. student essays, mews, articles, etc.), and program code.
 \end{definition}
 
 \begin{definition}
@@ -146,7 +146,7 @@
     There are two types of feature sets \citep{abbasi_writeprints_2008,neal_surveying_2018}:
     \begin{itemize}
         \item Author-group-level where one set of features is applied across all authors.
-        \item Individual-author-level where each author has a unique set of features (e.g., 10 authors = 10 feature sets; 5000 most frequent character $n$-grams per author).
+        \item Individual-author-level where each author has a unique set of features (e.g. 10 authors = 10 feature sets; 5000 most frequent character $n$-grams per author).
     \end{itemize}
     Individual-author-level features are effective for feature categories with potentially large feature spaces, such as $n$-grams or misspellings \citep{abbasi_writeprints_2008}.
     However, standard machine learning techniques typically require a fixed feature set for all authors \citep{abbasi_writeprints_2008}.
@@ -304,13 +304,13 @@ Common classifiers include \ac{svm}, decision trees, and \acp{nn} \citep{elmanar
 
 \begin{definition}
     [Message-level analysis]
-    The analysis attempts to categorize individual texts (e.g., whether an email was authored by an email address) \citep{abbasi_writeprints_2008}.
+    The analysis attempts to categorize individual texts (e.g. whether an email was authored by an email address) \citep{abbasi_writeprints_2008}.
 \end{definition}
 
 \begin{definition}
     [Identity-level analysis]
     The analysis attempts to classify individuals belonging to a particular entity 
-    (e.g., whether different email addresses belong to the same entity).
+    (e.g. whether different email addresses belong to the same entity).
     Identity-level analysis' categorization is based on all texts written by that identity.
     Hence, there are larger text samples than for message-level analysis, facilitating the task.
     If the task is framed as classification/ID identification, the disputed identity is assigned to the identity with the highest similarity among the known identities.
@@ -398,7 +398,7 @@ Post-processing to avoid false positives, c.f. \citet{stein_intrinsic_2011} for 
     Examples of one-class classification are intrinsic plagiarism analysis and \ac{av}.
     Approaches to one-class classification fall into the following categories \citep{stein_intrinsic_2011}:
     \begin{itemize}
-        \item One-class density estimation, e.g., Naive Bayes
+        \item One-class density estimation, e.g. Naive Bayes
         \item One-class boundary estimation
         \item One-class reconstruction
     \end{itemize}

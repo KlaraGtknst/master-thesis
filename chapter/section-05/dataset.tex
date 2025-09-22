@@ -92,7 +92,7 @@ To determine the necessary preprocessing steps, we examined our datasets and ana
 Since both the \dataBlog{} and the \dataPan{} dataset originate from the Internet, some of their documents contain HTML fragments such as \texttt{< >} enclosed tags.
 Upon inspection of the \dataGutenberg{} dataset, we found that certain patterns reappear due to the presences of many plays.
 Based on these findings, we collected eight preprocessing steps we deemed potentially useful. 
-Notably, we do not consider actor instructions (e.g., character cues) or structural elements (e.g., chapter headings) as part of authorial style.
+Notably, we do not consider actor instructions (e.g. character cues) or structural elements (e.g. chapter headings) as part of authorial style.
 Hence, we remove these patterns using regular expressions.
 You may find the regular expression attached in \Cref{app:regex_preproc}. % of \Cref{ch:appendix}.
 Note that the perceived utility of these steps should be reevaluated for other datasets.
