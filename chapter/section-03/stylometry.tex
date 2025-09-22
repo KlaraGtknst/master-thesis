@@ -11,7 +11,7 @@ The principal challenge, therefore, is to identify markers that are more reliabl
 Stylometric features, organized into broad categories in \autoref{tab:stylometric_features}, span from lexical and character statistics to semantic and application-specific indicators, with the latter often being noisier due to reliance on processing tools~\citep{stamatatos_survey_2009}.
 
 % Static features, such as function words, word-length distributions, vocabulary richness measures, are context-free.
-% Dynamic features are context-dependent attributes and include $n$-grams and misspelled words~\citep{abbasi_writeprints_2008}.
+% Dynamic features are context-dependent attributes and include n-grams and misspelled words~\citep{abbasi_writeprints_2008}.
 
 
 \begin{table}[h]
@@ -54,12 +54,12 @@ Stylometric features, organized into broad categories in \autoref{tab:stylometri
 
 \paragraph{Lexical features.} 
 Lexical features treat text as a sequence of tokens, such as characters, words, or sentences~\citep{stamatatos_survey_2009}. 
-Distributions over character $n$-grams (i.e. sequences of $n$ consecutive characters) counts, word-length~\citep{stein_intrinsic_2011}, and sentence-length~\citep{stein_intrinsic_2011,abbasi_writeprints_2008} are classic for character, word, and sentence unit-based lexical features that disregard token order in the \ac{bow} fashion~\citep{neal_surveying_2018}, respectively. 
+Distributions over character n-grams (i.e. sequences of $n$ consecutive characters) counts, word-length~\citep{stein_intrinsic_2011}, and sentence-length~\citep{stein_intrinsic_2011,abbasi_writeprints_2008} are classic for character, word, and sentence unit-based lexical features that disregard token order in the \ac{bow} fashion~\citep{neal_surveying_2018}, respectively. 
 Character-level features are computationally inexpensive, language-independent, and relatively robust to noise, whereas word-level features require tokenization, are language-dependent, and more sensitive to noise~\citep{stamatatos_survey_2009}.
 Idiosyncratic spelling or grammatical mistakes are also considered discriminative lexical features~\citep{abbasi_writeprints_2008,neal_surveying_2018}. 
 
 \paragraph{Syntactic features.}
-Syntactic features exploit structural information such as \ac{pos} $n$-grams, function words, or recurrent syntactic errors~\citep{stamatatos_survey_2009,abbasi_writeprints_2008}.
+Syntactic features exploit structural information such as \ac{pos} n-grams, function words, or recurrent syntactic errors~\citep{stamatatos_survey_2009,abbasi_writeprints_2008}.
 They require a robust \ac{nlp} pipelines, making them computationally more expensive and inherently language-dependent~\citep{neal_surveying_2018,stamatatos_survey_2009}.
 
 \paragraph{Semantic features.}
