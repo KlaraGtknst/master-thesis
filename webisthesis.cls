@@ -438,7 +438,7 @@
 
 % Declaration of independent work
 \newcommand{\declaration}{
-  \begin{titlepage}
+  % \begin{titlepage} % commented out to fix numbering issues
     \vspace*{\fill}
     \parindent 0cm
     \begin{center}
@@ -457,16 +457,17 @@
     \the\thesisauthor
 
     \vspace*{\fill}
-  \end{titlepage}
+  % \end{titlepage}
 }
 
 \newenvironment{frontmatter}{%
   \pagenumbering{roman}%
   \frontpage%
+  \cleardoublepage % TODO: Added bc Niklas said there should be a blank page after the title page
   \declaration%
 }{%
-  \clearpage%
-  \pagenumbering{arabic}%
+  % \clearpage%
+  % \pagenumbering{arabic}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
