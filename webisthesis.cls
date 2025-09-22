@@ -192,7 +192,7 @@
 \newcommand{\ThesisSetStudentNumber}[1]{\global\thesisauthorstudentnumber{#1}}
 
 \newtoks\thesisauthordateofbirth
-\newcommand{\ThesisSetDateOfBirth}[3]{\global\thesisauthordateofbirth{\formatdateshort{#1}{#2}{#3}}}
+\newcommand{\ThesisSetDateOfBirth}[3]{\global\thesisauthordateofbirth{\formatdate{#1}{#2}{#3}}}
 
 \newtoks\thesisauthorplaceofbirth
 \newcommand{\ThesisSetPlaceOfBirth}[1]{\global\thesisauthorplaceofbirth{#1}}
@@ -375,7 +375,7 @@
 \newtoks\thesisfrontmatterkeywords
 \ifthenelse{\equal{\documentlanguage}{english}}{%
   \global\thesisfrontpagetypename{'s Thesis}
-  \global\thesisfrontpagestudentnumber{Matriculation Number}
+  \global\thesisfrontpagestudentnumber{Matriculation Number:}
   \global\thesisfrontpageborn{Born \the\thesisauthordateofbirth{} in %
     \the\thesisauthorplaceofbirth}
   \global\thesisfrontpagesupervisor{Referee}
