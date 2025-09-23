@@ -3,9 +3,9 @@
 
 Our first experiment covers the reproduction of the original results~\citep{koppel_determining_2014}.
 It is noteworthy, that we do not expect exact replication since we could only reimplement the approach to our best knowledge.
-Both Mr. Koppel and Mr. Winter were very forthcoming when we contacted them regarding implementation details that could help to improve our implementation.
+Both Mr.\ Koppel and Mr.\ Winter were very forthcoming when we contacted them regarding implementation details that could help to improve our implementation.
 Unfortunately, the code was no longer traceable and neither author could recall the preprocessing steps.
-After consultation with Mr. Winter, he assured that our preprocessing steps seem reasonable.
+After consultation with Mr.\ Winter, he assured that our preprocessing steps seem reasonable.
 This, however, certainly is one of the reasons why our implementation diverges from the original work.
 
 \paragraph{Exp.\ 1(a): Varying number of \imps{}.}
@@ -58,8 +58,8 @@ The experiment was repeated multiple times on subsets of 20 samples per class, w
 
 Adhering to \citet{koppel_determining_2014}, we compare multiple \ac{av} methods with variants of the \impAppr{} that employ different \imp{} generation strategies, evaluating them in the \ac{av} scenario with human-authored text pairs.
 The \imp{} generation strategies include sampling from a \texttt{fixed} set of potential \imp{} candidates, and \texttt{on-the-fly} \imp{} generation. 
-The baselines introduced by \citet{koppel_determining_2014} are \ac{svm}, and unsupervised similarity based approaches.
-Each class is treated as the positive (i.e. reference) class once, with the other class serving as the negative class. 
+The baselines introduced by \citet{koppel_determining_2014} include a \ac{svm} and unsupervised similarity based approaches.
+Each class is treated as the positive (i.e.\ reference) class once, with the other class serving as the negative class. 
 This choice affects how the evaluation scores are computed, but not how the thresholds are fit during the training.
 Although not explicitly stated, it is likely that \citet{koppel_determining_2014} have trained each approach for both reference class scenarios once.
 The original work reports the results for the \dataBlog{} dataset only.
@@ -85,12 +85,12 @@ As a consequence, both \imp{} generation methods tend to yield more different-au
 Both \citet{koppel_determining_2014}\ and our results indicate that \texttt{fixed} \imp{} generation performs best in the same-author scenario.
 Beyond this agreement, however, our recall–precision curves deviate from the original findings.
 In the different-author scenario, all methods except \texttt{on-the-fly} generation exhibit low precision, with \texttt{fixed} \imps{} performing worst.
-Low precision corresponds to a high number of \acp{fp}, i.e. many same-author pairs incorrectly classified as different authors.
+Low precision corresponds to a high number of \acp{fp}, i.e.\ many same-author pairs incorrectly classified as different authors.
 This outcome suggests that training on the same-author class produces systematically poor performance in a different-author class test scenario, as the model is not optimised for it.
 
 Opposed to the original work of \citet{koppel_determining_2014}, our \texttt{on-the-fly} \imps{} lack difficulty explaining the low precision in the same-author and the high precision in the different-author scenario.
 Since we had to reduce the number of test samples for \texttt{on-the-fly} \imp{} generation due to API call limits, we suggest analysing this approaches' results with a grain of salt.
-However, Mr. Winter noted that our \texttt{on-the-fly} \imp{} generation implementation seems insufficient, due to the rise of bot prevention blocking web scraping and the very limited number of API calls per month.
+However, Mr.\ Winter noted that our \texttt{on-the-fly} \imp{} generation implementation seems insufficient, due to the rise of bot prevention blocking web scraping and the very limited number of API calls per month.
 
 % \textcolor{red}{TODO: figures SVC to SVM}
 \begin{figure}[htbp]
@@ -109,8 +109,8 @@ However, Mr. Winter noted that our \texttt{on-the-fly} \imp{} generation impleme
     \label{fig:blog_diff_author}
   \end{subfigure}
   \caption[Recall-precision curves for the \dataBlog{} dataset. ]{Recall-precision curves for the \dataBlog{} dataset. 
-  (B) indicates the original baseline approaches from~\citep{koppel_determining_2014}.
-  Due to API limit restrictions, the test set for \texttt{on-the-fly} was smaller which is visible in the respective curves.
-  Classifiers were not retrained for the different-author reference class scenario explaining the poor results.}
+  (B) indicates the original baseline approaches from~\citet{koppel_determining_2014}.
+  Due to API limit restrictions, the test set for \texttt{on-the-fly} was smaller, which is visible in the respective curves.
+  Classifiers were not retrained for the different-author reference class scenario, explaining the poor results.}
   \label{fig:diff_imp_gen_blog}
 \end{figure}

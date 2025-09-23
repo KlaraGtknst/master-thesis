@@ -20,7 +20,7 @@ We formulate the following research questions to investigate whether \ac{llm}-ge
     The two central dimensions are semantic similarity and syntactic similarity. 
     Contrary to naive assumptions, high syntactic similarity is not always desirable, as it may indicate minimal modification of the original text.
     Instead, the objective is to achieve strong semantic similarity with sufficient syntactic variation, typically measured by automatic scores, while a subset of samples additionally validated through human judgments of adequacy.
-    % We therefore construct experiments to evaluate paraphrases using \acl{sota} measures for paraphrase quality. 
+    % We therefore construct experiments to evaluate paraphrases using state-of-the-art measures for paraphrase quality. 
 
     \item \textbf{How does the \ac{llm}-based \impAppr{} perform compared to established \ac{av} methods?} \label{enum:rq3} \hfill \\
     To benchmark our approach, we compare it against baselines introduced by \citet{koppel_determining_2014}, \unmasking{}, and \acs{ppmd}.
@@ -39,7 +39,7 @@ The main contributions of this thesis are as follows:
     \item Development of an \ac{llm}-based \impAppr{} extending the work of \citet{koppel_determining_2014} as a scenario-specific solution to \ac{av} problems even in cross-domain settings (cf.~\Cref{sec:impostor_generation}). 
     \item Analysis of prompt design and its influence on paraphrase length as a confounding variable (cf.~\Cref{subsec:prompt_impact_res}/~\ref{enum:rq1} and \ref{enum:rq2}).
     \item Quantitative comparison of paraphrasing approaches using metrics adapted from summarisation and translation tasks (hereafter paraphrasing scores) (cf.~\Cref{sec:comp_paraphrases}/~\ref{enum:rq2}).
-    \item Analysis of the effect of text segmentation (i.e. number of chunks) on paraphrasing scores (cf.~\Cref{sec:results_chunks}/~\ref{enum:rq2}).
+    \item Analysis of the effect of text segmentation (i.e.\ number of chunks) on paraphrasing scores (cf.~\Cref{sec:results_chunks}/~\ref{enum:rq2}).
     \item Evaluation of the proposed \ac{llm}-based \impAppr{} against established \ac{av} techniques, specifically the baselines introduced by \citet{koppel_determining_2014}
     % , \textcolor{red}{\unmasking{} and \ac{ppmd}}, 
     within the traditional \ac{av} setting using pairs of human-authored texts (cf.~\Cref{subsec:imp_gen_res}/~\ref{enum:rq3}).
@@ -52,7 +52,7 @@ The main contributions of this thesis are as follows:
 \label{sec:thesis_structure}
 
 The remainder of this thesis is organised as follows: 
-To begin, \Cref{chap:authorship_identification} provides the background on \ac{av}, covering early approaches, \acl{sota} methods, stylometry, and practical applications.
+To begin, \Cref{chap:authorship_identification} provides the background on \ac{av}, covering early approaches, state-of-the-art methods, stylometry, and practical applications.
 \Cref{chap:related_work} then examines related research in greater detail.
 Building on this, \Cref{chap:llm_impostor_method} introduces our extension to the \impAppr{}.
 The experimental work is detailed in \Cref{chap:experimental_setup}, with \Cref{chap:experimental_results} presenting the corresponding results.

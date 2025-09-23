@@ -1,7 +1,7 @@
 \section{Impact of Confounders on Authorial Style}
 \label{sec:contextual_factors}
 
-\Acl{sota} models for authorship analysis exhibit strong sensitivity to domain shifts. 
+State-of-the-art models for authorship analysis exhibit strong sensitivity to domain shifts. 
 Performance often deteriorates sharply when models are applied in \ac{ood} scenarios, i.e.\ in cross-domain settings, a phenomenon largely attributable to the influence of confounders such as topic, genre, and register~\citep{Sundararajan_style_18,bischoff_importance_2020}
 
 Confounders are problematic because they influence the very features used to characterise authorial style. 
@@ -16,6 +16,6 @@ Both contemporary \acp{av} methods~\citep{Thomas_cross_topic_24}, and \ac{llm} d
 
 As a result, authorship research has diverged into two main directions. 
 One line of work aims to identify domain-invariant features, a challenge that remains largely unresolved~\citep{bischoff_importance_2020}. 
-The other focuses on \ac{id} scenarios, in which confounding factors are deliberately controlled. 
+The other focuses on in-domain scenarios, in which confounding factors are deliberately controlled. % \ac{id}
 While restricting tasks to a single topic or genre does not fully eliminate the entanglement between content and style, it reduces its impact sufficiently to produce stable and interpretable results. 
 Moreover, some studies indicate that simply using domain or topic labels is insufficient to control for topic similarity in corpora, as this approach ignores semantic relationships between topics~\citep{sawatphol_cross_topic_av_24}.

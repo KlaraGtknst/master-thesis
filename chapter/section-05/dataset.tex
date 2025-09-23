@@ -163,14 +163,14 @@ $p_s$, $p_{\neg s}$ denote same-author and different-authors pairs, while $l_w$,
 }
 \label{tab:data_stats}
 \resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}lrrrrrrrrr@{}}   % numbers should be right aligned, text left aligned
+\begin{tabular}{@{}lrrrrrrrrrr@{}}   % numbers should be right aligned, text left aligned
 \toprule
-dataset & \# pairs & \# authors & \# $p_s$ & \# $p_{\neg s}$ & \diameter $l_w$ ($l_c$) & max $l_w$ & $\sigma_{l_w}$ & median $l_w$ \\
+dataset & \# pairs & \# authors & \# $p_s$ & \# $p_{\neg s}$ & \diameter $l_c$ & \diameter $l_w$ & max $l_w$ & $\sigma_{l_w}$ & median $l_w$ \\
 \midrule
-\dataBlog{}            & 11565 & 5997  & 6204 & 5361  & 6249.94 (1154.25)     & 115365 & 1493.97 & 913 \\
-\dataGutenberg{}       & 12    & 7     & 6     & 6     & 437870.75 (78698.79) & 297704 & 68329.91 & 60282 \\
-\dataPan{}           & 66905 & 52771 & 35616 & 31289 & 21418.76 (3914.76)   & 55413 & 512.19 & 3889 \\
-\dataStudent{} & 224  & 163   & 112   & 112  & 4403.73 (851.45)     & 1520 & 138.15 & 807  \\
+\dataBlog{}            & \num{11565} & \num{5997}  & \num{6204} & \num{5361}  & \num{6249.94} & 1154.25     & \num{115365} & 1493.97 & 913 \\
+\dataGutenberg{}       & 12    & 7     & 6     & 6     & \num{437870.75} & \num{78698.79} & \num{297704} & \num{68329.91} & \num{60282} \\
+\dataPan{}           & \num{66905} & \num{52771} & \num{35616} & \num{31289} & \num{21418.76} & 3914.76   & \num{55413} & 512.19 & 3889 \\
+\dataStudent{} & 224  & 163   & 112   & 112  & 4403.73 & 851.45     & 1520 & 138.15 & 807  \\
 % \dataArtificialStudent{} & 110 & 32 & 50 & 60 & 661.39 (3581.46) & 1769 & 267.08 & 703 \\
 \bottomrule
 \end{tabular}%
