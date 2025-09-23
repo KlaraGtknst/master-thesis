@@ -386,7 +386,6 @@
   and that I have used only the sources and assistance explicitly indicated. All passages that are quoted verbatim or paraphrased from published or unpublished works, including digital sources, have been appropriately cited.  
   I further acknowledge the use of \href{https://www.deepl.com/de/translator}{DeepL} for language refinement and \href{https://chat.openai.com/}{ChatGPT} for support with text improvement and coding, including guidance on implementation and debugging. Unless otherwise specified, this thesis represents entirely my own scholarly work.%
   }
-
   % \global\thesisdeclarationtext{Unless otherwise indicated in the text or %
   %   references, this thesis is entirely the product of my own scholarly work.}
   \global\thesisfrontmatterkeywords{Keywords}
@@ -452,7 +451,7 @@
     \vspace{1cm}
     \the\thesislocation, \the\thesissubmissiondate
 
-    \vspace{2cm}
+    \vspace{2cm}  % space for signature
     \makebox[10cm]{\dotfill}\\
     \the\thesisauthor
 
