@@ -1,27 +1,33 @@
 % motivation
-Historically, authorship analysis focused on literary disputes~\citep{neal_surveying_2018,stamatatos_survey_2009}, but contemporary concerns have shifted towards practical applications.
-In an era where large amounts of text can be copied, paraphrased, or fabricated with ease, determining the true author of a text is crucial for maintaining trust in communication. 
-Scenarios include detecting plagiarised passages of texts~\citep{stein_intrinsic_2011}, and verifying the authenticity of online content or student submissions. 
-These problems can be framed as \acf{av} or \acf{aa}, where every \ac{aa} task can be formulated as a sequence of \ac{av} problems~\citep{tyo_state_2022,barlas_cross_domain_2020}.
-\ac{av} denotes the task of determining whether two texts were written by the same author~\citep{koppel_authorship_2004}.
+Historically, authorship analysis focused on literary disputes, such as the authorship of Shakespearean plays~\citep{neal_surveying_2018,stamatatos_survey_2009}, but contemporary concerns have shifted towards applications with everyday relevance.
+In an era where large amounts of text can be copied, paraphrased, or fabricated with ease, identifying the true author of a text is crucial for maintaining trust in communication. 
+%
+When the goal is to determine who, if any, from a candidate set of authors produced a disputed text, the task is known as \ac{aa}. 
+Conversely, when the aim is to establish whether two texts were authored by the same individual, the problem is referred to as \ac{av}~\citep{koppel_authorship_2004}. 
+By solving \ac{av} tasks for each candidate in an \ac{aa} setting, the \ac{aa} problem can be approached as a sequence of \ac{av} decisions~\citep{tyo_state_2022,barlas_cross_domain_2020}.
+%
+Both \ac{aa} and \ac{av} remain highly relevant today, as contemporary challenges, such as detecting plagiarised passages~\citep{stein_intrinsic_2011} and verifying the authenticity of online content or student submissions, can be addressed using these approaches. 
+For example, detecting plagiarised passages can be formulated as an \ac{av} task by determining whether any two passages were written by different authors.
 
-The emergence of \acp{llm} adds an additional layer of complexity. 
-While these models are widely embraced for beneficial applications such as summarisation, information seeking, and assistive writing~\citep{wang_stumbling_2024}, their ability to convincingly imitate human writing creates new risks. 
-\acp{llm} can be used to generate misinformation, impair academic honesty, or impersonate individuals, thereby inflicting harm on individuals who fall victim to these schemes~\citep{mitchell_detectgpt_2023,li_learning_2025,wang_stumbling_2024,bhattacharjee_fighting_2024}. 
-Since \acp{llm} can be conceptualised as authors, their detection naturally falls within the scope of \ac{av}. 
-Thus, instead of treating \ac{llm} detection as an isolated task, it is more consistent to frame it as a specialised case of \ac{av}~\citep{llm_detection_av_2025}.
+
+% The emergence of \acp{llm} adds an additional layer of complexity. 
+% While these models are widely embraced for beneficial applications such as summarisation, information seeking, and assistive writing~\citep{wang_stumbling_2024}, their ability to convincingly imitate human writing creates new risks. 
+% \acp{llm} can be used to generate misinformation, impair academic honesty, or imitate individual authorial style, thereby inflicting harm on individuals who fall victim to these schemes~\citep{mitchell_detectgpt_2023,li_learning_2025,wang_stumbling_2024,bhattacharjee_fighting_2024}. 
+% Since \acp{llm} can be conceptualised as authors, their detection can be modelled as an \ac{av} problem with human-\ac{llm} input pairs. 
+% Thus, instead of treating \ac{llm} detection as an isolated task, it is more consistent to frame it as \ac{av}~\citep{llm_detection_av_2025}.
 
 % specificity rather than generality
 Existing approaches to generalisation typically train a single model and apply it across domains.
 Despite significant advances in \ac{av}, prior work finds that such models struggle in \ac{ood} settings, where the topic or genre diverges from the training data~\citep{Sundararajan_style_18,bischoff_importance_2020,li_learning_2025}. 
 This shortcoming motivates a shift towards scenario-specific solutions, i.e.\ models are trained anew for narrowly defined cases. 
-Such single-case approaches enable more precise control over contextual factors and place greater emphasis on stylistic idiosyncrasies rather than domain-level variation.
+Such single-case approaches enable more precise control over confounding variables and place greater emphasis on stylistic idiosyncrasies rather than domain-level variation.
 
 % AV
 The \impAppr{} by \citet{koppel_determining_2014}\ introduces the idea of sampling \imp{} texts, i.e.\ hard negatives, intended to sharpen the discrimination between genuine and false authorship matches. 
 However, the method's effectiveness is limited by the quality and contextual adequacy of these \imp{} texts. 
 Traditional strategies cannot simultaneously control multiple confounding factors such as genre, topic, and target audience, limiting the discriminatory power of the hard negatives.
 
-The thesis extends the \impAppr{} by leveraging state-of-the-art \acp{llm} to generate paraphrases as \imps{} rather than relying on existing texts, allowing simultaneous control over multiple confounding factors.
+The thesis extends the \impAppr{} by leveraging state-of-the-art \acp{llm} to generate paraphrases as \imps{} rather than sampling existing texts.
+This allows for simultaneous control over multiple confounding factors.
 Collection and preprocessing of the original datasets, including a controlled candidate-pair selection procedure aligned with the methodology of \citet{koppel_determining_2014} and informed by direct consultation with the authors, ensures a robust evaluation setup. 
 The extended \impAppr{} achieves improved precision–recall on the \dataStudent{} dataset compared with the original sampling strategies, \unmasking{} and \acs{ppmd}.
