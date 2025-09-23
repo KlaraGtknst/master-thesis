@@ -447,7 +447,7 @@
 
     \vspace{1cm}
 
-		\large \the\thesisdeclarationtext
+		\the\thesisdeclarationtext
 
     \vspace{1cm}
     \the\thesislocation, \the\thesissubmissiondate
