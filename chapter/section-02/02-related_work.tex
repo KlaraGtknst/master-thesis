@@ -34,7 +34,7 @@ Its perturbation strategy shares conceptual similarity with our paraphrasing app
 
 Prior work also informs our two-step paraphraser. 
 \citet{nogueira_doc2query_2019} introduce Doc2query, generating queries from documents to address term mismatch in retrieval, while \citet{lee_gecko_2024} propose Gecko, a transformer distilled from \acp{llm} that generates queries for document retrieval. 
-Both share with our \pextractor{} the goal of extracting plausible human queries, though our approach yields more complete, document-specific information.
+Both share the goal with our \pextractor{} of extracting plausible human queries, though our approach yields more complete, document-specific information.
 
 A similar two-step approach is reported by \citet{bevendorff_overview_2024} for constructing an evaluation dataset for \acs{pan}.
 They first extract bullet points and metadata from news articles using GPT-4 Turbo, and then generate artificial texts based on this extracted information. 
@@ -48,4 +48,4 @@ However, when using \mirrorMinds{}, we found it produced low-quality paraphrases
 \citet{li_learning_2025} fine-tune \acp{llm} to rewrite human-authored texts more extensively than machine-generated ones. 
 All of these approaches are similar to ours in that they leverage \acp{llm} to generate texts at inference time. 
 But unlike them, our method employs off-the-shelf models, constructs frequency-based n-gram vectors, and compares them via vectors similarity measures.
-Moreover, for paraphrase evaluation we leverage more than simple n-gram overlap based similarity measures.
+Moreover, for paraphrase evaluation we leverage more than simple n-gram overlap-based similarity measures.

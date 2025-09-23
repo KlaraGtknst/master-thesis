@@ -14,7 +14,7 @@ To ensure difficulty, impostor texts must be drawn from the same domain as the c
     \label{fig:problem_hierarchy}
 \end{figure}
 
-The disputed text $d$ and the candidate text $k_a$ are encoded as \ac{tfidf} vectors over the \num{100000} most frequent space-free character 4-grams, defined as sequences of four consecutive characters excluding spaces, or, at word boundaries with fewer than four characters, padded by surrounding spaces~\citep{koppel_authorship_2011,neal_surveying_2018}. 
+The disputed text $d$ and the candidate text $k_a$ are encoded as \ac{tfidf} vectors over the \num{100000} most frequent space-free character 4-grams, defined as sequences of four consecutive characters excluding spaces, or at word boundaries with fewer than four characters, padded by surrounding spaces~\citep{koppel_authorship_2011,neal_surveying_2018}. 
 Illustrative examples are shown in \Cref{fig:spacefree_4gram}.
 
 \begin{figure}[ht]
@@ -34,7 +34,7 @@ Illustrative examples are shown in \Cref{fig:spacefree_4gram}.
     % Labels
     \node[below=0.2cm of word1] {space-free 4-gram};
     \node[below=0.2cm of word2] {space-free 4-gram};
-    \node[below=0.2cm of word3] {$\neg$ space-free 4-gram};
+    \node[below=0.2cm of word3] {{$\boldsymbol{\neg}$} space-free 4-gram};
 
     \end{tikzpicture}
     \caption{Examples of space-free character 4-grams.}
