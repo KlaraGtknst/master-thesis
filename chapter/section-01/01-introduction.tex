@@ -29,20 +29,18 @@ We formulate the following research questions to investigate whether \ac{llm}-ge
     
 \end{questions}
 
-
+\newpage
 \section{Contributions}
 \label{sec:contributions}
 The main contributions of this thesis are as follows:
 \begin{itemize}
-    \item Collection and preprocessing of original datasets, including a controlled candidate-pair selection procedure aligned with the methodology of \citet{koppel_determining_2014} and informed by direct consultation with the authors (cf.~\Cref{sec:dataset}).
-    \item Reimplementation of the traditional \impAppr{}~\citep{koppel_determining_2014}\ (cf.~\Cref{sec:impostor_method_theory}).
-    \item Development of an \ac{llm}-based \impAppr{} extending the work of \citet{koppel_determining_2014} as a scenario-specific solution to \ac{av} problems even in cross-domain settings (cf.~\Cref{sec:impostor_generation}). 
-    \item Analysis of prompt design and its influence on paraphrase length as a confounding variable (cf.~\Cref{subsec:prompt_impact_res}/~\ref{enum:rq1} and \ref{enum:rq2}).
-    \item Quantitative comparison of paraphrasing approaches using metrics adapted from summarisation and translation tasks (hereafter paraphrasing scores) (cf.~\Cref{sec:comp_paraphrases}/~\ref{enum:rq2}).
-    \item Analysis of the effect of text segmentation (i.e.\ number of chunks) on paraphrasing scores (cf.~\Cref{sec:results_chunks}/~\ref{enum:rq2}).
-    \item Evaluation of the proposed \ac{llm}-based \impAppr{} against established \ac{av} techniques, specifically the baselines introduced by \citet{koppel_determining_2014}
-    % , \textcolor{red}{\unmasking{} and \ac{ppmd}}, 
-    within the traditional \ac{av} setting using pairs of human-authored texts (cf.~\Cref{subsec:imp_gen_res}/~\ref{enum:rq3}).
+    \item We collected and preprocessed the original datasets, including a controlled candidate-pair selection procedure aligned with the methodology of \citet{koppel_determining_2014} and informed by direct consultation with the authors (cf.~\Cref{sec:dataset}).
+    \item This work reimplements the traditional \impAppr{} \citep{koppel_determining_2014}\ (cf.~\Cref{sec:impostor_method_theory}).
+    \item It extends the \impAppr{} with \ac{llm}-based hard negative generation proposing scenario-specific solution to \ac{av} problems (cf.~\Cref{sec:impostor_generation}). 
+    \item We further analyse prompt design, its influence on paraphrase length as a confounding variable (cf.~\Cref{subsec:prompt_impact_res}/~\ref{enum:rq1} and \ref{enum:rq2}) and on quantitative metrics adapted from summarisation and translation tasks (hereafter paraphrasing scores) (cf.~\Cref{sec:comp_paraphrases}/~\ref{enum:rq2}).
+    We also investigate the effect of text segmentation on paraphrasing scores (cf.~\Cref{sec:results_chunks}/~\ref{enum:rq2}).
+    \item We compare the proposed \ac{llm}-based \impAppr{} with established \ac{av} techniques, specifically the baselines introduced by \citet{koppel_determining_2014}, \unmasking{} and \acs{ppmd}, 
+    using pairs of human-authored texts in the traditional \ac{av} setting (cf.~\Cref{subsec:imp_gen_res}/~\ref{enum:rq3}).
    
 \end{itemize}
 
