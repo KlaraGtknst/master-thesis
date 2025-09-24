@@ -11,12 +11,12 @@ Hard negative texts are similar to the text of the candidate author, but were no
 We formulate the following research questions to investigate whether \ac{llm}-generated paraphrases can improve the effectiveness of the \imp{} method by providing better control over confounding factors than traditional hard negative sampling strategies.
 \begin{questions}
     \item \textbf{How suitable are \acp{llm} for \imp{} generation?} \label{enum:rq1} \hfill \\
-    For \imps{} to be effective, hard negatives need to adhere to constraints similar to the candidate author's text, including confounding variables such as genre, topic, and target audience.
+    For \imps{} to be effective, hard negatives need to adhere to constraints similar to those of the candidate author's text, including confounding variables such as genre, topic, and target audience.
     To model these confounders, we employ \ac{llm}-based paraphrasing. 
-    By conditioning \acp{llm} on confounding variables, the \impAppr{} emphasises differences in authorial style rather than in content. 
-    However, the precise syntactic similarity threshold at which paraphrases are attributable to the candidate author remains uncertain, potentially limiting detection accuracy. 
+    Conditioning \acp{llm} on confounding variables allows the \impAppr{} to emphasise differences in authorial style rather than in content. 
+    Yet, the syntactic similarity threshold at which paraphrases remain attributable to the candidate author is unresolved, potentially constraining detection effectiveness. 
    
-    \item \textbf{Which metrics are appropriate to evaluate the quality of generated \imps{}?} \label{enum:rq2} \hfill \\
+    \item \textbf{Which measures are appropriate to evaluate the quality of generated \imps{}?} \label{enum:rq2} \hfill \\
     Assessing \imps{} requires evaluating paraphrases, a task complicated by the absence of a universally accepted definition of paraphrasing. 
     Prior work often adopts evaluation metrics from adjacent \ac{nlp} tasks such as machine translation and summarisation~\citep{gohsen_captions_2023}. 
     The two central dimensions are semantic similarity and syntactic similarity. 
