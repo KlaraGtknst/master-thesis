@@ -51,7 +51,7 @@ body = {
 response = self.client.chat.completions.create(**body)
 \end{minted}
 \caption{
-System prompt and user message configuration for paraphrasing using models hosted by \ac{gwdg}/\ac{saia}. 
+System prompt and user message configuration for paraphrasing using models hosted by \ac{gwdg}. 
 The \texttt{model\_id} specifies the model to be used. 
 The input variables \texttt{temperature}, \texttt{text}, and \texttt{prompt} correspond, respectively, to the temperature for the \ac{llm}, the text to be paraphrased, and the instruction provided to the \ac{llm}.
 For very large inputs, the text is truncated to avoid errors if it exceeds the model’s maximum context window.
