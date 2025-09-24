@@ -19,4 +19,27 @@ Although the definition of an optimal balance between precision and recall is ap
     \label{fig:comp_naive_student}
 \end{figure}
 
+\begin{table}[h]
+\centering
+\label{tab:auc_pr}
+\caption[\ac{auc} Precision-Recall results]{\ac{auc} Precision-Recall scores of different \ac{av} approaches on the \dataStudent{} dataset. 
+Our approach is highlighted in bold.
+}
+% \resizebox{\textwidth}{!}{%
+\begin{tabular}{lr}
+\toprule
+\ac{av} approach           & \ac{auc}-PR \\
+\midrule
+\acs{ppmd}                       & 0.69   \\
+Fixed                      & 0.68   \\
+Unsup. Min-Max (B)         & 0.68   \\
+One-Step Paraphraser (\ac{llm}) & \textbf{0.64}   \\
+Unsup. Cosine (B)          & 0.52   \\
+\unmasking{}                  & 0.51   \\
+Sup. \ac{svm} (B)               & 0.49  \\
+\bottomrule
+\end{tabular}%
+% }
+\end{table}
+
 These findings contrast with our initial expectation that \ac{llm}-based \imp{} generation would achieve higher precision, but indicate that our approach performs best when precision and recall are considered equally important.
