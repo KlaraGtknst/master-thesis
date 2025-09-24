@@ -1,14 +1,14 @@
 \paragraph{\ac{bleu}.}
-\ac{bleu}~\citep{papineni_bleu_2001} was originally developed for machine translation~\citep{zhou_paraphrase_2021,anantha_pearson_metrics_2021}. 
+\ac{bleu}~\citep{papineni_bleu_2001} was originally developed for machine translation evaluation~\citep{zhou_paraphrase_2021,anantha_pearson_metrics_2021}. 
 \ac{bleu}'s basic unit of evaluation is a sentence. 
-\ac{bleu} is based on precision, i.e.\ computing the fraction of generated word n-grams $n\text{-}gram \in \mathcal{C}$ that appear in any reference text $r$~\citep{kurt_pehlivanoglu_comparative_2024,palivela_optimization_2021,papineni_bleu_2001,anantha_pearson_metrics_2021}. 
-In our case, there is only one reference.
-We consider the reference the ground truth text.
+\ac{bleu} is based on precision, i.e.\ computing the fraction of generated candidate word n-grams that appear in any reference text over the total number of word n-grams in the generated candidate text~\citep{kurt_pehlivanoglu_comparative_2024,palivela_optimization_2021,papineni_bleu_2001,anantha_pearson_metrics_2021}. 
+In our case, there is only one reference $r$, multiple candidates $c \in \mathcal{C}$ and multiple n-grams in each candidate $c$.
+% We consider the reference the ground truth text.
 To prevent inflated precision scores $p_n$ due to repetition of frequent tokens (e.g.\ "the"), \ac{bleu} introduces a clipping mechanism $\operatorname{Count_{match}}(.)$ that caps n-gram counts at their maximum reference frequency~\citep{papineni_bleu_2001}. 
 Precision $p_n$ for $n \in \mathbb{N}_{>0}$ is given by \Cref{eq:bleu}.
 
 \begin{equation}
-    p_n = \sum_{\mathcal{C} \in \left\{ Candidates \right\}}\sum_{n\text{-}gram \in\mathcal{C}} \frac{\operatorname{Count_{match}}(n\text{-}gram)}{\operatorname{Count}(n\text{-}gram)}
+    p_n = \sum_{c \in \mathcal{C}} \sum_{n\text{-}gram \in c} \frac{\operatorname{Count_{match}}(n\text{-}gram)}{\operatorname{Count}(n\text{-}gram)}
 \label{eq:bleu}
 \end{equation}
 
@@ -31,7 +31,7 @@ and finally (3) divides the total clipped n-gram matches by
 the total number of unclipped n-grams in all candidate sentences~\citep{papineni_bleu_2001,cordeiro_bleu_2007}.
 
 Combined scores across different n-gram orders are computed via the geometric mean, weighted uniformly (i.e.\ $w_n$) across different $n$~\citep{papineni_bleu_2001,banerjee_METEOR_2005}.
-Combining precision $p_n$ (\Cref{eq:bleu}) and brevity penalty $\operatorname{BP}$ (\Cref{eq:bleu_brevity_penalty}) leads to the final score in \Cref{eq:bleu_final}.
+Combining the precision $p_n$ from \Cref{eq:bleu} and brevity penalty $\operatorname{BP}$ from \Cref{eq:bleu_brevity_penalty} leads to the final score, as defined in \Cref{eq:bleu_final}.
 
 \begin{equation}
     \operatorname{BLEU} = \operatorname{BP}  \exp\left(\sum_{n=1}^{N} w_n  \log p_n\right)

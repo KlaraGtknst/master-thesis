@@ -1,6 +1,6 @@
 
 \paragraph{\ac{rouge}.}
-\ac{rouge}, initially developed for summarisation, is recall-oriented and emphasises coverage of reference content in the candidate text~\citep{lin_rouge_2004}. 
+\ac{rouge}, initially developed for summarisation evaluation, is recall-oriented and emphasises coverage of reference content in the candidate text~\citep{lin_rouge_2004}. 
 Lower \ac{rouge} scores indicate greater diversity \citep{kurt_pehlivanoglu_comparative_2024}.
 Several variants exist, including \ac{rouge}-N, which computes word n-gram recall, and \ac{rouge}-L, which measures the \ac{lcs}~\citep{zhou_paraphrase_2021,palivela_optimization_2021,kurt_pehlivanoglu_comparative_2024}. 
 
@@ -8,22 +8,24 @@ Several variants exist, including \ac{rouge}-N, which computes word n-gram recal
 \ac{rouge}-N is an n-gram recall between the candidate text $c$ and the reference text $r$~\citep{lin_rouge_2004}.
 Since we only consider single reference scenarios we use the simpler version for one reference in \Cref{eq:rouge_n}.
 \begin{equation}
-    \operatorname{ROUGE-N} = \sum_{s \in r}\sum_{n \text{-} gram \in s} \frac{\operatorname{Count_{match}}(n \text{-} gram)}{\operatorname{Count}(n \text{-} gram)}
+    \operatorname{ROUGE-N} = \sum_{n \text{-} gram \in r} \frac{\operatorname{Count_{match}}(n \text{-} gram)}{\operatorname{Count}(n \text{-} gram)}
 \label{eq:rouge_n}
 \end{equation}
-Both the nominator and the denominator iterate over all n-grams in all sentences of the reference, i.e.\ ground truth, text.
-The nominator sums up $\operatorname{Count_{match}}(n \text{-} gram)$, i.e.\ the maximum number of occurrences of this reference sentence n-gram in any of the candidate texts.
-Since this sum measures the number of co-occurrences of that n-gram in both candidate and reference text, it is naturally capped to the number of occurrences in the reference.
-This ensures that after normalising with the denominator, the \ac{rouge}-N values range from 0 to 1~\citep{kurt_pehlivanoglu_comparative_2024}.
-% The nominator sums over all references and thus, gives more weight to matching n-grams that occur in multiple references (i.e.\ a consensus between references) \citep{lin_rouge_2004}.    % do not use, bc we have only one reference
-The denominator does not consider matches but only sums up the number of times an n-gram appears in the reference sentences~\citep{lin_rouge_2004}.
-If every n-gram from the reference sentences would appear equally often in the candidate, the \ac{rouge}-N would be one since it measures the n-gram overlap between reference and candidate from a reference or recall perspective.
+Both the nominator and the denominator iterate over all n-grams in the reference text $r$.
+$\operatorname{Count_{match}}(n \text{-} gram)$ is the number of co-occurrences of this n-gram in the reference text $r$ and the candidate text $c$.
+The nominator sums $\operatorname{Count_{match}}(n \text{-} gram)$ over all n-grams in the reference text $r$, and is naturally capped by the total number of occurrences in the reference.
 
-\ac{rouge}-L for a candidate $c$ of length $n$ and a reference $r$ of length $m$ is defined in \Cref{eq:rouge_l}.
+The denominator ignores matches and instead sums the total occurrences of each n-gram in the reference $r$~\citep{lin_rouge_2004}. 
+This sum serves as a normalizer which ensures that \ac{rouge}-N values range between 0 and 1~\citep{kurt_pehlivanoglu_comparative_2024}.
+%
+If every n-gram from the reference $r$ would appear equally often in the candidate $c$, the \ac{rouge}-N would be one since it measures the n-gram overlap between reference and candidate from a reference or recall perspective.
+
+
+The computation of \ac{rouge}-L for a candidate $c$ of length $n$ and a reference $r$ of length $m$ is defined in \Cref{eq:rouge_l}, where $\beta$ is defined as $\frac{\mathrm{P_{lcs}}}{\mathrm{R_{lcs}}}$.
 The length is measured in number of words.
-The intuition is that the length of the \ac{lcs} between the candidate and reference texts correlates with their similarity.
+This F-measure incorporates precision $\mathrm{P_{lcs}}$, defined in \Cref{eq:rouge_l_precision}, and recall $\mathrm{R_{lcs}}$, defined in \Cref{eq:rouge_l_recall}.
+The intuition is that the length of the \ac{lcs} between the candidate text $c$ and reference text $r$ correlates with their similarity.
 \ac{rouge}-L does not include shorter sequences or alternative \ac{lcs} in the final score~\citep{lin_rouge_2004}.
-$\beta$ is defined as $\frac{\mathrm{P_{lcs}}}{\mathrm{R_{lcs}}}$.
 
 \begin{equation}
 \mathrm{P_{lcs}} = \frac{\operatorname{LCS}(r,c)}{n}
@@ -40,6 +42,10 @@ $\beta$ is defined as $\frac{\mathrm{P_{lcs}}}{\mathrm{R_{lcs}}}$.
 \label{eq:rouge_l}
 \end{equation}
 
-\ac{rouge}-Lsum is a summary-level \ac{lcs} \ac{rouge} variant summing over the union of \ac{lcs} matches $\operatorname{LCS}_\cup(r_i,C)$ between the $u$ reference summary sentences $r_i, i \in [1,u]$ and each of the $v$ candidate sentence $c_j, j \in [1,v]$.
-The total number of words in the references and candidates is $m$ and $n$, respectively.
-While the formula for the final score $F_{lcs}$ from \Cref{eq:rouge_l} remains the same, the computation of precision and recall replace $\operatorname{LCS}(r,c)$ by $\sum_{i=1}^{u}\operatorname{LCS}_\cup(r_i,C)$.
+\ac{rouge}-Lsum is a \ac{rouge}-L variant for evaluating multiple candidate texts $\mathcal{C}$.
+While it follows the computation in \Cref{eq:rouge_l}, precision $\mathrm{P_{lcs}}$ and recall $\mathrm{R_{lcs}}$ replace $\operatorname{LCS}(r,c)$ with $\operatorname{LCS}_\cup(r,\mathcal{C})$.
+$\operatorname{LCS}_\cup(r,C)$ unites $\operatorname{LCS}(r,c)$ for different candidate texts $c \in \mathcal{C}$.
+For example, given reference $r=w_1 w_2 w_3 w_4 w_5$, and candidate texts $c_1 = w_1 w_2 w_6 w_7 w_8$ and $c_2 = w_1 w_3 w_8 w_9 w_5$, then $\operatorname{LCS}(r,c_1)=2$, because the \ac{lcs} of $r$ and $c_1$ is $w_1 w_2$.
+Moreover, $\operatorname{LCS}(r,c_2)=3$, since $w_1 w_3 w_5$ is the \ac{lcs} of $r$ and $c_2$.
+Hence, $\operatorname{LCS}_\cup(r,\mathcal{C})=4$, due to the union of \ac{lcs} containing $w_1 w_2 w_3 w_5$~\citep{lin_rouge_2004}.
+

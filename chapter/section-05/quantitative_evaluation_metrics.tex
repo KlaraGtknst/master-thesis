@@ -13,17 +13,17 @@ Common syntactic evaluation metrics include \acs{bleu}, \acs{rouge}-1, \acs{roug
 \input{chapter/section-05/metrics/ROUGE.tex}
 \input{chapter/section-05/metrics/METEOR.tex}
 
-Evaluating the Pearson correlation to human judgement on \num{10000}~samples from web pages from the Wayback Machine and the Common Crawl dataset, \citet{anantha_pearson_metrics_2021}\ found that none of \ac{bleu}, \ac{rouge}, and METEOR has a higher Pearson correlation to human judgement than $0.64$.
+Evaluating the Pearson correlation to human judgement on \num{10000}~samples from web pages from the Wayback Machine and the Common Crawl dataset, \citet{anantha_pearson_metrics_2021}\ found that none of \ac{bleu}, \ac{rouge}, and METEOR have a higher Pearson correlation to human judgement than $0.64$.
 % \citet{banerjee_METEOR_2005} publishes higher values on the Chinese portion of the Tides 2003 dataset.
 
 
 \subsubsection{Semantic Measures}
 Syntactic measures are inadequate when the goal is to evaluate paraphrases that prioritise semantic preservation over lexical similarity. 
 To address this limitation, semantic metrics leverage distributed representations of words or sentences.
-As per \citet{gohsen_captions_2023}, we compute semantic similarity between transformer based models.
+As per \citet{gohsen_captions_2023}, we compute semantic similarity between transformer based text embeddings.
 
 \paragraph{\acs{bert}Score.}
-\acs{bert}Score computes similarity between \ac{bert} embeddings of candidate and reference texts~\citep{hanna_fine_grained_2021}. 
+\acs{bert}Score computes similarity between \ac{bert} embeddings of candidate text $c$ and reference text $r$~\citep{hanna_fine_grained_2021}. 
 Contextual embeddings allow for the same word having different embeddings depending on its context.
 Even though cosine similarity calculation considers tokens in isolation, the contextual embeddings contain information of the rest of the sentence.
 Sentences are tokenized by \ac{bert} and subsequently encoded.
@@ -55,13 +55,13 @@ to $\mathrm{\hat{P}_{BERT}} = \frac{\operatorname{P_{BERT}} - a}{1 - a}$ ($\oper
 \paragraph{\acs{sbert} cosine similarity.}
 The cosine similarity between vector representations $x$ and $y$ of two documents is defined in \Cref{eq:cosine_sim}. 
 Cosine similarity values range from $-1$ to $1$~\citep{thongtan_cosine_sim_19,zhang_bertscore_2020}, where $-1$ indicates that $x$ and $y$ point in opposite directions, $0$ indicates orthogonal vectors, and $1$ indicates that they point in the same direction. 
-Following \citet{gohsen_captions_2023}, we compute our document vectors using a \ac{sbert} model.
+Following \citet{gohsen_captions_2023}, we compute our document embedding vectors using a \ac{sbert} model.
 
 \paragraph{\ac{wmd}.}
 \ac{wmd} measures the minimal transport cost of aligning word embeddings from one text to another~\citep{gohsen_captions_2023}. 
 By default, word embeddings are derived using \acs{glove}~\citep{glove_wmd_2014}.
 \citet{kusner_wmd_15}\ formalise this via a flow matrix $T \in \mathcal{R}^{n \times n}$ where $T_{ij} \geq 0$ denotes how much of word $i$ in a document $d$ must travel to a word $j$ in a document $d'$.
-To transform document $d$ to document $d'$, (1) the outgoing flow from word $i$ equals $d_i$, i.e.\ $\sum_{j}T_{ij}=d_i$, and (2) the incoming flow to word $j$ must match $d'_j$, i.e.\ $\sum_{i}T_{ij}=d'_j$.
+In order to transform document $d$ to document $d'$, (1) the outgoing flow from word $i$ equals $d_i$, i.e.\ $\sum_{j}T_{ij}=d_i$, and (2) the incoming flow to word $j$ must match $d'_j$, i.e.\ $\sum_{i}T_{ij}=d'_j$.
 The distance between document $d$ and document $d'$ is the minimum cumulative cost required to move all words from $d$ to $d'$, i.e.\ $\sum_{i,j}T_{i,j}c(i,j)$, where $c(i,j)$ is the cost of travelling from word $i$ to word $j$~\citep{kusner_wmd_15}.
 \ac{wms} is the inversion of \ac{wmd}~\citep{gohsen_captions_2023}.
 
@@ -69,10 +69,10 @@ The distance between document $d$ and document $d'$ is the minimum cumulative co
 
 \citet{gohsen_captions_2023}\ introduce the metric $\Delta_{sem,syn}$ as a means to improve the interpretability of paraphrasing scores by jointly considering syntactic and semantic similarity.
 First, all syntactic and semantic measures are normalised to a scale from zero to one.
-Then, the average syntactic similarity $\diameter_{syn}$ and the average semantic similarity $\diameter_{sem}$ is calculated.
+Then, the average syntactic similarity $\diameter_{syn}$ and the average semantic similarity $\diameter_{sem}$ are calculated.
 Syntactic metrics include \ac{rouge}-1, \ac{rouge}-L, and \ac{bleu}.
 Semantic measures include \ac{wms}, \ac{bert}, and cosine similarity of the \ac{sbert} embeddings.
-Finally, $\Delta_{sem,syn}$ is defined as in \Cref{eq:gohsen_delta}, i.e.\ the difference of semantic and syntactic average distance~\citep{gohsen_captions_2023}.
+Finally, $\Delta_{sem,syn}$ is defined as in \Cref{eq:gohsen_delta}, i.e.\ the difference of semantic and syntactic average similarity~\citep{gohsen_captions_2023}.
 \begin{equation}
     \Delta_{sem,syn}=\diameter_{sem}-\diameter_{syn}
     \label{eq:gohsen_delta}

@@ -1,16 +1,16 @@
 \subsection{Authorship Verification Quality Measures}
 \label{subsec:av_quality_measures}
 
-Since \ac{av} forms the core of \ac{aa}, and because every \ac{aa} task can be reduced to \ac{av}, this section focuses primarily on \ac{av}. 
+Since \ac{av} forms the core of \ac{aa}, and because every \ac{aa} task can be reduced to \ac{av}~\citep{tyo_state_2022,barlas_cross_domain_2020}, this section focuses primarily on \ac{av}. 
 Evaluation relies on standard classification metrics, each with distinct advantages and limitations.
 
 % \paragraph{Accuracy}
-% The most straightforward metric is accuracy (\Cref{eq:accuracy}), which measures the proportion of correctly classified cases across all samples. 
-% While intuitive, accuracy can be misleading in scenarios with class imbalance. 
+The most straightforward metric is accuracy, which measures the proportion of correctly classified cases across all samples, as defined in \Cref{eq:accuracy}. 
+While intuitive, accuracy can be misleading in scenarios with class imbalance. 
 
-% \begin{equation}\label{eq:accuracy}
-%     \text{Accuracy} = \frac{\text{\acs{tp}} + \acs{tn}}{\acs{tp} + \acs{tn} + \acs{fp} + \acs{fn}}
-% \end{equation}
+\begin{equation}\label{eq:accuracy}
+    \text{Accuracy} = \frac{\text{\acs{tp}} + \acs{tn}}{\acs{tp} + \acs{tn} + \acs{fp} + \acs{fn}}
+\end{equation}
 
 % \paragraph{Precision, Recall \& $\operatorname{F_{1}}$}
 Precision $\operatorname{P}$ and recall $\operatorname{R}$ address the limitations of accuracy in class imbalance scenarios by focusing on the effectiveness for the positive class, that is, the correct identification of same-author pairs. 
@@ -30,7 +30,7 @@ Because these metrics often trade off against each other, their harmonic mean, t
 % It does so by granting unanswered problems partial credit, equal to the average accuracy on the remaining cases~\citep{bevendorff_overview_2024}, thus encouraging systems to remain silent when uncertain.
 
 % However, in the present work, $\operatorname{c@1}$ and $\operatorname{F_{0.5u}}$ are not appropriate measures. 
-Although we also used $\operatorname{F_{1}}$ and accuracy in our work, we opted to exclude them in this thesis to keep results simple and comparable to the original work by \citet{koppel_determining_2014}.
+Although we also used $\operatorname{F_{1}}$ and accuracy in our work, we opted to exclude them in this thesis to keep results intuitive and comparable to the original work by \citet{koppel_determining_2014}.
 More advanced metrics, such as $\operatorname{F_{0.5u}}$ and $\operatorname{c@1}$, assume that models can explicitly abstain by assigning a score of exactly 0.5, a convention used in \acs{pan}'s shared tasks~\citep{tyo_state_2022,bevendorff_overview_2024,kocher_unine_2015}. 
 In our setting, the model produces only the binary outcomes "same author" or "don't know". 
 Since there is no natural mechanism for producing a calibrated 0.5 score, abstention cannot be meaningfully represented. 

@@ -9,16 +9,16 @@ Conversely, if \imps{} are too similar to the candidate, the risk of \acp{fn} in
 This manifests as increased recall in the former case and increased precision in the latter case.
 
 % obstacles for \imp{} generation in the past
-Traditional \imp{} generation techniques struggled to control the confounder influencing \imp{} generation. 
-The fixed approach samples from a fixed pool of unrelated texts, while the on-the-fly approach fails to align genre with the candidate text~\citep{koppel_determining_2014}. 
-Since authorial style is tightly entangled with contextual factors, \imps{} produced by these methods differ systematically from the candidate text, weakening their utility. 
-Ideally, \imp{} generation should replicate the conditions of original text production, including task, topic, register, target audience and century. 
+Traditional \imp{} generation techniques struggled to simultaneously control multiple confounders:
+The original \texttt{fixed} approach samples from a pool of unrelated texts, while the \texttt{on-the-fly} approach fails to align genre with the candidate text~\citep{koppel_determining_2014}. 
+Since authorial style is tightly entangled with domain variables, \imps{} produced by these methods differ systematically from the candidate text, weakening their utility. 
+Ideally, \imp{} generation should replicate the conditions of reference text production, including task, topic, register, target audience and century. 
 In practice, however, this information is rarely available.
 In \ac{av}, the candidate author may be deceased, unavailable, or unwilling to cooperate.
 
 % heuristics: paraphrase
 \acp{llm} make it possible to approximate this ideal. 
-By conditioning generation on the candidate text, external factors such as topic, genre, and register can be more tightly controlled. 
+By conditioning generation on the candidate text, domain variables such as topic, genre, and register can be more tightly controlled. 
 In particular, paraphrasing offers a heuristic for simulating the text generation process. 
 The model produces stylistic variants of the candidate's writing while maintaining semantic alignment.
 
@@ -26,14 +26,15 @@ The model produces stylistic variants of the candidate's writing while maintaini
 \subsection{Hard Negative Mining via Paraphrasing}
 
 The lack of a universally accepted definition of paraphrases complicates their generation and evaluation~\citep{gohsen_task_oriented_2024}. 
-In this work, paraphrases are considered suitable \imps{} when they preserve the topic, genre, tone and length of the original text, introduce sufficient lexical and syntactic variation to prevent near-duplication, and allow limited semantic divergence including \textcolor{orange}{mild} hallucinations.
-We propose two approaches to paraphrasing as displayed in \Cref{fig:paraphrasing_approaches}.
-We expect the \impAppr{} recall scores to decrease while the precision scores increase, i.e.\ higher confidence in positive labelled text pairs, due to harder negatives leading to fewer positive predictions.
+In this work, paraphrases qualify as suitable \imps{} if they preserve the topic, genre, tone, and length of the reference text, while introducing enough lexical and syntactic variation to avoid near-duplication. 
+Limited semantic divergence is permitted, including mild hallucinations, which we define as added details that remain broadly consistent with the original topic.
+We propose two approaches to paraphrasing, namely one-step and two-step paraphrasing, as illustrated in \Cref{fig:paraphrasing_approaches}.
+We expect the recall scores of the \ac{llm}-based \impAppr{} to decrease while precision increases, i.e.\ yielding higher confidence in positive labelled text pairs, due to harder negatives leading to fewer positive predictions.
 
 \begin{figure}[h]
     \centering
     \includesvg{images/paraphrasing/idea/Paraphraser_architectures.svg}
-    \caption[Different paraphrasing approaches]{Different paraphrasing approaches.}
+    \caption[Different paraphrasing approaches]{Proposed one-step and two-step paraphrasing approaches.}
     \label{fig:paraphrasing_approaches}
 \end{figure}
 
@@ -49,7 +50,8 @@ Paraphrase quality is largely determined by prompt design and model selection~\c
 
 In our one-step approach, \imps{} are generated directly via \ac{llm} prompting. 
 Effective prompting proved crucial. 
-We found that specifying constraints was vital for valid outputs, and placing task instructions at the end reduced instruction neglect in long-context settings (e.g. \dataGutenberg{} corpus). 
+We found that specifying constraints was vital for valid outputs. 
+Moreover, placing task instructions at the end reduced instruction neglect in long-context settings (e.g. \dataGutenberg{} corpus). 
 We evaluated three prompt variants.
 
 The first prompt explicitly decomposes the sentence into subject, verb, and object before reconstruction, encouraging lexical diversity. 
@@ -96,16 +98,15 @@ meta-llama-3.1-8b-instruct           & \ac{gwdg}    \\
 The two-step approaches are inspired by prior literature~\citep{bevendorff_overview_2024, ayele_overview_2024}, and differ in how they extract and utilize auxiliary information (i.e.\ metadata) from the source text before generating the paraphrase. 
 The two steps enforce a clearer disentanglement of content and style at the cost of increased computational overhead.
 
-As displayed in \Cref{fig:two_step_paraphraser}, the two-step paraphrasing decomposes the task into information extraction and text generation. 
-In the first stage, the model identifies contextual features of the input text via a \pextractor{}.
-These feature include tone, register, time period, target audience, and genre.
+As shown in \Cref{fig:two_step_paraphraser}, the two-step paraphrasing decomposes the task into information extraction and text generation. 
+In the first stage, the model identifies domain variables of the input text via a \pextractor{}.
+These variables include tone, register, time period, target audience, and genre.
 Different approaches extract an additional feature specific to their approach.
 The additional features are a bullet point summary, the authorial task, topic, or title. 
 The extractor prompts can be derived from \Cref{app:extractor_prompts}.
-In the second stage, a paraphrase is generated based on the extracted metadata information. 
-There are two ways to feed the generator metadata.
-The extractor can either extract it from the reference text, or the user passes ground truth information when calling the paraphraser function.
-Again, all generator prompts can be found in \Cref{app:generator_prompts}.
+In the second stage, a paraphrase is generated from this metadata. 
+Metadata can be derived automatically from the reference text or provided as ground truth when calling the paraphraser function.
+All generator prompts can be found in \Cref{app:generator_prompts}.
 
 \begin{figure}[ht]
   \centering
@@ -164,5 +165,6 @@ Again, all generator prompts can be found in \Cref{app:generator_prompts}.
 \end{figure}
 
 
-The translation-based paraphraser is a related two-step approach in which a text is translated into another language and then back into English. 
+The translation-based paraphraser is another two-step approach in which a text is translated into another language and then back into English. 
+We use French as second language.
 While conceptually simple, it has been shown to produce only limited stylistic variation~\citep{zhou_paraphrase_2025}.
