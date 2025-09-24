@@ -1,10 +1,10 @@
 \subsection{\impApprTitle{}}
 \label{sec:impostor_method_theory}
 
-\citet{koppel_determining_2014}\ propose reducing open-set \ac{av} to open-set \ac{aa}, or the so-called many-candidates problem, which determines which (if any) candidate author $a$ from a pool of candidates $A$ authored a given anonymous text $d \in U$. 
+\citet{koppel_determining_2014}\ propose reducing open-set \ac{av} to open-set \ac{aa}, or the so-called many-candidates problem, which determines which (if any) candidate author $a$ from a set of candidates $A$ authored a given anonymous text $d \in U$. 
 We illustrate the hierarchy of problem complexity in \Cref{fig:problem_hierarchy}, based on their description.
 The candidates of the open-set \ac{aa} problem are retrieved via hard negative mining. 
-In the \ac{aa} context, hard negatives are defined as text pairs from different authors that are nonetheless highly similar. 
+In the \ac{aa} context, hard negatives are defined as texts from different authors that are nonetheless highly similar. 
 To ensure difficulty, impostor texts must be drawn from the same domain as the candidate, where domain encompasses factors such as topic, genre, register, or time period~\citep{bischoff_importance_2020}. 
 
 \begin{figure}[htbp]
@@ -14,8 +14,9 @@ To ensure difficulty, impostor texts must be drawn from the same domain as the c
     \label{fig:problem_hierarchy}
 \end{figure}
 
-The disputed text $d$ and the candidate text $k_a$ are encoded as vectors of \ac{tfidf} scores over the \num{100000} most frequent space-free character 4-grams.
-Space-free character 4-garms are defined as sequences of four consecutive characters excluding spaces, or at word boundaries with fewer than four characters, padded by surrounding spaces~\citep{koppel_authorship_2011,neal_surveying_2018}. 
+The disputed text $d \in U$ and the candidate text $k_a \in K_a$ are encoded as vectors of \ac{tfidf} scores over the \num{100000} most frequent space-free character 4-grams.
+Space-free character 4-garms are defined as sequences of four consecutive characters excluding spaces.
+At word boundaries where fewer than four characters are available, the character sequence is padded with surrounding spaces to maintain a length of four characters~\citep{koppel_authorship_2011,neal_surveying_2018}. 
 Illustrative examples are shown in \Cref{fig:spacefree_4gram}.
 
 \begin{figure}[ht]
@@ -49,8 +50,8 @@ and other syntactic structures.
 Word n-grams, which capture topic information, are generally avoided in authorship analysis, as topic information can hinder reliable attribution~\citep{neal_surveying_2018,Sapkota_ngrams_2015}.
 
 The \impAppr{} extends \unmasking{}'s repeated feature subsampling \citep{koppel_authorship_2004} by applying random projections to reduce feature dimensionality.
-After each projection, the method records whether the candidate author $a$ is predicted as the source of the disputed text $d$, aggregating this score across all elimination steps~\citep{tyo_state_2022} (illustrated in \Cref{fig:impostor}). 
-The procedure is repeated with the texts' roles swapped, so each serves once as the disputed text and once as the reference. 
+After each projection, the method records whether the candidate author $a$ is most similar to the disputed text $d$, aggregating this score across all elimination steps~\citep{tyo_state_2022} (illustrated in \Cref{fig:impostor}). 
+The procedure is repeated with the texts' roles swapped, so each text serves once as the disputed text and once as the reference. 
 Final predictions are obtained by averaging the aggregated scores and applying a threshold.
 
 \begin{figure}[htbp]
@@ -60,21 +61,34 @@ Final predictions are obtained by averaging the aggregated scores and applying a
     \label{fig:impostor}
 \end{figure}
 
+\citet{koppel_determining_2014} quantify similarity using cosine and min-max measures, defined in \Cref{eq:cosine_sim} and \Cref{eq:min_max_sim}, respectively. 
+$x$ and $y$ denote vector representations of documents $d$ and $k_a$.
+They report that min-max similarity yields predictions with higher accuracy than cosine similarity.
 
-\subsubsection{Traditional \Imp{} Generation}
+\begin{equation}
+    \cos(\theta_{x,y})=\mathrm{sim}(x,y)=\frac{x^Ty}{\left\| x \right\|\left\| y \right\|}
+    \label{eq:cosine_sim}
+\end{equation}
+
+\begin{equation}
+    \operatorname{minmax}(x,y)=\frac{\sum_{i=1}^{n}\mathrm{min}(x_i,y_i)}{\sum_{i=1}^{n}\mathrm{max}(x_i,y_i)}
+    \label{eq:min_max_sim}
+\end{equation}
+
+\subsubsection{Traditional \Imp{} Selection}
 \label{subsubsec:traditional_impostor_generation}
 
 \citet{koppel_determining_2014}\ introduce three \imp{} generation approaches. 
-In the fixed approach, \imps{} are drawn at random from a predetermined pool of documents that bear no particular relation to the input pair.
+In the \texttt{fixed} approach, \imps{} are drawn randomly from a predetermined pool of documents unrelated to the input pair.
 In their study, this pool consisted of texts collected from random English Google queries. 
-The on-the-fly approach, by contrast, derives impostors based on the candidate text. 
+The \texttt{on-the-fly} approach, by contrast, derives impostors based on the candidate text. 
 Specifically, sets of three to five medium-frequency words are sampled from the text, each set is submitted as a Google query, and the top 25 results are aggregated. 
 The retrieved documents serve as \imps{} that are, at least in theory, on-topic. 
-Finally, in the blog approach, impostors are selected at random from the \dataBlog{} dataset. 
+Finally, in the \texttt{blog} approach, impostors are selected at random from the \dataBlog{} dataset. 
 This method, according to the authors, ensures that impostor texts share the same genre as the input pair.
 
-For simplicity, we denote our fixed implementation as the random selection of \imps{} from the same dataset as the candidate text. 
-Consequently, the concept of fixed \imp{} generation in our work differs from that in the original method.
+For simplicity, we refer to our implementation of random \imp{} selection from the same dataset as the candidate text as the \texttt{fixed} approach. 
+Thus, in our context, the \texttt{fixed} approach differs conceptually from the original \texttt{fixed} and \texttt{blog} approaches.
 
 First the $m$ most similar impostor documents in terms of min-max similarity are selected.
 Then, $n < m$ random impostor documents are selected.

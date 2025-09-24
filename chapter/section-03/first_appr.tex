@@ -14,19 +14,19 @@ This work is often considered the origin of modern stylometry, the systematic st
 
 Between the 1960s and the late 1990s, stylometric research flourished.
 Around \num{1000}~features were proposed, including sentence and word lengths, character and word frequencies, and number of distinct words. 
-However, the field was limited by the absence of benchmark datasets, which prevented systematic comparison, and by evaluations based on subjective visual inspection rather than standardised metrics~\citep{stamatatos_survey_2009}.
+However, the field lacked benchmark datasets, which prevented systematic comparison. 
+Moreover, evaluations were based on subjective visual inspection of charts rather than standardised metrics~\citep{stamatatos_survey_2009}.
 
 The late 1990s marked the transition into a new era. 
 The growing availability of electronic text collections enabled the construction of benchmark datasets and more thorough evaluation. 
 Dataset size and the degree of control over genre and topic varied widely, ranging from fewer than ten controlled texts per topic to more than \num{500000} blog entries in the \dataBlog{} dataset. %~\citep{stamatatos_survey_2009}.
-At the same time, \ac{ml} algorithms made it possible to handle high-dimensional sparse data. 
-Typical feature sets included the most frequent words, often used in combination with \acp{svm}.
-As a result, the scope of \ac{av} expanded from resolving historical literary questions to addressing practical, real-world applications such as digital forensics~\citep{stamatatos_survey_2009}, where reliable attribution is essential for tasks such as plagiarism detection.
-Nevertheless, as \citet{abbasi_writeprints_2008} note, even by 2008 stylometric methods struggled with scalability across large author sets, diverse genres, and open-world scenarios where the true author may not be present in the candidate set.
+At the same time, machine learning algorithms made it possible to handle high-dimensional sparse data. 
+Typical feature sets included most frequent words, often used in combination with \acp{svm}.
+As a result, the scope of \ac{aa} expanded from resolving historical literary questions to addressing real-world applications such as digital forensics~\citep{stamatatos_survey_2009}, where reliable attribution is essential for certain fraud detection tasks.
+Nevertheless, \citet{abbasi_writeprints_2008} note that by 2008, stylometric methods still struggled to scale across large author sets, diverse genres, and open-world scenarios where the true author may not be present in the candidate set.
 
 \acp{nn} began to replace simple classifiers in \ac{av} around 2016~\citep{schmidt_llm_av_latin_24}. 
 However, their leading role was soon overtaken by transformer-based models such as \acs{bert}~\citep{bert_2019}, Ro\acs{bert}a~\citep{roberta_2019}, and T5~\citep{t5_2020}. 
 Despite these advances, traditional stylometric features have remained relevant, especially when incorporated into ensemble approaches. 
 For instance, \citet{bertaa_2020} observed that their fine-tuned \acs{bert} model achieved improved performance when its class probability outputs were combined with those of a stylometric classifier.
-
 Since late 2022, the advent of \acp{llm} has further reshaped the field, with models increasingly fine-tuned to solve authorship problems, rapidly establishing them as a popular research tool~\citep{schmidt_llm_av_latin_24}.

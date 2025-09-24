@@ -1,12 +1,13 @@
 \section{Technical Background}
 \label{sec:technical_background}
 
-This section outlines the \ac{ml} principles and paradigms that underpin modern \ac{av}. 
-We first introduce the main classification concepts relevant to \ac{av}. 
-We then discuss training and evaluation practices, including domain shift scenarios. 
-Finally, we present the principal categories of authorship analysis.
+This section outlines the machine learning principles and paradigms that underpin \ac{aa} and \ac{av}. 
+We first introduce the main classification concepts relevant to \ac{aa} and \ac{av} in \Cref{subsec:ml_principles}. 
+In \Cref{subsec:train_test}, we then discuss training and evaluation practices, including domain shift scenarios. 
+Finally, in \Cref{subsec:attribution_methods}, we present the principal categories of authorship analysis.
 
 \subsection{\acl{ml} Principles}
+\label{subsec:ml_principles}
 
 \ac{aa} tasks are conventionally formulated as classification problems, where the objective is to attribute an anonymous text to one of a set of candidate authors. 
 Unlike regression, which estimates a continuous value, classification yields a discrete label corresponding to the author’s identity.
@@ -21,21 +22,22 @@ Counterexamples, or so-called outliers, if present, are typically not representa
 This is formalised as one-class classification, where the model learns the target class characteristics without reliable counterexamples~\citep{stein_intrinsic_2011,koppel_authorship_2004}, as in \ac{av}.
 
 \paragraph{Multi-class classification.} 
-In the context of \ac{aa}, multi-class classification refers to the task of discriminating among a large number of candidate authors. 
-This setting is particularly challenging because the class distribution is often highly imbalanced, with some authors being represented by many texts while others are represented by only a few~\citep{stamatatos_survey_2009,koppel_authorship_2004}. 
+In the context of \ac{aa}, multi-class classification refers to the task of discriminating among multiple candidate authors. 
+This setting is particularly challenging if the class distribution is highly imbalanced, with some authors being represented by many texts while others are represented by only a few~\citep{stamatatos_survey_2009,koppel_authorship_2004}. 
 
 
 \subsection{Training and Testing}
+\label{subsec:train_test}
 
-Models are typically trained on one portion of the data (training set), tuned on a separate portion (validation set), and evaluated on an independent partition (test set). 
+Models are typically trained on one portion of the data (training set), optimized or tuned on a separate portion (validation set), and evaluated on an independent partition (test set). 
 Any overlap between these partitions constitutes data leakage and invalidates the results~\citep{bischoff_importance_2020,altakrori_topic_2021,boenninghoff_o2d2_2021}. 
 
 \paragraph{Covariate shift.} % epistemic/ model uncertainty -> reduce by more training data cf. O2O2 paper
 A major challenge in stylometry is covariate shift, i.e.\ mismatched data distributions often caused by topic variability across datasets \citep{boenninghoff_o2d2_2021}. 
-For instance, a model trained on the word-length distribution of a sports newspaper corpus may perform poorly when applied to a scientific newspaper corpus, as scientific vocabulary tends to comprise longer words, rendering thresholds learned on the original corpus ineffective. 
+For instance, a model that learns thresholds from word-length distributions in a sports newspaper corpus may perform poorly when applied to a scientific newspaper corpus, as scientific vocabulary tends to comprise longer words. 
 To assess robustness under such conditions, cross-domain attribution is performed using training and test texts that differ in topic or genre~\citep{barlas_cross_domain_2020}.
 
-\paragraph{Supervised vs. unsupervised learning.}  
+\paragraph{Supervised vs.\ unsupervised learning.}  
 Supervised methods require labelled training data. 
 Examples include classifiers such as \acp{svc}, decision trees, \acp{nn}, and linear discriminant analysis. 
 \acp{svc} are particularly common in authorship analysis due to their robustness. 
@@ -46,7 +48,7 @@ Clustering techniques or \acl{pca} have been used to uncover latent stylistic pa
 \subsection{Authorship Analysis Methods}
 \label{subsec:attribution_methods}
 
-Approaches to authorship analysis can be grouped into three families~\citep{stamatatos_survey_2009}.
+Approaches to authorship analysis can be grouped into three families~\citep{stamatatos_survey_2009}, each differing in how they represent and leverage the stylistic information of authors.
 
 \paragraph{Profile-based methods.} 
 All training texts of an author are concatenated into a single profile, from which a cumulative feature representation is extracted. 
