@@ -14,7 +14,7 @@ We additionally performed a manual assessment of content quality that focused on
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\textwidth]{images/prompt_impact/paraphraser_length_distribution_post_process_len_perc(qwen)_linear.svg}
-    \caption[Impact of different prompts on paraphrases.]{
+    \caption[Impact of different prompts on paraphrases]{
     Distribution of relative paraphrase lengths across different prompts, after post-processing.    
     The dotted gray line marks the optimal paraphrase length.
     }
@@ -27,7 +27,7 @@ While this instruction might seem extreme, it consistently produced paraphrases 
 
 \begin{table}[h]
 \centering
-\caption[Impact of the prompts on paraphrase lengths.]{Impact of the prompts on paraphrase lengths. 
+\caption[Impact of the prompts on paraphrase lengths]{Impact of the prompts on paraphrase lengths. 
 Relative length is defined as $\frac{len(paraphrase)}{len(reference)}\times 100\%$ and denoted $r$. 
 Optimal paraphrases are expected to approximate the reference length, i.e.\ $\diameter r \approx 100$. 
 Subscript $pp$ indicates post-processed outputs (with reasoning traces removed). 
