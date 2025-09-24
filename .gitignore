@@ -25,3 +25,7 @@ svg-inkscape/
 # among others, custom dictionary for this project
 .vscode/
 _minted/
+
+# clj
+.clj-kondo/
+.lsp/
