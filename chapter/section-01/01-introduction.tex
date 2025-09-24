@@ -5,27 +5,28 @@
 
 \section{Research Questions}
 \label{sec:research_questions}
+
+The traditional \impAppr{} samples hard negatives from a pool of existing texts.
+Hard negative texts are similar to the text of the candidate author, but were not authored by the candidate author.
 We formulate the following research questions to investigate whether \ac{llm}-generated paraphrases can improve the effectiveness of the \imp{} method by providing better control over confounding factors than traditional hard negative sampling strategies.
 \begin{questions}
     \item \textbf{How suitable are \acp{llm} for \imp{} generation?} \label{enum:rq1} \hfill \\
-    For \imps{} to be effective, hard negatives need to adhere to constraints similar to the candidate text, including confounding variables such as genre, topic, and target audience.
-    We employ \ac{llm}-based paraphrasing model the original confounding variables. 
+    For \imps{} to be effective, hard negatives need to adhere to constraints similar to the candidate author's text, including confounding variables such as genre, topic, and target audience.
+    To model these confounders, we employ \ac{llm}-based paraphrasing. 
     By conditioning \acp{llm} on confounding variables, the \impAppr{} emphasises differences in authorial style rather than in content. 
     However, the precise syntactic similarity threshold at which paraphrases are attributable to the candidate author remains uncertain, potentially limiting detection accuracy. 
-    % To investigate the suitability of artificial \imp{} generation, we design an experiment that contrasts one-step \imp{} generation with traditional baselines using standard classification metrics.
-
+   
     \item \textbf{Which metrics are appropriate to evaluate the quality of generated \imps{}?} \label{enum:rq2} \hfill \\
     Assessing \imps{} requires evaluating paraphrases, a task complicated by the absence of a universally accepted definition of paraphrasing. 
     Prior work often adopts evaluation metrics from adjacent \ac{nlp} tasks such as machine translation and summarisation~\citep{gohsen_captions_2023}. 
     The two central dimensions are semantic similarity and syntactic similarity. 
-    Contrary to naive assumptions, high syntactic similarity is not always desirable, as it may indicate minimal modification of the original text.
-    Instead, the objective is to achieve strong semantic similarity with sufficient syntactic variation, typically measured by automatic scores, while a subset of samples additionally validated through human judgments of adequacy.
-    % We therefore construct experiments to evaluate paraphrases using state-of-the-art measures for paraphrase quality. 
+    In the context of evaluation of paraphrase quality, high syntactic similarity may indicate minimal modification of the original text.
+    Hence, the objective is to achieve strong semantic similarity with sufficient syntactic variation. 
 
     \item \textbf{How does the \ac{llm}-based \impAppr{} perform compared to established \ac{av} methods?} \label{enum:rq3} \hfill \\
     To benchmark our approach, we compare it against baselines introduced by \citet{koppel_determining_2014}, \unmasking{}, and \acs{ppmd}.
     % , \textcolor{red}{as well as \unmasking{} and compression-based \ac{ppmd}}. 
-    The evaluation is conducted on human-authored text pairs from the \dataStudent{} dataset used in the original study, measuring performance in terms of precision and recall.
+    The evaluation is conducted on human-authored text pairs from the \dataStudent{} dataset used in the original study, measuring effectiveness in terms of precision and recall.
     
 \end{questions}
 
@@ -37,7 +38,7 @@ The main contributions of this thesis are as follows:
     \item We collected and preprocessed the original datasets, including a controlled candidate-pair selection procedure aligned with the methodology of \citet{koppel_determining_2014} and informed by direct consultation with the authors (cf.~\Cref{sec:dataset}).
     \item This work reimplements the traditional \impAppr{} \citep{koppel_determining_2014}\ (cf.~\Cref{sec:impostor_method_theory}).
     \item It extends the \impAppr{} with \ac{llm}-based hard negative generation proposing scenario-specific solution to \ac{av} problems (cf.~\Cref{sec:impostor_generation}). 
-    \item We further analyse prompt design, its influence on paraphrase length as a confounding variable (cf.~\Cref{subsec:prompt_impact_res}/~\ref{enum:rq1} and \ref{enum:rq2}) and on quantitative metrics adapted from summarisation and translation tasks (hereafter paraphrasing scores) (cf.~\Cref{sec:comp_paraphrases}/~\ref{enum:rq2}).
+    \item We further analyse prompt design, its influence on paraphrase length as a confounding variable (cf.~\Cref{subsec:prompt_impact_res}/~\ref{enum:rq1} and \ref{enum:rq2}) and on quantitative metrics adapted from summarisation and translation tasks (hereafter paraphrasing scores; cf.~\Cref{sec:comp_paraphrases}/~\ref{enum:rq2}).
     We also investigate the effect of text segmentation on paraphrasing scores (cf.~\Cref{sec:results_chunks}/~\ref{enum:rq2}).
     \item We compare the proposed \ac{llm}-based \impAppr{} with established \ac{av} techniques, specifically the baselines introduced by \citet{koppel_determining_2014}, \unmasking{} and \acs{ppmd}, 
     using pairs of human-authored texts in the traditional \ac{av} setting (cf.~\Cref{subsec:imp_gen_res}/~\ref{enum:rq3}).
