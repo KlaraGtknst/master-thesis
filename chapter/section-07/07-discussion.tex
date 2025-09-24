@@ -35,12 +35,12 @@ Paraphrases of long \dataGutenberg{} texts deviated substantially from the origi
 Addressing the third research question (\ref{enum:rq3}), we compared different \ac{av} methods in the traditional human-authored text scenario 
 % \textcolor{red}{using \unmasking{} and \ac{ppmd} as baselines} 
 to the \ac{llm}-based \impAppr{}.
-Performance proved highly sensitive to prompt design, highlighting a key challenge when using \acp{llm}. 
+Effectivity proved highly sensitive to prompt design, highlighting a key challenge when using \acp{llm}. 
 Prompt engineering remains largely ad-hoc, shifting focus from framework development to instruction crafting. 
 Importantly, there is no single prompt that works universally for all \acp{llm}. 
 Effective prompts depend, among other factors, on the size of the model. 
 Larger \acp{llm} can leverage intrinsic knowledge under more permissive prompts, whereas smaller models require carefully tailored instructions~\citep{schmidt_llm_av_latin_24}.
-Once an effective prompt generating sufficiently long paraphrases was identified, our approach achieved competitive results relative to the baselines proposed by \citet{koppel_determining_2014}, demonstrating that prompt tuning is a critical factor in practical performance.
+Once an effective prompt generating sufficiently long paraphrases was identified, our approach achieved competitive results relative to the baselines proposed by \citet{koppel_determining_2014}, demonstrating that prompt tuning is a critical factor in practical effectivity.
 
 Theoretically, extending the \impAppr{} should increase precision at the cost of recall, as harder negatives reduce same-author predictions. 
 Interestingly, this trade-off did not manifest as expected, suggesting that the impact of artificially generated hard negatives on the \impAppr{} is not yet fully understood.

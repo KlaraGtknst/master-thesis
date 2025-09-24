@@ -17,10 +17,10 @@ Although we draw comparisons between their findings and ours, direct comparabili
 The original \impAppr{}'s recall–precision curves demonstrate a clearer distinction between the evaluated approaches.
 However, we were unable to reproduce exactly the values reported in the original work by \citet{koppel_determining_2014}.
 On the \dataBlog{} dataset, as illustrated in \Cref{fig:blog_dif_n}, and on the \dataStudent{} dataset, detailed in \Cref{app:exp_student_dif_n}, increasing the number of \imps{} from 500 to \num{1000} has only a negligible effect on precision and recall.
-In line with the original findings, we observe that employing 50 \imps{} yields marginally superior performance.
+In line with the original findings, we observe that employing 50 \imps{} yields marginally superior effectivity.
 The experiment was repeated multiple times on subsets of 20 samples per class, with the best-performing number of \imps{} varying across runs, thereby underscoring the sample-dependent nature of the effect.
 
-% By contrast, our experiments on the \dataStudent{} dataset  support the original conclusion that 50 \imps{} achieve superior performance, thereby highlighting a dataset-dependent effect.
+% By contrast, our experiments on the \dataStudent{} dataset  support the original conclusion that 50 \imps{} achieve superior effectivity, thereby highlighting a dataset-dependent effect.
 
 
 
@@ -109,7 +109,7 @@ Both \citet{koppel_determining_2014}\ and our results indicate that \texttt{fixe
 Beyond this agreement, however, our recall–precision curves deviate from the original findings.
 In the different-author scenario, all methods except \texttt{on-the-fly} generation exhibit low precision, with \texttt{fixed} \imps{} performing worst.
 Low precision corresponds to a high number of \acp{fp}, i.e.\ many same-author pairs incorrectly classified as different authors.
-This outcome suggests that training on the same-author class produces systematically poor performance in a different-author class test scenario, as the model is not optimised for it.
+This outcome suggests that training on the same-author class produces systematically poor effectivity in a different-author class test scenario, as the model is not optimised for it.
 
 Opposed to the original work of \citet{koppel_determining_2014}, our \texttt{on-the-fly} \imps{} lack difficulty explaining the low precision in the same-author and the high precision in the different-author scenario.
 Since we had to reduce the number of test samples for \texttt{on-the-fly} \imp{} generation due to API call limits, we suggest analysing this approaches' results with a grain of salt.
