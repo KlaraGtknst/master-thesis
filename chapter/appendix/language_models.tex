@@ -1,7 +1,7 @@
 \chapter{Large Language Models}
 \label{app:language_models}
 
-We initially also worked with T5-based models\footnote{\url{https://huggingface.co/humarin/chatgpt_paraphraser_on_T5_base}, \url{https://huggingface.co/Vamsi/T5_Paraphrase_Paws} (12.06.2025)}. However, these models proved insufficient for our tasks in terms of prompt adherence and output quality. 
+We initially also worked with T5-based models\footnote{\url{https://huggingface.co/humarin/chatgpt_paraphraser_on_T5_base},\\ \url{https://huggingface.co/Vamsi/T5_Paraphrase_Paws} (12.06.2025)}. However, these models proved insufficient for our tasks in terms of prompt adherence and output quality. 
 Consequently, we focused on the four autoregressive \acp{llm} for paraphrasing and instruction-based information extraction presented in \Cref{tab:llm_paraphrasers}.
 
 \begin{table}[h]
@@ -11,7 +11,7 @@ Consequently, we focused on the four autoregressive \acp{llm} for paraphrasing a
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}llrl@{}}
 \toprule
-\textbf{Organization} & \textbf{Model} & \textbf{Context Window Size (\# token)} & \textbf{Knowledge cutoff} \\
+\textbf{Organization} & \textbf{Model} & \textbf{Context Window Size (\# token)} & \textbf{Knowledge cut-off} \\
 \midrule
 Mistral       & Mistral Large Instruct & 128k & July 2024 \\
 Meta          & Llama 3.1 8B Instruct  & 128k & December 2023 \\
@@ -52,7 +52,7 @@ response = self.client.chat.completions.create(**body)
 \end{minted}
 \caption{
 System prompt and user message configuration for paraphrasing using models hosted by \ac{gwdg}/\ac{saia}. 
-\texttt{model\_id} specifies the model to be used. 
+The \texttt{model\_id} specifies the model to be used. 
 The input variables \texttt{temperature}, \texttt{text}, and \texttt{prompt} correspond, respectively, to the temperature for the \ac{llm}, the text to be paraphrased, and the instruction provided to the \ac{llm}.
 For very large inputs, the text is truncated to avoid errors if it exceeds the model’s maximum context window.
 }
@@ -90,8 +90,7 @@ It supports eight languages including English, French, German, Hindi, Italian, P
 \section{Mistral-Large-Instruct}
 
 We use \texttt{Mistral-Large-Instruct-2407} (also \texttt{Mistral Large Instruct-2}\footnote{\url{https://mistral.ai/news/mistral-large-2407} (14.09.2025)}).
-It is a multilingual dense transformer-based \ac{llm} with 123B parameters\footnote{\url{https://huggingface.co/mistralai/Mistral-Large-Instruct-2407}, \url{https://dataloop.ai/library/model/alpindale_mistral-large-instruct-2407-fp8/}
-(14.09.2025); unlike the version at this URL, our imodel is full-precision}.
+It is a multilingual dense transformer-based \ac{llm} with 123B parameters\footnote{\url{https://huggingface.co/mistralai/Mistral-Large-Instruct-2407},\\ \url{https://dataloop.ai/library/model/alpindale_mistral-large-instruct-2407-fp8/} (14.09.2025); unlike the version at this URL, our model is full-precision.}.
 Its context window length is 128K.
 
 \section{Openai-gpt-oss-120b}
