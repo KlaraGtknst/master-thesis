@@ -31,7 +31,7 @@ Models are typically trained on one portion of the data (training set), tuned on
 Any overlap between these partitions constitutes data leakage and invalidates the results~\citep{bischoff_importance_2020,altakrori_topic_2021,boenninghoff_o2d2_2021}. 
 
 \paragraph{Covariate shift.} % epistemic/ model uncertainty -> reduce by more training data cf. O2O2 paper
-A major challenge in stylometry is covariate shift, i.e.\ mismatched data distributions often caused by topic variability across datasets~\citep{boenninghoff_o2d2_2021}. 
+A major challenge in stylometry is covariate shift, i.e.\ mismatched data distributions often caused by topic variability across datasets \citep{boenninghoff_o2d2_2021}. 
 For instance, a model trained on the word-length distribution of a sports newspaper corpus may perform poorly when applied to a scientific newspaper corpus, as scientific vocabulary tends to comprise longer words, rendering thresholds learned on the original corpus ineffective. 
 To assess robustness under such conditions, cross-domain attribution is performed using training and test texts that differ in topic or genre~\citep{barlas_cross_domain_2020}.
 

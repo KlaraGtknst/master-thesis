@@ -19,7 +19,7 @@ Traditional non-neural approaches retain relevance for their strength in cross-d
 Studies of feature robustness~\citep{stamatatos_survey_2009,barlas_cross_domain_2020} highlight that character, function word, and \ac{pos} n-grams are generally more topic-independent than other stylometric features, though frequent function words can still correlate with topic~\citep{bischoff_importance_2020}. 
 These findings suggest that \acp{llm} alone may not yet be reliable as standalone discriminators but can enhance traditional approaches or improve robustness in cross-domain settings.
 
-\acp{llm} have been explored both as discriminators for \ac{llm} detection~\citep{futrzynski_pairwise_2021} and as tools to augment \ac{av} methods through text generation or paraphrasing~\citep{mao_raidar_2024,baradia_mirror_2025}. 
+\acp{llm} have been explored as discriminators for \ac{llm} detection \citep{futrzynski_pairwise_2021} and as tools to augment \ac{av} methods through text generation or paraphrasing~\citep{mao_raidar_2024,baradia_mirror_2025}. 
 Generating controlled distortions has proven effective in cross-domain scenarios~\citep{bischoff_importance_2020}, positioning \acp{llm} as promising additions to \ac{av} research.
 
 \acp{llm} also support explainability. 
@@ -27,7 +27,7 @@ Generating controlled distortions has proven effective in cross-domain scenarios
 However, generated explanations can contain hallucinations. 
 Similarly, \citet{ramnath_cave_xai_llm_2025} observed hallucinations, bias propagation and incompleteness when using GPT-4-Turbo as an oracle to create a silver dataset for training their CAVE model, a strategy motivated by the lack of human-written explanations for \ac{av} decisions.
 
-Furthermore, certain approaches build on the capacity of \acp{llm} to closely approximate human writing style.
+Furthermore, certain approaches build on the capacity of \acp{llm} to imitate human writing style.
 DetectGPT, for instance, identifies machine-generated text by perturbing candidate texts and rescoring them based on model log probabilities~\citep{mitchell_detectgpt_2023}. 
 While effective, DetectGPT is limited to white-box settings and is vulnerable to paraphrases or unseen models~\citep{Wu_ODD_challenges_2025}. 
 Its perturbation strategy shares conceptual similarity with our paraphrasing approach.
