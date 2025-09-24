@@ -9,7 +9,7 @@ However, traditional sampling strategies are unable to simultaneously control fo
 This thesis investigates whether \aclp{llm} can help address these limitations. 
 Specifically, we employ \acs{llm}-generated paraphrases as hard negatives. 
 % Since these paraphrases aim to preserve the confounding variables of the original text, they mitigate domain-related biases during inference. 
-% Moreover, by constructing a tailored case for each input text pair, the approach eliminates \acl{ood} issues, ensuring that comparisons remain within the distribution defined by the pair itself.
+% Moreover, by constructing a tailored case for each input text pair, the approach eliminates out-of-distribution issues, ensuring that comparisons remain within the distribution defined by the pair itself.
 Evaluation on the \dataStudent{} dataset from the original study shows that the \acs{llm}-based extension surpasses the original baselines by \citet{koppel_determining_2014}, \acs{ppmd}, and \unmasking{} in terms of precision and recall.
 At the same time, our results reveal the practical and conceptual challenges of integrating \acsp{llm} into \acl{av}, including issues of reliability, hallucination, and control over paraphrase quality.
 

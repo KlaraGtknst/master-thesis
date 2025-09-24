@@ -43,7 +43,7 @@ Unlike prior work, we do not restrict metadata to predefined classes nor focus o
 
 Other approaches combine \ac{llm} rewriting with traditional syntactic metrics. 
 Paraphrases can be generated via rule-based methods, monolingual machine translation~\citep{zhou_paraphrase_2021}, or generative models~\citep{kurt_pehlivanoglu_comparative_2024}. 
-RAIDAR, for example, generates perturbed versions of text and compares edit distances for predictions~\citep{mao_raidar_2024}, while \mirrorMinds{} scores paraphrases using \acs{bleu} and METEOR~\citep{baradia_mirror_2025}. 
+RAIDAR, for example, generates perturbed versions of text and compares edit distances for predictions~\citep{mao_raidar_2024}, while \mirrorMinds{} scores paraphrases using \acs{bleu} and \ac{meteor}~\citep{baradia_mirror_2025}. 
 However, when using \mirrorMinds{}, we found it produced low-quality paraphrases, limiting its potential for \ac{av} tasks. % only one word answers to text
 \citet{li_learning_2025} fine-tune \acp{llm} to rewrite human-authored texts more extensively than machine-generated ones. 
 All of these approaches are similar to ours in that they leverage \acp{llm} to generate texts at inference time. 
