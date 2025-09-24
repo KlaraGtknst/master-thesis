@@ -32,7 +32,6 @@ Ideally, syntactic measures should be minimised, while semantic measures are max
 For two-step paraphrasers, the difference between semantic and syntactic scores increases with the number of chunks, driven by decreasing mean average syntactic similarity for the \dataBlog{} and \dataStudent{} datasets. 
 \Cref{fig:abl_chunks_blog_translation} illustrates the effect for the translation-based paraphraser on the \dataBlog{} dataset. 
 On the \dataGutenberg{} dataset, chunking reduces the semantic similarity of translation-based paraphrases, while other two-step paraphrasers remain largely unaffected, resulting in minimal change to the overall mean semantic similarity. 
-Interestingly, two-step approaches on the \dataPan{} dataset show a peak in syntactic measures at two chunks, a phenomenon we were unable to explain. 
 As shown in \Cref{fig:abl_chunks_student_essays_llama}, chunking had negligible impact on one-step paraphrasing approaches. 
 Additional visualisations are provided in the Appendix (cf.~\Cref{sec:app_chunks}).
 
@@ -42,21 +41,45 @@ Consequently, \ac{rouge}-L and \ac{rouge}-Lsum yield identical results in this s
 In summary, increasing the number of chunks decreases syntactic diversity for two-step approaches, with only minor reductions in semantic similarity for some datasets. 
 Given that processing $n$ chunks with a two-step approach requires $2n$ API calls in the best case, and that chunking has no effect on one-step paraphrases, we excluded chunking from our paraphrasing pipeline.
 
-\begin{figure}[htbp]
-    \centering
-    \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Blog/Translation_metrics_plot_category_Blog.svg}
-    \caption[Impact of the number of chunks on \dataBlog{} dataset.]{
-    Average syntactic and semantic measures (shaded areas indicate standard deviation) for the translation-based paraphraser on the \dataBlog{} dataset. 
-    Increasing the number of chunks reduces syntactic similarity.    
-    }
-    \label{fig:abl_chunks_blog_translation}
-\end{figure}
+% \begin{figure}[htbp]
+%     \centering
+%     \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Blog/Translation_metrics_plot_category_Blog.svg}
+%     \caption[Impact of the number of chunks on \dataBlog{} dataset.]{
+%     Average syntactic and semantic measures (shaded areas indicate standard deviation) for the translation-based paraphraser on the \dataBlog{} dataset. 
+%     Increasing the number of chunks reduces syntactic similarity.    
+%     }
+%     \label{fig:abl_chunks_blog_translation}
+% \end{figure}
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Student_Essays/meta-llama-3.1-8b-instruct_metrics_plot_category_Student Essays.svg}
+%     \caption[Impact of the number of chunks on \dataStudent{} dataset.]{Average paraphrasing measures (shaded areas indicate standard deviation) for a Llama-based paraphraser on the \dataStudent{} dataset. 
+%     One-step paraphrasing is unaffected by the number of chunks.
+%     }
+%     \label{fig:abl_chunks_student_essays_llama}
+% \end{figure}
 
 \begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{\textwidth}
+    \centering
+    \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Blog/Translation_metrics_plot_category_Blog.svg}
+    \caption[Translation-based paraphraser on \dataBlog{}.]{
+    Translation-based paraphraser on the \dataBlog{} dataset.    
+    }
+    \label{fig:abl_chunks_blog_translation}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{\textwidth}
     \centering
     \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Student_Essays/meta-llama-3.1-8b-instruct_metrics_plot_category_Student Essays.svg}
-    \caption[Impact of the number of chunks on \dataStudent{} dataset.]{Average paraphrasing measures (shaded areas indicate standard deviation) for a Llama-based paraphraser on the \dataStudent{} dataset. 
-    One-step paraphrasing is unaffected by the number of chunks.
+    \caption[Llama-based paraphraser on \dataStudent{}.]{Llama-based paraphraser on the \dataStudent{} dataset.
     }
     \label{fig:abl_chunks_student_essays_llama}
+  \end{subfigure}
+  \caption[Average syntactic and semantic measures for different chunk numbers.]{Average syntactic and semantic measures (shaded areas indicate standard deviation) for different number of chunks.
+  \Cref{fig:abl_chunks_blog_translation} shows that increasing the number of chunks reduces syntactic similarity for the translation-based paraphrases, whereas \Cref{fig:abl_chunks_student_essays_llama} demonstrates that one-step paraphrasing is largely unaffected by the number of chunks.
+  }
+  \label{fig:abl_chunks}
 \end{figure}

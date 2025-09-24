@@ -81,28 +81,17 @@ As a consequence, both \imp{} generation methods tend to yield more different-au
     \label{fig:findings_original_work}
 \end{figure}
 
-% our results
-Both \citet{koppel_determining_2014}\ and our results indicate that \texttt{fixed} \imp{} generation performs best in the same-author scenario.
-Beyond this agreement, however, our recall–precision curves deviate from the original findings.
-In the different-author scenario, all methods except \texttt{on-the-fly} generation exhibit low precision, with \texttt{fixed} \imps{} performing worst.
-Low precision corresponds to a high number of \acp{fp}, i.e.\ many same-author pairs incorrectly classified as different authors.
-This outcome suggests that training on the same-author class produces systematically poor performance in a different-author class test scenario, as the model is not optimised for it.
-
-Opposed to the original work of \citet{koppel_determining_2014}, our \texttt{on-the-fly} \imps{} lack difficulty explaining the low precision in the same-author and the high precision in the different-author scenario.
-Since we had to reduce the number of test samples for \texttt{on-the-fly} \imp{} generation due to API call limits, we suggest analysing this approaches' results with a grain of salt.
-However, Mr.\ Winter noted that our \texttt{on-the-fly} \imp{} generation implementation seems insufficient, due to the rise of bot prevention blocking web scraping and the very limited number of API calls per month.
-
 % \textcolor{red}{TODO: figures SVC to SVM}
 \begin{figure}[htbp]
   \centering
-  \begin{subfigure}[b]{0.49\textwidth}
+  \begin{subfigure}[b]{0.9\textwidth}
     \centering
     \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig4/blog/blog_roc_prec_recall_curve_r100_top100000_Same_Author_dif_imp_gen.svg}
     \caption{Same-author reference class. }
     \label{fig:blog_same_author}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[b]{0.49\textwidth}
+  \begin{subfigure}[b]{0.9\textwidth}
     \centering
     \includesvg[width=\linewidth]{images/imposter/reproduction_koppel_figures/fig4/blog/blog_roc_prec_recall_curve_r100_top100000_Different_Author_dif_imp_gen.svg}
     \caption{Different-author reference class.}
@@ -114,3 +103,14 @@ However, Mr.\ Winter noted that our \texttt{on-the-fly} \imp{} generation implem
   Classifiers were not retrained for the different-author reference class scenario, explaining the poor results.}
   \label{fig:diff_imp_gen_blog}
 \end{figure}
+
+% our results
+Both \citet{koppel_determining_2014}\ and our results indicate that \texttt{fixed} \imp{} generation performs best in the same-author scenario.
+Beyond this agreement, however, our recall–precision curves deviate from the original findings.
+In the different-author scenario, all methods except \texttt{on-the-fly} generation exhibit low precision, with \texttt{fixed} \imps{} performing worst.
+Low precision corresponds to a high number of \acp{fp}, i.e.\ many same-author pairs incorrectly classified as different authors.
+This outcome suggests that training on the same-author class produces systematically poor performance in a different-author class test scenario, as the model is not optimised for it.
+
+Opposed to the original work of \citet{koppel_determining_2014}, our \texttt{on-the-fly} \imps{} lack difficulty explaining the low precision in the same-author and the high precision in the different-author scenario.
+Since we had to reduce the number of test samples for \texttt{on-the-fly} \imp{} generation due to API call limits, we suggest analysing this approaches' results with a grain of salt.
+However, Mr.\ Winter noted that our \texttt{on-the-fly} \imp{} generation implementation seems insufficient, due to the rise of bot prevention blocking web scraping and the very limited number of API calls per month.
