@@ -19,11 +19,12 @@ For example, detecting plagiarised passages can be formulated as an \ac{av} task
 % specificity rather than generality
 Existing approaches to generalisation typically train a single model and apply it across domains.
 Despite significant advances in \ac{av}, prior work finds that such models struggle in out-of-distribution settings, where the topic or genre diverges from the training data~\citep{Sundararajan_style_18,bischoff_importance_2020,li_learning_2025}. 
-This shortcoming motivates a shift towards scenario-specific solutions, i.e.\ models are trained anew for narrowly defined cases. 
-Such single-case approaches enable more precise control over confounding variables and place greater emphasis on stylistic idiosyncrasies rather than domain-level variation.
+This shortcoming motivates a shift towards scenario-specific solutions, where models are trained anew for narrowly defined cases. 
+Such single-case approaches enable more precise control over domain variables which facilitates emphasising on stylistic idiosyncrasies rather than domain-level variation.
 
 % AV
-The \impAppr{} by \citet{koppel_determining_2014}\ introduces the idea of sampling \imp{} texts, i.e.\ hard negatives, intended to sharpen the discrimination between genuine and false authorship matches. 
+The \impAppr{} by \citet{koppel_determining_2014}\ introduces the idea of sampling so-called \imp{} texts, i.e.\ hard negatives, intended to sharpen the discrimination between genuine and false authorship matches. 
+Since impostor texts are drawn anew for every input text pair, the method should generalise effectively to cross-domain scenarios.
 However, the method's effectiveness is limited by the quality and contextual adequacy of these \imp{} texts. 
 Traditional strategies cannot simultaneously control multiple confounding factors such as genre, topic, and target audience, limiting the discriminatory power of the hard negatives.
 
