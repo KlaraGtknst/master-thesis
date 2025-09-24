@@ -51,13 +51,6 @@ In our one-step approach, \imps{} are generated directly via \ac{llm} prompting.
 Effective prompting proved crucial. 
 We found that specifying constraints was vital for valid outputs, and placing task instructions at the end reduced instruction neglect in long-context settings (e.g. \dataGutenberg{} corpus). 
 We evaluated three prompt variants.
-% The first prompt, displayed in \Cref{fig:one_step_paraphrasing_prompt0}, explicitly decomposes the sentence into subject, verb, and object before reconstruction, encouraging lexical diversity. 
-% \begin{figure}[h]
-%     \centering
-%     \includesvg[width=\textwidth]{/Users/klara/Developer/Uni/MA/master-thesis/images/prompt_impact/one_step_prompts/one_step_prompt0.svg}
-%     \caption{The first prompt, hereafter denoted \texttt{prompt0}.}
-%     \label{fig:one_step_paraphrasing_prompt0}
-% \end{figure}
 
 The first prompt explicitly decomposes the sentence into subject, verb, and object before reconstruction, encouraging lexical diversity. 
 \begin{quote}
