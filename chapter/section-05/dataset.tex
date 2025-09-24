@@ -155,8 +155,8 @@ Descriptive statistics for all preprocessed datasets are provided in Table~\ref{
 % The presence of short artefacts in the \dataArtificialStudent{} dataset cannot be attributed to human-authored texts, as these have been filtered to meet a minimum length.
 % Hence, the artificially generated texts exhibit shorter average lengths compared to other datasets.
 
+% instead of combining r and num for numbers, just use S instead of r and omit num next time
 \begin{table}[H]
-% \begin{sidewaystable}
 \centering\small
 \caption[Statistics of preprocessed datasets.]{Statistics of preprocessed datasets \dataBlog{}, \dataGutenberg{}, \dataPan{}, and \dataStudent{}. %, and \dataArtificialStudent{}.
 $p_s$, $p_{\neg s}$ denote same-author and different-authors pairs, while $l_w$, $l_c$ denote text length in words and characters, respectively.
@@ -165,7 +165,7 @@ $p_s$, $p_{\neg s}$ denote same-author and different-authors pairs, while $l_w$,
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{@{}lrrrrrrrrrr@{}}   % numbers should be right aligned, text left aligned
 \toprule
-dataset & \# pairs & \# authors & \# $p_s$ & \# $p_{\neg s}$ & \diameter $l_c$ & \diameter $l_w$ & max $l_w$ & $\sigma_{l_w}$ & median $l_w$ \\
+Dataset & \# pairs & \# authors & \# $p_s$ & \# $p_{\neg s}$ & \diameter $l_c$ & \diameter $l_w$ & max $l_w$ & $\sigma_{l_w}$ & median $l_w$ \\
 \midrule
 \dataBlog{}            & \num{11565} & \num{5997}  & \num{6204} & \num{5361}  & \num{6249.94} & 1154.25     & \num{115365} & 1493.97 & 913 \\
 \dataGutenberg{}       & 12    & 7     & 6     & 6     & \num{437870.75} & \num{78698.79} & \num{297704} & \num{68329.91} & \num{60282} \\
@@ -176,4 +176,3 @@ dataset & \# pairs & \# authors & \# $p_s$ & \# $p_{\neg s}$ & \diameter $l_c$ &
 \end{tabular}%
 }
 \end{table}
-% \end{sidewaystable}
