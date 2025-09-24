@@ -149,7 +149,7 @@ Again, all generator prompts can be found in \Cref{app:generator_prompts}.
 
 % Arrows
 \draw[arrow] (dataset) -- (reference.west);
-\draw[arrow] (dataset) -- node[midway, above] {$\{0,1\}$} (meta);
+\draw[arrow] (dataset) -- node[pos=0.4, above left=2pt and -9.5pt] {$\{0,1\}$} (meta);
 \draw[arrow] (reference.east) -- (extractor);
 \draw[dashedarrow] (extractor) -- (generator);
 \draw[arrow] (generator) -- (paraphrase);
