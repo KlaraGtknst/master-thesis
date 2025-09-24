@@ -34,7 +34,7 @@ Its perturbation strategy shares conceptual similarity with our paraphrasing app
 
 Prior work also informs our two-step paraphraser. 
 \citet{nogueira_doc2query_2019} introduce Doc2query, generating queries from documents to address term mismatch in retrieval, while \citet{lee_gecko_2024} propose Gecko, a transformer distilled from \acp{llm} that generates queries for document retrieval. 
-Both share the goal with our \pextractor{} of extracting plausible human queries, though our approach yields more complete, document-specific information.
+Both Doc2query, Gecko and our \pextractor{} seek to extract plausible human queries, but our method produces more complete and document-specific information.
 
 A similar two-step approach is reported by \citet{bevendorff_overview_2024} for constructing an evaluation dataset for \acs{pan}.
 They first extract bullet points and metadata from news articles using GPT-4 Turbo, and then generate artificial texts based on this extracted information. 
@@ -43,7 +43,7 @@ Unlike prior work, we do not restrict metadata to predefined classes nor focus o
 
 Other approaches combine \ac{llm} rewriting with traditional syntactic metrics. 
 Paraphrases can be generated via rule-based methods, monolingual machine translation~\citep{zhou_paraphrase_2021}, or generative models~\citep{kurt_pehlivanoglu_comparative_2024}. 
-RAIDAR, for example, generates perturbed versions of text and compares edit distances for predictions~\citep{mao_raidar_2024}, while \mirrorMinds{} scores paraphrases using \acs{bleu} and \ac{meteor}~\citep{baradia_mirror_2025}. 
+RAIDAR, for example, generates perturbed versions of text and compares edit distances for predictions~\citep{mao_raidar_2024}, while \mirrorMinds{} scores paraphrases using \acs{bleu} and \acs{meteor}~\citep{baradia_mirror_2025}. 
 However, when using \mirrorMinds{}, we found it produced low-quality paraphrases, limiting its potential for \ac{av} tasks. % only one word answers to text
 \citet{li_learning_2025} fine-tune \acp{llm} to rewrite human-authored texts more extensively than machine-generated ones. 
 All of these approaches are similar to ours in that they leverage \acp{llm} to generate texts at inference time. 
