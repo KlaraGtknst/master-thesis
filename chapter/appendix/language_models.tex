@@ -1,7 +1,7 @@
 \chapter{Large Language Models}
 \label{app:language_models}
 
-We initially also worked with T5-based models\footnote{\url{https://huggingface.co/humarin/chatgpt_paraphraser_on_T5_base},\\ \url{https://huggingface.co/Vamsi/T5_Paraphrase_Paws} (12.06.2025)}. However, these models proved insufficient for our tasks in terms of prompt adherence and output quality. 
+We initially also worked with T5-based models\footnote{\url{https://huggingface.co/humarin/chatgpt_paraphraser_on_T5_base},\\ \url{https://huggingface.co/Vamsi/T5_Paraphrase_Paws} (June 12, 2025)}. However, these models proved insufficient for our tasks in terms of prompt adherence and output quality. 
 Consequently, we focused on the four autoregressive \acp{llm} for paraphrasing and instruction-based information extraction presented in \Cref{tab:llm_paraphrasers}.
 
 \begin{table}[h]
@@ -21,7 +21,7 @@ Alibaba Cloud & Qwen 3 32B             & 32k  & September 2024 \\
 \end{tabular}%
 }
 \end{table}
-\footnotetext{\url{https://docs.hpc.gwdg.de/services/chat-ai/models/index.html} (14.09.2025)}
+\footnotetext{\url{https://docs.hpc.gwdg.de/services/chat-ai/models/index.html} (September 14, 2025)}
 
 To perform paraphrasing, we configure both a system prompt and a user message to guide the model's output. 
 The system prompt defines the assistant’s behaviour, instructing it to produce only the final paraphrased text, while the user message provides the input text and any additional instructions. 
@@ -67,7 +67,7 @@ For very large inputs, the text is truncated to avoid errors if it exceeds the m
 Its pretrained model components  (8B, 70B, 405B) are optimised using different fine-tuning strategies.
 % They are further listed in \Cref{tab:llama31}.
 The model was released on July 23, 2024 and has a knowledge cut-off of December 2023.
-It supports eight languages including English, French, German, Hindi, Italian, Portuguese, Spanish, and Thai\footnote{\url{https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct} (14.09.2025)}.
+It supports eight languages including English, French, German, Hindi, Italian, Portuguese, Spanish, and Thai\footnote{\url{https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct} (September 14, 2025)}.
 
 % \begin{table}[h]
 % \centering
@@ -89,8 +89,8 @@ It supports eight languages including English, French, German, Hindi, Italian, P
 
 \section{Mistral-Large-Instruct}
 
-We use \texttt{Mistral-Large-Instruct-2407} (also \texttt{Mistral Large Instruct-2}\footnote{\url{https://mistral.ai/news/mistral-large-2407} (14.09.2025)}).
-It is a multilingual dense transformer-based \ac{llm} with 123B parameters\footnote{\url{https://huggingface.co/mistralai/Mistral-Large-Instruct-2407},\\ \url{https://dataloop.ai/library/model/alpindale_mistral-large-instruct-2407-fp8/} (14.09.2025); unlike the version at this URL, our model is full-precision.}.
+We use \texttt{Mistral-Large-Instruct-2407} (also \texttt{Mistral Large Instruct-2}\footnote{\url{https://mistral.ai/news/mistral-large-2407} (September 14, 2025)}).
+It is a multilingual dense transformer-based \ac{llm} with 123B parameters\footnote{\url{https://huggingface.co/mistralai/Mistral-Large-Instruct-2407},\\ \url{https://dataloop.ai/library/model/alpindale_mistral-large-instruct-2407-fp8/} (September 14, 2025); unlike the version at this URL, our model is full-precision.}.
 Its context window length is 128K.
 
 \section{Openai-gpt-oss-120b}
@@ -105,6 +105,6 @@ A detailed review of \texttt{gpt-oss} architecture and training is provided in \
 % there are also mixture-of-experts, but not thsi one
 % causal (=autoregressive, != masked) language model with 32K context length: https://huggingface.co/Qwen/Qwen3-32B
 \texttt{Qwen3:32b} is a dense autoregressive transformer model.
-The model supports more than 100 languages and dialects\footnote{\url{https://qwenlm.github.io/blog/qwen3/} (14.09.2025)}.
+The model supports more than 100 languages and dialects\footnote{\url{https://qwenlm.github.io/blog/qwen3/} (September 14, 2025)}.
 Qwen3 models can operate in non-thinking and thinking mode~\citep{qwen3_technical_report}.
 % It has 64 layers and a context length of 128K~\citep{qwen3_technical_report}.
