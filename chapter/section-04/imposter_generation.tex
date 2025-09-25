@@ -8,8 +8,8 @@ If they are too different from the candidate text, models are trained on trivial
 Conversely, if \imps{} are too similar to the candidate, the risk of \acp{fn} increases.
 This manifests as increased recall in the former case and increased precision in the latter case.
 
-% obstacles for \imp{} generation in the past
-Traditional \imp{} generation techniques struggled to simultaneously control multiple confounders:
+% obstacles for \imp{} selection in the past
+Traditional \imp{} selection techniques struggled to simultaneously control multiple confounders:
 The original \texttt{fixed} approach samples from a pool of unrelated texts, while the \texttt{on-the-fly} approach fails to align genre with the candidate text~\citep{koppel_determining_2014}. 
 Since authorial style is tightly entangled with domain variables, \imps{} produced by these methods differ systematically from the candidate text, weakening their utility. 
 Ideally, \imp{} generation should replicate the conditions of reference text production, including task, topic, register, target audience and century. 
