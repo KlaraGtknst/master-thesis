@@ -12,7 +12,7 @@ Following the description of all datasets, we outline our preprocessing pipeline
 
 % Blog
 The \dataBlog{} corpus~\citep{blog_dataset_2006} consists of blog posts collected from \textit{blogger.com} on or before August 2004, with each blog authored by a single user.
-According to the Kaggle repository\footnote{\href{https://www.kaggle.com/datasets/rtatman/blog-authorship-corpus?resource=download}{Kaggle dataset \texttt{rtatman/blog-authorship-corpus}} (26.07.2025)}, the dataset contains \num{681288}~posts from \num{19320}~bloggers, averaging approximately 35~posts and \num{7250}~words per author.
+According to the Kaggle repository\footnote{\href{https://www.kaggle.com/datasets/rtatman/blog-authorship-corpus?resource=download}{Kaggle dataset \texttt{rtatman/blog-authorship-corpus}} (July 26, 2025)}, the dataset contains \num{681288}~posts from \num{19320}~bloggers, averaging approximately 35~posts and \num{7250}~words per author.
 Each record includes the following metadata: \texttt{id}, \texttt{gender}, \texttt{age}, \texttt{topic}, 
 \texttt{sign} (referring to the author's zodiac sign), \texttt{date}, and \texttt{text}.
 
@@ -72,27 +72,16 @@ Text-length filtering is essential to the creation of optimal testbeds for \ac{a
 To determine the necessary preprocessing steps, we examined our datasets and analysed their respective artefacts.
 
 Since both the \dataBlog{} and the \dataPan{} dataset originate from the Internet, some of their documents contain HTML fragments such as \texttt{< >} enclosed tags.
-Upon inspection of the \dataGutenberg{} dataset, we found that certain patterns reappear due to the presences of many plays.
+Upon inspection of the \dataGutenberg{} dataset, we found that certain patterns reappear due to the presences of many theatre plays.
 Based on these findings, we collected eight preprocessing steps we deemed potentially useful. 
 Notably, we do not consider actor instructions (e.g. character cues) or structural elements (e.g. chapter headings) part of authorial style.
 Hence, we remove these patterns using regular expressions.
-The regular expressions are provided in \Cref{app:regex_preproc}.
+The regular expressions are provided in Appendix \ref{app:regex_preproc}.
 Note that the perceived utility of these steps should be reevaluated for other datasets.
 Next, we analysed the effect of individual preprocessing steps on vocabulary size.  
 We define the vocabulary of a dataset as unique tokens across all texts of that dataset, regardless of their text length or split.
 In line with \citep{koppel_determining_2014}, tokens are space-free character 4-grams.
 We leave the capitalisation of tokens unchanged. 
-The results are displayed in \Cref{fig:preprocesing_impact_vocab_size}.
-
-We found that HTML-specific preprocessing steps had minimal impact on the size of vocabularies.
-Similarly, the removal of artefacts specific to theatre plays had little effect on the overall vocabulary size.
-The results aligned with expectations, as the vocabularies are defined over space-free 4-gram units that, due to their limited length, exhibit a high likelihood of redundancy.
-Consequently, repetitive patterns are mapped on the same vocabulary item.
-Once the repetitive patterns are filtered out, the vocabulary lacks these items.
-
-Based on these considerations, our preprocessing steps include removing HTML artefacts, play artefacts, newlines, converting UTF-8 to ASCII, and stripping leading and trailing whitespace.
-We opted to forgo lowercasing the texts, as our preliminary analysis indicated that lowercasing had no meaningful effect on any dataset while potentially discarding deliberate authorial capitalisation choices.
-% Due to preprocessing, our \dataPan{} version differs from those applied elsewhere.
 
 \begin{figure}[htbp]
     \centering
@@ -103,13 +92,23 @@ We opted to forgo lowercasing the texts, as our preliminary analysis indicated t
     \label{fig:preprocesing_impact_vocab_size}
 \end{figure}
 
+The results in \Cref{fig:preprocesing_impact_vocab_size} suggest that HTML-specific preprocessing steps had minimal impact on the size of vocabularies.
+Similarly, the removal of artefacts specific to theatre plays had little effect on the overall vocabulary size.
+The results aligned with expectations, as the vocabularies are defined over space-free 4-gram units that, due to their limited length, exhibit a high likelihood of redundancy.
+Consequently, repetitive patterns are mapped on the same vocabulary item.
+Once the repetitive patterns are filtered out, the vocabulary lacks these items.
+
+Based on these considerations, our preprocessing steps include removing HTML artefacts, play artefacts, newlines, converting UTF-8 to ASCII, and stripping leading and trailing whitespace.
+We opted to forgo lowercasing the texts, as our preliminary analysis indicated that lowercasing had no meaningful effect on any dataset while potentially discarding deliberate authorial capitalisation choices.
+% Due to preprocessing, our \dataPan{} version differs from those applied elsewhere.
+
 
 \subsection{Selection of Text Pairs}
 \label{subsec:dataset_text_pair_selection}
 
 For the \dataBlog{}, \dataStudent{}, and \dataGutenberg{} datasets, we selected pairs of texts according to specific criteria to control potential confounding factors.
 Only texts with a minimum length of \num{700}~words were considered eligible. 
-For the \dataPan{} dataset, we retained the existing pairs in the arrow dataset, but filtered out texts with less than \num{700}~words. 
+For the \dataPan{} dataset, we retained the existing pairs in the arrow dataset, but filtered out pairs with texts with less than \num{700}~words. 
 All datasets include both same-author and different-author pairs. 
 
 For the \dataBlog{} dataset, we matched text pairs on topic, year, gender, and author age. The training set contains 80\% of the data and the test set 20\%, with distinct topics in each split.
@@ -122,7 +121,7 @@ We split the authors into training (80\%) and test (20\%) sets.
 
 % minimum length necessesary for AV/ AA
 The choice of minimum text length was informed by literature research.
-While \citet{bevendorff_generalizing_2019}\ used text chunks of at least 700 words for an unmasking approach, \citet{koppel_authorship_2004}\ set the minimum to \num{500}~words.
+While \citet{bevendorff_generalizing_2019}\ used text chunks of at least 700 words for their \unmasking{} approach, \citet{koppel_authorship_2004}\ set the minimum to \num{500}~words.
 Recent work~\citep{llm_detection_av_2025} identifies \num{2500}-\num{4000}~characters to be sufficient for effective \ac{llm} detection framed as \ac{av}.
 
 Regardless of the selection criteria, the final datasets contain only three columns: \texttt{authors}, \texttt{pair}, and \texttt{same}.

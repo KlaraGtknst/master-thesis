@@ -32,7 +32,7 @@ The prompts used for the extraction are provided in \autoref{app:extractor_promp
 
 Both extracted and ground truth values are lowercased and stripped of leading and trailing whitespace. 
 Genre and topic values may consist of multiple items separated by commas. 
-For genre extraction, we split the \pextractor{}'s output by commas to obtain individual genre values. 
+We split the \pextractor{}'s output for genre by commas to obtain individual genre values. 
 Similarly, ground truth topics, which often include multiple items separated by commas, are split into a list. 
 Cosine similarities between the \ac{sbert} embeddings of extracted and ground truth values are computed for each genre and topic, with the final score given by the maximum similarity.
 
@@ -62,4 +62,4 @@ Moreover, we obtain the relative length difference $d = \frac{p - r}{r}$, where 
 Values of $d > 0$ indicate that the paraphrase is longer than the reference, whereas $d < 0$ indicates the opposite.
 Paraphrases were generated using the \pgenerator{} with ground truth metadata.
 We chose to use ground truth metadata rather than extracted metadata to evaluate the generator's ability to match reference length under ideal conditions without errors from the extraction step.
-The prompts used for the generation are provided in \autoref{app:generator_prompts}.
+The prompts used for the generation are provided in \Cref{app:generator_prompts}.

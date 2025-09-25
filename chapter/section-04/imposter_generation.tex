@@ -71,6 +71,7 @@ The third prompt, hereafter referred to as \texttt{prompt2}, extends the second 
   \textit{Paraphrase the text above without changing its meaning. Use different words and vary the sentence structure while maintaining a consistent tone. Your paraphrase should be three times as long than the original. Output only the paraphrased sentence, with NO explanations or extra text.}
 \end{quote}
 
+We employed autoregressive \acp{llm}, because their architecture better supports text generation than masked models.
 Initial experiments with T5-based HuggingFace models showed poor instruction adherence and frequent malformed outputs. 
 Our final experiments therefore employed the models listed in \Cref{tab:base_llms}, accessed via the \ac{gwdg} infrastructure\footnote{\url{https://docs.hpc.gwdg.de/} (August 31, 2025)}.
 Further details on these models are provided in \Cref{app:language_models}.
@@ -96,7 +97,7 @@ meta-llama-3.1-8b-instruct           & \ac{gwdg}    \\
 
 \subsection{Two-step Paraphrasing}
 
-The two-step approaches are inspired by prior literature~\citep{bevendorff_overview_2024, ayele_overview_2024}, and differ in how they extract and utilize auxiliary information (i.e.\ metadata) from the source text before generating the paraphrase. 
+The two-step approaches are inspired by literature~\citep{bevendorff_overview_2024, ayele_overview_2024}, and differ in how they extract and utilize auxiliary information (i.e.\ metadata) from the source text before generating the paraphrase. 
 The two steps enforce a clearer disentanglement of content and style at the cost of increased computational overhead.
 
 As shown in \Cref{fig:two_step_paraphraser}, the two-step paraphrasing decomposes the task into information extraction and text generation. 
@@ -105,7 +106,7 @@ These variables include tone, register, time period, target audience, and genre.
 Different approaches extract an additional feature specific to their approach.
 The additional features are a bullet point summary, the authorial task, topic, or title. 
 The extractor prompts can be derived from \Cref{app:extractor_prompts}.
-In the second stage, a paraphrase is generated from this metadata. 
+In the second stage, a paraphrase is generated based on metadata. 
 Metadata can be derived automatically from the reference text or provided as ground truth when calling the paraphraser function.
 All generator prompts can be found in \Cref{app:generator_prompts}.
 

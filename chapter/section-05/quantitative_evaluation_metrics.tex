@@ -70,8 +70,8 @@ The distance between document $d$ and document $d'$ is the minimum cumulative co
 \citet{gohsen_captions_2023}\ introduce the metric $\Delta_{sem,syn}$ as a means to improve the interpretability of paraphrasing scores by jointly considering syntactic and semantic similarity.
 First, all syntactic and semantic measures are normalised to a scale from zero to one.
 Then, the average syntactic similarity $\diameter_{syn}$ and the average semantic similarity $\diameter_{sem}$ are calculated.
-Syntactic metrics include \ac{rouge}-1, \ac{rouge}-L, and \ac{bleu}.
-Semantic measures include \ac{wms}, \ac{bert}, and cosine similarity of the \ac{sbert} embeddings.
+The syntactic metrics considered are \ac{rouge}-1, \ac{rouge}-L, and \ac{bleu}.
+Semantic measures include \ac{wms}, \ac{bert}Score, and cosine similarity of the \ac{sbert} embeddings.
 Finally, $\Delta_{sem,syn}$ is defined as in \Cref{eq:gohsen_delta}, i.e.\ the difference of semantic and syntactic average similarity~\citep{gohsen_captions_2023}.
 \begin{equation}
     \Delta_{sem,syn}=\diameter_{sem}-\diameter_{syn}

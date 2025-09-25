@@ -6,7 +6,7 @@ Several variants exist, including \ac{rouge}-N, which computes word n-gram recal
 
 % ROUGE-N
 \ac{rouge}-N is an n-gram recall between the candidate text $c$ and the reference text $r$~\citep{lin_rouge_2004}.
-Since we only consider single reference scenarios we use the simpler version for one reference in \Cref{eq:rouge_n}.
+Since we only consider single reference scenarios, we use the simpler version for one reference in \Cref{eq:rouge_n}.
 \begin{equation}
     \operatorname{ROUGE-N} = \sum_{n \text{-} gram \in r} \frac{\operatorname{Count_{match}}(n \text{-} gram)}{\operatorname{Count}(n \text{-} gram)}
 \label{eq:rouge_n}

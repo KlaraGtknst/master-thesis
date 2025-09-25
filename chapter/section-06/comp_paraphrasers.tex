@@ -22,7 +22,7 @@ Semantic similarity measures the content overlap between the paraphrase and the 
     \label{fig:sem_syn_blog}
 \end{figure}
 
-Analysis reveals two distinct clusters corresponding to one-step and two-step paraphrasers. 
+The results reveal two distinct clusters corresponding to one-step and two-step paraphrasers. 
 Most one-step paraphrasers achieve lower syntactic and semantic similarity than two-step paraphrasers. 
 The exception is the one-step paraphraser using \texttt{qwen3-32b}, which exhibits higher syntactic similarity than most two-step paraphrasers. 
 The translation-based paraphraser emerges as an outlier in terms of both syntactic and semantic similarity. 
@@ -35,17 +35,17 @@ This underscores how reliance on automatic evaluation measures can lead to misle
 
 \paragraph{Exp.\ 2(b): Evaluation of prompt adherence.}
 
-To evaluate the \pextractor{}'s extraction quality, we compared the extracted topic, genre, and century against ground truth metadata for five samples each from the \dataBlog{}, \dataGutenberg{}, and \dataStudent{} datasets.
+To evaluate the \pextractor{}'s effectiveness, we compared the extracted topic, genre, and century against ground truth metadata for five samples each from the \dataBlog{}, \dataGutenberg{}, and \dataStudent{} datasets.
 Genre and topic were evaluated in terms of semantic similarity, while century was assessed via the percentage deviation from the ground truth.
 
 We observed that instructions for the \pextractor{} must follow the input text, as \acp{llm} tend to focus attention towards the end of the input. 
 Otherwise, the \pextractor{} failed to produce the requested JSON format for long texts from the \dataGutenberg{} dataset. 
 
-We also obtained the relative length difference, where values greater zero indicate that the paraphrase is longer than the reference, whereas values smaller than zero indicates the opposite.
+We also obtained the relative length difference, where values greater than zero indicate that the paraphrase is longer than the reference, whereas values smaller than zero indicates the opposite.
 
-Results across datasets are summarised in \Cref{tab:extraction_eval_stats}, with $\diameter$ and $\sigma$ denoting the mean and standard deviation across the five selected samples. 
-The \dataBlog{} dataset proved most challenging for genre and topic extraction. 
-Although the \dataGutenberg{} dataset exhibited the largest differences in text length between reference and paraphrase, the \pextractor{} achieved its best effectivity on this dataset.
+Results across datasets are summarised in \Cref{tab:extraction_eval_stats}, where $\diameter$ and $\sigma$ denote the mean and standard deviation across the five selected samples. 
+The \dataBlog{} dataset posed the greatest challenge for genre and topic extraction. 
+Although the \dataGutenberg{} dataset exhibited the largest discrepancies in text length between reference and paraphrase, metadata extraction was most effective for this dataset.
 
 
 \begin{table}[h]

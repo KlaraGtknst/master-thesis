@@ -15,11 +15,11 @@ The first prompt, i.e.\ \texttt{prompt0}, directs the model to paraphrase by sub
 The second prompt, i.e.\ \texttt{prompt1}, requests a paraphrase that varies wording and sentence structure while preserving tone, with length similar to the original.  
 The third prompt, i.e.\ \texttt{prompt2}, instructs the model to produce a paraphrase three times longer than the reference, while preserving meaning and tone. 
 
-We selected reference texts from our datasets and applied the prompts to four autoregressive \acp{llm}, choosing causal models because their architecture better supports text generation than masked models. 
+We selected reference texts from our datasets and applied the prompts to four causal \acp{llm}. 
 The models include \texttt{meta-llama-3.1-8b-instruct}, \texttt{mistral-large-instruct}, \texttt{qwen3-32b}, and \texttt{openai-gpt-oss-120b}.
-Further architectural details are provided in \Cref{app:language_models} of the Appendix. 
+Further architectural details are provided in Appendix \ref{app:language_models}. 
 
 We generated paraphrases for each model–prompt pair.
 The evaluation focused on two main aspects. 
-Since length acts as a confounding variable for \imps{}, we measured the relative length difference $d = \frac{\mathrm{len}(p)}{\mathrm{len}(r)}\times 100 \%$ between each reference text $t$ and its paraphrase $r$. 
+Since length acts as a confounding variable for \imps{}, we measured the relative length difference $d = \frac{\mathrm{len}(p)}{\mathrm{len}(r)}\times 100 \%$ between each reference text $r$ and its paraphrase $p$. 
 Additionally, we manually inspected long paraphrases and those of similar length to their references to verify semantic preservation and readability.

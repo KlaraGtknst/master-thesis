@@ -35,8 +35,8 @@ As shown in \Cref{fig:abl_chunks_student_essays_llama} and evident from \Cref{ta
 For two-step paraphrasers, the gap between semantic and syntactic scores widens with increasing chunk numbers, driven by a decline in mean syntactic similarity for the \dataBlog{} and \dataStudent{} datasets.
 \Cref{fig:abl_chunks_blog_translation} illustrates the effect of increasing the number of chunks for the translation-based paraphraser on the \dataBlog{} dataset: 
 All scores decrease with more chunks, with syntactic similarity declining more sharply than semantic similarity.
-For the \dataGutenberg{} dataset, chunking reduces the semantic similarity of translation-based paraphrases, while other two-step paraphrasers remain largely unaffected, resulting in minimal change to the overall mean semantic similarity (\Cref{fig:abl_chunks_gutenberg_translation}). 
-Additional visualisations (cf.~\Cref{fig:abl_chunks_student_essays_task}) are provided in the Appendix.
+For the \dataGutenberg{} dataset, chunking reduces the semantic similarity of translation-based paraphrases, while other two-step paraphrasers remain largely unaffected, resulting in minimal change to the overall mean semantic similarity (cf.\ \Cref{fig:abl_chunks_gutenberg_translation}). 
+Additional visualisations (cf.\ \Cref{fig:abl_chunks_student_essays_task}) are provided in the Appendix.
 
 \begin{figure}[H]
   \centering
@@ -65,7 +65,7 @@ Additional visualisations (cf.~\Cref{fig:abl_chunks_student_essays_task}) are pr
   \label{fig:abl_chunks}
 \end{figure}
 
-Since we compute \ac{rouge} scores for individual reference–candidate pairs, the union of candidates in a pair containing only one candidate consists solely of that candidate. 
+Since we compute \ac{rouge} scores for individual reference–candidate pairs, the union of all candidates in a pair contains only one candidate. 
 Consequently, \ac{rouge}-L and \ac{rouge}-Lsum yield identical results in this setting.
 
 In summary, increasing the number of chunks decreases syntactic diversity for two-step approaches, with only minor reductions in semantic similarity for some datasets. 

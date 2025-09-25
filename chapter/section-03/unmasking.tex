@@ -5,7 +5,7 @@ The \unmasking{} algorithm was first introduced by \citet{koppel_authorship_2004
 First, both the disputed text $d \in U$ and the candidate text $k_a \in K_a$ are split into non-overlapping chunks, which serve as samples from the unknown author and the candidate author $a \in A$ respectively. 
 Second, the chunks are represented using word-frequency features of the $n=250$ most frequent words across the combined texts.
 Third, a linear \ac{svm} is trained to discriminate between the two sets of chunks and the 10-fold cross-validation accuracy is recorded.
-Fourth, the most discriminative features (e.g. the top three positive and top three negative weights) are removed.  
+Fourth, the most discriminative features (e.g.\ the top three positive and top three negative weights) are removed.  
 The third and fourth step are repeated until no features remain.
 With fewer features, accuracy declines, yielding an accuracy degradation curve.  
 Finally, a meta-classifier is trained on the degradation curve (and optionally on its first- and second-order gradients) to decide whether the two texts $d$ and $k_a$ were written by the same author~\citep{bevendorff_generalizing_2019}.  

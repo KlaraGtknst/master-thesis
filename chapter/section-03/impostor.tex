@@ -50,7 +50,7 @@ and other syntactic structures.
 Word n-grams, which capture topic information, are generally avoided in authorship analysis, as topic information can hinder reliable attribution~\citep{neal_surveying_2018,Sapkota_ngrams_2015}.
 
 The \impAppr{} extends \unmasking{}'s repeated feature subsampling \citep{koppel_authorship_2004} by applying random projections to reduce feature dimensionality.
-After each projection, the method records whether the candidate author $a$ is most similar to the disputed text $d$, aggregating this score across all elimination steps~\citep{tyo_state_2022} (illustrated in \Cref{fig:impostor}). 
+After each projection, the method records whether text $k_a$ by the candidate author $a$ is most similar to the disputed text $d$, aggregating this score across all elimination steps~\citep{tyo_state_2022} (illustrated in \Cref{fig:impostor}). 
 The procedure is repeated with the texts' roles swapped, so each text serves once as the disputed text and once as the reference. 
 Final predictions are obtained by averaging the aggregated scores and applying a threshold.
 

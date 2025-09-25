@@ -19,7 +19,7 @@ One important scenario-specific method is the \impAppr{} by \citet{koppel_determ
 It introduces the idea of sampling so-called \imp{} texts, i.e.\ hard negatives, intended to sharpen the discrimination between genuine and false authorship matches. 
 Since impostor texts are drawn anew for every input text pair, the method should generalise well in cross-domain scenarios.
 However, the method's effectiveness is limited by the quality and contextual adequacy of these \imp{} texts. 
-Traditional strategies cannot simultaneously control multiple confounding factors such as genre, topic, and target audience, limiting the discriminatory power of the hard negatives.
+Traditional \imp{} selection strategies cannot simultaneously control multiple confounding factors such as genre and topic, limiting the discriminatory power of the hard negatives.
 
 This thesis extends the \impAppr{} by leveraging state-of-the-art \acp{llm} to generate paraphrases as \imps{} rather than sampling existing texts.
 This allows for simultaneous control over multiple confounding factors.

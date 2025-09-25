@@ -18,14 +18,14 @@ We additionally performed a manual assessment of content quality that focused on
     \centering
     \includesvg[width=\textwidth]{images/prompt_impact/paraphraser_length_distribution_post_process_len_perc(qwen)_linear.svg}
     \caption[Impact of different prompts on paraphrases]{
-    Distribution of relative paraphrase lengths after post-processing across different prompts.    
+    Box plots of relative paraphrase lengths after post-processing across different prompts.    
     The dotted gray line marks the optimal paraphrase length.
     \texttt{prompt2} consistently generates paraphrases whose lengths are more comparable to the reference than those produced by the other two prompts.
     }
     \label{fig:prompt_impact_post_processed}
 \end{figure}
 
-Our results show that the relative length difference of paraphrases strongly depended on the prompt used to instruct the \ac{llm}. 
+Our results show that the relative length difference of paraphrases strongly depends on the prompt used to instruct the \ac{llm}. 
 Notably, the third prompt, i.e.\ \texttt{prompt2}, explicitly instructed models to generate paraphrases three times longer than the reference. 
 While this instruction might seem extreme, it consistently generated paraphrases whose lengths were more comparable to the reference than those produced by the other two prompts, across different models, as summarised in \Cref{tab:impact_prompts_paraphrases_lengths}.
 
@@ -63,9 +63,9 @@ qwen3-32b           & prompt0 & 88.36  & 70.02 & 18.68  & 24.09 & 134 \\
 \end{table}
 
 Manual inspection indicated that paraphrases generated with \texttt{prompt2} exhibited only mild hallucinations and generally remained on topic. 
-Moreover, they outperformed paraphrases from other prompts in terms of semantic preservation across all \acp{llm}.
+Moreover, paraphrases generated with \texttt{prompt2} outperformed paraphrases from other prompts in terms of semantic preservation across all \acp{llm}.
 
 Based on these findings, subsequent experiments adopted the following design choices: 
-(i) exclude paraphrases generated with \texttt{prompt0} and \texttt{prompt1}, 
-(ii) remove all \texttt{</think>}–delimited reasoning traces via post-processing, and 
-(iii) discard paraphrases shorter than $60\%$ of the reference length.
+(1) exclude paraphrases generated with \texttt{prompt0} and \texttt{prompt1}, 
+(2) remove all \texttt{</think>}–delimited reasoning traces via post-processing, and 
+(3) discard paraphrases shorter than $60\%$ of the reference length.

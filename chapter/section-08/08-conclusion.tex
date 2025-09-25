@@ -7,7 +7,8 @@ Our findings indicate that \acp{llm} are capable of generating paraphrases that 
 However, the effectiveness of \ac{av} critically depends on prompt design. 
 Constructing effective prompts is non-trivial, making the approach neither off-the-shelf nor general-purpose. 
 Poorly designed prompts may produce paraphrases that appear favourable according to low syntactic similarity metrics but are overly short, undermining their utility as hard negatives and increasing \acp{fp}. 
-In addition, the approach is computationally intensive, limiting its practical applicability.  
+In addition, the approach is computationally intensive, limiting its practical applicability. 
+Despite these challenges, the \ac{llm}-based \impAppr{} outperformed the other \ac{av} approaches at specific operating points in the precision–recall space.
 
 We further found that aggregated syntactic and semantic similarity measures facilitate interpretable evaluation. Moreover, low syntactic similarity alone is not a reliable indicator of paraphrase quality. 
 % Overall, our results suggest that \ac{llm}-based \imp{} generation is not yet a practical or robust extension for general-purpose \ac{av}, though it may hold promise in carefully constrained, task-specific scenarios.  
