@@ -2,35 +2,40 @@
 \label{subsec:reproduction_setup}
 
 To assess the validity of our extension to the traditional \impAppr{}, we first verified the correctness of our implementation. 
-For this purpose, we designed two experiments, which we ran on a subset of 100~pairs from the training and test sets of the \dataBlog{} and \dataStudent{} dataset respectively. 
-Half of the selected samples belong to the same-author class.
+We conducted two experiments on subsets of the \dataBlog{} and \dataStudent{} datasets, respectively. Subset sizes are reported in \Cref{tab:config_exp1}, with half of the samples belonging to the same-author class.
 
 \begin{table}[h]
 \centering\small
-\caption{Exp.\ 1: \impAppr{} configuration.}
+\caption[Exp.\ 1: Experiment configuration]{Exp.\ 1: Experiment configuration.
+\# Pairs indicates the subset size for each dataset, with half of the pairs belonging to the same-author class.
+Strategy denotes the \imp{} selection approach.
+Italicised entries indicate the parameter varied in the experiment, while all other parameters are set to the default values reported by \citet{koppel_determining_2014}.
+}
 \label{tab:config_exp1}
-\begin{tabular}{@{}rrlrrl@{}}   % numbers should be right aligned, text left aligned
+\begin{tabular}{@{}rrlrrlr@{}}   % numbers should be right aligned, text left aligned
 \toprule
-Experiment & \# Impostors & Generation & Rounds & Top $n$ & Upsample \\
+Experiment & \# Impostors & Strategy & Rounds & Top $n$ & Upsample & \# Pairs \\
 \midrule
-1(a) & \textit{Variable} & Fixed & 100 & \num{100000} & False \\
-1(b) & 50 & \textit{Variable} & 100 & \num{100000} & False \\
+1(a) & \textit{Variable} & Fixed & 100 & \num{100000} & False & 40 \\
+1(b) & 50 & \textit{Variable} & 100 & \num{100000} & False & 100 \\
 \bottomrule
 \end{tabular}%
 \end{table}
 
 \paragraph{Exp.\ 1(a): Varying number of \imps{}.}
-The first experiment evaluates the effect of varying the number of \imps{} while setting the \imp{} generation method to \texttt{fixed}.
+The first experiment evaluates the effect of varying the number of \imps{} while setting the \imp{} selection method to \texttt{fixed}.
 All other hyperparameter values are set to the default values reported by \citet{koppel_determining_2014}\ (cf.~Table~\ref{tab:config_exp1}). 
 Adhering to \citet{koppel_determining_2014}, we compute precision and recall scores across different thresholds.
-% \textcolor{orange}{For comparison, reference precision-recall points reported by \citet{koppel_determining_2014}\ are included in our visualisation.} 
+In the original experiment, \citet{koppel_determining_2014} compare 50, 500 and \num{5000} \imps{}.
 Based on the description of the original results, we deduced that their reported scores were obtained using the \dataBlog{} dataset.
+For comparison, we include reference precision-recall values reported by \citet{koppel_determining_2014}\ in our visualisation.
 
-\paragraph{Exp.\ 1(b): Varying \imp{} generation.}
-The second experiment evaluates different \imp{} generation methods while keeping the number of \imps{} fixed.
+\paragraph{Exp.\ 1(b): Varying \imp{} selection.}
+The second experiment evaluates different \imp{} selection methods while keeping the number of \imps{} fixed.
 Again, all other hyperparameter values are set to the default values reported by \citet{koppel_determining_2014}\ (cf.~Table~\ref{tab:config_exp1}). 
-Following \citet{koppel_determining_2014}, we compare the \texttt{fixed} and \texttt{on-the-fly} \imp{} generation methods with the baseline approaches unsupervised min-max similarity, unsupervised cosine similarity, and supervised linear \ac{svm}.
+Following \citet{koppel_determining_2014}, we compare the \texttt{fixed} and \texttt{on-the-fly} \imp{} selection methods with the baseline approaches unsupervised min-max similarity, unsupervised cosine similarity, and supervised linear \ac{svm}.
+The supervised baseline is trained on a disjoint set of text pairs from the respective corpus.
 
-As in the first experiment, precision and recall are used as the primary evaluation metrics. 
-Consistent with \citet{koppel_determining_2014}, we calculate precision and recall with respect to both the same-author and different-author class, alternately treating each as the reference class.
-We note that the different-author class is inherently ill-defined, as \ac{av} represents a one-class classification scenario in which it is infeasible to capture a representative set of instances.
+As in the first experiment, precision and recall serve as the evaluation metrics. 
+Following \citet{koppel_determining_2014}, we compute these metrics for both the same-author and different-author classes, alternately treating each as the reference (i.e.\ positive) class. 
+We note that the different-author class is inherently ill-defined, since \ac{av} is a one-class classification task and capturing a representative set of instances is infeasible.
