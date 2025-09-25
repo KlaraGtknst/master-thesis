@@ -1,23 +1,24 @@
 \section{Exp.\ 5: Comparing Authorship Verification Methods}% in Traditional Human-Human Scenario}
 \label{sec:imp_gen_res}
 
-We evaluate precision–recall values across different thresholds for the baseline methods, and the fixed approach proposed by \citet{koppel_determining_2014} as well as for the \ac{llm}-based \impAppr{}.
-Our results indicate that the supervised baseline and our one-step paraphrasing approach produce identical outcomes.
-An examination of the individual values confirms this observation, revealing identical precision–recall pairs for different thresholds.
-We attribute this effect to the relatively small sample size of only 10 text pairs per class.
-
-With respect to optimising the precision–recall trade-off, the \ac{llm}-based \impAppr{} achieve the most favourable effectivity with precision of $0.73$ and recall of $0.8$ at a threshold of $0.105$.
-When precision is prioritised over recall, however, most remaining methods outperform these two approaches, as they achieve higher recall while maintaining the same maximum precision.
-Although the definition of an optimal balance between precision and recall is application-dependent, we argue that a recall of at most $0.4$ at perfect precision is generally less informative than jointly optimising both metrics.
+We evaluate precision–recall performance across multiple thresholds for the baseline methods, the traditional \impAppr{} using the \texttt{fixed} \imp{} selection strategy proposed by \citet{koppel_determining_2014}, \unmasking{}, \ac{ppmd}, and the \ac{llm}-based \impAppr{}.
+Results are obtained on a subset of 40 text pairs from the \dataStudent{} dataset.
 
 \begin{figure}[htbp]
     \centering
-    \includesvg[width=\textwidth]{images/imposter/our_contribution/roc_prec_recall_curve_r100_top100000_Same_Author_dif_imp_gen.svg}
-    \caption[Recall-precision curves for the \dataStudent{}]{Recall-precision curves for 20 samples per class of the \dataStudent{}. 
-    (B)~indicates the original baseline approaches from~\citep{koppel_determining_2014}.
+    \includesvg[width=0.9\textwidth]{images/imposter/our_contribution/roc_prec_recall_curve_r100_top100000_Same_Author_dif_imp_gen.svg}
+    \caption[Recall-precision curves for the \dataStudent{}]{
+        Recall-precision curves for 20 samples per class of the \dataStudent{}. 
+        (B)~indicates the original baseline approaches from~\citep{koppel_determining_2014}.
     }
     \label{fig:comp_naive_student}
 \end{figure}
+
+In terms of optimising the precision–recall trade-off, the \ac{llm}-based \impAppr{} performs best. 
+At a threshold of $0.105$, it achieves a precision of $0.73$ and recall of $0.8$, outperforming other approaches for certain operating points. 
+However, when prioritising precision over recall, the traditional \impAppr{} employing \texttt{fixed} \imp{} sampling, the unsupervised min-max similarity baseline~\citep{koppel_determining_2014}, and \ac{ppmd} achieve higher recall while maintaining maximum precision. These results contrast with our initial expectation that \ac{llm}-based \imp{} generation would yield higher precision but lower recall than the traditional \texttt{fixed} strategy.
+
+While the optimal balance between precision and recall is application-dependent, a recall of at most $0.4$ at perfect precision generally provides limited information compared to jointly optimising both metrics. Considering \ac{auc}-PR values, all approaches achieve scores between $0.49$ and $0.69$, with our approach positioned in the middle.
 
 \begin{table}[h]
 \centering
@@ -42,4 +43,4 @@ Sup. \ac{svm} (B)               & 0.49  \\
 % }
 \end{table}
 
-These findings contrast with our initial expectation that \ac{llm}-based \imp{} generation would achieve higher precision, but indicate that our approach performs best when precision and recall are considered equally important.
+
