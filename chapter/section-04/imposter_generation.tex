@@ -33,11 +33,34 @@ We expect the recall scores of the \ac{llm}-based \impAppr{} to decrease while p
 
 \begin{figure}[h]
     \centering
-    \includesvg{images/paraphrasing/idea/Paraphraser_architectures.svg}
+    \begin{tikzpicture}[
+      box/.style={draw, rounded corners, minimum width=3cm, minimum height=1cm, align=center},
+      arrow/.style={-Stealth, thick},
+      node distance=1cm
+  ]
+
+  % Core nodes
+  \node[box] (rewrite) {Rewrite};
+  \node[box, right=1cm of rewrite] (extractor) {Extractor};
+  \node[box, below=0.5cm of extractor] (generator) {Generator};
+
+  % Dashed box around Extractor, Generator, Rewrite
+  \node[draw, dashed, inner sep=0.3cm, fit={(rewrite) (extractor) (generator)}] (dashed) {};
+
+  % Top and bottom nodes, centered above/below dashed box
+  \node[box, above=0.5cm of dashed.north, minimum width=8cm] (paraphraser) {Paraphraser\\One-step \hspace{2cm} Two-step};
+  \node[box, below=0.5cm of dashed.south, minimum width=8cm] (impostor) {Impostor};
+
+  % Arrows (all vertical)
+  \draw[arrow] ($(paraphraser.south west)!0.5!(paraphraser.south)$) -- (rewrite.north);
+  \draw[arrow] ($(paraphraser.south east)!0.5!(paraphraser.south)$) -- (extractor.north);
+  \draw[arrow] (rewrite.south) -- ($(impostor.north west)!0.5!(impostor.north)$);
+  \draw[arrow] (generator.south) -- ($(impostor.north east)!0.5!(impostor.north)$);
+
+  \end{tikzpicture}
     \caption[Different paraphrasing approaches]{Proposed one-step and two-step paraphrasing approaches.}
     \label{fig:paraphrasing_approaches}
 \end{figure}
-
 
 Paraphrasing is often analysed along two main dimensions. 
 At the lexical level, it involves word-level substitutions such as synonym replacement, typically achieved through rule-based or thesaurus-driven methods. 
