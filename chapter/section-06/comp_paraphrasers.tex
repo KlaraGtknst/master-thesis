@@ -6,11 +6,9 @@ In Exp.\ 2(a), we assessed paraphrasing using standard quantitative metrics, whi
 
 \paragraph{Exp.\ 2(a): Quantitative evaluation.}
 
-Paraphrasing scores were computed separately for the \dataBlog{}, \dataGutenberg{}, and \dataStudent{} datasets. 
+Paraphrasing scores were computed separately for the \dataBlog{}, \dataGutenberg{}, and \dataStudent{} datasets, with each score derived from a single sample text per dataset and two parameter configurations per paraphraser.
 \Cref{fig:sem_syn_blog} presents aggregated semantic and syntactic measurement scores for the \dataBlog{} dataset, while results for \dataGutenberg{} are provided in the Appendix in \Cref{sec:app_paraphrases}.
 
-Syntactic similarity $\diameter_{syn}$ was quantified by averaging \ac{rouge}-1, \ac{rouge}-L, and BLEU scores. 
-Semantic similarity $\diameter_{sem}$ was assessed using \ac{bert}Score, cosine similarity of \ac{bert}-based embeddings, and \acs{glove} \ac{wmd}. 
 It is important to note that for our purpose, syntactic diversity is desirable.
 High syntactic similarity values may reflect near-identical paraphrases due to n-gram overlap. 
 Semantic similarity measures the content overlap between the paraphrase and the original text, often via vector-based cosine similarity. 
@@ -23,23 +21,28 @@ Semantic similarity measures the content overlap between the paraphrase and the 
     \label{fig:sem_syn_blog}
 \end{figure}
 
-
 Analysis reveals two distinct clusters corresponding to one-step and two-step paraphrasers. 
 Most one-step paraphrasers achieve lower syntactic and semantic similarity than two-step paraphrasers. 
 The exception is the one-step paraphraser using \texttt{qwen3-32b}, which exhibits higher syntactic similarity than most two-step paraphrasers. 
 The translation-based paraphraser emerges as an outlier in terms of both syntactic and semantic similarity. 
 Overall, most paraphrases fall within the desired quadrant of high semantic similarity with low syntactic similarity.
 
+It is noteworthy, however, that both prompts used to obtain these results proved inadequate upon manual evaluation of the generated paraphrases. 
+The paraphrases were often too short and generally yielded poor performance when employed as \imps{} in the \impAppr{}. 
+This underscores how reliance on automatic evaluation measures can lead to misleadingly favourable assessments of paraphrase quality prior to manual inspection.
+
 
 \paragraph{Exp.\ 2(b): Evaluation of prompt adherence.}
 
-Our two-step paraphrasing approach relies on extracting valid information from the source text. 
-To evaluate the quality of extraction by the \pextractor{}, we compared the topic, genre, and century to the ground truth metadata for the \dataBlog{}, \dataGutenberg{}, and \dataStudent{} datasets. 
+To evaluate the \pextractor{}'s extraction quality, we compared the extracted topic, genre, and century against ground truth metadata for five samples each from the \dataBlog{}, \dataGutenberg{}, and \dataStudent{} datasets.
 Genre and topic were evaluated in terms of semantic similarity, while century was assessed via the percentage deviation from the ground truth.
 
 We observed that instructions for the \pextractor{} must follow the input text, as \acp{llm} tend to focus attention towards the end of the input. 
 Otherwise, the \pextractor{} failed to produce the requested JSON format for long texts from the \dataGutenberg{} dataset. 
-The prompts are provided in \autoref{app:extractor_prompts}.
+
+
+We also obtained the relative length difference, where values greater zero indicate that the paraphrase is longer than the reference, whereas values smaller than zero indicates the opposite.
+
 Results across datasets are summarised in \Cref{tab:extraction_eval_stats}, with $\diameter$ and $\sigma$ denoting the mean and standard deviation across the five selected samples. 
 The \dataBlog{} dataset proved most challenging for genre and topic extraction. 
 Although the \dataGutenberg{} dataset exhibited the largest differences in text length between reference and paraphrase, the \pextractor{} achieved its best effectivity on this dataset.
@@ -47,7 +50,8 @@ Although the \dataGutenberg{} dataset exhibited the largest differences in text 
 
 \begin{table}[h]
 \centering
-\caption[Extraction effectiveness and length deviation for different datasets]{Extraction effectiveness and length deviation for different datasets. Five documents per dataset were processed using the \pextractor{} to obtain genre, century, and topic.}
+\caption[Extraction effectiveness and length deviation for different datasets]{Extraction effectiveness and length deviation for different datasets. The scores were computed based on five text samples per dataset.
+}
 \label{tab:extraction_eval_stats}
 \begin{tabular}{@{}lrrrrrrrr@{}} % numbers should be right aligned, text left aligned
 \toprule

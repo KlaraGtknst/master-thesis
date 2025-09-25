@@ -1,7 +1,7 @@
 \subsection{Exp.\ 2: Comparison of Paraphrasers}
 \label{subsec:comp_paraphrasers_setup}
 
-Next, we wanted to assess our paraphrasing approaches.
+Next, we wanted to evaluate our paraphrasing approaches.
 We hence designed two experiments.
 The first experiment computes state-of-the-art paraphrasing measures for all paraphrasers on different datasets.
 The second experiment aims to evaluate the ability of our two-step models to adhere to instructions.
@@ -11,30 +11,35 @@ We omit \dataPan{} from this experiment due to infeasible manual metadata curati
 
 \paragraph{Exp.\ 2(a): Quantitative evaluation.}
 
-We select one text from the \dataBlog{}, the \dataGutenberg{} and the \dataStudent{} dataset, respectively.
-For the \dataGutenberg{} dataset, we load ground truth metadata. % Student Essay: not used, even though existent
-The paraphraser configurations contain two different temperatures for two-step paraphrasers, and two different prompts for one-step paraphrasers.
+To assess the quality of generated paraphrases and the factors influencing it, we designed this first experiment.
+We selected one text from the \dataBlog{}, the \dataGutenberg{} and the \dataStudent{} dataset, respectively.
+The paraphraser configurations contain two different temperatures (i.e.\ 0 and 1) for two-step paraphrasers, and two different prompts (i.e.\ \texttt{prompt0} and \texttt{prompt1} from \Cref{subsec:one_step_paraphrasing_prompts}) for one-step paraphrasers.
 We create one paraphrase for each text configuration pair.
 Evaluation measures include \ac{bleu}, \ac{rouge}-1, \ac{rouge}-2, \ac{rouge}-L, \ac{rouge}\-Lsum, \ac{meteor}, \ac{bert}\-Score Precision, \ac{bert}\-Score Recall, \ac{bert}\-Score F1, \ac{sbert} \ac{wms}, \ac{sbert} cosine similarity.
 Based on these we also compute average syntactic and average semantic similarity, as well as Gohsen Delta $\Delta_{sem,syn}$~\citep{gohsen_captions_2023}.
+While the syntactic similarity $\diameter_{syn}$ is computed by averaging \ac{rouge}-1, \ac{rouge}-L, and BLEU scores, the semantic similarity $\diameter_{sem}$ is calculated averaging \ac{bert}Score, cosine similarity of \ac{bert}-based embeddings, and \acs{glove} \ac{wmd}. 
+
 We save the most extreme (min, max) paraphrases per metric.
 The scores are subsequently visualised via syntactic-semantic scatters, score distributions, and radar plots per paraphraser and per prompt. 
 
 \paragraph{Exp.\ 2(b): Evaluation of prompt adherence.}
-For the second experiment, we selected five samples each from the \dataBlog{}, \dataGutenberg{}, and \dataStudent{} dataset. 
-Our \pextractor{} identifies the genre, topic, and century of each input text. 
+
+Our \pextractor{} extracts the genre, topic, and century for each input text. 
+Since the two-step paraphrasing approach relies on accurate metadata for subsequent paraphrase generation, we evaluated the quality of the initial extraction step. 
+To this end, we conducted a second experiment comparing the extracted metadata with ground truth values. 
+For this experiment, we selected five samples each from the \dataBlog{}, \dataGutenberg{}, and \dataStudent{} datasets.
+The prompts used for the extraction are provided in \autoref{app:extractor_prompts}.
+
 Both extracted and ground truth values are lowercased and stripped of leading and trailing whitespace. 
 Genre and topic values may consist of multiple items separated by commas. 
 For genre extraction, we split the \pextractor{}'s output by commas to obtain individual genre values. 
 Similarly, ground truth topics, which often include multiple items separated by commas, are split into a list. 
-Cosine similarities between the \ac{sbert} embeddings of the extracted and ground truth values are computed for each individual genre and topic, and the final score is taken as the maximum similarity among these single values. 
+Cosine similarities between the \ac{sbert} embeddings of extracted and ground truth values are computed for each genre and topic, with the final score given by the maximum similarity.
 
 For century matching, we preprocess the \pextractor{} output by mapping terms such as \textit{present}, \textit{current}, and \textit{now} to 21, and, for numbers with three or more digits, dropping the last two digits and adding one. 
 Examples are shown in \Cref{tab:examples_extract_century}. 
-Ground truth century values are cast to dates.
+Ground truth century values are first cast to dates before being preprocessed in the same manner.
 We compute the ratio $\frac{a}{b}$ where $a$ is the extracted century and $b$ is the ground truth.
-
-Moreover, we obtain the relative length difference of the paraphrase and original text for every selected sample. 
 
 \begin{table}[h]
 \centering
@@ -53,3 +58,8 @@ now               & 21                  \\
 % }
 \end{table}
 
+Moreover, we obtain the relative length difference $d = \frac{p - r}{r}$, where $p$ and $r$ denote the paraphrase and reference text length, respectively. 
+Values of $d > 0$ indicate that the paraphrase is longer than the reference, whereas $d < 0$ indicates the opposite.
+Paraphrases were generated using the \pgenerator{} with ground truth metadata.
+We chose to use ground truth metadata rather than extracted metadata to evaluate the generator's ability to match reference length under ideal conditions without errors from the extraction step.
+The prompts used for the generation are provided in \autoref{app:generator_prompts}.

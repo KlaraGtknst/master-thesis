@@ -47,6 +47,7 @@ Paraphrase quality is largely determined by prompt design and model selection~\c
 
 
 \subsection{One-step Paraphrasing}
+\label{subsec:one_step_paraphrasing_prompts}
 
 In our one-step approach, \imps{} are generated directly via \ac{llm} prompting. 
 Effective prompting proved crucial. 
@@ -54,18 +55,18 @@ We found that specifying constraints was vital for valid outputs.
 Moreover, placing task instructions at the end reduced instruction neglect in long-context settings (e.g. \dataGutenberg{} corpus). 
 We evaluated three prompt variants.
 
-The first prompt explicitly decomposes the sentence into subject, verb, and object before reconstruction, encouraging lexical diversity. 
+The first prompt, hereafter referred to as \texttt{prompt0}, explicitly decomposes the sentence into subject, verb, and object, and instructs the model to replace them with synonyms.
 \begin{quote}
     \textit{Paraphrase the given sentence by identifying the main subject, verb, and object. Replace each with synonyms or closely related words, adjusting grammar naturally. Keep the new sentence close in length to the original. Output only the final paraphrased sentence.}
 \end{quote}
 
-The second prompt instructs the model to preserve meaning while varying wording and structure. 
+The second prompt, hereafter referred to as \texttt{prompt1}, instructs the model to preserve meaning while varying wording and structure. 
 Both prompts emphasise concise outputs restricted to the paraphrase itself.
 \begin{quote}
     \textit{Paraphrase the sentence above without changing its meaning. Use different words and vary the sentence structure while keeping the tone consistent. Keep the new sentence similar in length to the original. Output only the paraphrased sentence, with no explanations or extra text.}
 \end{quote}
 
-The third prompt extends the second prompt by explicitly instructing the \ac{llm} to produce paraphrases three times as long as the reference text.
+The third prompt, hereafter referred to as \texttt{prompt2}, extends the second prompt by explicitly instructing the \ac{llm} to produce paraphrases three times as long as the reference text.
 \begin{quote}
   \textit{Paraphrase the text above without changing its meaning. Use different words and vary the sentence structure while maintaining a consistent tone. Your paraphrase should be three times as long than the original. Output only the paraphrased sentence, with NO explanations or extra text.}
 \end{quote}
