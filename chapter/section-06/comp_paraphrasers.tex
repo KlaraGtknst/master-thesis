@@ -7,7 +7,8 @@ In Exp.\ 2(a), we assessed paraphrasing using standard quantitative metrics, whi
 \paragraph{Exp.\ 2(a): Quantitative evaluation.}
 
 Paraphrasing scores were computed separately for the \dataBlog{}, \dataGutenberg{}, and \dataStudent{} datasets, with each score derived from a single sample text per dataset and two parameter configurations per paraphraser.
-\Cref{fig:sem_syn_blog} presents aggregated semantic and syntactic measurement scores for the \dataBlog{} dataset, while results for \dataGutenberg{} are provided in the Appendix in \Cref{sec:app_paraphrases}.
+\Cref{fig:sem_syn_blog} shows aggregated semantic and syntactic scores for the \dataBlog{} dataset, with detailed results in \Cref{fig:radar_blog} of the Appendix. 
+Detailed and aggregated results for the \dataGutenberg{} dataset are provided in \Cref{fig:sem_syn_gutenberg} of the Appendix.
 
 It is important to note that for our purpose, syntactic diversity is desirable.
 High syntactic similarity values may reflect near-identical paraphrases due to n-gram overlap. 
@@ -39,7 +40,6 @@ Genre and topic were evaluated in terms of semantic similarity, while century wa
 
 We observed that instructions for the \pextractor{} must follow the input text, as \acp{llm} tend to focus attention towards the end of the input. 
 Otherwise, the \pextractor{} failed to produce the requested JSON format for long texts from the \dataGutenberg{} dataset. 
-
 
 We also obtained the relative length difference, where values greater zero indicate that the paraphrase is longer than the reference, whereas values smaller than zero indicates the opposite.
 

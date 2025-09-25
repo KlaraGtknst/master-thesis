@@ -4,21 +4,41 @@
 \begin{figure}[H]
     \centering
     \includesvg[width=\textwidth]{images/paraphrasing/experiments/radar/Blog_paraphrasing_metrics_grouped_by_Paraphraser_radar_chart_altered.svg}
-    \caption[Paraphrase evaluation radar chart on the \dataBlog{} dataset]{Radar chart of syntactic and semantic paraphrase scores for different paraphrasers on the \dataBlog{} dataset.}
+    \caption[Paraphrase evaluation radar chart on the \dataBlog{} dataset]{
+        Radar chart showing syntactic and semantic paraphrase scores for different paraphrasers on the \dataBlog{} dataset. 
+        As observed in \Cref{fig:sem_syn_blog}, the translation-based paraphraser achieves higher syntactic and semantic scores than the other approaches. 
+        Unlike observable for the aggregated scores in \Cref{fig:sem_syn_blog}, no clear distinction between one-step and two-step paraphrasers is apparent.
+        Prompt impact is most pronounced for \texttt{qwen3-32b}, as reflected by the large shaded area indicating high variance.
+    }
     \label{fig:radar_blog}
 \end{figure}
 
-
 \begin{figure}[H]
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\textwidth]{images/paraphrasing/experiments/radar/Gutenberg_paraphrasing_metrics_grouped_by_Paraphraser_radar_chart_altered.svg}
+        \caption[Paraphrase evaluation radar chart on the \dataGutenberg{} dataset]{
+            Radar chart.
+            }
+        \label{fig:radar_gutenberg}
+    \end{subfigure}
+
+    \hfill
+
     \centering
-    \includesvg[width=\textwidth]{images/paraphrasing/experiments/sem_syn_scatter/Gutenberg_sem_syn_scatter_grouped_by_Paraphraser_altered.svg}
-    \caption[Comparison of paraphrasers on the \dataGutenberg{} dataset]{Average semantic and syntactic similarity for different paraphraser on the \dataGutenberg{}.}
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\textwidth]{images/paraphrasing/experiments/sem_syn_scatter/Gutenberg_sem_syn_scatter_grouped_by_Paraphraser_altered.svg}
+        \caption[Comparison of paraphrasers on the \dataGutenberg{} dataset]{
+            Average semantic and syntactic similarity.
+        }
+        \label{fig:avg_sem_syn_gutenberg}
+    \end{subfigure}
+
+    \caption[Paraphrase scores on the \dataGutenberg{} dataset]{
+            Syntactic and semantic paraphrase scores for different paraphrasers on the \dataGutenberg{} dataset.
+            While all paraphrasers achieve relatively high semantic scores, syntactic scores are extremely low. 
+            When tasked with paraphrasing plays and similar text types, all paraphrasers produce largely syntactically diverse outputs. 
+            The translation-based approach and \texttt{qwen3-32b} achieve the highest semantic scores.}
     \label{fig:sem_syn_gutenberg}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includesvg[width=\textwidth]{images/paraphrasing/experiments/radar/Gutenberg_paraphrasing_metrics_grouped_by_Paraphraser_radar_chart_altered.svg}
-    \caption[Paraphrase evaluation radar chart on the \dataGutenberg{} dataset]{Radar chart of syntactic and semantic paraphrase scores for different paraphrasers on the \dataGutenberg{} dataset.}
-    \label{fig:radar_gutenberg}
 \end{figure}
