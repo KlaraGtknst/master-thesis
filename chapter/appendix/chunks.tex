@@ -3,15 +3,16 @@
 
 \begin{figure}[H]
     \centering
-    \includesvg[width=0.9\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Gutenberg/Translation_metrics_plot_category_Gutenberg.svg}
+    \includesvg[width=0.86\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Gutenberg/Translation_metrics_plot_category_Gutenberg.svg}
     \caption[Paraphrasing scores for the translation-based paraphraser]{Comparing different paraphrasing scores for the translation-based paraphraser on the \dataGutenberg{} dataset for different number of chunks. 
-    Changing the number of chunks has little effect on the model scores.}
+    Chunking reduces semantic similarity scores.
+    Other than this, changing the number of chunks has little effect on the similarity scores.}
     \label{fig:abl_chunks_gutenberg_translation}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includesvg[width=0.9\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Student_Essays/Task_metrics_plot_category_Student Essays.svg}
+    \includesvg[width=0.86\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Student_Essays/Task_metrics_plot_category_Student Essays.svg}
     \caption[Paraphrasing scores for the Task model]{Comparing different paraphrasing scores for the Task model on the \dataStudent{} dataset for different number of chunks. 
     \ac{rouge}-1 and \ac{meteor} decrease, while other scores are not affected by increasing the number of chunks.}
     \label{fig:abl_chunks_student_essays_task}

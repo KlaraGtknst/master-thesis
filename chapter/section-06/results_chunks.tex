@@ -1,13 +1,15 @@
 \section{Exp.\ 3: Paraphrasing Chunks}
 \label{sec:results_chunks}
 
-This experiment tests the hypothesis that dividing a text into smaller chunks improves paraphrasing effectiveness, as individual chunks typically contain fewer topics than the full text. 
+This experiment tests the hypothesis that segmenting a text into smaller chunks improves paraphrasing effectiveness, as individual chunks typically contain fewer topics than the full text. 
 We computed several paraphrasing metrics for each chunk and averaged the results over the chunks of a text.
+Scores are derived from a single sample per dataset and two variation-inducing parameters for each paraphraser.
 
-\begin{table}[t]
+\begin{table}[h]
 \centering
 \caption[Impact of the number of chunks on paraphrase measures]{Impact of the number of chunks on syntactic and semantic paraphrase measures. 
 Impact is reported as the absolute change between a single-chunk paraphrase and the maximum number of chunks (i.e.\ 5). 
+% Scores are derived from a single sample and two variation-inducing parameters for each paraphraser.
 Bold values indicate the largest observed changes. 
 Ideally, syntactic measures should be minimised, while semantic measures are maximised.}
 \label{tab:impact_chunks_dataset_paraphraser}
@@ -19,49 +21,35 @@ Ideally, syntactic measures should be minimised, while semantic measures are max
 \midrule
 \dataBlog{}        & one-step & 0.01  & 0.01 & -0.03 & 0.02 \\
                                 & two-step & \textbf{-0.12} & 0.08 & -0.03 & 0.04 \\
-\dataGutenberg{}    & one-step & 0.0   & 0.0  & -0.04 & 0.03 \\
+\dataGutenberg{}    & one-step & 0.0   & 0.0  & \textbf{-0.04} & 0.03 \\
                                 & two-step & 0.0   & 0.0  & -0.01 & 0.05 \\
 \dataStudent{} & one-step & 0.03  & 0.04 & 0.03  & 0.07 \\
-                                & two-step & \textbf{-0.15} & 0.08 & -0.05 & 0.02 \\
+                                & two-step & \textbf{-0.15} & 0.08 & \textbf{-0.05} & 0.02 \\
                                 \bottomrule
 \end{tabular}%
 }
 \end{table}
 
 \Cref{tab:impact_chunks_dataset_paraphraser} summarises the effect of chunking on syntactic and semantic measures. 
-For two-step paraphrasers, the difference between semantic and syntactic scores increases with the number of chunks, driven by decreasing mean average syntactic similarity for the \dataBlog{} and \dataStudent{} datasets. 
-\Cref{fig:abl_chunks_blog_translation} illustrates the effect for the translation-based paraphraser on the \dataBlog{} dataset. 
-On the \dataGutenberg{} dataset, chunking reduces the semantic similarity of translation-based paraphrases, while other two-step paraphrasers remain largely unaffected, resulting in minimal change to the overall mean semantic similarity. 
-As shown in \Cref{fig:abl_chunks_student_essays_llama}, chunking had negligible impact on one-step paraphrasing approaches. 
-Additional visualisations are provided in the Appendix (cf.~\Cref{sec:app_chunks}).
+As shown in \Cref{fig:abl_chunks_student_essays_llama} and evident from \Cref{tab:impact_chunks_dataset_paraphraser}, chunking has negligible impact on one-step paraphrasing approaches. 
+For two-step paraphrasers, the gap between semantic and syntactic scores widens with increasing chunk numbers, driven by a decline in mean syntactic similarity for the \dataBlog{} and \dataStudent{} datasets.
+\Cref{fig:abl_chunks_blog_translation} illustrates the effect of increasing the number of chunks for the translation-based paraphraser on the \dataBlog{} dataset: 
+All scores decrease with more chunks, with syntactic similarity declining more sharply than semantic similarity.
+For the \dataGutenberg{} dataset, chunking reduces the semantic similarity of translation-based paraphrases, while other two-step paraphrasers remain largely unaffected, resulting in minimal change to the overall mean semantic similarity (\Cref{fig:abl_chunks_gutenberg_translation}). 
+Additional visualisations (cf.~\Cref{fig:abl_chunks_student_essays_task}) are provided in the Appendix.
 
-Since \ac{rouge} scores are computed on individual reference-candidate pairs, the union of sentences in candidate contains only a single text per comparison. 
-Consequently, \ac{rouge}-L and \ac{rouge}-Lsum yield identical results in this setting.
-
-In summary, increasing the number of chunks decreases syntactic diversity for two-step approaches, with only minor reductions in semantic similarity for some datasets. 
-Given that processing $n$ chunks with a two-step approach requires $2n$ API calls in the best case, and that chunking has no effect on one-step paraphrases, we excluded chunking from our paraphrasing pipeline.
-
-% \begin{figure}[htbp]
-%     \centering
-%     \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Blog/Translation_metrics_plot_category_Blog.svg}
-%     \caption[Impact of the number of chunks on \dataBlog{} dataset]{
-%     Average syntactic and semantic measures (shaded areas indicate standard deviation) for the translation-based paraphraser on the \dataBlog{} dataset. 
-%     Increasing the number of chunks reduces syntactic similarity.    
-%     }
-%     \label{fig:abl_chunks_blog_translation}
-% \end{figure}
-
-% \begin{figure}[htbp]
-%     \centering
-%     \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Student_Essays/meta-llama-3.1-8b-instruct_metrics_plot_category_Student Essays.svg}
-%     \caption[Impact of the number of chunks on \dataStudent{} dataset]{Average paraphrasing measures (shaded areas indicate standard deviation) for a Llama-based paraphraser on the \dataStudent{} dataset. 
-%     One-step paraphrasing is unaffected by the number of chunks.
-%     }
-%     \label{fig:abl_chunks_student_essays_llama}
-% \end{figure}
-
-\begin{figure}[htbp]
+\begin{figure}[H]
   \centering
+  \begin{subfigure}[b]{\textwidth}
+    \centering
+    \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Student_Essays/meta-llama-3.1-8b-instruct_metrics_plot_category_Student Essays.svg}
+    \caption[Llama-based paraphraser on \dataStudent{}]{Llama-based paraphraser on the \dataStudent{} dataset.
+    }
+    \label{fig:abl_chunks_student_essays_llama}
+  \end{subfigure}
+
+  \hfill
+
   \begin{subfigure}[b]{\textwidth}
     \centering
     \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Blog/Translation_metrics_plot_category_Blog.svg}
@@ -70,16 +58,15 @@ Given that processing $n$ chunks with a two-step approach requires $2n$ API call
     }
     \label{fig:abl_chunks_blog_translation}
   \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{\textwidth}
-    \centering
-    \includesvg[width=\textwidth]{images/paraphrasing/experiments/chunks/setup/results/Student_Essays/meta-llama-3.1-8b-instruct_metrics_plot_category_Student Essays.svg}
-    \caption[Llama-based paraphraser on \dataStudent{}]{Llama-based paraphraser on the \dataStudent{} dataset.
-    }
-    \label{fig:abl_chunks_student_essays_llama}
-  \end{subfigure}
   \caption[Effect of chunking on syntactic and semantic measures]{Average syntactic and semantic similarity measures (shaded areas indicate standard deviation) for different number of chunks.
-  \Cref{fig:abl_chunks_blog_translation} shows that increasing the number of chunks reduces syntactic similarity for the translation-based paraphrases, whereas \Cref{fig:abl_chunks_student_essays_llama} demonstrates that one-step paraphrasing is largely unaffected by the number of chunks.
+  Scores are derived from a single sample and two variation-inducing parameters for each paraphraser.
+  \Cref{fig:abl_chunks_student_essays_llama} demonstrates that one-step paraphrasing is largely unaffected by the number of chunks, whereas \Cref{fig:abl_chunks_blog_translation} shows that increasing the number of chunks reduces syntactic similarity for the translation-based paraphrases.
   }
   \label{fig:abl_chunks}
 \end{figure}
+
+Since we compute \ac{rouge} scores for individual reference–candidate pairs, the union of candidates in a pair containing only one candidate consists solely of that candidate. 
+Consequently, \ac{rouge}-L and \ac{rouge}-Lsum yield identical results in this setting.
+
+In summary, increasing the number of chunks decreases syntactic diversity for two-step approaches, with only minor reductions in semantic similarity for some datasets. 
+Given that processing $n$ chunks with a two-step approach requires $2n$ API calls in the best case, and that chunking has no effect on one-step paraphrases, we excluded chunking from our paraphrasing pipeline.

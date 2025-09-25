@@ -19,7 +19,7 @@ We use one text from the \dataBlog{}, \dataGutenberg{}, and the \dataStudent{} d
 First, texts are chunked preserving sentences.
 Chunks are filled with sentences in sentence order such that each chunk roughly contains the same number of words.
 Second, paraphrase configurations are defined.
-Each one-step paraphraser is paired with two prompts, while each two-step paraphraser is paired with two temperatures.
+Each one-step paraphraser is paired with two prompts (i.e.\ \texttt{prompt0} and \texttt{prompt1} from \Cref{subsec:one_step_paraphrasing_prompts}), while each two-step paraphraser is paired with two temperatures (i.e.\ 0 and 1).
 Third, each chunk is paraphrased with all configurations.
 These steps account for a minimum of 936 API calls for paraphrasing.
 Each component of the configuration is displayed in \Cref{fig:chunks_api_calls}.
