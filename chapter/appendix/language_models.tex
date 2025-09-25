@@ -21,12 +21,13 @@ Alibaba Cloud & Qwen 3 32B             & 32k  & September 2024 \\
 \end{tabular}%
 }
 \end{table}
-\footnotetext{\url{https://docs.hpc.gwdg.de/services/chat-ai/models/index.html} (September 14, 2025)}
+\footnotetext{\url{https://docs.hpc.gwdg.de/services/chat-ai/models/index.html} \\(September 14, 2025)}
 
-To perform paraphrasing, we configure both a system prompt and a user message to guide the model's output. 
-The system prompt defines the assistant’s behaviour, instructing it to produce only the final paraphrased text, while the user message provides the input text and any additional instructions. 
-\Cref{lst:paraphrase_prompt} shows this setup using the chat-based API.
-We did not compare different system prompts in this study.
+Paraphrasing is performed by configuring both a system prompt and a user message to guide the model's output. 
+In this study, we did not compare alternative system prompts. 
+Our system prompt defines the assistant's behaviour, instructing it to return only the final paraphrased text, while the user message supplies the input text along with any additional instructions. 
+\Cref{lst:paraphrase_prompt} illustrates this setup.
+
 
 
 \begin{listing}[H]
@@ -67,7 +68,7 @@ For very large inputs, the text is truncated to avoid errors if it exceeds the m
 Its pretrained model components  (8B, 70B, 405B) are optimised using different fine-tuning strategies.
 % They are further listed in \Cref{tab:llama31}.
 The model was released on July 23, 2024 and has a knowledge cut-off of December 2023.
-It supports eight languages including English, French, German, Hindi, Italian, Portuguese, Spanish, and Thai\footnote{\url{https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct} (September 14, 2025)}.
+It supports eight languages including English, French, German, Hindi, Italian, Portuguese, Spanish, and Thai\footnote{\url{https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct} \\(September 14, 2025)}.
 
 % \begin{table}[h]
 % \centering
@@ -89,7 +90,7 @@ It supports eight languages including English, French, German, Hindi, Italian, P
 
 \section{Mistral-Large-Instruct}
 
-We use \texttt{Mistral-Large-Instruct-2407} (also \texttt{Mistral Large Instruct-2}\footnote{\url{https://mistral.ai/news/mistral-large-2407} (September 14, 2025)}).
+Another \ac{llm} we employ is \texttt{Mistral-Large-Instruct-2407} (also \texttt{Mistral Large Instruct-2}\footnote{\url{https://mistral.ai/news/mistral-large-2407} (September 14, 2025)}).
 It is a multilingual dense transformer-based \ac{llm} with 123B parameters\footnote{\url{https://huggingface.co/mistralai/Mistral-Large-Instruct-2407},\\ \url{https://dataloop.ai/library/model/alpindale_mistral-large-instruct-2407-fp8/} (September 14, 2025); unlike the version at this URL, our model is full-precision.}.
 Its context window length is 128K.
 
