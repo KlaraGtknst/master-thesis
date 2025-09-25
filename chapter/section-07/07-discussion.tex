@@ -4,21 +4,18 @@
 We were unable to reproduce the exact scores reported in the original experiments by \citet{koppel_determining_2014}, and our results varied depending on the subset of samples selected, 
 % The experiments reproducing original test scenarios yielded results lower than previously reported by \citet{koppel_determining_2014}, 
 which limits the extent to which we can fully validate the original \impAppr{}. 
-While Mr.\ Winter considered our preprocessing strategy reasonable, he noted that our \texttt{on-the-fly} \imp{} generation was constrained by (1) bot-prevention mechanisms restricting web scraping, and (2) severe limits on API calls.  
+While Mr.\ Winter considered our preprocessing strategy reasonable, he noted that our \texttt{on-the-fly} \imp{} generation strategy was constrained by (1) bot-prevention mechanisms restricting web scraping, and (2) severe limits on API calls.  
 
 % Interpretation of results
 % What do the findings mean in relation to your research questions or hypotheses?
-As for the first research question (\ref{enum:rq1}), the results suggest that controlled \ac{llm}-generated \imps{} can, in principle, serve as more effective hard negatives than traditional \imp{} selection methods in \ac{av} scenarios restricted to human-authored texts. 
-Our one-step \imp{} generation outperformed the baselines when precision and recall were weighted equally.  
+As for the first research question (\ref{enum:rq1}), the results suggest that controlled \ac{llm}-generated \imps{} can, in principle, serve as more effective hard negatives than \imp{} selected via traditional strategies in \ac{av} scenarios restricted to human-authored texts. 
+Our \ac{llm}-based \imp{} generation strategy outperformed the baselines when precision and recall were weighted equally.  
 However, employing \ac{llm}-generated paraphrases as hard negatives requires extensive exploration of prompting strategies.  
 We observed that paraphrase length is highly sensitive to prompt design. 
-Although paraphrase scores indicate that outputs are semantically faithful and syntactically diverse, insufficient manual inspection can result in overly short paraphrases, which in turn reduce \impAppr{} effectiveness.  
+Although paraphrase scores may indicate that outputs are semantically faithful and syntactically diverse, insufficient manual inspection can result in overly short paraphrases, which in turn reduce the quality of predictions.  
 Additionally, the ordering of prompt and text affects prompt adherence, particularly for longer texts, as \acp{llm} tend to prioritise the end of the input.  
 Finally, artefacts specific to the chosen \ac{llm} must be filtered from outputs to maintain quality. 
-
 As a consequence, this approach is neither off-the-shelf nor general-purpose. 
-It requires task-specific solutions and careful management of internal parameters, making it computationally and operationally expensive.
-
 
 Concerning the second research question (\ref{enum:rq2}), we found that a large variety of syntactic and semantic paraphrase metrics used in the literature complicates interpretation. 
 Following \citet{gohsen_captions_2023}, we aggregated syntactic and semantic scores to enable a clearer two-dimensional comparison.  
@@ -27,20 +24,19 @@ Measures of syntactic dissimilarity may better align with human judgment.
 Even when syntactic scores suggested good paraphrases, this sometimes reflected overly short outputs, which we consider poor quality since paraphrase length is a key confounding variable in hard negative mining.  
 In our implementation, \ac{rouge}-Lsum was redundant, producing results identical to \ac{rouge}-L.  
 
-We further introduced metrics for \pextractor{} effectiveness and text length preservation. 
-Metadata extraction for genre and topic performed poorly, whereas century extraction was reliable. 
-Paraphrases of long \dataGutenberg{} texts deviated substantially from the original in terms of length.  
-
+We further introduced metrics to assess \pextractor{} effectiveness and the preservation of text length. 
+Our results indicate that metadata extraction for genre and topic performed poorly, whereas century extraction was consistently reliable. 
+Additionally, paraphrases of longer \dataGutenberg{} texts showed substantial deviations from the original in terms of length.
 
 Addressing the third research question (\ref{enum:rq3}), we compared different \ac{av} methods in the traditional human-authored text scenario 
 % \textcolor{red}{using \unmasking{} and \ac{ppmd} as baselines} 
 to the \ac{llm}-based \impAppr{}.
-Effectivity proved highly sensitive to prompt design, highlighting a key challenge when using \acp{llm}. 
+The effectivity of the \ac{llm}-based \impAppr{} proved highly sensitive to prompt design, highlighting a key challenge when using \acp{llm}. 
 Prompt engineering remains largely ad-hoc, shifting focus from framework development to instruction crafting. 
 Importantly, there is no single prompt that works universally for all \acp{llm}. 
 Effective prompts depend, among other factors, on the size of the model. 
 Larger \acp{llm} can leverage intrinsic knowledge under more permissive prompts, whereas smaller models require carefully tailored instructions~\citep{schmidt_llm_av_latin_24}.
-Once an effective prompt generating sufficiently long paraphrases was identified, our approach achieved competitive results relative to the baselines proposed by \citet{koppel_determining_2014}, demonstrating that prompt tuning is a critical factor in practical effectivity.
+Once an effective prompt generating sufficiently long paraphrases was identified, our approach achieved competitive results relative to the baselines proposed by \citet{koppel_determining_2014}, the traditional \impAppr{}, \unmasking{} and \ac{ppmd}.
 
-Theoretically, extending the \impAppr{} should increase precision at the cost of recall, as harder negatives reduce same-author predictions. 
-Interestingly, this trade-off did not manifest as expected, suggesting that the impact of artificially generated hard negatives on the \impAppr{} is not yet fully understood.
+% Theoretically, extending the \impAppr{} should increase precision at the cost of recall, as harder negatives reduce same-author predictions. 
+% Interestingly, this trade-off did not manifest as expected, suggesting that the impact of artificially generated hard negatives on the \impAppr{} is not yet fully understood.
